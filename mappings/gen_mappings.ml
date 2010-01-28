@@ -33,13 +33,14 @@ let header c =
     if Str.string_match empty_line s 0 || s.[0] = !comment_char then () else
     if begin_with s "<code_set_name>" then
       codeset_name := List.nth (Str.split blank_pat s) 1
-    else if begin_with s "<comment_char>" then
-      comment_char := (List.nth (Str.split blank_pat s) 1).[0]
-    else if begin_with s "<escape_char>" then
+    else if begin_with s "<comment_char>" then begin
+      comment_char := (List.nth (Str.split blank_pat s) 1).[0];
+    end else if begin_with s "<escape_char>" then
       escape_char := (List.nth (Str.split blank_pat s) 1).[0]
     else if begin_with s "<mb_cur_min>" then ()
     else if begin_with s "<mb_cur_max>" then ()
     else if begin_with s "CHARMAP" then raise Break
+    else if begin_with s (String.make 1 !comment_char) then ()
     else failwith "Unknown header."
   done with Break -> ()
 

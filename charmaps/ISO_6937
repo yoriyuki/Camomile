@@ -5,7 +5,6 @@
 %  source: ECMA registry and ISO/IEC 6937:1992
 
 % alias ISO-IR-156
-% alias ISO_6937:1992
 % alias ISO6937
 CHARMAP
 <U0000>     /x00         NULL (NUL)

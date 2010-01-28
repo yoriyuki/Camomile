@@ -5,7 +5,6 @@
 %  source: ECMA registry
 
 % alias REF
-% alias ISO_646.BASIC:1983
 CHARMAP
 <U0000>     /x00         NUL
 <U0020>     /x20         SPACE

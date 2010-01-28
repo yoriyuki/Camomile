@@ -6,7 +6,6 @@
 
 % alias TCVN
 % alias TCVN-5712
-% alias TCVN5712-1:1993
 CHARMAP
 <U0000>     /x00         NULL (NUL)
 <U00DA>     /x01         LATIN CAPITAL LETTER U WITH ACUTE
