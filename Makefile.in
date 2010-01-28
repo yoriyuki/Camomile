@@ -377,8 +377,8 @@ install-with-ocamlfind:
 	ocamlfind install camomile $$files META $(MLI) camomileLibrary.cmi
 
 install-bin:
-	cp -f tools/camomilecharmap.$(OCAMLBEST) $(BINDIR)
-	cp -f tools/camomilelocaledef.$(OCAMLBEST) $(BINDIR)
+	cp -f tools/camomilecharmap.$(OCAMLBEST) '$(BINDIR)'
+	cp -f tools/camomilelocaledef.$(OCAMLBEST) '$(BINDIR)'
 
 install-data:
 	mkdir -p '$(DATADIR)'
