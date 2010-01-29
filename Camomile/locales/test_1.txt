@@ -1,0 +1,18 @@
+test_1 {
+    Version { "1.0" }
+
+    CollationElements {
+        Version { "1.0" }
+        Sequence {
+            "[caseFirst upper]"
+
+	    "&y < x" //test for the primary strength
+	    "&i <<< い << ii = i* " // secondary, tertiary, equiv
+	    "&[before 3]I <<< イ"  //before
+	    "&[before 3]UE <<< ウェ <<< UE <<< ue" //expansion
+	    "&[before 3]V <<< ヴェ/ェ <<< V <<< v" //expansion
+	    "&b <<< b|*" //prefix
+	    "&皇帝 < emperor"
+        }
+    }
+}
