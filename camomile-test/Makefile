@@ -29,15 +29,15 @@ OCAMLOPT = ocamlfind ocamlopt
 OCAMLDEP = ocamldep
 OCAMLLEX = ocamllex.opt
 OCAMLYACC= ocamlyacc
-OCAMLLIB = /usr/local/godi/lib/ocaml/std-lib
+OCAMLLIB = C:\OCaml\lib
 OCAMLBEST= opt
-OCAMLVERSION = 3.07
+OCAMLVERSION = 3.11
 OCAMLWEB = ocamlweb
 
 PACKAGES = -package unix -package str -package bigarray -package camomile -linkpkg
 INCLUDES = -I lib -I tester-lib
 BFLAGS = $(PACKAGES) -g $(INCLUDES)
-OFLAGS = $(PACKAGES) -p $(INCLUDES)
+OFLAGS = $(PACKAGES) $(INCLUDES)
 
 # main target
 #############

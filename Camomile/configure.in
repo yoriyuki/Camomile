@@ -49,7 +49,8 @@ fi
 # we extract Ocaml version number and library path
 OCAMLVERSION=`$OCAMLC -v | sed -n -e 's|.*version* *\(.*\)$|\1|p' `
 echo "ocaml version is $OCAMLVERSION"
-OCAMLLIB=`$OCAMLC -v | tail -1 | cut -f 4 -d " "`
+# tr -d .. tr .. are hack for Cygwin
+OCAMLLIB=`$OCAMLC -v | tail -1 | cut -f 4 -d " " | tr -d '\n\r\f' | tr '\\\\' '/'`
 echo "ocaml library path is $OCAMLLIB"
 
 # then we look for ocamlopt; if not present, we issue a warning
@@ -170,6 +171,6 @@ AC_SUBST(VERSION)
 AC_SUBST(CPP)
 
 # Finally create the Makefile from Makefile.in
-AC_OUTPUT(Makefile META, test -f camomileconfig.ml && rm camomileconfig.ml)
+AC_OUTPUT(Makefile META)
 chmod a-w Makefile
 chmod a-w META

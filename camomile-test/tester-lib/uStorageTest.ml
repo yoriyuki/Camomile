@@ -1,6 +1,6 @@
 (* Tests for UStorage *)
 
-open CamomileLibrary.Main.Camomile
+open CamomileLibrary.Default.Camomile
 open UPervasives
 open Blender
 open Printf

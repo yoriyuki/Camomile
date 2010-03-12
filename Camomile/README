@@ -85,6 +85,12 @@ documentation.  Similarly,
 	$ make man
 creates LaTeX, Texi, man documentation respectively.
 
+If you use Cygwin and put OCaml stuff into the folder C:/OCaml, then
+make sure to specify prefix when invoking configure.
+        $ configure --prefix=C:/OCaml
+The prefix must be in the MSDOS file format and separators of path
+must be /, not \. 
+
 2. Using libraries
 
 2.1 Packing
