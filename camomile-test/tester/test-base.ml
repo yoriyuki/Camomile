@@ -6,6 +6,12 @@ open Blender
 open CamomileLibrary.Default.Camomile
 open UPervasives
 
+let random_pair () = 
+  let a0 = Random.int 0x8000000 in
+  let b0 = Random.int 0x8000000 in
+  (min a0 b0, max a0 b0)
+
+
 (* Tests for UChar *)
 
 let _ = random_test
@@ -102,6 +108,28 @@ let test_uset ~desc uset us =
       (USet.mem u) uset)
     us
 
+let test_range ~desc uset =
+  let a, b = random_pair () in
+  let uset' = USet.add_range (uchar_of_int a) (uchar_of_int b) uset in 
+    for i = a to b do
+      expect_true
+	~msg:(lazy (sprintf "\\u%08x is missing in %s" i desc))
+	(USet.mem (uchar_of_int i) uset')
+    done;
+    USet.iter 
+      (fun u -> 
+	 let i = int_of_uchar u in
+	 expect_true
+	   ~msg:(lazy (sprintf "\\u%08x is missing in %s" i desc))
+	   (USet.mem u uset'))
+      uset;
+    USet.iter (fun u ->
+		 let i = int_of_uchar u in
+		 expect_true
+		   ~msg:(lazy (sprintf "\\u%08x is in %s but souldn't" i desc))
+		   (USet.mem u uset or a <= i && i <= b))
+      uset'
+
 let _ = 
   random_test
     ~desc:"USet"
@@ -120,7 +148,8 @@ let _ =
 	(StdUSet.inter us1 us2);
       test_uset ~desc:"diff"
 	(USet.diff uset1 uset2)
-	(StdUSet.diff us1 us2)))
+	(StdUSet.diff us1 us2);
+      test_range ~desc:"range" uset1))
       
 let random_umap size =
   let r = ref StdUMap.empty in
@@ -139,7 +168,7 @@ let umap_of_stdmap m =
 
 let _ = 
   random_test
-    ~desc:"UMet"
+    ~desc:"UMep"
     ~log:"umap"
     ~data:(fun size -> random_umap size)
     ~body:(fun m -> expect_pass (fun () ->
@@ -158,7 +187,42 @@ let _ =
 	  (StdUMap.find u) m
 	  (UMap.find u) umap)
 	m))
-	
+
+(* Interval Association List *)
+let rec assoc k al = 
+  match al with
+      [] ->  raise Not_found
+    | (k1, k2, v) :: r -> if k1 <= k && k <= k2 then v else assoc k r
+
+
+let rec random_assoc size =
+  if size <= 0 then [] else
+    let a, b = random_pair () in
+      (a, b, Random.int 16) :: random_assoc (size - 1)
+
+let imap_of_assoc al = 
+  let al = List.rev al in
+  let rec f al imap =
+    match al with
+	[] -> imap
+      | (k1, k2, v) :: r ->
+	    f r (IMap.add_range k1 k2 v imap) 
+  in
+    f al IMap.empty
+	      
+let _ = 
+  random_test
+    ~desc:"IMep interval"
+    ~log:"imap interval"
+    ~data:(fun size -> random_assoc size)
+    ~body:(fun al -> expect_pass (fun () ->
+      let imap = imap_of_assoc al in
+      for i = 0 to 0x8000000 do
+	expect_equal_app
+	  (IMap.find i) imap
+	  (assoc i) al
+      done))
+
 (* Tests for UCharTbl *)
 
 let test_tbl utbl uset exc =

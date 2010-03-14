@@ -92,7 +92,7 @@ let add_range n1 n2 s =
     if n2 = max_int then n2, empty else
     let r = from (n2 + 1) s in
     if is_empty r then n2, empty else
-    let (v1, v2), r' = split_rightmost r in
+    let (v1, v2), r' = split_leftmost r in
     if n2 + 1 = v1 then v2, r' else n2, r in
   make_tree l (n1, n2) r
 
@@ -136,8 +136,8 @@ let rec union s1 s2 =
     if n1 = max_int then n2, empty else
     let r = union r1 r2 in
     if is_empty r then n2, r else
-    let (v1, v2), r' = split_rightmost r in
-    if n1 + 1 = v1 then v2, r' else n2, r in
+    let (v1, v2), r' = split_leftmost r in
+    if n2 + 1 = v1 then v2, r' else n2, r in
   make_tree l (n1, n2) r
   
 let rec inter s1 s2 =

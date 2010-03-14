@@ -36,32 +36,9 @@ let make ?(eq = (=)) l (n1, n2, v) r =
     if k2 + 1 = n1 && eq v v0 then k1, l' else n1, l in
   let n2, r =
     if is_empty r || n2 = max_int then n2, empty else
-    let (k1, k2, v0), r' = split_rightmost r in
+    let (k1, k2, v0), r' = split_leftmost r in
     if n2 + 1 = k1 && eq v v0 then k2, r' else n2, r in
   make_tree l (n1, n2, v) r
-
-let rec add ?(eq = (=)) n v m =
-  if is_empty m then make_tree empty (n, n, v) empty else
-  let (n1, n2, v0) as x = root m in
-  let l = left_branch m in
-  let r = right_branch m in
-  if n1 <> min_int && n = n1 - 1 && eq v v0 then
-    make l (n, n2, v) r
-  else if n < n1 then
-    make_tree (add n v l) x r
-  else if n1 <= n && n <= n2 then
-    if eq v v0 then m else
-    let l = 
-      if n1 = n then l else
-      make_tree l (n1, n - 1, v0) empty in
-    let r =
-      if n2 = n then r else
-      make_tree empty (n + 1, n2, v0) r in
-    make l (n, n, v) r
-  else if n2 <> max_int && n = n2 + 1 && eq v v0 then
-    make l (n1, n, v) r
-  else
-    make_tree l x (add n v r)
 
 let rec from n s =
   if is_empty s then empty else
@@ -89,6 +66,8 @@ let add_range ?eq n1 n2 v s =
   if n1 > n2 then invalid_arg "IMap.add_range" else
   make ?eq (before n1 s) (n1, n2, v) (after n2 s)
 
+let add ?eq n v s = add_range ?eq n n v s
+
 let rec find n m =
   if is_empty m then raise Not_found else
   let (n1, n2, v) = root m in
@@ -96,26 +75,11 @@ let rec find n m =
   if n1 <= n && n <= n2 then v else
   find n (right_branch m)
 
-let rec remove n m =
-  if is_empty m then empty else
-  let (n1, n2, v) as x = root m in
-  let l = left_branch m in
-  let r = right_branch m in
-  if n < n1 then
-    make_tree (remove n l) x r
-  else if n1 = n then
-    if n2 = n then concat l r else
-    make_tree l (n + 1, n2, v) r
-  else if n1 < n && n < n2 then
-    make_tree (make_tree l (n1, n - 1, v) empty) (n + 1, n2, v) r
-  else if n = n2 then
-    make_tree l (n1, n - 1, v) r
-  else
-    make_tree l x (remove n r)
-
 let remove_range n1 n2 m =
   if n1 > n2 then invalid_arg "IMap.remove_range" else
   concat (before n1 m) (after n2 m)
+
+let remove n m = remove_range n n m
 
 let rec mem n m =
   if is_empty m then false else

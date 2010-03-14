@@ -308,11 +308,14 @@ let char_machine_of outchan =
   in
   let flush () =    
     let n = outchan#output b 0 !pos in
-      if n < !pos then
+      if n < !pos then begin
+	pos := !pos - n;
 	failwith 
 	  "CharEncoding.char_machine_of: \
              Cannot flush the entire buffer";
+      end;
       outchan#flush ();
+      pos := 0
   in
   let term () = 
     flush ();
