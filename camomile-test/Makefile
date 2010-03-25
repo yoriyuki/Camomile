@@ -47,7 +47,7 @@ all: test.$(OCAMLBEST)
 # bytecode and native-code compilation
 ######################################
 
-CMO = lib/blender.cmo tester-lib/uStorageTest.cmo
+CMO = lib/blender.cmo tester-lib/uStorageTest.cmo tester-lib/testUColJapanese.cmo
 CMX = $(CMO:.cmo=.cmx)
 TESTERS = $(wildcard tester/*.ml)
 

@@ -5,6 +5,7 @@ open CamomileLibrary.Default.Camomile
 open UPervasives
 open Blender
 open Printf
+open TestUColJapanese
 
 let rec lex_compare_aux i t1 t2 =
   if i >= UText.length t1 then
@@ -362,118 +363,6 @@ let () =
     ~locale:"fi_FI"
     ["A"; "B"; "Z"; "Ä"]
 
-
-let jisx4061_test1 =
-  ["シャーレ";
-   "シャイ";
-   "シヤィ";
-   "シャレ";
-   "ちょこ";
-   "ちよこ";
-   "チョコレート";
-   "てーた";
-   "テータ";
-   "テェタ";
-   "てえた";
-   "でーた"; 
-   "データ";
-   "デェタ";
-   "でえた";
-   "てーたー";
-   "テータァ";
-   "テェター";
-   "てぇたぁ";
-   "てえたー";
-   "でーたー";
-   "データァ";
-   "でェたァ";
-   "デぇタぁ";
-   "デエタア";
-   "ひゆ";
-   "びゅあ";
-   "ぴゅあ";
-   "びゅあー";
-   "ビュアー";
-   "ぴゅあー";
-   "ピュアー";
-   "ヒュウ";
-   "ヒユウ";
-   "ピュウア";
-   "びゅーあー"; 
-   "ビューアー";
-   "ビュウアー";
-   "ひゅん";
-   "ぴゅん";
-   "ふーり";
-   "フーリ";
-   "ふぅり";
-   "ふゥり";
-   "ふゥリ";
-   "フウリ";
-   "ぶーり";
-   "ブーリ";
-   "ぶぅり";
-   "ブゥり";
-   "ぷうり";
-   "プウリ";
-   "ふーりー";
-   "フゥリー";
-   "ふゥりィ";
-   "フぅりぃ";
-   "フウリー";
-   "ふうりぃ";
-   "ブウリイ";
-   "ぷーりー";
-   "ぷゥりイ";
-   "ぷうりー";
-   "プウリイ";
-   "フヽ";
-   "ふゞ";
-   "ぶゝ";
-   "ぶふ";
-   "ぶフ";
-   "ブふ";
-   "ブフ";
-   "ぶゞ";
-   "ぶぷ";
-   "ブぷ";
-   "ぷゝ";
-   "プヽ";
-   "ぷふ";]
-
-let jisx4061_test2 =
-  ["はゝ"; 
-   "はは"; 
-   "はハ"; 
-   "ハハ"; 
-   "はゞ"; 
-   "ハヾ"; 
-   "はば"; 
-   "ハバ"; 
-   "はぱ"; 
-   "ハぱ"; 
-   "ハパ"; 
-   "ばゝ"; 
-   "バヽ"; 
-   "ばは"; 
-   "バハ"; 
-   "ばゞ"; 
-   "バヾ"; 
-   "ばば"; 
-   "バば"; 
-   "ババ"; 
-   "ばぱ"; 
-   "バパ"; 
-   "ぱゝ"; 
-   "パヽ"; 
-   "ぱは"; 
-   "パハ"; 
-   "ぱば"; 
-   "ぱバ"; 
-   "パバ"; 
-   "ぱぱ"; 
-   "パパ";]
-
 let () = test_list ~desc:"JISX 4061 test1" ~locale:"ja" jisx4061_test1
 let () = test_list ~desc:"JISX 4061 test2" ~locale:"ja" jisx4061_test2
 
@@ -485,34 +374,27 @@ let () =
 
 let () =
   test_list
-    ~desc:"test_1 i <<< い << ii = i*"
+    ~desc:test_desc_1 
     ~locale:"test_1"
-    ["bbbbiccc"; "bbbbいccc"; "bbbbiiccc"; "bbbbi*dcc"]
+    test_list_1 
 
 let () =
   test_list
-    ~desc:"test_1 &[before 3]I <<< イ"
+    ~desc:test_desc_2 
     ~locale:"test_1"
-    ["aaaahbbbb"; "aaaaイbbbb"; "aaaaIbbbb"]
+    test_list_2
 
 let () =
   test_list
-    ~desc:"test_1 &[before 3]UE <<< ウェ <<< UE <<< ue"
+    ~desc:test_desc_3
     ~locale:"test_1"
-    ["aaaaudbbbb";
-     "aaaaウェbbbb"; 
-     "aaaaUEbbbb"; 
-     "aaaauebbbb";
-     "aaaaUFbbbb"]
+    test_list_3
  
 let () =
   test_list
-    ~desc:"test_1 &[before 3]V <<< ヴェ/ェ = V <<< v"
+    ~desc:test_desc_4 
     ~locale:"test_1"
-     ["aaaaVェabbb";
-      "aaaaヴェbbbb";
-      "aaaaVェcbbb";
-      "aaaavェcbbb"]
+    test_list_4
 
 let () =
   test_list
@@ -524,7 +406,6 @@ let () =
 
 let () =
   test_list
-    ~desc:"test_1 &皇帝 < emperor"
+    ~desc:test_desc_5 
     ~locale:"test_1"
-    ["anon_皇帝";
-     "anon_emperor"]
+    test_list_5

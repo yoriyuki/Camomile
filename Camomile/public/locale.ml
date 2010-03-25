@@ -36,7 +36,7 @@ let read root suffix reader locale =
       String.concat "_" locale_path
     in
     let filename = Filename.concat root (basename ^ "." ^ suffix) in
-    try reader (open_in filename) with 
+    try reader (open_in_bin filename) with 
       Sys_error _ | Not_found ->
 	if locale_path = [] then raise Not_found else
 	search (cut_last locale_path)
