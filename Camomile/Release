@@ -1,0 +1,16 @@
+Camomile 0.7.3 (beta)
+
+This is a beta release of Camomile library package.  Camomile is a
+comprehensive Unicode library for ocaml.  Camomile provides Unicode
+character type, UTF-8, UTF-16, UTF-32 strings, conversion to/from
+about 200 encodings, collation and locale-sensitive case mappings, and
+more.
+
+* New Feature
+  - Windows (with Cygwin) is supported. 
+
+*Bug fixes
+  - Fix ISet, IMap merging bug
+  http://sourceforge.net/tracker/?func=detail&aid=2881864&group_id=40603&atid=428416
+  - Fix channel flush bug
+  https://sourceforge.net/tracker/index.php?func=detail&aid=2809898&group_id=40603&atid=428416 

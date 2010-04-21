@@ -1,6 +1,6 @@
 #
 # Copyright (C) 2001 Jean-Christophe FILLIATRE
-#	        2002, 2003, 2004, 2005, 2006 Yamagata Yoriyuki
+#	        2002, 2003, 2004, 2005, 2006  Yamagata Yoriyuki
 #
 # 
 # This library is free software; you can redistribute it and/or
@@ -35,7 +35,7 @@ OCAMLVERSION = @OCAMLVERSION@
 CAMLP4O = -pp "@CAMLP4O@ -I $(OCAMLLIB)"
 INSTALL = @OCAMLINSTALL@
 UNINSTALL = un@OCAMLINSTALL@
-OCAMLDOC = @
+OCAMLDOC = @OCAMLDOC@
 OCAMLMKLIB = @OCAMLMKLIB@
 
 # compiler options
@@ -454,7 +454,7 @@ $(PACKAGE)-$(VERSION).bz2 : public/main.ml public/main.mli depend configure
 	README Changes META.in COPYING\
 	.depend Makefile.in configure configInt.mli \
 	$(CHARMAP_DATA:.mar=) \
-	locales/*.txt \
+	locales/license.html locales/*.txt \
 	unidata/README unidata/*.txt unidata/*.html \
 	unidata/tr10/README unidata/tr10/*.txt \
 	internal/*.ml internal/*.ml[ily] \

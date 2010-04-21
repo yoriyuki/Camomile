@@ -1,4 +1,4 @@
-Camomile 0.7.2:
+Camomile 0.7.3 (beta):
 
 This is a beta release of Camomile library package.  Camomile is a
 comprehensive Unicode library for ocaml.  Camomile provides Unicode
@@ -6,7 +6,8 @@ character type, UTF-8, UTF-16, UTF-32 strings, conversion to/from
 about 200 encodings, collation and locale-sensitive case mappings, and
 more.
 
-Copyright 2001, 2002, 2003, 2004, 2005, 2006 Yamagata Yoriyuki
+Copyright 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010 Yamagata
+Yoriyuki
 
 This library is free software; you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as
@@ -32,7 +33,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 Lesser General Public License for more details.
 
-The GNU Lesser General Public Licence (LGPL) is contained in the file COPYING.
+The GNU Lesser General Public License (LGPL) is contained in the file COPYING.
 
 The following files are authored by different persons.  For their
 licenses, see the relevant notice of each file or directory.
@@ -44,14 +45,14 @@ locales : International Business Machines :
 	derived from the ICU package.  see locales/licence.html
 mappings : Free Software Foundation : 
 	derived from glibc.  Licensed by LGPL
-	(CP932 has a different origin.  See the premable of the file CP932)
+	(CP932 has a different origin.  See the preamble of the file CP932)
 unidata : Unicode Inc. : see unidata/README
 
 1. Installation
 
 The library is designed to work all platform supported by ocaml,
 but currently the build procedure requires GNU tools. (GNU Make, grep,
-and sh command for run the configure, cpp for code generation.)
+and sh command for run the configure.)
 
 In the top of the source directory, do the following.
 	$ ./configure
@@ -79,17 +80,13 @@ You can uninstall the library by
 If you have ocamldoc,
 	$ make dochtml
 creates dochtml directory in the source directory, and HTML
-documentation.  Similarly,
-	$ make doclatex
-	$ make doctexi
-	$ make man
-creates LaTeX, Texi, man documentation respectively.
+documentation.
 
 If you use Cygwin and put OCaml stuff into the folder C:/OCaml, then
-make sure to specify prefix when invoking configure.
-        $ configure --prefix=C:/OCaml
+specify prefix when invoking configure.  
+	$ configure --prefix=C:/OCaml
 The prefix must be in the MSDOS file format and separators of path
-must be /, not \. 
+must be /, not \.
 
 2. Using libraries
 
@@ -107,7 +104,7 @@ binary with Camomile on machines with different directory structures.
 "make install" automatically installs all data files into the default
 locations, which are specified by CamomileDefaultConfig module.  If
 you just wanted to use default configuration, you can use
-Main.Camomile module.  Main.Camomile module has *almost* same
+Default.Camomile module.  Default.Camomile module has *almost* same
 interface to Camomile 0.6.X
 
 To configure individual module, you have to pass a module containing
@@ -131,9 +128,8 @@ have the *almost* same interface with the previous Camomile.
 
 You can contact the author by yori@sourceforge.net
 
-4. Acknowledgement
+4. Acknowledgment
 
 Peter Jolly provided CP932 conversion table.  Kawakami Shigenobu
-contributed findlib support.  Alain Frisch, Peter Jolly, Kawakami
-Shigenobu provided several bug fixes.
+contributed findlib support.  Many people contributed bug fixes.
 
