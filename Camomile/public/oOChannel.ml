@@ -1,5 +1,5 @@
 (* $Id: oOChannel.ml,v 1.7 2004/11/03 11:21:53 yori Exp $ *)
-(* Copyright 2002, 2003 Yamagata Yoriyuki. distributed with LGPL *)
+(* Copyright 2002, 2003, 2010 Yamagata Yoriyuki. distributed with LGPL *)
 
 class type ['a] obj_input_channel =
   object
@@ -42,13 +42,13 @@ class type char_output_channel =
 class char_input_channel_of (oc : char #obj_input_channel) =
   object (self)
     method close_in () = oc#close_in ()
-    method input b p len =
-      let i = ref p in
-	(try while !i < p + len - 1 do
-	  b.[!i] <- oc#get();
-	  incr i;
+    method input b pos len =
+      let p = ref pos in
+	(try while !p < pos + len do
+	  b.[!p] <- oc#get();
+	  incr p;
 	 done; () with End_of_file -> ());
-	let len = !i - p in
+	let len = !p - pos in
 	  if len <= 0 then raise End_of_file else len
   end
 
@@ -91,10 +91,14 @@ class char_obj_output_channel_of (out : char_output_channel) =
 	  pos := 1024 - n
     method flush () =    
       let n = out#output b 0 !pos in
-	if n < !pos then 
+	if n < !pos then begin
+	  String.blit b n b 0 (!pos - n);
+	  pos := !pos -n;
 	  failwith 
 	    "OOChannel.char_output_channel_of#flush: \
              Cannot flush the entire buffer";
+	end else
+	  pos := 0
     method close_out () = 
       out#flush ();
       out#close_out () 
