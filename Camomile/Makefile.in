@@ -1,6 +1,7 @@
 #
 # Copyright (C) 2001 Jean-Christophe FILLIATRE
-#	        2002, 2003, 2004, 2005, 2006  Yamagata Yoriyuki
+#	        2002, 2003, 2004, 2005, 2006, 2009, 2010 Yamagata
+#	        Yoriyuki
 #
 # 
 # This library is free software; you can redistribute it and/or
@@ -28,7 +29,7 @@ OCAMLC   = @OCAMLC@
 OCAMLOPT = @OCAMLOPT@
 OCAMLYACC = @OCAMLYACC@
 OCAMLLEX = @OCAMLLEX@
-OCAMLDEP = @OCAMLDEP@
+OCAMLDEP = @OCAMLDEP@ -slash
 OCAMLLIB = @OCAMLLIB@
 OCAMLBEST= @OCAMLBEST@
 OCAMLVERSION = @OCAMLVERSION@
@@ -50,7 +51,7 @@ VERSION = @VERSION@
 # Build procedure
 ###################################################################
 
-.PHONY : all byte opt tools toolslib test test.opt unimaps chamap_data unidata dist
+.PHONY : all byte opt tools toolslib test test.opt unimaps chamap_data unidata dist depend clean distclean allclean
 
 
 SUBDIR = -I internal -I public -I toolslib -I .
@@ -112,7 +113,7 @@ $(NOOBJ_INT:.cmi=.cmo) : %.cmo : %.mli %.cmi
 $(NOOBJ_INT:.cmi=.cmx) : %.cmx : %.mli %.cmi
 	$(OCAMLOPT) -c $(OFLAGS) -impl $<
 
-public/main.ml : public/main.mlp public/main.cmi
+public/main.ml : public/main.mlp
 	$(CPP) -P -I $(SUBDIR) -o public/main.ml -x c public/main.mlp 
 
 public/main.mli : public/main.mlip
@@ -448,7 +449,7 @@ configure : configure.in
 
 DISTDIR = $(PACKAGE)-$(VERSION)
 
-$(PACKAGE)-$(VERSION).bz2 : public/main.ml public/main.mli depend configure
+$(PACKAGE)-$(VERSION).bz2 : public/main.ml public/main.mli .depend configure
 	mkdir -p $(DISTDIR)
 	cp -f --parents \
 	README Changes META.in COPYING\
@@ -470,10 +471,10 @@ $(PACKAGE)-$(VERSION).bz2 : public/main.ml public/main.mli depend configure
 # tags, clean, dist and depend :
 ###################################################################
 
-tags::
+tags :
 	otags */*.ml */*.mli *.ml *.mli
 
-clean::
+clean :
 	rm -f *.cm[ioxa] *.cmxa *.o *.so *.a */*.cm[iox] */*.o pocaml\
 	*/*.byte */*.opt
 	rm -f database/*.mar
@@ -482,8 +483,19 @@ clean::
 	rm -f locales/*.mar
 	rm -f toolslib/*.cma toolslib/*.cmxa
 
-depend:: public/main.ml public/main.mli
-	rm -f .depend
+distclean : clean
+	rm -f TAGS
+	rm -f config.status
+	rm Makefile META
+
+allclean : distclean
+	rm .depend
+	rm configure
+	rm public/main.ml public/main.mli
+
+depend : .depend
+
+.depend : public/main.ml public/main.mli
 	$(OCAMLDEP) $(SUBDIR) *.ml *.mli \
 	internal/*.ml internal/*.mli \
 	public/*.ml public/*.mli \
@@ -495,4 +507,3 @@ depend:: public/main.ml public/main.mli
 	tools/$(TOOLS:.byte=.ml) >> .depend
 
 include .depend
-

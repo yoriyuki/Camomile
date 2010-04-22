@@ -26,7 +26,7 @@ MANDIR=${prefix}/man
 # other variables set by ./configure
 OCAMLC   = ocamlfind ocamlc
 OCAMLOPT = ocamlfind ocamlopt
-OCAMLDEP = ocamldep
+OCAMLDEP = ocamldep -slash
 OCAMLLEX = ocamllex.opt
 OCAMLYACC= ocamlyacc
 OCAMLLIB = C:\OCaml\lib
@@ -41,6 +41,9 @@ OFLAGS = $(PACKAGES) $(INCLUDES)
 
 # main target
 #############
+
+
+.PHONY : all lib byte opt test.byte test.opt tags clean allclean
 
 all: test.$(OCAMLBEST)
 
@@ -113,16 +116,19 @@ tags:
 # clean
 #######
 
-clean::
+clean :
 	rm -f */*.cm[iox] */*.o *~
 	rm -f $(GENERATED) parser.output
 	rm -f $(TESTERS:.ml=.byte) $(TESTERS:.ml=.opt) 
 	rm -f $(TESTERS:.ml=.byte.log) $(TESTERS:.ml=.opt.log)
 
+allclean : clean
+	rm .depend
+
 # depend
 ########
 
-.depend depend:: $(GENERATED)
+.depend : $(GENERATED)
 	rm -f .depend
 	$(OCAMLDEP) $(INCLUDES) lib/*.ml lib/*.mli > .depend
 	$(OCAMLDEP) $(INCLUDES) tester-lib/*.ml tester-lib/*.mli >> .depend
