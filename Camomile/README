@@ -50,15 +50,13 @@ unidata : Unicode Inc. : see unidata/README
 
 1. Installation
 
-The library is designed to work all platform supported by ocaml,
-but currently the build procedure requires GNU tools. (GNU Make, grep,
-and sh command for run the configure.)
-
+The library is designed to work all platform supported by ocaml, but
+currently the build procedure requires GNU tools (GNU coreutils, Make,
+grep, sh).
 In the top of the source directory, do the following.
 	$ ./configure
 	$ make
-Become root and do the following.
-	# make install
+	$ sudo make install
 
 The installation directories depend on whether you have findlib, which
 is automatically detected.  If you do not have findlib, Library files
@@ -75,16 +73,16 @@ are installed to {bindir} (a directory specified by configure).
 Running commands with --help option display their usage.
 
 You can uninstall the library by
-	# make uninstall
+	$ sudo make uninstall
 
 If you have ocamldoc,
 	$ make dochtml
 creates dochtml directory in the source directory, and HTML
 documentation.
 
-If you use Cygwin and put OCaml stuff into the folder C:/OCaml, then
-specify prefix when invoking configure.  
-	$ configure --prefix=C:/OCaml
+If you use MinGW port of OCaml and put OCaml stuff into the folder
+C:/OCaml, then specify prefix when invoking configure.  
+	  $ configure --prefix=C:/OCaml 
 The prefix must be in the MSDOS file format and separators of path
 must be /, not \.
 
@@ -124,11 +122,25 @@ Replace all references to Camomile with
 CamomileLibrary.Default.Camomile.  CamomileLibrary.Default.Camomile
 have the *almost* same interface with the previous Camomile.
 
-3. Author
+3. Development
+
+You can checkout the development version of Camomile by the following
+command. 
+    $ svn co https://camomile.svn.sourceforge.net/svnroot/camomile camomile  
+
+To build the development version of Camomile, you need autoconf and C
+pre-processor.  Then, enter the working directory and do the
+following.
+    $ autoconf
+    $ ./configure ...
+    $ make
+    $ sudo make install
+
+4. Author
 
 You can contact the author by yori@sourceforge.net
 
-4. Acknowledgment
+5. Acknowledgment
 
 Peter Jolly provided CP932 conversion table.  Kawakami Shigenobu
 contributed findlib support.  Many people contributed bug fixes.
