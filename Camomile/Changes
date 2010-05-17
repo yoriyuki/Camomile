@@ -1,11 +1,13 @@
 From 0.7.2 to 0.7.3
 
-* Bug Fix : Fix ISet, IMap merging bug
+* Windows (with Cygwin) is supported. 
+* Fix ISet, IMap merging bug
   http://sourceforge.net/tracker/?func=detail&aid=2881864&group_id=40603&atid=428416
   is fixed.
-* Bug Fix : Fix channel flush bug
+* Fix channel flush bug
   https://sourceforge.net/tracker/index.php?func=detail&aid=2809898&group_id=40603&atid=428416 
-* Windows (with Cygwin) is supported. 
+* Several bug fixes of Makefile, including that cpp is not required to
+  build any more.
 
 From 0.7.1 to 0.7.2
 

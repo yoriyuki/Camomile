@@ -449,11 +449,11 @@ configure : configure.in
 
 DISTDIR = $(PACKAGE)-$(VERSION)
 
-$(PACKAGE)-$(VERSION).bz2 : public/main.ml public/main.mli .depend configure
+$(PACKAGE)-$(VERSION).tar.bz2 : public/main.ml public/main.mli .depend configure
 	mkdir -p $(DISTDIR)
-	cp -f --parents \
-	README Changes META.in COPYING\
-	.depend Makefile.in configure configInt.mli \
+	cp -p --parents \
+	README Changes META.in COPYING \
+	.depend Makefile.in configure configure.in configInt.mli \
 	$(CHARMAP_DATA:.mar=) \
 	locales/license.html locales/*.txt \
 	unidata/README unidata/*.txt unidata/*.html \
