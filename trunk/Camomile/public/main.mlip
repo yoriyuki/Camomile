@@ -116,6 +116,11 @@ module type Type = sig
   end
 
   module UReStr : UReStr.Interface
+
+  module StringPrep : sig
+    module type Type = StringPrep.Type
+    module Make (Text : UnicodeString.Type) : (Type with type text = Text.t)
+  end
 end
 
 module Make (Config : ConfigInt.Type) : Type with

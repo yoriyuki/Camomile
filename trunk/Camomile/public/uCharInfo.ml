@@ -1,5 +1,6 @@
-(* $Id: uCharInfo.ml,v 1.23 2006/08/06 19:48:55 yori Exp $ *)
 (* Copyright 2002 Yamagata Yoriyuki. distributed with LGPL *)
+(* Copyright 2010 Pierre Chambart *)
+
 module type Type = sig
 
 (** Character Information *)
@@ -182,6 +183,23 @@ type script_type =
 
 val script : UChar.t -> script_type
 val load_script_map : unit -> script_type UMap.t
+
+(** age *)
+type version_type =
+  [ `Nc		(** undefined code point *)
+  | `v1_0
+  | `v1_1
+  | `v2_0
+  | `v2_1
+  | `v3_0
+  | `v3_1
+  | `v3_2 ]
+
+(** [age c] unicode version in wich [c] was introduced *)
+val age : UChar.t -> version_type
+(** [older v1 v2] is [true] if [v1] is older ( or the same version )
+    than [v2]. Everithing is older than [`Nc] *)
+val older : version_type -> version_type -> bool
 
 (** casing *)
 
@@ -426,10 +444,49 @@ let load_property_set_by_name s =
 
 (* Scripts *)
 
-let script_tbl : UCharTbl.Bits.t = read_data  "scripts"
+let script_tbl : UCharTbl.Bits.t = read_data "scripts"
 
 let script u = script_of_num (UCharTbl.Bits.get script_tbl u)
-let load_script_map () = read_data  "scripts_map"
+let load_script_map () = read_data "scripts_map"
+
+(** age *)
+
+type version_type =
+  [ `Nc
+  | `v1_0
+  | `v1_1
+  | `v2_0
+  | `v2_1
+  | `v3_0
+  | `v3_1
+  | `v3_2 ]
+
+let version_of_char = function
+  | '\x10' -> `v1_0
+  | '\x11' -> `v1_1
+  | '\x20' -> `v2_0
+  | '\x21' -> `v2_1
+  | '\x30' -> `v3_0
+  | '\x31' -> `v3_1
+  | '\x32' -> `v3_2
+  | '\xfe' -> `Nc
+  | i -> failwith (Printf.sprintf "version_of_char, unknown version v%x" (Char.code i))
+
+let version_to_char = function
+  | `v1_0 -> '\x10'
+  | `v1_1 -> '\x11'
+  | `v2_0 -> '\x20'
+  | `v2_1 -> '\x21'
+  | `v3_0 -> '\x30'
+  | `v3_1 -> '\x31'
+  | `v3_2 -> '\x32'
+  | `Nc   -> '\xfe'
+
+let age_tbl : UCharTbl.Char.t = read_data  "age"
+
+let age u = version_of_char (UCharTbl.Char.get age_tbl u)
+let older v1 v2 =
+  ( version_to_char v1 ) <= ( version_to_char v2 )
 
 (* Casing *)
 
