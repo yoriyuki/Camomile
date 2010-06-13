@@ -2,6 +2,7 @@
 # Copyright (C) 2001 Jean-Christophe FILLIATRE
 #	        2002, 2003, 2004, 2005, 2006, 2009, 2010 Yamagata
 #	        Yoriyuki
+#		2010 Pierre Chambart
 #
 # 
 # This library is free software; you can redistribute it and/or
@@ -95,6 +96,7 @@ public/uCharInfo.cmo public/uNF.cmo public/uCol.cmo \
 public/caseMap.cmo public/uRe.cmo\
 internal/uReStrParserType.cmo\
 internal/uReStrParser.cmo internal/uReStrLexer.cmo public/uReStr.cmo\
+internal/stringPrep_data.cmo public/stringPrep.cmo \
 public/main.cmo public/default.cmo
 
 OBJECTS = $(OBJNOINI) $(OBJECTS_WITH_CONFIG)
@@ -194,7 +196,8 @@ TOOLS = \
 tools/parse_unidata.byte tools/parse_uniset.byte tools/camomilecharmap.byte \
 tools/parse_specialcasing.byte tools/parse_casefolding.byte \
 tools/parse_scripts.byte tools/parse_allkeys.byte mappings/gen_mappings.byte\
-tools/camomilelocaledef.byte
+tools/parse_age.byte \
+tools/camomilelocaledef.byte tools/camomilestringprep.byte
 OPTTOOLS = $(TOOLS:.byte=.opt)
 TOOLSLIB=bigarray.cma str.cma toolslib.cma
 OPTTOOLSLIB=$(TOOLSLIB:.cma=.cmxa)
@@ -225,6 +228,14 @@ database/decomposition.mar database/general_category.mar \
 database/to_lower1.mar database/to_title1.mar database/to_upper1.mar \
 database/general_category_map.mar
 
+STRINGPREP_TABLES = \
+database/map_b1b2.mar database/map_b1.mar \
+database/d1.mar database/d2.mar \
+database/saslprep_map.mar database/nodeprep_prohibited.mar \
+database/resourceprep_prohibited.mar database/nameprep_prohibited.mar \
+database/saslprep_prohibited.mar database/trace_prohibited.mar \
+database/iscsi_prohibited.mar database/mib_prohibited.mar
+
 PROPS = \
 White_Space Bidi_Control Join_Control \
 Hyphen Quotation_Mark Terminal_Punctuation Other_Math Hex_Digit \
@@ -250,7 +261,9 @@ $(CORE_DERIVED_PROPS))
 DATABASE = \
 $(FROM_UNIDATA) $(PROP_TBLS) $(PROP_SETS) \
 $(CORE_DERIVED_PROP_TBLS) $(CORE_DERIVED_PROP_TBL_SETS) \
+$(STRINGPREP_TABLES) \
 database/case_folding.mar database/composition_exclusion.mar \
+database/age.mar \
 database/special_casing.mar database/scripts.mar database/allkeys.mar
 
 unidata : $(DATABASE)
@@ -274,6 +287,9 @@ $(CORE_DERIVED_PROP_SETS) : database/%_set.mar : $(UNIDATA_DIR)/DerivedCorePrope
 $(FROM_UNIDATA) : tools/parse_unidata.$(OCAMLBEST) $(UNIDATA_DIR)/UnicodeData.txt
 	tools/parse_unidata.$(OCAMLBEST) database < $(UNIDATA_DIR)/UnicodeData.txt
 
+$(STRINGPREP_TABLES) : tools/camomilestringprep.$(OCAMLBEST)
+	tools/camomilestringprep.$(OCAMLBEST) -in unidata/stringprep -out database
+
 database/allkeys.mar : $(FROM_UNIDATA) $(PROP_TBLS) tools/parse_allkeys.$(OCAMLBEST)\
 $(TR10DATA_DIR)/allkeys.txt
 	tools/parse_allkeys.$(OCAMLBEST) database < $(TR10DATA_DIR)/allkeys.txt
@@ -294,6 +310,9 @@ database/scripts.mar : tools/parse_scripts.$(OCAMLBEST) $(UNIDATA_DIR)/Scripts.t
 
 database/scripts_map.mar : tools/parse_scripts.$(OCAMLBEST) $(UNIDATA_DIR)/Scripts.txt
 	tools/parse_scripts.$(OCAMLBEST) database < $(UNIDATA_DIR)/Scripts.txt
+
+database/age.mar database/age_map.mar : tools/parse_age.$(OCAMLBEST) $(UNIDATA_DIR)/DerivedAge.txt
+	tools/parse_age.$(OCAMLBEST) database < $(UNIDATA_DIR)/DerivedAge.txt
 
 # Create Unicode mapping tables
 ###############################
@@ -501,7 +520,6 @@ depend : .depend
 	public/*.ml public/*.mli \
 	mappings/*.ml mappings/*.mli \
 	toolslib/*.ml toolslib/*.mli \
-	test/*.ml \
 	> .depend
 	$(OCAMLDEP) $(CAMLP4O) $(SUBDIR) \
 	tools/$(TOOLS:.byte=.ml) >> .depend

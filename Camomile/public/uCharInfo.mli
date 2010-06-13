@@ -1,5 +1,5 @@
-(* $Id: uCharInfo.mli,v 1.20 2006/08/06 19:48:55 yori Exp $ *)
 (* Copyright 2002, 2003 Yamagata Yoriyuki. distributed with LGPL *)
+(* Copyright 2010 Pierre Chambart *)
 
 module type Type = sig
 
@@ -183,6 +183,23 @@ type script_type =
 
 val script : UChar.t -> script_type
 val load_script_map : unit -> script_type UMap.t
+
+(** age *)
+type version_type =
+  [ `Nc		(** undefined code point *)
+  | `v1_0
+  | `v1_1
+  | `v2_0
+  | `v2_1
+  | `v3_0
+  | `v3_1
+  | `v3_2 ]
+
+(** [age c] unicode version in wich [c] was introduced *)
+val age : UChar.t -> version_type
+(** [older v1 v2] is [true] if [v1] is older ( or the same version )
+    than [v2]. Everithing is older than [`Nc] *)
+val older : version_type -> version_type -> bool
 
 (** casing *)
 
