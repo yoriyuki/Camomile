@@ -1,18 +1,108 @@
-(** All-in-one, configure once module*)
+(** Configuration Parametors *)
+
+  module ConfigInt : sig
+    #include "configInt.mli"
+  end
+
+  module CamomileDefaultConfig : ConfigInt.Type
+
+
+(** Indivisual Modules *)
+  module OOChannel : sig
+    #include "oOChannel.mli"
+    end
+
+  module UChar : sig
+    #include "uChar.mli"
+    end
+
+  module USet : sig
+    #include "uSet.mli"
+    end
+
+  module UMap : sig
+    #include "uMap.mli"
+    end
+
+  module UCharTbl : sig
+    #include "uCharTbl.mli"
+    end
+
+  module UnicodeString : sig
+    #include "unicodeString.mli"
+    end
+
+  module UText : sig
+    #include "uText.mli"
+    end
+
+  module XString : sig
+    #include "xString.mli"
+    end
+
+  module SubText : sig
+    #include "subText.mli"
+    end
+
+  module ULine : sig
+    #include "uLine.mli"
+    end
+
+  module Locale : sig
+    #include "locale.mli"
+    end
+
+  module UTF8 : sig
+    #include "uTF8.mli"
+    end
+
+  module UTF16 : sig
+    #include "uTF16.mli"
+    end
+
+  module UCS4 : sig
+    #include "uCS4.mli"
+    end
+
+  module UPervasives : sig
+    #include "uPervasives.mli"
+    end
+
+  module URe : sig
+    #include "uRe.mli"
+    end
+
+  module CharEncoding : sig
+    #include "charEncoding.mli"
+  end
+
+  module UCharInfo : sig
+    #include "uCharInfo.mli"
+  end
+
+  module UNF : sig
+    #include "uNF.mli"
+  end
+
+  module UCol : sig
+    #include "uCol.mli"
+  end
+
+  module CaseMap : sig
+    #include "caseMap.mli"
+  end
+
+  module UReStr : sig
+    #include "uReStr.mli"
+  end
+
+  module StringPrep : sig
+    #include "stringPrep.mli"
+  end
+
+(** All-in-one, configure once modules*)
 
 module type Type = sig
-
-  module ISet : sig
-    #include "iSet.mli"
-    end
-
-  module IMap : sig
-    #include "iMap.mli"
-    end
-
-  module XArray : sig
-    #include "xArray.mli"
-    end
 
   module OOChannel : sig
     #include "oOChannel.mli"
@@ -124,9 +214,6 @@ module type Type = sig
 end
 
 module Make (Config : ConfigInt.Type) : Type with
-      module ISet = ISet and
-      module IMap = IMap and
-      module XArray = XArray and 
       module OOChannel = OOChannel and
       module UChar = UChar and
       module USet = USet and

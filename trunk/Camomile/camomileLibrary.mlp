@@ -1,18 +1,59 @@
+module ConfigInt = ConfigInt
+
+module CamomileDefaultConfig = CamomileDefaultConfig
+
+(** Indivisual modules *)
+
+module OOChannel = OOChannel
+
+module UChar = UChar
+
+module USet = USet
+
+module UMap = UMap
+
+module UCharTbl = UCharTbl
+
+module UnicodeString = UnicodeString
+
+module UText = UText
+
+module XString = XString
+
+module SubText = SubText
+
+module ULine = ULine
+
+module Locale = Locale
+
+module UTF8 = UTF8
+      
+module UTF16 = UTF16
+      
+module UCS4 = UCS4
+      
+module UPervasives = UPervasives 
+      
+module URe = URe
+
+module CharEncoding = CharEncoding
+
+module UCharInfo = UCharInfo
+  
+module UNF = UNF
+
+module UCol = UCol
+
+module CaseMap = CaseMap
+
+module UReStr = UReStr
+
+module StringPrep = StringPrep
+
 (** All-in-one, configure once at beginning module*)
 
+
 module type Type = sig
-
-  module ISet : sig
-    #include "iSet.mli"
-    end
-
-  module IMap : sig
-    #include "iMap.mli"
-    end
-
-  module XArray : sig
-    #include "xArray.mli"
-    end
 
   module OOChannel : sig
     #include "oOChannel.mli"
@@ -125,12 +166,6 @@ module type Type = sig
 end
 
 module Make(Config : ConfigInt.Type) = struct
-
-  module ISet = ISet
-
-  module IMap = IMap
-
-  module XArray = XArray
 
   module OOChannel = OOChannel
 
