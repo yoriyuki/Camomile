@@ -36,7 +36,11 @@
 AC_INIT(public/uChar.mli)
 
 # We need cpp
-AC_PROG_CPP
+AC_CHECK_PROG(CPPO,cppo,cppo,false)
+
+# We need grep
+
+AC_PROG_FGREP
 
 # Check for Ocaml compilers
 
@@ -169,7 +173,7 @@ AC_SUBST(PROFILE)
 AC_SUBST(OCAMLINSTALL)
 AC_SUBST(OCAMLDOC)
 AC_SUBST(VERSION)
-AC_SUBST(CPP)
+AC_SUBST(CPPO)
 
 # Finally create the Makefile from Makefile.in
 AC_OUTPUT(Makefile META)

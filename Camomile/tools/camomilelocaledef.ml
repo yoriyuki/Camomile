@@ -2,16 +2,17 @@
 (* Copyright 2002, 2003 Yamagata Yoriyuki *)
 
 open Toolslib
-open UCharInfo
 open AbsCe
+module CE = CharEncoding.Configure(Camomileconfig)
+module Info = UCharInfo.Make(Camomileconfig)
 
 let enc, readfile, dir =
-  let enc = ref CharEncoding.utf8 in
+  let enc = ref CE.utf8 in
   let readfile = ref stdin in
   let dir = ref Filename.current_dir_name in
   Arg.parse
     ["--enc", Arg.String (fun encname ->
-      enc := CharEncoding.of_name encname), "Encoding name";
+      enc := CE.of_name encname), "Encoding name";
      "--file", Arg.String (fun filename ->
        readfile := open_in_bin filename), "Reading file"]
     (fun dirname -> dir := dirname)
@@ -24,7 +25,7 @@ and put the compiled data into DIRECTORY. \
     !enc, !readfile, !dir
 
 module Utf8Buffer = UTF8.Buf
-module Utf8NF = UNF.Make (UTF8)
+module Utf8NF = UNF.Make(Camomileconfig)(UTF8)
 
 let ff = 0x000c				(*form feed*)
 let cr = Char.code '\r'
@@ -72,7 +73,7 @@ type token =
 let rec prep = parser 
     [< 'u; rest >] ->
       let c = try Some (UChar.char_of u) with _ -> None in
-      (match general_category u with
+      (match Info.general_category u with
 	`Cc | `Cf when c <> Some '\n' ->  prep rest
       | ct -> [< '(c, ct, u); prep rest >])
   | [< >] -> [< >]
@@ -318,7 +319,7 @@ let localedef = function Table tbl ->
 
 let main () =
   let cs = Stream.of_channel readfile in
-  let stream = CharEncoding.ustream_of enc cs in
+  let stream = CE.ustream_of enc cs in
   let lexed = lexer stream in
   let data, rest = parse_table lexed [] in
   if rest <> [] then failwith "Strange trailing data.";

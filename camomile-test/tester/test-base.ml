@@ -3,7 +3,7 @@
 
 open Printf
 open Blender
-open CamomileLibrary.Default.Camomile
+open CamomileLibraryDefault.Camomile
 open UPervasives
 
 let random_pair () = 
@@ -200,26 +200,26 @@ let rec random_assoc size =
     let a, b = random_pair () in
       (a, b, Random.int 16) :: random_assoc (size - 1)
 
-let imap_of_assoc al = 
+let umap_of_assoc al = 
   let al = List.rev al in
-  let rec f al imap =
+  let rec f al umap =
     match al with
-	[] -> imap
+	[] -> umap
       | (k1, k2, v) :: r ->
-	    f r (IMap.add_range k1 k2 v imap) 
+	    f r (UMap.add_range (UChar.chr k1) (UChar.chr k2) v umap) 
   in
-    f al IMap.empty
+    f al UMap.empty
 	      
 let _ = 
   random_test
-    ~desc:"IMep interval"
-    ~log:"imap interval"
+    ~desc:"UMep interval"
+    ~log:"umap interval"
     ~data:(fun size -> random_assoc size)
     ~body:(fun al -> expect_pass (fun () ->
-      let imap = imap_of_assoc al in
+      let umap = umap_of_assoc al in
       for i = 0 to 0x8000000 do
 	expect_equal_app
-	  (IMap.find i) imap
+	  (UMap.find (UChar.chr i)) umap
 	  (assoc i) al
       done))
 

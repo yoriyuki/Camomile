@@ -3,7 +3,7 @@
 
 open Printf
 open Blender
-open CamomileLibrary.Default.Camomile
+open CamomileLibraryDefault.Camomile
 open UPervasives
 open CharEncoding
 open OOChannel

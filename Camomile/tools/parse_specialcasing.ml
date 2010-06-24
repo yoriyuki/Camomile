@@ -2,6 +2,7 @@
 (* Copyright 2002 Yamagata Yoriyuki *)
 
 module Unidata = Unidata.Make(Camomileconfig)
+module UCharInfo = UCharInfo.Make(Camomileconfig)
 
 let scases = ref UMap.empty
 
@@ -32,10 +33,10 @@ let blank_pat = Str.regexp "[ \t]+"
 let put_record code lower title upper conditions =
   let u = uchar_of_code code in
   let record =
-    {Toolslib.UCharInfo.lower = us_of_codes (Str.split blank_pat lower);
-     Toolslib.UCharInfo.title = us_of_codes (Str.split blank_pat title);
-     Toolslib.UCharInfo.upper = us_of_codes (Str.split blank_pat upper);
-     Toolslib.UCharInfo.condition = List.map parse_condition conditions}
+    {UCharInfo.lower = us_of_codes (Str.split blank_pat lower);
+     UCharInfo.title = us_of_codes (Str.split blank_pat title);
+     UCharInfo.upper = us_of_codes (Str.split blank_pat upper);
+     UCharInfo.condition = List.map parse_condition conditions}
   in 
   let entry = try UMap.find u !scases with Not_found -> [] in
   scases := UMap.add u (record :: entry) !scases
@@ -70,7 +71,7 @@ let loaddata () =
   done with End_of_file -> ()
 
 module CasingTbl = UCharTbl.Make (struct
-  type t = Toolslib.UCharInfo.special_casing_property list
+  type t = UCharInfo.special_casing_property list
   let equal = (=)
   let hash = Hashtbl.hash
 end)
