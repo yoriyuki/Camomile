@@ -1,17 +1,9 @@
 (* configuration for tools *)
 
-let datadir = 
-  try Sys.getenv "CAMOMILE_DATADIR" with Not_found -> 
-    CamomileDefaultConfig.datadir
+let datadir = "./database"
 
-let localedir = 
-  try Sys.getenv "CAMOMILE_LOCALEDIR" with Not_found -> 
-    CamomileDefaultConfig.localedir
+let localedir = "./locales"
 
-let charmapdir = 
-  try Sys.getenv "CAMOMILE_CHARMAPDIR" with Not_found -> 
-    CamomileDefaultConfig.charmapdir
+let charmapdir = "./charmaps"
 
-let unimapdir =
-  try Sys.getenv "CAMOMILE_UNIMAPDIR" with Not_found -> 
-    CamomileDefaultConfig.unimapdir
+let unimapdir = "./mappings"

@@ -25,7 +25,8 @@ BINDIR=@bindir@
 DATADIR=@datadir@
 
 # other variables set by ./configure
-CPP = @CPP@
+CPPO = @CPPO@
+FGREP = @FGREP@
 OCAMLC   = @OCAMLC@
 OCAMLOPT = @OCAMLOPT@
 OCAMLYACC = @OCAMLYACC@
@@ -58,7 +59,7 @@ VERSION = @VERSION@
 SUBDIR = -I internal -I public -I toolslib -I .
 INCLUDES = $(SUBDIR)
 BFLAGS =  $(BOPTIONS) $(INCLUDES)
-OFLAGS = -for-pack CamomileLibrary $(OOPTIONS) $(INCLUDES)
+OFLAGS =  $(OOPTIONS) $(INCLUDES)
 
 # Generic targets
 #################
@@ -75,11 +76,11 @@ public/unicodeString.cmi configInt.cmi internal/uReStrParserType.cmi
 
 #Modules without configuration
 OBJNOINI= \
-configInt.cmo\
+configInt.cmo camomileDefaultConfig.cmo\
 internal/bitsvect.cmo internal/bytesvect.cmo \
-internal/avlTree.cmo public/iSet.cmo public/iMap.cmo \
+internal/avlTree.cmo internal/iSet.cmo internal/iMap.cmo \
 internal/tbl31.cmo internal/byte_labeled_dag.cmo \
-public/xArray.cmo public/oOChannel.cmo \
+internal/xArray.cmo public/oOChannel.cmo \
 public/uChar.cmo public/uSet.cmo \
 public/uMap.cmo public/uCharTbl.cmo \
 public/unicodeString.cmo \
@@ -88,16 +89,14 @@ public/subText.cmo public/uLine.cmo public/locale.cmo \
 internal/hangul.cmo internal/unidata.cmo \
 internal/charmap.cmo internal/unimap.cmo public/charEncoding.cmo \
 public/uTF8.cmo public/uTF16.cmo public/uCS4.cmo \
-public/uPervasives.cmo \
-camomileDefaultConfig.cmo
+public/uPervasives.cmo
 
 OBJECTS_WITH_CONFIG =\
 public/uCharInfo.cmo public/uNF.cmo public/uCol.cmo \
 public/caseMap.cmo public/uRe.cmo\
 internal/uReStrParserType.cmo\
 internal/uReStrParser.cmo internal/uReStrLexer.cmo public/uReStr.cmo\
-internal/stringPrep_data.cmo public/stringPrep.cmo \
-public/main.cmo public/default.cmo
+internal/stringPrep_data.cmo public/stringPrep.cmo
 
 OBJECTS = $(OBJNOINI) $(OBJECTS_WITH_CONFIG)
 
@@ -115,22 +114,16 @@ $(NOOBJ_INT:.cmi=.cmo) : %.cmo : %.mli %.cmi
 $(NOOBJ_INT:.cmi=.cmx) : %.cmx : %.mli %.cmi
 	$(OCAMLOPT) -c $(OFLAGS) -impl $<
 
-public/main.ml : public/main.mlp
-	$(CPP) -P -I $(SUBDIR) -o public/main.ml -x c public/main.mlp 
+camomileLibrary.mli : camomileLibrary.mlip public/*.mli internal/*.mli
+	$(CPPO) $(SUBDIR) -o camomileLibrary.mli camomileLibrary.mlip 
 
-public/main.mli : public/main.mlip
-	$(CPP) -P -I $(SUBDIR) -o public/main.mli -x c public/main.mlip 
+camomileLibrary.ml : camomileLibrary.mlp public/*.mli internal/*.mli
+	$(CPPO) $(SUBDIR) -o camomileLibrary.ml camomileLibrary.mlp 
 
-camomileLibrary.cmo camomileLibrary.cmi : $(OBJECTS)
-	$(OCAMLC) $(BOPTIONS) -pack -o camomileLibrary.cmo $(OBJECTS) $(INCLUDES)
-
-camomileLibrary.cmx camomileLibrary.o : $(NOOBJ_INT:.cmi=.cmx) $(OPTOBJECTS)
-	$(OCAMLOPT) $(OOPTIONS) -pack -o camomileLibrary.cmx $(OPTOBJECTS) $(INCLUDES)
-
-camomile.cma : camomileLibrary.cmo
-	$(OCAMLC) -a -o camomile.cma camomileLibrary.cmo
-camomile.cmxa :  camomileLibrary.cmx
-	$(OCAMLOPT) -a -o camomile.cmxa camomileLibrary.cmx
+camomile.cma : $(OBJECTS) camomileLibrary.cmo camomileLibraryDefault.cmo
+	$(OCAMLC) -a -o camomile.cma $(OBJECTS) camomileLibrary.cmo camomileLibraryDefault.cmo
+camomile.cmxa : $(OPTOBJECTS) camomileLibrary.cmx camomileLibraryDefault.cmx
+	$(OCAMLOPT) -a -o camomile.cmxa $(OPTOBJECTS) camomileLibrary.cmx camomileLibraryDefault.cmx
 
 # Documentation
 .PHONY : dochtml doclatex doctexi man
@@ -165,15 +158,6 @@ camomileDefaultConfig.ml :  Makefile
 
 # Build procedures for tools
 ############################
-
-CAMOMILE_DATADIR=./database
-export CAMOMILE_DATADIR
-CAMOMILE_LOCALEDIR=./locales
-export CAMOMILE_LOCALEDIR
-CAMOMILE_CHARMAPDIR=./charmaps
-export CAMOMILE_CHARMAPDIR
-CAMOMILE_UNIMAPDIR=./mappings
-export CAMOMILE_UNIMAPDIR
 
 TOOLSOBJ =\
 $(OBJECTS) toolslib/camomileconfig.cmo toolslib/toolslib.cmo\
@@ -263,8 +247,8 @@ $(FROM_UNIDATA) $(PROP_TBLS) $(PROP_SETS) \
 $(CORE_DERIVED_PROP_TBLS) $(CORE_DERIVED_PROP_TBL_SETS) \
 $(STRINGPREP_TABLES) \
 database/case_folding.mar database/composition_exclusion.mar \
-database/age.mar \
-database/special_casing.mar database/scripts.mar database/allkeys.mar
+database/age.mar database/scripts.mar \
+database/special_casing.mar database/allkeys.mar
 
 unidata : $(DATABASE)
 $(DATABASE) : database
@@ -273,16 +257,16 @@ database :
 	mkdir -p database
 
 $(PROP_TBLS) : database/%.mar : $(UNIDATA_DIR)/PropList.txt tools/parse_uniset.$(OCAMLBEST)
-	grep $* $< | tools/parse_uniset.$(OCAMLBEST) database $*
+	$(FGREP) $* $< | tools/parse_uniset.$(OCAMLBEST) database $*
 
 $(PROP_SETS) : database/%_set.mar : $(UNIDATA_DIR)/PropList.txt tools/parse_uniset.$(OCAMLBEST)
-	grep $* $< | tools/parse_uniset.$(OCAMLBEST) database $*
+	$(FGREP) $* $< | tools/parse_uniset.$(OCAMLBEST) database $*
 
 $(CORE_DERIVED_PROP_TBLS) : database/%.mar : $(UNIDATA_DIR)/DerivedCoreProperties.txt tools/parse_uniset.$(OCAMLBEST)
-	grep $* $< | tools/parse_uniset.$(OCAMLBEST) database $*
+	$(FGREP) $* $< | tools/parse_uniset.$(OCAMLBEST) database $*
 
 $(CORE_DERIVED_PROP_SETS) : database/%_set.mar : $(UNIDATA_DIR)/DerivedCoreProperties.txt tools/parse_uniset.$(OCAMLBEST)
-	grep $* $< | tools/parse_uniset.$(OCAMLBEST) database $*
+	$(FGREP) $* $< | tools/parse_uniset.$(OCAMLBEST) database $*
 
 $(FROM_UNIDATA) : tools/parse_unidata.$(OCAMLBEST) $(UNIDATA_DIR)/UnicodeData.txt
 	tools/parse_unidata.$(OCAMLBEST) database < $(UNIDATA_DIR)/UnicodeData.txt
@@ -371,22 +355,16 @@ $(LOCALE_DATA) : locales/%.mar : database tools/camomilelocaledef.$(OCAMLBEST) l
 # Installation and export
 ###################################################################
 
-MLI = \
-public/xArray.mli public/oOChannel.mli \
-public/uChar.mli public/uSet.mli public/uMap.mli public/uCharTbl.mli \
-public/unicodeString.mli public/uText.mli public/xString.mli \
-public/subText.mli public/uLine.mli public/locale.mli \
-public/uCharInfo.mli public/uNF.mli \
-public/uCol.mli public/caseMap.mli public/uRe.mli public/uReStr.mli \
-public/charEncoding.mli public/uTF8.mli public/uTF16.mli public/uCS4.mli \
-public/uPervasives.mli public/main.mli public/default.mli
+MLI = camomileLibrary.mli camomileLibraryDefault.mli
 
-install: $(INSTALL) install-data install-bin
+install: $(INSTALL) install-data
 
 install-without-ocamlfind:
 	mkdir -p $(OCAMLLIB)
 	cp -f camomileLibrary.cmi '$(OCAMLLIB)'
+	cp -f camomileLibraryDefault.cmi '$(OCAMLLIB)'	
 	if [ -f camomileLibrary.cmx ]; then cp -f camomileLibrary.cmx '$(OCAMLLIB)'; fi
+	if [ -f camomileLibraryDefault.cmx ]; then cp -f camomileLibraryDefault.cmx '$(OCAMLLIB)'; fi
 	if [ -f camomile.cma ]; then cp -f camomile.cma '$(OCAMLLIB)'; fi
 	if [ -f camomile.cmxa ]; then cp -f camomile.cmxa '$(OCAMLLIB)'; fi
 	if [ -f camomile.a ]; then cp -f camomile.a '$(OCAMLLIB)'; fi
@@ -394,14 +372,11 @@ install-without-ocamlfind:
 install-with-ocamlfind:
 	files= &&\
 	if [ -f camomileLibrary.cmx ]; then files=camomileLibrary.cmx; fi && \
+	if [ -f camomileLibraryDefault.cmx ]; then files=camomileLibraryDefault.cmx; fi && \
 	if [ -f camomile.cma ]; then files="camomile.cma $$files"; fi&& \
 	if [ -f camomile.cmxa ]; then files="camomile.cmxa $$files"; fi&& \
 	if [ -f camomile.a ]; then files="camomile.a $$files"; fi && \
-	ocamlfind install camomile $$files META $(MLI) camomileLibrary.cmi
-
-install-bin:
-	cp -f tools/camomilecharmap.$(OCAMLBEST) '$(BINDIR)'
-	cp -f tools/camomilelocaledef.$(OCAMLBEST) '$(BINDIR)'
+	ocamlfind install camomile $$files META $(MLI) camomileLibrary.cmi camomileLibraryDefault.cmi
 
 install-data:
 	mkdir -p '$(DATADIR)'
@@ -415,20 +390,18 @@ install-data:
 	mkdir -p '$(DATADIR)'/camomile/locales
 	cp -f locales/*.mar '$(DATADIR)'/camomile/locales || true
 
-uninstall: $(UNINSTALL) uninstall-bin
+uninstall: $(UNINSTALL)
 
 uninstall-without-ocamlfind:
 	rm -f '$(OCAMLLIB)'/camomile.*
 	rm -f '$(OCAMLLIB)'/camomileLibrary.cmi
+	rm -f '$(OCAMLLIB)'/camomileLibraryDefault.cmi
 	rm -f '$(OCAMLLIB)'/camomileLibrary.cmx
+	rm -f '$(OCAMLLIB)'/camomileLibraryDefault.cmx
 
 uninstall-with-ocamlfind:
 	ocamlfind remove camomile
 	rm -fr '$(DATADIR)'/camomile
-
-uninstall-bin:
-	rm -f '$(BINDIR)'/camomilecharmap.*
-	rm -f '$(BINDIR)'/camomilelocaledef.*
 
 ###################################################################
 # Generic rules
@@ -473,12 +446,15 @@ $(PACKAGE)-$(VERSION).tar.bz2 : public/main.ml public/main.mli .depend configure
 	cp -p --parents \
 	README Changes META.in COPYING \
 	.depend Makefile.in configure configure.in configInt.mli \
+	camomileLibrary.mli camomioleLibrary.mlip \
+	camomileLibrary.ml camomioleLibrary.mlp \
+	camomileLibraryDefault.ml camomileLibraryDefault.mli \
 	$(CHARMAP_DATA:.mar=) \
 	locales/license.html locales/*.txt \
 	unidata/README unidata/*.txt unidata/*.html \
 	unidata/tr10/README unidata/tr10/*.txt \
 	internal/*.ml internal/*.ml[ily] \
-	public/*.ml public/*.mli public/main.mlp public/main.mlip \
+	public/*.ml public/*.mli\
 	mappings/*.ml \
 	toolslib/*.ml toolslib/*.ml[ily] \
 	tools/*.ml \
@@ -510,11 +486,11 @@ distclean : clean
 allclean : distclean
 	rm .depend
 	rm configure
-	rm public/main.ml public/main.mli
+	rm camomileLibrary.mli camomileLibrary.ml
 
 depend : .depend
 
-.depend : public/main.ml public/main.mli
+.depend : camomileLibrary.mli camomileLibrary.ml
 	$(OCAMLDEP) $(SUBDIR) *.ml *.mli \
 	internal/*.ml internal/*.mli \
 	public/*.ml public/*.mli \

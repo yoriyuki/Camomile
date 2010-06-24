@@ -1,5 +1,5 @@
 (* Tests for UCS4 *)
-open CamomileLibrary.Default.Camomile
+open CamomileLibraryDefault.Camomile
 open UPervasives
 open Blender
 open Printf

@@ -1,7 +1,7 @@
 (* $Id: test-uCol.ml,v 1.13 2006/08/13 21:23:08 yori Exp $ *)
 (* Copyright 2002,2003,2004,2005,2006 Yamagata Yoriyuki *)
 
-open CamomileLibrary.Default.Camomile
+open CamomileLibraryDefault.Camomile
 open UPervasives
 open Blender
 open Printf

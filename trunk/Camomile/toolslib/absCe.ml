@@ -1,8 +1,9 @@
 (* $Id: absCe.ml,v 1.26 2006/08/13 17:26:41 yori Exp $ *)
 (* Copyright 2003 Yamagata Yoriyuki *)
 
+module Info = UCharInfo.Make(Camomileconfig)
+
 open Toolslib
-open UCharInfo
 open UCol
 
 type elt =
@@ -238,13 +239,13 @@ let rec burst_aux x i a =
 let burst x = burst_aux x (XArray.length x - 1) []
 
 let logical_order_exception_tbl = 
-  UCharInfo.load_property_tbl `Logical_Order_Exception
+  Info.load_property_tbl `Logical_Order_Exception
 
 let is_logical_order_exception u = 
   UCharTbl.Bool.get logical_order_exception_tbl u
 
 let noncharacter_code_point_tbl = 
-  UCharInfo.load_property_tbl `Noncharacter_Code_Point
+  Info.load_property_tbl `Noncharacter_Code_Point
 
 let is_noncharacter_code_point u = 
   UCharTbl.Bool.get noncharacter_code_point_tbl u
@@ -313,7 +314,7 @@ let implicit_ce ceset cebuf u =
   let n = UChar.uint_code u in
   if 
     n < 0 || n > 0x10ffff || 
-    general_category u = `Cs || 
+    Info.general_category u = `Cs || 
     is_noncharacter_code_point u 
   then begin
     XArray.add_element cebuf (complete_ignorable ceset);
@@ -353,7 +354,7 @@ let rec match_us2 x i c' = function
   | (u :: rest) as us ->
       if i >= XString.length x then raise Exit else
       let u' = XString.get x i in
-      let c = combined_class u' in
+      let c = Info.combined_class u' in
       if c'= 0 || c = 0 || c' = c then raise Exit else
       if u = u' then i :: (match_us2 x (i + 1) c' rest) else
       match_us2 x (i + 1) c us
@@ -364,7 +365,7 @@ let rec match_us1 x i = function
       if i >= XString.length x then raise Exit else
       let u' = XString.get x i in
       if u = u' then match_us1 x (i + 1) rest else
-	let ps = match_us2 x (i + 1) (combined_class u') us in
+	let ps = match_us2 x (i + 1) (Info.combined_class u') us in
 	remove_chars x i ps
 
 let rec longest_match ce_buf x i = function
