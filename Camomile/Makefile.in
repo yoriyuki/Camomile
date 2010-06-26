@@ -301,19 +301,28 @@ database/age.mar database/age_map.mar : tools/parse_age.$(OCAMLBEST) $(UNIDATA_D
 # Create Unicode mapping tables
 ###############################
 
-# MAPPING_SOURCES = \
-# charmaps/GB2312 charmaps/EUC-JP charmaps/EUC-KR charmaps/EUC-TW\
-# charmaps/ISO-8859-7
-# MAPPINGS = \
-# mappings/cns11643.mar  mappings/jisx0201.mar  mappings/ksc5601.mar\
-# mappings/gb2312.mar    mappings/jisx0208.mar\
-# mappings/iso88597.mar  mappings/jisx0212.mar
+MAPPING_SOURCES = \
+	 charmaps/GB2312 charmaps/EUC-JP charmaps/EUC-KR charmaps/EUC-TW\
+	 charmaps/ISO-8859-7
 
-unimaps : mappings/gen_mappings.$(OCAMLBEST)
+MAPPINGS = \
+	mappings/cns11643.mar  mappings/jisx0201.mar  mappings/ksc5601.mar\
+	mappings/gb2312.mar    mappings/jisx0208.mar\
+	mappings/iso88597.mar  mappings/jisx0212.mar
+
+unimaps : $(MAPPINGS)
+
+$(MAPPINGS) : $(MAPPING_SOURCES) mappings/gen_mappings.$(OCAMLBEST)
 	cd mappings && ./gen_mappings.$(OCAMLBEST)
 
 # Compilation of charmap files
 ##############################
+
+# NF_Z_62-010_(1973) and WIN-SAMI-2 are defined in the files whose
+# names are different from the code names.  This cause unnessary
+# rebuild of NF_Z_62-010_(1973).mar and WIN-SAMI-2.mar.  However,
+# since charmap files are derived from outside sources, we let them as
+# they are.
 
 CHARMAP_DATA := $(patsubst charmaps/%,charmaps/%.mar, \
 	$(filter-out charmaps/CVS charmaps/%.mar, $(wildcard charmaps/*)))
