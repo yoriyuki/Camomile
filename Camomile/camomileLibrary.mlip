@@ -1,13 +1,16 @@
-(** Configuration Parametors *)
+(** Camomile's toplevel interface *)
 
+(** Type of configuration parametor *)
   module ConfigInt : sig
     #include "configInt.mli"
   end
 
+(** Default configuration *)
   module CamomileDefaultConfig : ConfigInt.Type
 
 
 (** Indivisual Modules *)
+
   module OOChannel : sig
     #include "oOChannel.mli"
     end
@@ -99,8 +102,6 @@
   module StringPrep : sig
     #include "stringPrep.mli"
   end
-
-(** All-in-one, configure once modules*)
 
 module type Type = sig
 
@@ -213,6 +214,7 @@ module type Type = sig
   end
 end
 
+(** All-in-one, configure once modules*)
 module Make (Config : ConfigInt.Type) : Type with
       module OOChannel = OOChannel and
       module UChar = UChar and

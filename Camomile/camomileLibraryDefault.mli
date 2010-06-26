@@ -13,4 +13,15 @@ module Camomile : CamomileLibrary.Type with
       module ULine = CamomileLibrary.ULine and
       module UTF8 = CamomileLibrary.UTF8 and
       module UTF16 = CamomileLibrary.UTF16 and
-      module UCS4 = CamomileLibrary.UCS4
+      module UCS4 = CamomileLibrary.UCS4 and
+      module UCharInfo = CamomileLibrary.UCharInfo.Make(
+	CamomileLibrary.CamomileDefaultConfig) and
+      module UNF.Make = CamomileLibrary.UNF.Make(
+	CamomileLibrary.CamomileDefaultConfig) and
+      module UCol.Make = CamomileLibrary.UCol.Make(
+	CamomileLibrary.CamomileDefaultConfig) and
+      module UReStr = CamomileLibrary.UReStr.Configure(
+	CamomileLibrary.CamomileDefaultConfig) and
+      module StringPrep.Make = CamomileLibrary.StringPrep.Make(
+	CamomileLibrary.CamomileDefaultConfig)
+      
