@@ -319,7 +319,7 @@ $(MAPPINGS) : $(MAPPING_SOURCES) mappings/gen_mappings.$(OCAMLBEST)
 ##############################
 
 # NF_Z_62-010_(1973) and WIN-SAMI-2 are defined in the files whose
-# names are different from the code names.  This cause unnessary
+# names are different from the code names.  This cause unnecessary
 # rebuild of NF_Z_62-010_(1973).mar and WIN-SAMI-2.mar.  However,
 # since charmap files are derived from outside sources, we let them as
 # they are.
