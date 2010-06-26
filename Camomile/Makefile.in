@@ -102,14 +102,14 @@ OBJECTS = $(OBJNOINI) $(OBJECTS_WITH_CONFIG)
 
 OPTOBJECTS= $(OBJECTS:.cmo=.cmx)
 
-SUBMLI= configInt.mli public/oOChannel.mli public/uChar.mli\
-	public/uSet.mli public/uMap.mli public/uCharTbl.mli\
-	public/unicodeString.mli public/uText.mli public/xString.mli\
-	public/subText.mli public/uLine.mli public/locale.mli\
-	public/uTF8.mli public/uTF16.mli public/uCS4.mli\
-	public/uPervasives.mli public/uRe.mli public/charEncoding.mli\
-	public/uCharInfo.mli public/uNF.mli public/uCol.mli\
-	public/caseMap.mli public/uReStr.mli public/stringPrep.mli\
+SUBMLI= configInt.mli public/oOChannel.mli public/uChar.mli \
+	public/uSet.mli public/uMap.mli public/uCharTbl.mli \
+	public/unicodeString.mli public/uText.mli public/xString.mli \
+	public/subText.mli public/uLine.mli public/locale.mli \
+	public/uTF8.mli public/uTF16.mli public/uCS4.mli \
+	public/uPervasives.mli public/uRe.mli public/charEncoding.mli \
+	public/uCharInfo.mli public/uNF.mli public/uCol.mli \
+	public/caseMap.mli public/uReStr.mli public/stringPrep.mli \
 
 internal/uReStrParser.cmo : internal/uReStrParser.cmi
 internal/uReStrParser.cmx : internal/uReStrParser.cmi
@@ -459,20 +459,21 @@ configure : configure.in
 
 DISTDIR = $(PACKAGE)-$(VERSION)
 
-$(PACKAGE)-$(VERSION).tar.bz2 : public/main.ml public/main.mli .depend configure
+$(PACKAGE)-$(VERSION).tar.bz2 : camomileLibrary.mli camomileLibrary.ml camomileLibraryDefault.ml camomileLibraryDefault.mli .depend configure
 	mkdir -p $(DISTDIR)
 	cp -p --parents \
 	README Changes META.in COPYING \
 	.depend Makefile.in configure configure.in configInt.mli \
-	camomileLibrary.mli camomioleLibrary.mlip \
-	camomileLibrary.ml camomioleLibrary.mlp \
+	camomileLibrary.mli camomileLibrary.mlip \
+	camomileLibrary.ml camomileLibrary.mlp \
 	camomileLibraryDefault.ml camomileLibraryDefault.mli \
 	$(CHARMAP_DATA:.mar=) \
 	locales/license.html locales/*.txt \
 	unidata/README unidata/*.txt unidata/*.html \
 	unidata/tr10/README unidata/tr10/*.txt \
+	unidata/stringprep/* \
 	internal/*.ml internal/*.ml[ily] \
-	public/*.ml public/*.mli\
+	public/*.ml public/*.mli \
 	mappings/*.ml \
 	toolslib/*.ml toolslib/*.ml[ily] \
 	tools/*.ml \
