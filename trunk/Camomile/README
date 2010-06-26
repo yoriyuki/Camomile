@@ -1,4 +1,4 @@
-Camomile 0.7.3 (beta):
+Camomile 0.8.0 (beta):
 
 This is a beta release of Camomile library package.  Camomile is a
 comprehensive Unicode library for ocaml.  Camomile provides Unicode
@@ -68,10 +68,7 @@ findlib and installed as a package named "camomile".  For either
 cases, data files are put under /usr/local/share/camomile by default.
 If you give the configure option as
 	$ ./configure --datadir=XXXX 
-data files are placed under XXXX/camomile.  Also, programs
-"camomilecharmap.(byte or opt)" and "camomilelocaledef.(byte or opt)"
-are installed to {bindir} (a directory specified by configure).
-Running commands with --help option display their usage.
+data files are placed under XXXX/camomile.
 
 You can uninstall the library by
 	$ sudo make uninstall
@@ -103,25 +100,26 @@ binary with Camomile on machines with different directory structures.
 "make install" automatically installs all data files into the default
 locations, which are specified by CamomileDefaultConfig module.  If
 you just wanted to use default configuration, you can use
-Default.Camomile module.  Default.Camomile module has *almost* same
-interface to Camomile 0.6.X
+CamomileLibraryDefault module.
 
 To configure individual module, you have to pass a module containing
 configuration values to Make or Configuration functor.  Or, you can
-use Main module which defines Main.Make functor.  Main.Make functor
-returns a module which contains all modules which are properly
-configured.  ConfigInt.Type module type specifies what values should
-be defined.
+CamomileLibrary.Make functor.  CamomileLibrary.Make functor returns a
+module which contains all modules which are properly configured.
+ConfigInt.Type module type specifies what values should be defined.
 
 2.3 Individual modules.
 
 See *.mli files.
 
-2.4 Migration from 0.6.X
+2.4 Migration from 0.7.X
 
-Replace all references to Camomile with
-CamomileLibrary.Default.Camomile.  CamomileLibrary.Default.Camomile
-have the *almost* same interface with the previous Camomile.
+If you are just using CamomileLibrary.Default.Camomile module, replace
+it with CamomileLibraryDefault.Camomile (no dot between
+CamomileLibrary and Default).
+
+If you are using CamomileLibrary.Main.Make, use CamomileLibrary.Make
+instead. 
 
 3. Development
 
@@ -129,11 +127,11 @@ You can checkout the development version of Camomile by the following
 command. 
     $ svn co https://camomile.svn.sourceforge.net/svnroot/camomile camomile  
 
-To build the development version of Camomile, you need autoconf and C
+To build the development version of Camomile, you need autoconf and cppo
 pre-processor.  Then, enter the working directory and do the
 following.
     $ autoconf
-    $ ./configure ...
+    $ ./configure --enabel-debug ...
     $ make
     $ sudo make install
 
@@ -145,5 +143,6 @@ You can contact the author by yori@sourceforge.net
 
 Peter Jolly provided CP932 conversion table.  Kawakami Shigenobu
 contributed findlib support.  Pierre Chambart contributed StringPrep
-module.  Many people contributed bug fixes.
+module.  Stanisław T. Findeisen pointed out the balancing bug of
+AVL-trees.  Many people contributed bug fixes.
 

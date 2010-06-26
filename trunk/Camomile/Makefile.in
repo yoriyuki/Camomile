@@ -102,6 +102,15 @@ OBJECTS = $(OBJNOINI) $(OBJECTS_WITH_CONFIG)
 
 OPTOBJECTS= $(OBJECTS:.cmo=.cmx)
 
+SUBMLI= configInt.mli public/oOChannel.mli public/uChar.mli\
+	public/uSet.mli public/uMap.mli public/uCharTbl.mli\
+	public/unicodeString.mli public/uText.mli public/xString.mli\
+	public/subText.mli public/uLine.mli public/locale.mli\
+	public/uTF8.mli public/uTF16.mli public/uCS4.mli\
+	public/uPervasives.mli public/uRe.mli public/charEncoding.mli\
+	public/uCharInfo.mli public/uNF.mli public/uCol.mli\
+	public/caseMap.mli public/uReStr.mli public/stringPrep.mli\
+
 internal/uReStrParser.cmo : internal/uReStrParser.cmi
 internal/uReStrParser.cmx : internal/uReStrParser.cmi
 
@@ -114,10 +123,10 @@ $(NOOBJ_INT:.cmi=.cmo) : %.cmo : %.mli %.cmi
 $(NOOBJ_INT:.cmi=.cmx) : %.cmx : %.mli %.cmi
 	$(OCAMLOPT) -c $(OFLAGS) -impl $<
 
-camomileLibrary.mli : camomileLibrary.mlip public/*.mli internal/*.mli
+camomileLibrary.mli : camomileLibrary.mlip $(SUBMLI)
 	$(CPPO) $(SUBDIR) -o camomileLibrary.mli camomileLibrary.mlip 
 
-camomileLibrary.ml : camomileLibrary.mlp public/*.mli internal/*.mli
+camomileLibrary.ml : camomileLibrary.mlp $(SUBMLI)
 	$(CPPO) $(SUBDIR) -o camomileLibrary.ml camomileLibrary.mlp 
 
 camomile.cma : $(OBJECTS) camomileLibrary.cmo camomileLibraryDefault.cmo
@@ -131,19 +140,19 @@ camomile.cmxa : $(OPTOBJECTS) camomileLibrary.cmx camomileLibraryDefault.cmx
 htdoc : dochtml
 dochtml : 
 	mkdir -p dochtml
-	$(OCAMLDOC) $(INCLUDES) -html -d dochtml public/*.mli
+	$(OCAMLDOC) $(INCLUDES) -html -d dochtml camomileLibrary.mli camomileLibraryDefault.mli
 
 doclatex :
 	mkdir -p doclatex
-	$(OCAMLDOC) $(INCLUDES) -latex -o doclatex/camomile.tex public/*.mli
+	$(OCAMLDOC) $(INCLUDES) -latex -o doclatex/camomile.tex camomileLibrary.mli camomileLibraryDefault.mli
 
 doctexi : 
 	mkdir -p doctexi
-	$(OCAMLDOC) $(INCLUDES) -texi -o doctexi/camomile.texi public/*.mli
+	$(OCAMLDOC) $(INCLUDES) -texi -o doctexi/camomile.texi camomileLibrary.mli camomileLibraryDefault.mli
 
 man : 
 	mkdir -p man
-	$(OCAMLDOC) $(INCLUDES) -man -d man public/*.mli
+	$(OCAMLDOC) $(INCLUDES) -man -d man camomileLibrary.mli camomileLibraryDefault.mli
 
 # Configuration File
 ############################
