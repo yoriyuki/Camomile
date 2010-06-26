@@ -226,4 +226,10 @@ module Make (Config : ConfigInt.Type) : Type with
       module ULine = ULine and
       module UTF8 = UTF8 and
       module UTF16 = UTF16 and
-      module UCS4 = UCS4
+      module UCS4 = UCS4 and
+      module UCharInfo = UCharInfo.Make(Config) and
+      module UNF.Make = UNF.Make(Config) and
+      module UCol.Make = UCol.Make(Config) and
+      module UReStr = UReStr.Configure(Config) and
+      module StringPrep.Make = StringPrep.Make(Config)
+      
