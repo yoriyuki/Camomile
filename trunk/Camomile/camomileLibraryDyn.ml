@@ -1,3 +1,3 @@
-module Config = CamomileDefaultConfig
+module Config = CamomileDynConfig
 
 module Camomile = CamomileLibrary.Make(Config)

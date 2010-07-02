@@ -76,8 +76,9 @@ let of_name name =
 	raise Not_found
     | Some x -> x
   with Not_found ->
+    (try Helpers.sanitize name with _ -> raise Not_found);
     let filename = Filename.concat Config.unimapdir (name^".mar") in
-    let c = try open_in_bin filename with Sys_error _ -> raise Not_found in
+    let c = try open_in_bin filename with _ -> raise Not_found in
     let map : t = input_value c in
     close_in c;
     let b = Weak.create 1 in

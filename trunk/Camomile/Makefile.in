@@ -76,14 +76,14 @@ public/unicodeString.cmi configInt.cmi internal/uReStrParserType.cmi
 
 #Modules without configuration
 OBJNOINI= \
-configInt.cmo camomileDefaultConfig.cmo\
+internal/helpers.cmo\
+camomileDefaultConfig.cmo camomileDynConfig.cmo\
 internal/bitsvect.cmo internal/bytesvect.cmo \
 internal/avlTree.cmo internal/iSet.cmo internal/iMap.cmo \
 internal/tbl31.cmo internal/byte_labeled_dag.cmo \
 internal/xArray.cmo public/oOChannel.cmo \
 public/uChar.cmo public/uSet.cmo \
 public/uMap.cmo public/uCharTbl.cmo \
-public/unicodeString.cmo \
 public/uText.cmo public/xString.cmo \
 public/subText.cmo public/uLine.cmo public/locale.cmo \
 internal/hangul.cmo internal/unidata.cmo \
@@ -94,11 +94,11 @@ public/uPervasives.cmo
 OBJECTS_WITH_CONFIG =\
 public/uCharInfo.cmo public/uNF.cmo public/uCol.cmo \
 public/caseMap.cmo public/uRe.cmo\
-internal/uReStrParserType.cmo\
 internal/uReStrParser.cmo internal/uReStrLexer.cmo public/uReStr.cmo\
 internal/stringPrep_data.cmo public/stringPrep.cmo
 
-OBJECTS = $(OBJNOINI) $(OBJECTS_WITH_CONFIG)
+OBJECTS = $(NOOBJ_INT:.cmi=.cmo) $(OBJNOINI) $(OBJECTS_WITH_CONFIG)
+
 
 OPTOBJECTS= $(OBJECTS:.cmo=.cmx)
 
@@ -114,8 +114,8 @@ SUBMLI= configInt.mli public/oOChannel.mli public/uChar.mli \
 internal/uReStrParser.cmo : internal/uReStrParser.cmi
 internal/uReStrParser.cmx : internal/uReStrParser.cmi
 
-byte : camomile.cma
-opt : camomile.cmxa
+byte : camomile.cma camomileLibrary.cma
+opt : camomile.cmxa camomileLibrary.cmxa
 
 $(NOOBJ_INT:.cmi=.cmo) : %.cmo : %.mli %.cmi
 	$(OCAMLC) -c $(BFLAGS) -impl $<
@@ -129,10 +129,15 @@ camomileLibrary.mli : camomileLibrary.mlip $(SUBMLI)
 camomileLibrary.ml : camomileLibrary.mlp $(SUBMLI)
 	$(CPPO) $(SUBDIR) -o camomileLibrary.ml camomileLibrary.mlp 
 
-camomile.cma : $(OBJECTS) camomileLibrary.cmo camomileLibraryDefault.cmo
-	$(OCAMLC) -a -o camomile.cma $(OBJECTS) camomileLibrary.cmo camomileLibraryDefault.cmo
-camomile.cmxa : $(OPTOBJECTS) camomileLibrary.cmx camomileLibraryDefault.cmx
-	$(OCAMLOPT) -a -o camomile.cmxa $(OPTOBJECTS) camomileLibrary.cmx camomileLibraryDefault.cmx
+camomile.cma : $(OBJECTS) camomileLibrary.cmo camomileLibraryDefault.cmo camomileLibraryDyn.cmo
+	$(OCAMLC) -a -o camomile.cma $(OBJECTS) camomileLibrary.cmo camomileLibraryDefault.cmo camomileLibraryDyn.cmo
+camomile.cmxa : $(OPTOBJECTS) camomileLibrary.cmx camomileLibraryDefault.cmx camomileLibraryDyn.cmx
+	$(OCAMLOPT) -a -o camomile.cmxa $(OPTOBJECTS) camomileLibrary.cmx camomileLibraryDefault.cmx camomileLibraryDyn.cmx
+
+camomileLibrary.cma : $(OBJECTS) camomileLibrary.cmo
+	$(OCAMLC) -a -o camomileLibrary.cma $(OBJECTS) camomileLibrary.cmo
+camomileLibrary.cmxa : $(OPTOBJECTS) camomileLibrary.cmx
+	$(OCAMLOPT) -a -o camomileLibrary.cmxa $(OPTOBJECTS) camomileLibrary.cmx
 
 # Documentation
 .PHONY : dochtml doclatex doctexi man
@@ -140,19 +145,19 @@ camomile.cmxa : $(OPTOBJECTS) camomileLibrary.cmx camomileLibraryDefault.cmx
 htdoc : dochtml
 dochtml : 
 	mkdir -p dochtml
-	$(OCAMLDOC) $(INCLUDES) -html -d dochtml camomileLibrary.mli camomileLibraryDefault.mli
+	$(OCAMLDOC) $(INCLUDES) -html -d dochtml camomileLibrary.mli camomileLibraryDefault.mli camomileLibraryDyn.mli
 
 doclatex :
 	mkdir -p doclatex
-	$(OCAMLDOC) $(INCLUDES) -latex -o doclatex/camomile.tex camomileLibrary.mli camomileLibraryDefault.mli
+	$(OCAMLDOC) $(INCLUDES) -latex -o doclatex/camomile.tex camomileLibrary.mli camomileLibraryDefault.mli camomileLibraryDyn.mli
 
 doctexi : 
 	mkdir -p doctexi
-	$(OCAMLDOC) $(INCLUDES) -texi -o doctexi/camomile.texi camomileLibrary.mli camomileLibraryDefault.mli
+	$(OCAMLDOC) $(INCLUDES) -texi -o doctexi/camomile.texi camomileLibrary.mli camomileLibraryDefault.mli camomileLibraryDyn.mli
 
 man : 
 	mkdir -p man
-	$(OCAMLDOC) $(INCLUDES) -man -d man camomileLibrary.mli camomileLibraryDefault.mli
+	$(OCAMLDOC) $(INCLUDES) -man -d man camomileLibrary.mli camomileLibraryDefault.mli camomileLibraryDyn.mli
 
 # Configuration File
 ############################
@@ -373,7 +378,7 @@ $(LOCALE_DATA) : locales/%.mar : database tools/camomilelocaledef.$(OCAMLBEST) l
 # Installation and export
 ###################################################################
 
-MLI = camomileLibrary.mli camomileLibraryDefault.mli
+MLI = camomileLibrary.mli camomileLibraryDefault.mli camomileLibraryDyn.mli
 
 install: $(INSTALL) install-data
 
@@ -381,8 +386,12 @@ install-without-ocamlfind:
 	mkdir -p $(OCAMLLIB)
 	cp -f camomileLibrary.cmi '$(OCAMLLIB)'
 	cp -f camomileLibraryDefault.cmi '$(OCAMLLIB)'	
+	cp -f camomileLibraryDyn.cmi '$(OCAMLLIB)'	
 	if [ -f camomileLibrary.cmx ]; then cp -f camomileLibrary.cmx '$(OCAMLLIB)'; fi
+	if [ -f camomileLibrary.cma ]; then cp -f camomileLibrary.cma '$(OCAMLLIB)'; fi
+	if [ -f camomileLibrary.cmxa ]; then cp -f camomileLibrary.cmxa '$(OCAMLLIB)'; fi
 	if [ -f camomileLibraryDefault.cmx ]; then cp -f camomileLibraryDefault.cmx '$(OCAMLLIB)'; fi
+	if [ -f camomileLibraryDyn.cmx ]; then cp -f camomileLibraryDyn.cmx '$(OCAMLLIB)'; fi
 	if [ -f camomile.cma ]; then cp -f camomile.cma '$(OCAMLLIB)'; fi
 	if [ -f camomile.cmxa ]; then cp -f camomile.cmxa '$(OCAMLLIB)'; fi
 	if [ -f camomile.a ]; then cp -f camomile.a '$(OCAMLLIB)'; fi
@@ -390,11 +399,14 @@ install-without-ocamlfind:
 install-with-ocamlfind:
 	files= &&\
 	if [ -f camomileLibrary.cmx ]; then files=camomileLibrary.cmx; fi && \
-	if [ -f camomileLibraryDefault.cmx ]; then files=camomileLibraryDefault.cmx; fi && \
+	if [ -f camomileLibrary.cma ]; then files="camomileLibrary.cma $$files"; fi && \
+	if [ -f camomileLibrary.cmxa ]; then files="camomileLibrary.cmxa $$files"; fi && \
+	if [ -f camomileLibraryDefault.cmx ]; then files="camomileLibraryDefault.cmx $$files"; fi && \
+	if [ -f camomileLibraryDyn.cmx ]; then files="camomileLibraryDyn.cmx $$files"; fi && \
 	if [ -f camomile.cma ]; then files="camomile.cma $$files"; fi&& \
 	if [ -f camomile.cmxa ]; then files="camomile.cmxa $$files"; fi&& \
 	if [ -f camomile.a ]; then files="camomile.a $$files"; fi && \
-	ocamlfind install camomile $$files META $(MLI) camomileLibrary.cmi camomileLibraryDefault.cmi
+	ocamlfind install camomile $$files META $(MLI) camomileLibrary.cmi camomileLibraryDefault.cmi camomileLibraryDyn.cmi
 
 install-data:
 	mkdir -p '$(DATADIR)'
@@ -412,10 +424,9 @@ uninstall: $(UNINSTALL)
 
 uninstall-without-ocamlfind:
 	rm -f '$(OCAMLLIB)'/camomile.*
-	rm -f '$(OCAMLLIB)'/camomileLibrary.cmi
-	rm -f '$(OCAMLLIB)'/camomileLibraryDefault.cmi
-	rm -f '$(OCAMLLIB)'/camomileLibrary.cmx
-	rm -f '$(OCAMLLIB)'/camomileLibraryDefault.cmx
+	rm -f '$(OCAMLLIB)'/camomileLibrary.*
+	rm -f '$(OCAMLLIB)'/camomileLibraryDefault.*
+	rm -f '$(OCAMLLIB)'/camomileLibraryDyn.*
 
 uninstall-with-ocamlfind:
 	ocamlfind remove camomile
@@ -459,7 +470,7 @@ configure : configure.in
 
 DISTDIR = $(PACKAGE)-$(VERSION)
 
-$(PACKAGE)-$(VERSION).tar.bz2 : camomileLibrary.mli camomileLibrary.ml camomileLibraryDefault.ml camomileLibraryDefault.mli .depend configure
+$(PACKAGE)-$(VERSION).tar.bz2 : camomileLibrary.mli camomileLibrary.ml .depend configure
 	mkdir -p $(DISTDIR)
 	cp -p --parents \
 	README Changes META.in COPYING \
@@ -467,6 +478,7 @@ $(PACKAGE)-$(VERSION).tar.bz2 : camomileLibrary.mli camomileLibrary.ml camomileL
 	camomileLibrary.mli camomileLibrary.mlip \
 	camomileLibrary.ml camomileLibrary.mlp \
 	camomileLibraryDefault.ml camomileLibraryDefault.mli \
+	camomileLibraryDyn.ml camomileLibraryDyn.mli \
 	$(CHARMAP_DATA:.mar=) \
 	locales/license.html locales/*.txt \
 	unidata/README unidata/*.txt unidata/*.html \
@@ -509,7 +521,9 @@ allclean : distclean
 
 depend : .depend
 
-.depend : camomileLibrary.mli camomileLibrary.ml
+.depend : camomileLibrary.mli camomileLibrary.ml *.ml *.mli internal/*.ml \
+	internal/*.mli public/*.ml public/*.mli mappings/*.ml \
+	toolslib/*.ml toolslib/*.mli $(TOOLS:.byte=.ml)
 	$(OCAMLDEP) $(SUBDIR) *.ml *.mli \
 	internal/*.ml internal/*.mli \
 	public/*.ml public/*.mli \

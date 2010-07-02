@@ -3,7 +3,7 @@
 
 open Printf
 open Blender
-open CamomileLibraryDefault.Camomile
+open CamomileLibraryDyn.Camomile
 open UPervasives
 
 let random_pair () = 
