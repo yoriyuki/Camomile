@@ -1,5 +1,5 @@
 (* Tests for UTF8 *)
-open CamomileLibraryDefault.Camomile
+open CamomileLibraryDyn.Camomile
 open UPervasives
 open Blender
 open Printf

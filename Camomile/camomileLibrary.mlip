@@ -5,11 +5,7 @@
     #include "configInt.mli"
   end
 
-(** Default configuration *)
-  module CamomileDefaultConfig : ConfigInt.Type
-
-
-(** Indivisual Modules *)
+(** Indivisual modules *)
 
   module OOChannel : sig
     #include "oOChannel.mli"
@@ -226,12 +222,17 @@ module Make (Config : ConfigInt.Type) : Type with
       module XString = XString and
       module SubText = SubText and
       module ULine = ULine and
+      module Locale = Locale and
+      module CharEncoding = CharEncoding.Configure(Config) and
       module UTF8 = UTF8 and
       module UTF16 = UTF16 and
       module UCS4 = UCS4 and
+      module UPervasives = UPervasives and
+      module URe = URe and
       module UCharInfo = UCharInfo.Make(Config) and
       module UNF.Make = UNF.Make(Config) and
       module UCol.Make = UCol.Make(Config) and
+      module CaseMap.Make = CaseMap.Make(Config) and
       module UReStr = UReStr.Configure(Config) and
       module StringPrep.Make = StringPrep.Make(Config)
       

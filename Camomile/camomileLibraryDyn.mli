@@ -4,7 +4,7 @@ open CamomileLibrary
 
 module Config : ConfigInt.Type
 
-module Camomile : Type with
+module Camomile : CamomileLibrary.Type with
       module OOChannel = OOChannel and
       module UChar = UChar and
       module USet = USet and

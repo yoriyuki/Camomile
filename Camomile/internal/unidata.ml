@@ -146,12 +146,14 @@ end
 module Make (Config : ConfigInt.Type) = struct
 
 let read_data ?datadir name =
+  (try Helpers.sanitize name with _ -> raise Not_found);
   let datadir =
     match datadir with
       Some d -> d
     | None -> Config.datadir in
-  let file = Filename.concat datadir (name ^ ".mar") in
-  let c = open_in_bin file in
+  let filename = Filename.concat datadir (name ^ ".mar") 
+  in
+  let c = try open_in_bin filename with _ -> raise Not_found in
   let v = input_value c in
   close_in c;
   v

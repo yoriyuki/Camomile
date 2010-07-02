@@ -3,7 +3,7 @@
 
 open Printf
 open Blender
-open CamomileLibraryDefault.Camomile
+open CamomileLibraryDyn.Camomile
 
 module UTF8Casing = CaseMap.Make (UTF8)
 

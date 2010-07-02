@@ -1,5 +1,5 @@
 (* Tests for UReStr *)
-open CamomileLibraryDefault.Camomile
+open CamomileLibraryDyn.Camomile
 open Blender
 open Printf
 
