@@ -3,7 +3,9 @@ From 0.7.3 to 0.8.0
 * Reorganize the module structure : Make CamomileLibrary.Default to
   the new top-level module CamomileLibraryDefault, so that linking
   CamomileLibrary does not automatically cause to load the data files
-  from hard-coded location.
+  from hard-coded location.  Also, adding new CamomileLibraryDyn
+  module, which is configured by environmental variables (See
+  camomileDynConfig.mli).
 
 * StringPrep module:  String preparation according to RFC3454,
   contributed by Pierre Chambart.

@@ -6,9 +6,8 @@ character type, UTF-8, UTF-16, UTF-32 strings, conversion to/from
 about 200 encodings, collation and locale-sensitive case mappings, and
 more.
 
-Copyright 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010 Yamagata
-Yoriyuki
-2010 Pierre Chambart
+Copyright 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010 Yoriyuki
+Yamagata 
 
 This library is free software; you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as
@@ -38,6 +37,14 @@ The GNU Lesser General Public License (LGPL) is contained in the file COPYING.
 
 The following files are authored by different persons.  For their
 licenses, see the relevant notice of each file or directory.
+
+camomileDynConfig.ml* : Sylvain Le Gall
+	Licensed by LGPL	      
+
+internal/stringPrep_data.ml*, public/stringPrep.ml*,
+tools/camomilestringprep.ml parse_age.ml, many changes to Makefile.in
+public/uCharInfo.ml* : Pierre Chambart
+	Licensed by LGPL
 
 configure.in Makefile.in : Jean-Christophe FILLIATRE
 	Licensed by LGPL
@@ -88,29 +95,44 @@ must be /, not \.
 
 2.1 Packing
 
-All module are packed to CamomileLibrary module, i.e. have names as
-CamomileLibrary.<module name>.
+"camomile.cma" contains three top-level modules CamomileLibrary,
+CamomileLibraryDefault, CamomileLibraryDyn.  Difference of three
+modules is explained below.
+
+"camomileLibrary.cma" contains CamomileLibrary alone.
+"camomileLibrary.cma" is useful if you want to dynamically load
+Camomile, since loading CamomileLibraryDefault, CamomileLibraryDyn
+causes side effects such as loading data files which could fail.
 
 2.2 Configuration
 
-You can specify the location of data files used by camomile.  This
-functionality is useful, for example, if you plan to use compiled
-binary with Camomile on machines with different directory structures.
+Camomile requires runtime configuration.  Currently, you have to pass
+the location of data files to Camomile.  In the future, more
+configuration variables would be required.
 
-"make install" automatically installs all data files into the default
-locations, which are specified by CamomileDefaultConfig module.  If
-you just wanted to use default configuration, you can use
-CamomileLibraryDefault module.
+Camomile's idea of configuration is "configuration by functors".
+Modules which require configuration become functors parametrized by a
+module which contains configuration variables.
+CamomileLibrary.ConfigInt.Type specifies the module type of
+configuration parameters.  You can pass the configuration module to
+individual modules' Make (as UCol.Make) or Configure functors (as
+CharEncoding.Configure), or pass it to the whole-in-one functor
+CamomileLibrary.Make and obtain configured modules.
 
-To configure individual module, you have to pass a module containing
-configuration values to Make or Configuration functor.  Or, you can
-CamomileLibrary.Make functor.  CamomileLibrary.Make functor returns a
-module which contains all modules which are properly configured.
-ConfigInt.Type module type specifies what values should be defined.
+Camomile provides two top-level modules CamomileLibraryDefault and
+which contains modules already configured.  CamomileLibraryDefault is
+configured by default values determined by configure.  Therefore it is
+suitable to use if you are using Camomile locally installed from the
+source.  CamomileLibraryDyn is configured at runtime using
+environmental variables.  Therefore it is suitable to use if you plan
+to relocate data files.  Note that data files are just results of
+output_value, and loaded by input_value without *Any Check of Their
+Validity*.  Therefore, you should not use CamomileLibraryDyn if
+a malicious user can change the values of environmental variables.
 
 2.3 Individual modules.
 
-See *.mli files.
+See CamomileLibrary.mli file.  Also see camomileDynConfig.mli.
 
 2.4 Migration from 0.7.X
 
@@ -131,7 +153,7 @@ To build the development version of Camomile, you need autoconf and cppo
 pre-processor.  Then, enter the working directory and do the
 following.
     $ autoconf
-    $ ./configure --enabel-debug ...
+    $ ./configure --enable-debug ...
     $ make
     $ sudo make install
 
@@ -144,5 +166,8 @@ You can contact the author by yori@sourceforge.net
 Peter Jolly provided CP932 conversion table.  Kawakami Shigenobu
 contributed findlib support.  Pierre Chambart contributed StringPrep
 module.  Stanisław T. Findeisen pointed out the balancing bug of
-AVL-trees.  Many people contributed bug fixes.
+AVL-trees.  Sylvain Le Gall provided dynamic configuration module
+ConfigDyn.ml.
+
+Many people contributed bug fixes.
 
