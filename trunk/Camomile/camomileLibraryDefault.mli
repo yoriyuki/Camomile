@@ -1,4 +1,4 @@
-(** modules with default configuration.  Almost compatible to Camomile 0.6.x *)
+(** modules with default configuration. *)
 
 open CamomileLibrary
 
