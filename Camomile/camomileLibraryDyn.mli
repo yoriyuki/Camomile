@@ -1,7 +1,18 @@
-(** modules with default configuration.  Almost compatible to Camomile 0.6.x *)
+(* Copyright 2010, Sylvain Le Gal, Yamagata Yoriyuki, distributed with LGPL *)
+(** modules configured by environmental variables.  *)
 
 open CamomileLibrary
 
+(** Configuration by environmental variables.  This module searchs the*)
+(** locations given by environmental variables, and returns "likely"*)
+(** location of them.  You can specifies the*)
+(** root directory of all camomile datafiles by CAMOMILE_DIR. You can*)
+(** set CAMOMILE_DATADIR if you put contents of "database" to the*)
+(** dirctory other than $CAMOMILE_DIR/database.  In the same way, you*)
+(** can specify the location of charmap files by CAMOMILE_CHARMAPDIR,*)
+(** the location of mappings used in the same East Asian codeing by*)
+(** CAMOILE_UNIMAPDIR, and the location of locale data by*)
+(** CAMOMILE_LOCALEDIR.  *) 
 module Config : ConfigInt.Type
 
 module Camomile : CamomileLibrary.Type with
