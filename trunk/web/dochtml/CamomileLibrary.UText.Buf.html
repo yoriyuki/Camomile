@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="Up" href="CamomileLibrary.UText.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of classes" rel=Appendix href="index_classes.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="CamomileLibrary" rel="Chapter" href="CamomileLibrary.html">
+<link title="CamomileLibraryDefault" rel="Chapter" href="CamomileLibraryDefault.html">
+<link title="CamomileLibraryDyn" rel="Chapter" href="CamomileLibraryDyn.html"><title>CamomileLibrary.UText.Buf</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="CamomileLibrary.UText.html">Up</a>
+&nbsp;</div>
+<center><h1>Module <a href="type_CamomileLibrary.UText.Buf.html">CamomileLibrary.UText.Buf</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> Buf: <code class="code">sig</code> <a href="CamomileLibrary.UText.Buf.html">..</a> <code class="code">end</code></pre><hr width="100%">
+<pre><span class="keyword">type</span> <a name="TYPEbuf"></a><code class="type"></code>buf </pre>
+
+<pre><span class="keyword">val</span> <a name="VALcreate"></a>create : <code class="type">int -> <a href="CamomileLibrary.UText.Buf.html#TYPEbuf">buf</a></code></pre><div class="info">
+<code class="code">create n</code> creates the buffer which initially can contain
+   <code class="code">n</code> Unicode characters.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALcontents"></a>contents : <code class="type"><a href="CamomileLibrary.UText.Buf.html#TYPEbuf">buf</a> -> <a href="CamomileLibrary.UText.html#TYPEt">CamomileLibrary.UText.t</a></code></pre><pre><span class="keyword">val</span> <a name="VALcontents_string"></a>contents_string : <code class="type"><a href="CamomileLibrary.UText.Buf.html#TYPEbuf">buf</a> -> <a href="CamomileLibrary.UText.html#TYPEustring">CamomileLibrary.UText.ustring</a></code></pre><pre><span class="keyword">val</span> <a name="VALlength"></a>length : <code class="type"><a href="CamomileLibrary.UText.Buf.html#TYPEbuf">buf</a> -> int</code></pre><pre><span class="keyword">val</span> <a name="VALclear"></a>clear : <code class="type"><a href="CamomileLibrary.UText.Buf.html#TYPEbuf">buf</a> -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALreset"></a>reset : <code class="type"><a href="CamomileLibrary.UText.Buf.html#TYPEbuf">buf</a> -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALadd_char"></a>add_char : <code class="type"><a href="CamomileLibrary.UText.Buf.html#TYPEbuf">buf</a> -> <a href="CamomileLibrary.UChar.html#TYPEt">CamomileLibrary.UChar.t</a> -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALadd_string"></a>add_string : <code class="type"><a href="CamomileLibrary.UText.Buf.html#TYPEbuf">buf</a> -> 'a <a href="CamomileLibrary.UText.html#TYPEtext">CamomileLibrary.UText.text</a> -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALadd_buffer"></a>add_buffer : <code class="type"><a href="CamomileLibrary.UText.Buf.html#TYPEbuf">buf</a> -> <a href="CamomileLibrary.UText.Buf.html#TYPEbuf">buf</a> -> unit</code></pre></body></html>

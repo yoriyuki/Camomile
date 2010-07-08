@@ -1,0 +1,51 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of classes" rel=Appendix href="index_classes.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="CamomileLibrary" rel="Chapter" href="CamomileLibrary.html">
+<link title="CamomileLibraryDefault" rel="Chapter" href="CamomileLibraryDefault.html">
+<link title="CamomileLibraryDyn" rel="Chapter" href="CamomileLibraryDyn.html"><title>CamomileLibrary.ULine</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;separator&nbsp;=&nbsp;[&nbsp;<span class="keywordsign">`</span><span class="constructor">CR</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">CRLF</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">LF</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">LS</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">NEL</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">PS</span>&nbsp;]<br>
+&nbsp;&nbsp;<span class="keyword">class</span>&nbsp;input&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">CamomileLibrary</span>.<span class="constructor">ULine</span>.separator&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">CamomileLibrary</span>.<span class="constructor">UChar</span>.t&nbsp;<span class="keywordsign">#</span><span class="constructor">CamomileLibrary</span>.<span class="constructor">OOChannel</span>.obj_input_channel&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;[<span class="constructor">CamomileLibrary</span>.<span class="constructor">UChar</span>.t]&nbsp;<span class="constructor">OOChannel</span>.obj_input_channel<br>
+&nbsp;&nbsp;<span class="keyword">class</span>&nbsp;output&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">CamomileLibrary</span>.<span class="constructor">ULine</span>.separator&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">CamomileLibrary</span>.<span class="constructor">UChar</span>.t&nbsp;<span class="keywordsign">#</span><span class="constructor">CamomileLibrary</span>.<span class="constructor">OOChannel</span>.obj_output_channel&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;[<span class="constructor">CamomileLibrary</span>.<span class="constructor">UChar</span>.t]&nbsp;<span class="constructor">OOChannel</span>.obj_output_channel<br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="keyword">type</span>&nbsp;<span class="constructor">Type</span>&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">sig</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;text<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">class</span>&nbsp;input_line&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">CamomileLibrary</span>.<span class="constructor">UChar</span>.t&nbsp;<span class="keywordsign">#</span><span class="constructor">CamomileLibrary</span>.<span class="constructor">OOChannel</span>.obj_input_channel&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<span class="constructor">CamomileLibrary</span>.<span class="constructor">ULine</span>.<span class="constructor">Type</span>.text]&nbsp;<span class="constructor">OOChannel</span>.obj_input_channel<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">class</span>&nbsp;output_line&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?sp:<span class="constructor">CamomileLibrary</span>.<span class="constructor">ULine</span>.separator&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">CamomileLibrary</span>.<span class="constructor">UChar</span>.t&nbsp;<span class="keywordsign">#</span><span class="constructor">CamomileLibrary</span>.<span class="constructor">OOChannel</span>.obj_output_channel&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<span class="constructor">CamomileLibrary</span>.<span class="constructor">ULine</span>.<span class="constructor">Type</span>.text]&nbsp;<span class="constructor">OOChannel</span>.obj_output_channel<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Make</span>&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">functor</span>&nbsp;(<span class="constructor">Text</span>&nbsp;:&nbsp;<span class="constructor">UnicodeString</span>.<span class="constructor">Type</span>)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">sig</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;text&nbsp;=&nbsp;<span class="constructor">Text</span>.t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">class</span>&nbsp;input_line&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">UChar</span>.t&nbsp;<span class="keywordsign">#</span><span class="constructor">OOChannel</span>.obj_input_channel&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[text]&nbsp;<span class="constructor">OOChannel</span>.obj_input_channel<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">class</span>&nbsp;output_line&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?sp:separator&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">UChar</span>.t&nbsp;<span class="keywordsign">#</span><span class="constructor">OOChannel</span>.obj_output_channel&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[text]&nbsp;<span class="constructor">OOChannel</span>.obj_output_channel<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+<span class="keyword">end</span></code></body></html>
