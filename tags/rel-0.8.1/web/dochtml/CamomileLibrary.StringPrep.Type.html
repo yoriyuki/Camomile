@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="Up" href="CamomileLibrary.StringPrep.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of classes" rel=Appendix href="index_classes.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="CamomileLibrary" rel="Chapter" href="CamomileLibrary.html">
+<link title="CamomileLibraryDefault" rel="Chapter" href="CamomileLibraryDefault.html">
+<link title="CamomileLibraryDyn" rel="Chapter" href="CamomileLibraryDyn.html"><title>CamomileLibrary.StringPrep.Type</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="CamomileLibrary.StringPrep.html">Up</a>
+&nbsp;</div>
+<center><h1>Module type <a href="type_CamomileLibrary.StringPrep.Type.html">CamomileLibrary.StringPrep.Type</a></h1></center>
+<br>
+<pre><span class="keyword">module type</span> Type = <code class="code">sig</code> <a href="CamomileLibrary.StringPrep.Type.html">..</a> <code class="code">end</code></pre><hr width="100%">
+<pre><span class="keyword">type</span> <a name="TYPEtext"></a><code class="type"></code>text </pre>
+
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONProhibited"></a>Prohibited <span class="keyword">of</span> <code class="type"><a href="CamomileLibrary.UChar.html#TYPEt">CamomileLibrary.UChar.t</a></code></pre>
+<pre><span class="keyword">exception</span> <a name="EXCEPTIONBad_bidi"></a>Bad_bidi</pre>
+<pre><span class="keyword">type</span> <a name="TYPEprofile"></a><code class="type"></code>profile = <code class="type">[ `Iscsi | `Mib | `Nameprep | `Nodeprep | `Resourceprep | `Saslprep | `Trace ]</code> </pre>
+
+<pre><span class="keyword">val</span> <a name="VALstringprep"></a>stringprep : <code class="type"><a href="CamomileLibrary.StringPrep.Type.html#TYPEprofile">profile</a> -><br>       <a href="CamomileLibrary.StringPrep.Type.html#TYPEtext">text</a> -> <a href="CamomileLibrary.StringPrep.Type.html#TYPEtext">text</a></code></pre></body></html>
