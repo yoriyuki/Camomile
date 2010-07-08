@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="CamomileLibraryDefault.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of classes" rel=Appendix href="index_classes.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="CamomileLibrary" rel="Chapter" href="CamomileLibrary.html">
+<link title="CamomileLibraryDefault" rel="Chapter" href="CamomileLibraryDefault.html">
+<link title="CamomileLibraryDyn" rel="Chapter" href="CamomileLibraryDyn.html"><title>CamomileLibraryDyn</title>
+</head>
+<body>
+<div class="navbar"><a href="CamomileLibraryDefault.html">Previous</a>
+&nbsp;<a href="index.html">Up</a>
+&nbsp;</div>
+<center><h1>Module <a href="type_CamomileLibraryDyn.html">CamomileLibraryDyn</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> CamomileLibraryDyn: <code class="code">sig</code> <a href="CamomileLibraryDyn.html">..</a> <code class="code">end</code></pre>modules configured by environmental variables.<br>
+<hr width="100%">
+<br>
+Configuration by environmental variables.  This module searchs the<br>
+<br>
+locations given by environmental variables, and returns "likely"<br>
+<br>
+location of them.  You can specifies the<br>
+<br>
+root directory of all camomile datafiles by CAMOMILE_DIR. You can<br>
+<br>
+set CAMOMILE_DATADIR if you put contents of "database" to the<br>
+<br>
+dirctory other than $CAMOMILE_DIR/database.  In the same way, you<br>
+<br>
+can specify the location of charmap files by CAMOMILE_CHARMAPDIR,<br>
+<br>
+the location of mappings used in the same East Asian codeing by<br>
+<br>
+CAMOILE_UNIMAPDIR, and the location of locale data by<br>
+<pre><span class="keyword">module</span> <a href="CamomileLibraryDyn.Config.html">Config</a>: <code class="type"><a href="CamomileLibrary.ConfigInt.Type.html">CamomileLibrary.ConfigInt.Type</a></code><code class="type"> </code></pre><div class="info">
+CAMOMILE_LOCALEDIR.
+</div>
+<pre><span class="keyword">module</span> <a href="CamomileLibraryDyn.Camomile.html">Camomile</a>: <code class="type"><a href="CamomileLibrary.Type.html">CamomileLibrary.Type</a></code><code class="type">  with
+      module OOChannel = OOChannel and
+      module UChar = UChar and
+      module USet = USet and
+      module UMap = UMap and
+      module UCharTbl = UCharTbl and
+      module UnicodeString = UnicodeString and
+      module UText = UText and
+      module XString = XString and
+      module SubText = SubText and
+      module ULine = ULine and
+      module Locale = Locale and
+      module CharEncoding = CharEncoding.Configure(Config) and
+      module UTF8 = UTF8 and
+      module UTF16 = UTF16 and
+      module UCS4 = UCS4 and
+      module UPervasives = UPervasives and
+      module URe = URe and
+      module UCharInfo = UCharInfo.Make(Config) and
+      module UNF.Make = UNF.Make(Config) and
+      module UCol.Make = UCol.Make(Config) and
+      module CaseMap.Make = CaseMap.Make(Config) and
+      module UReStr = UReStr.Configure(Config) and
+      module StringPrep.Make = StringPrep.Make(Config)</code></pre></body></html>
