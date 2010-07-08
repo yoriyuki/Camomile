@@ -1,5 +1,5 @@
 Package: godi-camomile
-Version: 0.8.0
+Version: 0.8.1
 Revision: 0
 Depends: godi-ocaml (>= 3.07)
 Build-Depends: godi-findlib (>= 1.0.0)

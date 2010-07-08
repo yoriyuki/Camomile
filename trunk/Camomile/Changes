@@ -1,3 +1,8 @@
+From 0.8.0 to 0.8.1
+
+* Bugs affecting UMap.remove and USet.fold_range are fixed.  (Pointed
+  out by Chris Kuklewicz.)
+
 From 0.7.3 to 0.8.0
 
 * Reorganize the module structure : Make CamomileLibrary.Default to
