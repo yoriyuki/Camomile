@@ -1,0 +1,64 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="Start" href="index.html">
+<link rel="previous" href="UPervasives.html">
+<link rel="next" href="UReStr.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of classes" rel=Appendix href="index_classes.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="CaseMap" rel="Chapter" href="CaseMap.html">
+<link title="CharEncoding" rel="Chapter" href="CharEncoding.html">
+<link title="IMap" rel="Chapter" href="IMap.html">
+<link title="ISet" rel="Chapter" href="ISet.html">
+<link title="Locale" rel="Chapter" href="Locale.html">
+<link title="OOChannel" rel="Chapter" href="OOChannel.html">
+<link title="SubText" rel="Chapter" href="SubText.html">
+<link title="UCS4" rel="Chapter" href="UCS4.html">
+<link title="UChar" rel="Chapter" href="UChar.html">
+<link title="UCharInfo" rel="Chapter" href="UCharInfo.html">
+<link title="UCharTbl" rel="Chapter" href="UCharTbl.html">
+<link title="UCol" rel="Chapter" href="UCol.html">
+<link title="ULine" rel="Chapter" href="ULine.html">
+<link title="UMap" rel="Chapter" href="UMap.html">
+<link title="UNF" rel="Chapter" href="UNF.html">
+<link title="UPervasives" rel="Chapter" href="UPervasives.html">
+<link title="URe" rel="Chapter" href="URe.html">
+<link title="UReStr" rel="Chapter" href="UReStr.html">
+<link title="USet" rel="Chapter" href="USet.html">
+<link title="UTF16" rel="Chapter" href="UTF16.html">
+<link title="UTF8" rel="Chapter" href="UTF8.html">
+<link title="UText" rel="Chapter" href="UText.html">
+<link title="UnicodeString" rel="Chapter" href="UnicodeString.html">
+<link title="XArray" rel="Chapter" href="XArray.html">
+<link title="XString" rel="Chapter" href="XString.html"><title>URe</title>
+</head>
+<body>
+<div class="navbar"><a href="UPervasives.html">Previous</a>
+&nbsp;<a href="index.html">Up</a>
+&nbsp;<a href="UReStr.html">Next</a>
+</div>
+<center><h1>Module <a href="type_URe.html">URe</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> URe: <code class="code">sig</code> <a href="URe.html">..</a> <code class="code">end</code></pre>Regular expression engine.<br>
+<hr width="100%">
+<pre><span class="keyword">type</span> <a name="TYPEregexp"></a><code class="type"></code>regexp = <code class="type">[ `After of <a href="URe.html#TYPEregexp">regexp</a><br>       | `Alt of <a href="URe.html#TYPEregexp">regexp</a> * <a href="URe.html#TYPEregexp">regexp</a><br>       | `Before of <a href="URe.html#TYPEregexp">regexp</a><br>       | `BoS<br>       | `EoS<br>       | `Epsilon<br>       | `Group of <a href="URe.html#TYPEregexp">regexp</a><br>       | `OneChar<br>       | `Rep of <a href="URe.html#TYPEregexp">regexp</a><br>       | `Repn of <a href="URe.html#TYPEregexp">regexp</a> * int * int option<br>       | `Seq of <a href="URe.html#TYPEregexp">regexp</a> * <a href="URe.html#TYPEregexp">regexp</a><br>       | `Set of <a href="USet.html#TYPEt">USet.t</a><br>       | `String of <a href="UChar.html#TYPEt">UChar.t</a> list ]</code> </pre>
+<div class="info">
+Abstract syntax trees of regular expressions.<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEmatch_semantics"></a><code class="type"></code>match_semantics = <code class="type">[ `First | `Longest | `Shortest ]</code> </pre>
+<div class="info">
+Match semantics.<br>
+</div>
+
+<pre><span class="keyword">val</span> <a name="VALno_group"></a>no_group : <code class="type"><a href="URe.html#TYPEregexp">regexp</a> -> <a href="URe.html#TYPEregexp">regexp</a></code></pre><div class="info">
+Remove <code class="code">`Group</code> from the regular expressions.<br>
+</div>
+<pre><span class="keyword">module type</span> <a href="URe.Type.html">Type</a> = <code class="code">sig</code> <a href="URe.Type.html">..</a> <code class="code">end</code></pre><pre><span class="keyword">module</span> <a href="URe.Make.html">Make</a>: <div class="sig_block"><code class="code">functor (</code><code class="code">Text</code><code class="code"> : </code><code class="type"><a href="UnicodeString.Type.html">UnicodeString.Type</a></code><code class="code">) -&gt; </code><code class="type"><a href="URe.Type.html">Type</a></code><code class="type">  with type text = Text.t and type index = Text.index</code></div></pre></body></html>

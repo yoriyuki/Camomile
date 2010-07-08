@@ -1,0 +1,45 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="Start" href="index.html">
+<link rel="next" href="Camomile.UChar.html">
+<link rel="Up" href="Camomile.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of classes" rel=Appendix href="index_classes.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Camomile" rel="Chapter" href="Camomile.html">
+<link title="CaseMap" rel="Chapter" href="CaseMap.html">
+<link title="CharEncoding" rel="Chapter" href="CharEncoding.html">
+<link title="Locale" rel="Chapter" href="Locale.html">
+<link title="Normalform" rel="Chapter" href="Normalform.html">
+<link title="UCS4" rel="Chapter" href="UCS4.html">
+<link title="UCharInfo" rel="Chapter" href="UCharInfo.html">
+<link title="UCol" rel="Chapter" href="UCol.html">
+<link title="ULine" rel="Chapter" href="ULine.html">
+<link title="URe" rel="Chapter" href="URe.html">
+<link title="UReStr" rel="Chapter" href="UReStr.html">
+<link title="UTF16" rel="Chapter" href="UTF16.html">
+<link title="UTF8" rel="Chapter" href="UTF8.html"><title>Camomile.XArray</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a href="Camomile.html">Up</a>
+&nbsp;<a href="Camomile.UChar.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Camomile.XArray.html">Camomile.XArray</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> XArray: <code class="type">sig  end</code></pre><div class="info">
+XArray will be replaced by Dynarray in future.<br>
+</div>
+<hr width="100%">
+<br><code><span class="keyword">type</span> <a name="TYPExarray"></a><code class="type">'a</code> xarray </code>
+<br>
+<br><code><span class="keyword">type</span> <a name="TYPEt"></a><code class="type">'a</code> t = <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a></code> </code>
+<br>
+<pre><span class="keyword">val</span> <a name="VALinit"></a>init : <code class="type">?bufsize:int -> int -> 'a -> (int -> 'a) -> 'a <a href="Camomile.XArray.html#TYPExarray">xarray</a></code></pre><pre><span class="keyword">val</span> <a name="VALmake"></a>make : <code class="type">?bufsize:int -> int -> 'a -> 'a <a href="Camomile.XArray.html#TYPExarray">xarray</a></code></pre><pre><span class="keyword">val</span> <a name="VALlength"></a>length : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> int</code></pre><pre><span class="keyword">val</span> <a name="VALget"></a>get : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> int -> 'a</code></pre><pre><span class="keyword">val</span> <a name="VALset"></a>set : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> int -> 'a -> unit</code></pre><br><code><span class="keyword">type</span> <a name="TYPEindex"></a>index </code>
+<br>
+<pre><span class="keyword">val</span> <a name="VALnth"></a>nth : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> int -> <a href="Camomile.XArray.html#TYPEindex">index</a></code></pre><pre><span class="keyword">val</span> <a name="VALlast"></a>last : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> <a href="Camomile.XArray.html#TYPEindex">index</a></code></pre><pre><span class="keyword">val</span> <a name="VALlook"></a>look : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> <a href="Camomile.XArray.html#TYPEindex">index</a> -> 'a</code></pre><pre><span class="keyword">val</span> <a name="VALnext"></a>next : <code class="type">'a <a href="Camomile.XArray.html#TYPEt">t</a> -> <a href="Camomile.XArray.html#TYPEindex">index</a> -> <a href="Camomile.XArray.html#TYPEindex">index</a></code></pre><pre><span class="keyword">val</span> <a name="VALprev"></a>prev : <code class="type">'a <a href="Camomile.XArray.html#TYPEt">t</a> -> <a href="Camomile.XArray.html#TYPEindex">index</a> -> <a href="Camomile.XArray.html#TYPEindex">index</a></code></pre><pre><span class="keyword">val</span> <a name="VALmove"></a>move : <code class="type">'a <a href="Camomile.XArray.html#TYPEt">t</a> -> <a href="Camomile.XArray.html#TYPEindex">index</a> -> int -> <a href="Camomile.XArray.html#TYPEindex">index</a></code></pre><pre><span class="keyword">val</span> <a name="VALout_of_range"></a>out_of_range : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> <a href="Camomile.XArray.html#TYPEindex">index</a> -> bool</code></pre><pre><span class="keyword">val</span> <a name="VALcompare_index"></a>compare_index : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -><br>       <a href="Camomile.XArray.html#TYPEindex">index</a> -> <a href="Camomile.XArray.html#TYPEindex">index</a> -> int</code></pre><pre><span class="keyword">val</span> <a name="VALclear"></a>clear : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALreset"></a>reset : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALcopy"></a>copy : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> 'a <a href="Camomile.XArray.html#TYPExarray">xarray</a></code></pre><pre><span class="keyword">val</span> <a name="VALsub"></a>sub : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> int -> int -> 'a <a href="Camomile.XArray.html#TYPExarray">xarray</a></code></pre><pre><span class="keyword">val</span> <a name="VALadd_element"></a>add_element : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> 'a -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALadd_array"></a>add_array : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> 'a array -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALadd_xarray"></a>add_xarray : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> 'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALappend"></a>append : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -><br>       'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> 'a <a href="Camomile.XArray.html#TYPExarray">xarray</a></code></pre><pre><span class="keyword">val</span> <a name="VALiter"></a>iter : <code class="type">('a -> unit) -> 'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALarray_of"></a>array_of : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> 'a array</code></pre><pre><span class="keyword">val</span> <a name="VALshrink"></a>shrink : <code class="type">'a <a href="Camomile.XArray.html#TYPExarray">xarray</a> -> int -> unit</code></pre></body></html>

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+               "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <HEAD>
+    <TITLE>Camomile</TITLE>
+    <meta http-equiv="Content-Type" content="text/html; charset="utf-8">
+  </HEAD>
+<BODY bgcolor="#ffffff" text="Black" link="Blue" vlink="Navy" alink="Blue">
+<H1><center><img src="logo.png" width="300" hight="100"
+ alt="Camomile: CAml Modules for MultI-Lingual
+Extension"></center></H1>
+
+<p>Camomile is a comprehensive Unicode library for <A
+href="http://www.caml.org">objective caml</A> (a. k. a. OCaml or
+O'Caml) language.  Camomile provides Unicode character type, UTF-8,
+UTF-16, UTF-32 strings, conversion to/from about 200 encodings,
+collation and locale-sensitive case mappings, and more.  The library
+is currently designed for Unicode Standard 3.2.
+
+<p>This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version, with the exception
+similar to OCaml standard library (see README for details).
+</p>
+
+<H3>News</H3> 
+
+<p>2010/07/6 <a
+  href="http://prdownloads.sourceforge.net/camomile/camomile-0.8.0.tar.bz2">Camomile
+  0.8.0</a> is released.   This release contains new feature as well
+  as bug fixes.
+  <ol>
+    <li> Reorganize the module structure : Make CamomileLibrary.Default to
+  the new top-level module CamomileLibraryDefault, so that linking
+  CamomileLibrary does not automatically cause to load the data files
+  from hard-coded location.  Also, adding new CamomileLibraryDyn
+  module, which is configured by environmental variables (See
+  camomileDynConfig.mli). </li>
+  <li>StringPrep module:  String preparation according to RFC3454,
+  contributed by Pierre Chambart.</li>
+  <li>Avl-Tree balanced bug fix, pointed out by Stanisさaw T. Findeisen.</li>
+  </ol>
+  The package is tested on Linux
+  (Ubuntu 8.04 + godi version of OCaml 3.11.2).</p>
+
+<H3>Download</H3>
+
+<p>Recent release: 
+<A href="http://prdownloads.sourceforge.net/camomile/camomile-0.8.0.tar.bz2">
+camomile-0.8.0</A> 
+
+<p><A
+href="https://sourceforge.net/scm/?type=svn&group_id=40603">
+Current SVN version</A></p>
+
+<h3>Documentation</h3>
+
+<ol>
+<li><a href="README.txt">README</a></li>
+<li><a href="dochtml/index.html">The ocamldoc generated manual</a></li>
+</ol>
+
+<h3>Development</h3> 
+<p><a href="http://sourceforge.net/tracker/?atid=428416&group_id=40603&func=browse">Bug report.</a></p>
+
+<p><a href="http://sourceforge.net/tracker/?atid=428419&group_id=40603&func=browse">Feature request.</a></p>
+
+<p><a href="http://lists.sourceforge.net/lists/listinfo/camomile-devel">Mailing list</a></p>
+
+<h3>Conformance</h3>
+
+<p>
+The library is designed for Unicode Standard version 3.2.  Normalisers
+(NFD, NFKD, NFC, NFKC) and collator (string comparison) pass the
+conformance tests defined Unicode Technical Reports.  (see the
+relevant part of camomile-test.)  The collator is also tested to
+Canadian, Thai and Japanese standards with their locales.  There is no problem except handling ø in Canadian standard.
+</p>
+
+<h3>Known problems</h3>
+
+See <a href="https://sourceforge.net/tracker/?group_id=40603&atid=428416">bug
+trucker</a>
+
+<h3>Miscellaneous</h3>
+
+<ol>
+  <li><A href="datastruct.html">Data structures</A> used in camomile.</li>
+</ol>
+
+<h3>Acknowledgment</h3>
+<p>Peter Jolly provided CP932 conversion table. </p>
+<p>Kawakami Shigenobu contributed findlib support.</p>
+<p> Pierre Chambart contributed StringPrep
+module.</p>
+<p>Stanisław. T. Findeisen pointed out the balancing bug of
+AVL-trees.</p>
+<p>Sylvain Le Gall provided dynamic configuration module.</p>
+
+<p>Many people provided bug fixes.</p>
+
+<p>This page is hosted in <A href="http://sourceforge.net">Sourceforge</A>.
+Our project information can be seen
+<A href="http://sourceforge.net/projects/camomile">here.</A>
+
+If you have a comment on this page, contact to <A
+href="mailto:yori@users.sourceforge.net">the author</A>.</p>
+
+<A href="http://sourceforge.net"> <IMG
+src="http://sourceforge.net/sflogo.php?group_id=40603"
+width="88" height="31" border="0"
+alt="SourceForge Logo"></A>
+<HR>
+<!-- hhmts start -->
+Last modified: Jul 06, 2010
+<!-- hhmts end -->
+</BODY>
+</html>

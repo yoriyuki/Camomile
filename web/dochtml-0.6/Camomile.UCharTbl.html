@@ -1,0 +1,60 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Camomile.UMap.html">
+<link rel="next" href="Camomile.UText.html">
+<link rel="Up" href="Camomile.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of classes" rel=Appendix href="index_classes.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Camomile" rel="Chapter" href="Camomile.html">
+<link title="CaseMap" rel="Chapter" href="CaseMap.html">
+<link title="CharEncoding" rel="Chapter" href="CharEncoding.html">
+<link title="Locale" rel="Chapter" href="Locale.html">
+<link title="Normalform" rel="Chapter" href="Normalform.html">
+<link title="UCS4" rel="Chapter" href="UCS4.html">
+<link title="UCharInfo" rel="Chapter" href="UCharInfo.html">
+<link title="UCol" rel="Chapter" href="UCol.html">
+<link title="ULine" rel="Chapter" href="ULine.html">
+<link title="URe" rel="Chapter" href="URe.html">
+<link title="UReStr" rel="Chapter" href="UReStr.html">
+<link title="UTF16" rel="Chapter" href="UTF16.html">
+<link title="UTF8" rel="Chapter" href="UTF8.html"><title>Camomile.UCharTbl</title>
+</head>
+<body>
+<div class="navbar"><a href="Camomile.UMap.html">Previous</a>
+&nbsp;<a href="Camomile.html">Up</a>
+&nbsp;<a href="Camomile.UText.html">Next</a>
+</div>
+<center><h1>Module <a href="type_Camomile.UCharTbl.html">Camomile.UCharTbl</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> UCharTbl: <code class="type">sig  end</code></pre><div class="info">
+Fast lookup tables.  Accessible by constant time.<br>
+</div>
+<hr width="100%">
+<br><code><span class="keyword">type</span> <a name="TYPEtbl"></a><code class="type">'a</code> tbl </code>
+<br>
+<br><code><span class="keyword">type</span> <a name="TYPEt"></a><code class="type">'a</code> t = <code class="type">'a <a href="Camomile.UCharTbl.html#TYPEtbl">tbl</a></code> </code>
+<br>
+<pre><span class="keyword">val</span> <a name="VALget"></a>get : <code class="type">'a <a href="Camomile.UCharTbl.html#TYPEtbl">tbl</a> -> <a href="Camomile.html#TYPEuchar">Camomile.uchar</a> -> 'a</code></pre><pre><span class="keyword">module type</span> <a href="Camomile.UCharTbl.Type.html">Type</a> = <code class="type">sig  end</code></pre><pre><span class="keyword">module</span> <a href="Camomile.UCharTbl.Make.html">Make</a>: <code class="type">functor (H : Hashtbl.HashedType) -> sig  end</code></pre><div class="info">
+Equality and hash are needed for table generation.
+</div>
+<pre><span class="keyword">module</span> <a href="Camomile.UCharTbl.Bool.html">Bool</a>: <code class="type">sig  end</code></pre><div class="info">
+Tables for boolean values.
+</div>
+<pre><span class="keyword">module</span> <a href="Camomile.UCharTbl.Bits.html">Bits</a>: <code class="type">sig  end</code></pre><div class="info">
+Tables for small (&lt; 256, &gt;=0) integers
+</div>
+<pre><span class="keyword">module</span> <a href="Camomile.UCharTbl.Bytes.html">Bytes</a>: <code class="type">sig  end</code></pre><div class="info">
+Tables for integers.
+</div>
+<pre><span class="keyword">module</span> <a href="Camomile.UCharTbl.Char.html">Char</a>: <code class="type">sig  end</code></pre><div class="info">
+Tables for bytes.
+</div>
+</body></html>
