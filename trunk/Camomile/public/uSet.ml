@@ -39,7 +39,7 @@ let fold f s a =
 
 let fold_range f s a =
   let f' n1 n2 a = 
-    f (UChar.chr_of_uint n1) (UChar.chr_of_uint n1) a in
+    f (UChar.chr_of_uint n1) (UChar.chr_of_uint n2) a in
   ISet.fold_range f' s a
 
 let for_all p s =
