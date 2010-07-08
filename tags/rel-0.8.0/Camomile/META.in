@@ -1,0 +1,8 @@
+name="camomile"
+version="@VERSION@"
+description="Unicode library for ocaml"
+requires="bigarray"
+
+archive(byte)="camomile.cma"
+archive(native)="camomile.cmxa"
+

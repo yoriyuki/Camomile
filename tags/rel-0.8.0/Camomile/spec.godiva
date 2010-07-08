@@ -1,0 +1,16 @@
+Package: godi-camomile
+Version: 0.8.0
+Revision: 0
+Depends: godi-ocaml (>= 3.07)
+Build-Depends: godi-findlib (>= 1.0.0)
+Sources: http://switch.dl.sourceforge.net/sourceforge/camomile/camomile-0.6.1.tar.bz2
+Homepage: http://camomile.sourceforge.net
+Maintainer: Yamagata Yoriyuki <yori@users.sourceforge.net>
+Options: configure
+Docfiles: README, Changes, COPYING
+Description: A comprehensive Unicode library for OCaml.
+Camomile is a comprehensive Unicode library for OCaml. Camomile
+provides Unicode character type, UTF-8, UTF-16, UTF-32 strings,
+conversion to/from about 200 encodings, collation and locale-sensitive
+case mappings, and more.
+.

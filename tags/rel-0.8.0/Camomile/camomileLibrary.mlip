@@ -1,0 +1,238 @@
+(** Camomile's toplevel interface *)
+
+(** Type of configuration parametor *)
+  module ConfigInt : sig
+    #include "configInt.mli"
+  end
+
+(** Indivisual modules *)
+
+  module OOChannel : sig
+    #include "oOChannel.mli"
+    end
+
+  module UChar : sig
+    #include "uChar.mli"
+    end
+
+  module USet : sig
+    #include "uSet.mli"
+    end
+
+  module UMap : sig
+    #include "uMap.mli"
+    end
+
+  module UCharTbl : sig
+    #include "uCharTbl.mli"
+    end
+
+  module UnicodeString : sig
+    #include "unicodeString.mli"
+    end
+
+  module UText : sig
+    #include "uText.mli"
+    end
+
+  module XString : sig
+    #include "xString.mli"
+    end
+
+  module SubText : sig
+    #include "subText.mli"
+    end
+
+  module ULine : sig
+    #include "uLine.mli"
+    end
+
+  module Locale : sig
+    #include "locale.mli"
+    end
+
+  module UTF8 : sig
+    #include "uTF8.mli"
+    end
+
+  module UTF16 : sig
+    #include "uTF16.mli"
+    end
+
+  module UCS4 : sig
+    #include "uCS4.mli"
+    end
+
+  module UPervasives : sig
+    #include "uPervasives.mli"
+    end
+
+  module URe : sig
+    #include "uRe.mli"
+    end
+
+  module CharEncoding : sig
+    #include "charEncoding.mli"
+  end
+
+  module UCharInfo : sig
+    #include "uCharInfo.mli"
+  end
+
+  module UNF : sig
+    #include "uNF.mli"
+  end
+
+  module UCol : sig
+    #include "uCol.mli"
+  end
+
+  module CaseMap : sig
+    #include "caseMap.mli"
+  end
+
+  module UReStr : sig
+    #include "uReStr.mli"
+  end
+
+  module StringPrep : sig
+    #include "stringPrep.mli"
+  end
+
+module type Type = sig
+
+  module OOChannel : sig
+    #include "oOChannel.mli"
+    end
+
+  module UChar : sig
+    #include "uChar.mli"
+    end
+
+  module USet : sig
+    #include "uSet.mli"
+    end
+
+  module UMap : sig
+    #include "uMap.mli"
+    end
+
+  module UCharTbl : sig
+    #include "uCharTbl.mli"
+    end
+
+  module UnicodeString : sig
+    #include "unicodeString.mli"
+    end
+
+  module UText : sig
+    #include "uText.mli"
+    end
+
+  module XString : sig
+    #include "xString.mli"
+    end
+
+  module SubText : sig
+    #include "subText.mli"
+    end
+
+  module ULine : sig
+    #include "uLine.mli"
+    end
+
+  module Locale : sig
+    #include "locale.mli"
+    end
+
+  module CharEncoding : CharEncoding.Interface
+
+  module UTF8 : sig
+    #include "uTF8.mli"
+    end
+
+  module UTF16 : sig
+    #include "uTF16.mli"
+    end
+
+  module UCS4 : sig
+    #include "uCS4.mli"
+    end
+
+  module UPervasives : sig
+    #include "uPervasives.mli"
+    end
+
+  module URe : sig
+    #include "uRe.mli"
+    end
+
+  module UCharInfo : UCharInfo.Type
+  
+  module UNF : sig
+    module type Type = UNF.Type
+    module Make (Text : UnicodeString.Type) :
+	Type with type text = Text.t and type index = Text.index
+  end
+
+  module UCol : sig
+(** How variables are handled *)
+    type variable_option = 
+	[ `Blanked 
+      | `Non_ignorable 
+      | `Shifted
+      | `Shift_Trimmed ]
+	  
+(** Strength of comparison.  For European languages, each strength
+    roughly means as
+    `Primary : Ignore accents and case
+    `Secondary : Ignore case but accents are counted in.
+    `Tertiary : Accents and case are counted in.
+    For the case of `Shifted, `Shift_Trimmed, there is the fourth strength.
+    `Quaternary : Variables such as - (hyphen) are counted in. *)
+    type precision = [ `Primary | `Secondary | `Tertiary | `Quaternary ]
+
+    module type Type = UCol.Type
+    module Make (Text : UnicodeString.Type) :
+	Type with type text = Text.t and type index = Text.index
+  end
+
+  module CaseMap : sig
+    module type Type = CaseMap.Type
+    module Make  (Text : UnicodeString.Type) : (Type with type text = Text.t)
+  end
+
+  module UReStr : UReStr.Interface
+
+  module StringPrep : sig
+    module type Type = StringPrep.Type
+    module Make (Text : UnicodeString.Type) : (Type with type text = Text.t)
+  end
+end
+
+(** All-in-one, configure once modules*)
+module Make (Config : ConfigInt.Type) : Type with
+      module OOChannel = OOChannel and
+      module UChar = UChar and
+      module USet = USet and
+      module UMap = UMap and
+      module UCharTbl = UCharTbl and
+      module UnicodeString = UnicodeString and
+      module UText = UText and
+      module XString = XString and
+      module SubText = SubText and
+      module ULine = ULine and
+      module Locale = Locale and
+      module CharEncoding = CharEncoding.Configure(Config) and
+      module UTF8 = UTF8 and
+      module UTF16 = UTF16 and
+      module UCS4 = UCS4 and
+      module UPervasives = UPervasives and
+      module URe = URe and
+      module UCharInfo = UCharInfo.Make(Config) and
+      module UNF.Make = UNF.Make(Config) and
+      module UCol.Make = UCol.Make(Config) and
+      module CaseMap.Make = CaseMap.Make(Config) and
+      module UReStr = UReStr.Configure(Config) and
+      module StringPrep.Make = StringPrep.Make(Config)
+      
