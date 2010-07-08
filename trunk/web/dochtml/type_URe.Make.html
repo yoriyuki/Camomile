@@ -1,0 +1,91 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of classes" rel=Appendix href="index_classes.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="CaseMap" rel="Chapter" href="CaseMap.html">
+<link title="CharEncoding" rel="Chapter" href="CharEncoding.html">
+<link title="Default" rel="Chapter" href="Default.html">
+<link title="IMap" rel="Chapter" href="IMap.html">
+<link title="ISet" rel="Chapter" href="ISet.html">
+<link title="Locale" rel="Chapter" href="Locale.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="OOChannel" rel="Chapter" href="OOChannel.html">
+<link title="SubText" rel="Chapter" href="SubText.html">
+<link title="UCS4" rel="Chapter" href="UCS4.html">
+<link title="UChar" rel="Chapter" href="UChar.html">
+<link title="UCharInfo" rel="Chapter" href="UCharInfo.html">
+<link title="UCharTbl" rel="Chapter" href="UCharTbl.html">
+<link title="UCol" rel="Chapter" href="UCol.html">
+<link title="ULine" rel="Chapter" href="ULine.html">
+<link title="UMap" rel="Chapter" href="UMap.html">
+<link title="UNF" rel="Chapter" href="UNF.html">
+<link title="UPervasives" rel="Chapter" href="UPervasives.html">
+<link title="URe" rel="Chapter" href="URe.html">
+<link title="UReStr" rel="Chapter" href="UReStr.html">
+<link title="USet" rel="Chapter" href="USet.html">
+<link title="UTF16" rel="Chapter" href="UTF16.html">
+<link title="UTF8" rel="Chapter" href="UTF8.html">
+<link title="UText" rel="Chapter" href="UText.html">
+<link title="UnicodeString" rel="Chapter" href="UnicodeString.html">
+<link title="XArray" rel="Chapter" href="XArray.html">
+<link title="XString" rel="Chapter" href="XString.html"><title>URe.Make</title>
+</head>
+<body>
+<code class="code"><span class="keyword">functor</span>&nbsp;(<span class="constructor">Text</span>&nbsp;:&nbsp;<span class="constructor">UnicodeString</span>.<span class="constructor">Type</span>)&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;<span class="keyword">sig</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;text&nbsp;=&nbsp;<span class="constructor">Text</span>.t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;index&nbsp;=&nbsp;<span class="constructor">Text</span>.index<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;compiled_regexp<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">SubText</span>&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">sig</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">UChar</span>.t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;init&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;(int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">UChar</span>.t)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;length&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;index<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;look&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">UChar</span>.t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;nth&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;first&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;last&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;next&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;prev&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;move&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;out_of_range&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;compare_index&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;iter&nbsp;:&nbsp;(<span class="constructor">UChar</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit)&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;compare&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">module</span>&nbsp;<span class="constructor">Buf</span>&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">sig</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;buf<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;create&nbsp;:&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;buf<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;contents&nbsp;:&nbsp;buf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;clear&nbsp;:&nbsp;buf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;reset&nbsp;:&nbsp;buf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_char&nbsp;:&nbsp;buf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">UChar</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_string&nbsp;:&nbsp;buf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;add_buffer&nbsp;:&nbsp;buf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;buf&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;ur_text&nbsp;=&nbsp;text<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;ur_index&nbsp;=&nbsp;index<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;refer&nbsp;:&nbsp;ur_text&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;ur_index&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;ur_index&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;excerpt&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;ur_text<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;context&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;ur_text&nbsp;*&nbsp;ur_index&nbsp;*&nbsp;ur_index<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;ur_index_of&nbsp;:&nbsp;t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;ur_index<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;compile&nbsp;:&nbsp;regexp&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;compiled_regexp<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;regexp_match&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?sem:match_semantics&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;compiled_regexp&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;text&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">SubText</span>.t&nbsp;option&nbsp;array&nbsp;option<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_match&nbsp;:&nbsp;compiled_regexp&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;text&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;search_forward&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?sem:match_semantics&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;compiled_regexp&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;text&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;index&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">SubText</span>.t&nbsp;option&nbsp;array&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">end</span></code></body></html>

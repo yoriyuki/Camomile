@@ -1,0 +1,48 @@
+Index: META
+===================================================================
+RCS file: /cvsroot/camomile/camomile/META,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -c -b -d -r1.3 -r1.4
+*** META	16 Aug 2003 09:33:48 -0000	1.3
+--- META	26 Aug 2003 13:07:26 -0000	1.4
+***************
+*** 1,6 ****
+  name="camomile"
+  version="0.4.1"
+  description="Unicode library for ocaml"
+! requires=""
+  archive(byte)="camomile.cma"
+  archive(native)="camomile.cmxa"
+--- 1,6 ----
+  name="camomile"
+  version="0.4.1"
+  description="Unicode library for ocaml"
+! requires="bigarray"
+  archive(byte)="camomile.cma"
+  archive(native)="camomile.cmxa"
+Index: public/camomile.ml
+===================================================================
+RCS file: /cvsroot/camomile/camomile/public/camomile.ml,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -c -b -d -r1.4 -r1.5
+*** public/camomile.ml	16 Aug 2003 00:00:55 -0000	1.4
+--- public/camomile.ml	26 Aug 2003 13:07:37 -0000	1.5
+***************
+*** 100,106 ****
+  
+      let add_array x a =
+        expand x (x.len + Array.length a);
+!       Array.blit a 0 x.buf 0 (Array.length a);
+        x.len <- x.len + Array.length a
+  
+      let add_xarray x1 x2 =
+--- 100,106 ----
+  
+      let add_array x a =
+        expand x (x.len + Array.length a);
+!       Array.blit a 0 x.buf x.len (Array.length a);
+        x.len <- x.len + Array.length a
+  
+      let add_xarray x1 x2 =

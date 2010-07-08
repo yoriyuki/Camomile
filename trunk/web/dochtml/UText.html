@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="UTF8.html">
+<link rel="next" href="UnicodeString.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of classes" rel=Appendix href="index_classes.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="CaseMap" rel="Chapter" href="CaseMap.html">
+<link title="CharEncoding" rel="Chapter" href="CharEncoding.html">
+<link title="Default" rel="Chapter" href="Default.html">
+<link title="IMap" rel="Chapter" href="IMap.html">
+<link title="ISet" rel="Chapter" href="ISet.html">
+<link title="Locale" rel="Chapter" href="Locale.html">
+<link title="Main" rel="Chapter" href="Main.html">
+<link title="OOChannel" rel="Chapter" href="OOChannel.html">
+<link title="SubText" rel="Chapter" href="SubText.html">
+<link title="UCS4" rel="Chapter" href="UCS4.html">
+<link title="UChar" rel="Chapter" href="UChar.html">
+<link title="UCharInfo" rel="Chapter" href="UCharInfo.html">
+<link title="UCharTbl" rel="Chapter" href="UCharTbl.html">
+<link title="UCol" rel="Chapter" href="UCol.html">
+<link title="ULine" rel="Chapter" href="ULine.html">
+<link title="UMap" rel="Chapter" href="UMap.html">
+<link title="UNF" rel="Chapter" href="UNF.html">
+<link title="UPervasives" rel="Chapter" href="UPervasives.html">
+<link title="URe" rel="Chapter" href="URe.html">
+<link title="UReStr" rel="Chapter" href="UReStr.html">
+<link title="USet" rel="Chapter" href="USet.html">
+<link title="UTF16" rel="Chapter" href="UTF16.html">
+<link title="UTF8" rel="Chapter" href="UTF8.html">
+<link title="UText" rel="Chapter" href="UText.html">
+<link title="UnicodeString" rel="Chapter" href="UnicodeString.html">
+<link title="XArray" rel="Chapter" href="XArray.html">
+<link title="XString" rel="Chapter" href="XString.html"><title>UText</title>
+</head>
+<body>
+<div class="navbar"><a href="UTF8.html">Previous</a>
+&nbsp;<a href="index.html">Up</a>
+&nbsp;<a href="UnicodeString.html">Next</a>
+</div>
+<center><h1>Module <a href="type_UText.html">UText</a></h1></center>
+<br>
+<pre><span class="keyword">module</span> UText: <code class="code">sig</code> <a href="UText.html">..</a> <code class="code">end</code></pre>An implementation of Unicode string.  
+   Internally, it uses integer array.
+   The semantics matches the description of UStorage.<br>
+<hr width="100%">
+<pre><span class="keyword">type</span> <a name="TYPEmutability"></a><code class="type"></code>mutability = <code class="type">[ `Immutable | `Mutable ]</code> </pre>
+<div class="info">
+Phantom type for distinguishing mutability<br>
+</div>
+
+<pre><span class="keyword">type</span> <a name="TYPEtext"></a><code class="type">'a</code> text </pre>
+
+<pre><span class="keyword">type</span> <a name="TYPEutext"></a><code class="type"></code>utext = <code class="type">[ `Immutable ] <a href="UText.html#TYPEtext">text</a></code> </pre>
+
+<pre><span class="keyword">type</span> <a name="TYPEustring"></a><code class="type"></code>ustring = <code class="type">[ `Mutable ] <a href="UText.html#TYPEtext">text</a></code> </pre>
+
+<pre><span class="keyword">type</span> <a name="TYPEt"></a><code class="type"></code>t = <code class="type"><a href="UText.html#TYPEutext">utext</a></code> </pre>
+
+<pre><span class="keyword">val</span> <a name="VALutext_of_ustring"></a>utext_of_ustring : <code class="type"><a href="UText.html#TYPEustring">ustring</a> -> <a href="UText.html#TYPEutext">utext</a></code></pre><pre><span class="keyword">val</span> <a name="VALustring_of_utext"></a>ustring_of_utext : <code class="type"><a href="UText.html#TYPEutext">utext</a> -> <a href="UText.html#TYPEustring">ustring</a></code></pre><pre><span class="keyword">val</span> <a name="VALget"></a>get : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> int -> <a href="UChar.html#TYPEt">UChar.t</a></code></pre><pre><span class="keyword">val</span> <a name="VALset"></a>set : <code class="type"><a href="UText.html#TYPEustring">ustring</a> -> int -> <a href="UChar.html#TYPEt">UChar.t</a> -> unit</code></pre><div class="info">
+<code class="code">set s i u</code> sets the <code class="code">i</code>-th character in <code class="code">s</code> to <code class="code">u</code>.<br>
+</div>
+<pre><span class="keyword">type</span> <a name="TYPEindex"></a><code class="type"></code>index </pre>
+
+<pre><span class="keyword">val</span> <a name="VALlook"></a>look : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> <a href="UText.html#TYPEindex">index</a> -> <a href="UChar.html#TYPEt">UChar.t</a></code></pre><pre><span class="keyword">val</span> <a name="VALnth"></a>nth : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> int -> <a href="UText.html#TYPEindex">index</a></code></pre><pre><span class="keyword">val</span> <a name="VALfirst"></a>first : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> <a href="UText.html#TYPEindex">index</a></code></pre><pre><span class="keyword">val</span> <a name="VALlast"></a>last : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> <a href="UText.html#TYPEindex">index</a></code></pre><pre><span class="keyword">val</span> <a name="VALout_of_range"></a>out_of_range : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> <a href="UText.html#TYPEindex">index</a> -> bool</code></pre><pre><span class="keyword">val</span> <a name="VALcompare_index"></a>compare_index : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> <a href="UText.html#TYPEindex">index</a> -> <a href="UText.html#TYPEindex">index</a> -> int</code></pre><pre><span class="keyword">val</span> <a name="VALnext"></a>next : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> <a href="UText.html#TYPEindex">index</a> -> <a href="UText.html#TYPEindex">index</a></code></pre><pre><span class="keyword">val</span> <a name="VALprev"></a>prev : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> <a href="UText.html#TYPEindex">index</a> -> <a href="UText.html#TYPEindex">index</a></code></pre><pre><span class="keyword">val</span> <a name="VALmove"></a>move : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> <a href="UText.html#TYPEindex">index</a> -> int -> <a href="UText.html#TYPEindex">index</a></code></pre><pre><span class="keyword">val</span> <a name="VALlength"></a>length : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> int</code></pre><pre><span class="keyword">val</span> <a name="VALof_string"></a>of_string : <code class="type">string -> <a href="UText.html#TYPEutext">utext</a></code></pre><div class="info">
+Conversion from Latin-1 strings.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALinit"></a>init : <code class="type">int -> (int -> <a href="UChar.html#TYPEt">UChar.t</a>) -> <a href="UText.html#TYPEutext">utext</a></code></pre><pre><span class="keyword">val</span> <a name="VALinit_ustring"></a>init_ustring : <code class="type">int -> (int -> <a href="UChar.html#TYPEt">UChar.t</a>) -> <a href="UText.html#TYPEustring">ustring</a></code></pre><pre><span class="keyword">val</span> <a name="VALmake"></a>make : <code class="type">int -> <a href="UChar.html#TYPEt">UChar.t</a> -> <a href="UText.html#TYPEustring">ustring</a></code></pre><div class="info">
+The semantics of these function are similar to 
+   the equivalents of string.<br>
+</div>
+<pre><span class="keyword">val</span> <a name="VALcopy"></a>copy : <code class="type"><a href="UText.html#TYPEustring">ustring</a> -> <a href="UText.html#TYPEustring">ustring</a></code></pre><pre><span class="keyword">val</span> <a name="VALsub"></a>sub : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> int -> int -> 'a <a href="UText.html#TYPEtext">text</a></code></pre><pre><span class="keyword">val</span> <a name="VALfill"></a>fill : <code class="type"><a href="UText.html#TYPEustring">ustring</a> -> int -> int -> <a href="UChar.html#TYPEt">UChar.t</a> -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALblit"></a>blit : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> int -> <a href="UText.html#TYPEustring">ustring</a> -> int -> int -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALappend"></a>append : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> 'b <a href="UText.html#TYPEtext">text</a> -> 'a <a href="UText.html#TYPEtext">text</a></code></pre><pre><span class="keyword">val</span> <a name="VALiter"></a>iter : <code class="type">(<a href="UChar.html#TYPEt">UChar.t</a> -> unit) -> 'a <a href="UText.html#TYPEtext">text</a> -> unit</code></pre><pre><span class="keyword">val</span> <a name="VALcompare"></a>compare : <code class="type">'a <a href="UText.html#TYPEtext">text</a> -> 'b <a href="UText.html#TYPEtext">text</a> -> int</code></pre><pre><span class="keyword">module</span> <a href="UText.Buf.html">Buf</a>: <code class="code">sig</code> <a href="UText.Buf.html">..</a> <code class="code">end</code></pre></body></html>
