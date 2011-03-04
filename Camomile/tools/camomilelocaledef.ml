@@ -325,9 +325,7 @@ let main () =
   if rest <> [] then failwith "Strange trailing data.";
   let proc key entry =
     let locale_info = localedef entry in
-    let file = Filename.concat dir (key ^ ".mar") in
-    let c = open_out_bin file in
-    output_value c locale_info
+    Database.write dir "mar" output_value key locale_info
   in
   (match data with
     Table tbl -> Hashtbl.iter proc tbl

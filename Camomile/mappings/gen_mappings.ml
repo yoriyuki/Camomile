@@ -180,32 +180,19 @@ let main () =
     charmap TW map;
     found := TW :: !found
   with Sys_error _ -> ());
-  (if List.mem CN !found then
-    let c = open_out_bin "gb2312.mar" in
-    output_value c (Unimap.rw_to_ro gb2312);
-    close_out c);
-  (if List.mem GR !found then
-    let c = open_out_bin "iso88597.mar" in
-    output_value c (Unimap.rw_to_ro iso88597);
-  close_out c);
-  (if List.mem JP !found then
-    let c = open_out_bin "jisx0201.mar" in
-    output_value c (Unimap.rw_to_ro jisx0201);
-    close_out c;
-    let c = open_out_bin "jisx0208.mar" in
-    output_value c (Unimap.rw_to_ro jisx0208);
-    close_out c;
-    let c = open_out_bin "jisx0212.mar" in
-    output_value c (Unimap.rw_to_ro jisx0212);
-    close_out c);
-  (if List.mem KO !found then
-    let c = open_out_bin "ksc5601.mar" in
-    output_value c (Unimap.rw_to_ro ksc5601);
-    close_out c);
-  (if List.mem TW !found then
-    let c = open_out_bin "cns11643.mar" in
-    output_value c (Unimap.rw_to_ro cns11643);
-    close_out c)
+  if List.mem CN !found then
+    Database.write "." "mar" output_value "gb2312" (Unimap.rw_to_ro gb2312);
+  if List.mem GR !found then
+    Database.write "." "mar" output_value "iso88597" (Unimap.rw_to_ro iso88597);
+  if List.mem JP !found then begin
+    Database.write "." "mar" output_value "jisx0201" (Unimap.rw_to_ro jisx0201);
+    Database.write "." "mar" output_value "jisx0208" (Unimap.rw_to_ro jisx0208);
+    Database.write "." "mar" output_value "jisx0212" (Unimap.rw_to_ro jisx0212)
+  end;
+  if List.mem KO !found then
+    Database.write "." "mar" output_value "ksc5601" (Unimap.rw_to_ro ksc5601);
+  if List.mem TW !found then
+    Database.write "." "mar" output_value "cns11643" (Unimap.rw_to_ro cns11643)
 
 
 let _ = main ()

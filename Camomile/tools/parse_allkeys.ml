@@ -137,7 +137,6 @@ let directory =
   !dir
 
 let  _ =
-  let c = open_out_bin (Filename.concat directory "allkeys.mar") in
-  output_value c uca_defaults; close_out c;
-  let c = open_out_bin (Filename.concat directory "acset.mar") in
-  output_value c aceset_info; close_out c
+  let write name value = Database.write directory "mar" output_value name value in
+  write "allkeys" uca_defaults;
+  write "acset" aceset_info

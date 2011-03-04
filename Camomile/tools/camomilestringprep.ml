@@ -210,28 +210,18 @@ let mib_prohibited = make_set [a1;c21;c22;c3;c4;c5;c6;c7;c8;c9]
 let d1_table = make_set [d1]
 let d2_table = make_set [d2]
 
-let c = open_out_bin (Filename.concat !output_dir "/map_b1b2.mar");;
-output_value c map_b1b2; close_out c;;
-let c = open_out_bin (Filename.concat !output_dir "/map_b1.mar");;
-output_value c map_b1; close_out c;;
-let c = open_out_bin (Filename.concat !output_dir "/saslprep_map.mar");;
-output_value c saslprep_map; close_out c;;
-let c = open_out_bin (Filename.concat !output_dir "/nodeprep_prohibited.mar");;
-output_value c nodeprep_prohibited; close_out c;;
-let c = open_out_bin (Filename.concat !output_dir "/resourceprep_prohibited.mar");;
-output_value c resourceprep_prohibited; close_out c;;
-let c = open_out_bin (Filename.concat !output_dir "/nameprep_prohibited.mar");;
-output_value c nameprep_prohibited; close_out c;;
-let c = open_out_bin (Filename.concat !output_dir "/saslprep_prohibited.mar");;
-output_value c saslprep_prohibited; close_out c;;
-let c = open_out_bin (Filename.concat !output_dir "/trace_prohibited.mar");;
-output_value c trace_prohibited; close_out c;;
-let c = open_out_bin (Filename.concat !output_dir "/iscsi_prohibited.mar");;
-output_value c iscsi_prohibited; close_out c;;
-let c = open_out_bin (Filename.concat !output_dir "/mib_prohibited.mar");;
-output_value c mib_prohibited; close_out c;;
-let c = open_out_bin (Filename.concat !output_dir "/d1.mar");;
-output_value c d1_table; close_out c;;
-let c = open_out_bin (Filename.concat !output_dir "/d2.mar");;
-output_value c d2_table; close_out c;
+let write name value = Database.write !output_dir "mar" output_value name value;;
+
+write "map_b1b2" map_b1b2;
+write "map_b1" map_b1;
+write "saslprep_map" saslprep_map;
+write "nodeprep_prohibited" nodeprep_prohibited;
+write "resourceprep_prohibited" resourceprep_prohibited;
+write "nameprep_prohibited" nameprep_prohibited;
+write "saslprep_prohibited" saslprep_prohibited;
+write "trace_prohibited" trace_prohibited;
+write "iscsi_prohibited" iscsi_prohibited;
+write "mib_prohibited" mib_prohibited;
+write "d1" d1_table;
+write "d2" d2_table;
 

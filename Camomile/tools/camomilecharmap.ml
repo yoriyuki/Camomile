@@ -182,22 +182,14 @@ let no_char =
 
 let enc_to_ucs = Charmap.make_enc_to_ucs no_char enc2u
 
-let outchan = open_out_bin (Filename.concat dir ((codeset_name)^".mar"))
-
 open Charmap
 
 let () = 
-  output_value 
-    outchan
-    (CMap 
-    {name = codeset_name;
-     ucs_to_enc = ucs_to_enc;
-     enc_to_ucs = enc_to_ucs});
-  close_out outchan
+  let data = CMap {name = codeset_name; 
+		   ucs_to_enc = ucs_to_enc;
+		   enc_to_ucs = enc_to_ucs} in
+  Database.write dir "mar" output_value codeset_name data;
 
-let () =
-  List.iter (fun a ->
-    let c = open_out_bin (Filename.concat dir (a ^ ".mar")) in
-    output_value c (Alias codeset_name);
-    close_out c)
-    aliases
+List.iter (fun a -> 
+  Database.write dir "mar" output_value a (Alias codeset_name))
+  aliases;

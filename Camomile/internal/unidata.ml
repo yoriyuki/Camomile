@@ -151,12 +151,7 @@ let read_data ?datadir name =
     match datadir with
       Some d -> d
     | None -> Config.datadir in
-  let filename = Filename.concat datadir (name ^ ".mar") 
-  in
-  let c = try open_in_bin filename with _ -> raise Not_found in
-  let v = input_value c in
-  close_in c;
-  v
+  Database.read datadir "mar" input_value name
 
 type general_category_type = 
   [ `Lu		(* Letter, Uppercase *)

@@ -45,5 +45,4 @@ let  _ =
   Arg.parse [] (fun s -> dir := s) "Parse the CaseFolding file";
   loaddata ();
   let tbl = Tbl.of_map [] !folds in
-  let c = open_out_bin (!dir^"/case_folding.mar") in
-  output_value c tbl; close_out c;
+  Database.write !dir "mar" output_value "case_folding" tbl

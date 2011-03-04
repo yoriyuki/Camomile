@@ -41,12 +41,9 @@ let main () =
     match !dir, !name with
       (Some dir, Some name) -> dir, name
     | _ -> raise (Arg.Bad "Some arguments are missing.") in
-  let c = open_out_bin (Filename.concat dir (name ^ "_set.mar")) in
-  output_value c !tbl_rw;
-  close_out c;
-  let c = open_out_bin (Filename.concat dir (name ^ ".mar")) in
+  let write name value = Database.write dir "mar" output_value name value in
+  write (name ^ "_set") !tbl_rw;
   let tbl = UCharTbl.Bool.of_set !tbl_rw in
-  output_value c tbl;
-  close_out c 
+  write name tbl
   
 let _ = main ()
