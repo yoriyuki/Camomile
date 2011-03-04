@@ -61,10 +61,7 @@ let of_name name =
     | Some x -> x
   with Not_found ->
     let rec look count name = 
-      (try Helpers.sanitize name with _ -> raise Not_found);
-      let filename = Filename.concat Config.charmapdir (name ^ ".mar") in
-      let c = try open_in_bin filename with Sys_error _  -> raise Not_found in
-      let data : data = input_value c in
+      let data : data = Database.read Config.charmapdir "mar" input_value name in
       match data with
 	Alias s -> 
 	  if count = 1 then raise Not_found else 

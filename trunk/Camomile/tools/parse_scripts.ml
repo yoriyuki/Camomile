@@ -46,14 +46,9 @@ let main () =
     read_data ();
     Arg.parse [] 
       (fun dir -> 
-	let c = open_out_bin (Filename.concat dir "scripts_map.mar") in
-	let tbl = UMap.map script_of_num !tbl_rw in
-	output_value c tbl;
-	close_out c;
-	let c = open_out_bin (Filename.concat dir "scripts.mar") in
-	let tbl = UCharTbl.Bits.of_map (num_of_script `Common) !tbl_rw in
-	output_value c tbl;
-	close_out c) 
+	let write name value = Database.write dir "mar" output_value name value in
+	write "scripts_map" (UMap.map script_of_num !tbl_rw);
+	write "scripts" (UCharTbl.Bits.of_map (num_of_script `Common) !tbl_rw))
       "Parse Scripts.txt"
   end
     

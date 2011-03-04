@@ -188,30 +188,18 @@ let main () =
     let to_lower1_ro = UTbl.of_map null !to_lower1 in
     let to_title1_ro = UTbl.of_map null !to_title1 in
     let to_upper1_ro = UTbl.of_map null !to_upper1 in
+    let write name value = Database.write !dir "mar" output_value name value in
     begin
-      let c = 
-	let filename = Filename.concat !dir "/general_category_map.mar" in
-	open_out_bin filename in
-      let gen_cat = UMap.map cat_of_num !cat_tbl in
-      output_value c gen_cat; close_out c;
-      let c = open_out_bin (Filename.concat !dir "/general_category.mar") in
-      output_value c cat_tbl_ro; close_out c;
-      let c = 
-	let filename = Filename.concat !dir "/combined_class_map.mar" in
-	open_out_bin filename in
-      output_value c !combcl_tbl; close_out c;
-      let c = open_out_bin (Filename.concat !dir "/combined_class.mar") in
-      output_value c combcl_tbl_ro; close_out c;
-      let c = open_out_bin (Filename.concat !dir "/decomposition.mar") in
-      output_value c decomp_tbl_ro; close_out c;
-      let c = open_out_bin (Filename.concat !dir "/composition.mar") in
-      output_value c comp_tbl_ro; close_out c; 
-      let c = open_out_bin (Filename.concat !dir "/to_lower1.mar") in
-      output_value c to_lower1_ro; close_out c; 
-      let c = open_out_bin (Filename.concat !dir "/to_title1.mar") in
-      output_value c to_title1_ro; close_out c; 
-      let c = open_out_bin (Filename.concat !dir "/to_upper1.mar") in
-      output_value c to_upper1_ro; close_out c; 
+      let gen_cat_map = UMap.map cat_of_num !cat_tbl in
+      write "general_category_map" gen_cat_map;      
+      write "general_category" cat_tbl_ro;
+      write "combined_class_map" !combcl_tbl; 
+      write "combined_class" combcl_tbl_ro;
+      write "decomposition" decomp_tbl_ro;
+      write "composition" comp_tbl_ro;
+      write "to_lower1" to_lower1_ro;
+      write "to_title1" to_title1_ro;
+      write "to_upper1" to_upper1_ro;
     end
   end
 

@@ -35,9 +35,8 @@ let read root suffix reader locale =
       if locale_path = [] then "root" else
       String.concat "_" locale_path
     in
-    let filename = Filename.concat root (basename ^ "." ^ suffix) in
-    try reader (open_in_bin filename) with 
-      Sys_error _ | Not_found ->
+    try Database.read root suffix reader basename with
+      Not_found ->
 	if locale_path = [] then raise Not_found else
 	search (cut_last locale_path)
   in

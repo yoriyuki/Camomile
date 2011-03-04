@@ -81,6 +81,4 @@ let  _ =
   Arg.parse [] (fun s -> dir := s) "Parse the SpecialCasing file";
   loaddata ();
   let tbl = CasingTbl.of_map [] !scases in
-  let file = Filename.concat !dir "special_casing.mar" in
-  let c = open_out_bin file in
-  output_value c tbl; close_out c;
+  Database.write !dir "mar" output_value "special_casing" tbl

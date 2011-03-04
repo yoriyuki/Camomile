@@ -76,7 +76,7 @@ public/unicodeString.cmi configInt.cmi internal/uReStrParserType.cmi
 
 #Modules without configuration
 OBJNOINI= \
-internal/helpers.cmo\
+internal/helpers.cmo internal/database.cmo\
 camomileDefaultConfig.cmo\
 internal/bitsvect.cmo internal/bytesvect.cmo \
 internal/avlTree.cmo internal/iSet.cmo internal/iMap.cmo \

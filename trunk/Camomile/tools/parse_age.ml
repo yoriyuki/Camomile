@@ -49,9 +49,8 @@ let main () =
   Arg.parse [] 
     (fun dir -> 
        let map = parse () in
-       let c = open_out_bin (Filename.concat dir "age.mar") in
-       output_value c (UCharTbl.Char.of_map undefined_version map);
-       close_out c)
+       Database.write dir "mar" output_value "age" 
+	 (UCharTbl.Char.of_map undefined_version map))
     "Parse DerivedAge.txt"
 
 let _ = main ()
