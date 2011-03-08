@@ -4,6 +4,7 @@
 % version: 1.0
 %  source: ECMA registry
 
+% alias ISO_6937-2:1983
 CHARMAP
 <U0000>     /x00         NULL (NUL)
 <U0001>     /x01         START OF HEADING (SOH)

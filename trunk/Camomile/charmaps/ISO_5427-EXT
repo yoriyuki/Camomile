@@ -6,6 +6,7 @@
 %  source: ECMA registry
 
 % alias ISO-IR-54
+% alias ISO_5427:1981
 CHARMAP
 <U0000>     /x00         NULL (NUL)
 <U0001>     /x01         START OF HEADING (SOH)

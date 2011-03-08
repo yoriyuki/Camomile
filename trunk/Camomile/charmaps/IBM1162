@@ -1,8 +1,8 @@
-<code_set_name> IBM1162
+<code_set_name> IBM1133
 <comment_char> %
 <escape_char> /
 
-% alias CP1162
+% alias CP1133
 CHARMAP
 <U0000>     /x00         <control>
 <U0001>     /x01         <control>

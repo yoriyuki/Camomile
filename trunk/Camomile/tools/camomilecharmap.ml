@@ -3,7 +3,7 @@
 
 open Toolslib
 
-let inchan, dir =
+let parse_arg () =
   let dir = ref "." in
   let file = ref None in
   let helptext =
@@ -18,11 +18,9 @@ let inchan, dir =
       if !file <> None then failwith "Too many arguments" else
       file := Some s)
     helptext;
-  match !file with
-    None -> stdin, !dir
-  | Some name -> open_in name, !dir
+  (!file, !dir)
 
-let escape_char = ref '\\'
+let escape_char = ref '/'
 let comment_char = ref '#'
 
 let blank_pat = Str.regexp "[ \t]+"
@@ -45,14 +43,13 @@ let begin_with s s' =
     true 
   with Break -> false
 
-let codeset_name, aliases =
-  let codeset_name = ref None in
+let parse_header file inchan =
+  let codeset_name = ref file in
   let aliases = ref [] in
+  let unread_line = ref None in
   try while true do
     let s = input_line inchan in
     if begin_with "<code_set_name>" s then begin
-      if !codeset_name <> None then
-	failwith "Multiple definitions of the codeset name";
       codeset_name := Some (List.nth (Str.split blank_pat s) 1)
     end else if begin_with "<comment_char>" s then
       comment_char := (List.nth (Str.split blank_pat s) 1).[0]
@@ -65,11 +62,11 @@ let codeset_name, aliases =
       aliases := a @ !aliases
     else if begin_with "CHARMAP" s then raise Break
     else if Str.string_match empty_line s 0 || s.[0] = !comment_char then ()
-    else failwith ("Unknown header: " ^ s)
+    else begin unread_line := Some s; raise Break end
   done; assert false with Break -> 
     match !codeset_name with
       None -> failwith "Codeset name is not defined"
-    | Some s -> s, !aliases
+    | Some s -> s, !aliases, unread_line
 
 let zero = Char.code '0'
 
@@ -132,11 +129,14 @@ let is_irreversible s =
   irreversible.[13] <- !escape_char;
   begin_with irreversible s
 
-let enc2u, u2enc =
+let parse_body unread_line inchan =
   let enc2u = ref [] in
   let u2enc = ref IMap.empty in
   try while true do
-    let s = input_line inchan in
+    let s =
+      match !unread_line with
+	None -> input_line inchan 
+      | Some s -> unread_line := None; s in
     if Str.string_match entry_pat s 0 then
       let n = int_of_name (Str.matched_group 2 s) in
       let enc = get_enc (Str.matched_group 3 s) !escape_char in
@@ -167,29 +167,36 @@ module StringTbl = Tbl31.Make (struct
   let hash = Hashtbl.hash
 end)
 
-let ucs_to_enc = StringTbl.of_map "" u2enc
-
-(* search unused ucs-character *)
-let no_char = 
-  let rec scan i =
-    let s = Tbl31.get ucs_to_enc i in
-(*    Printf.eprintf "%d - %s\n" i (String.escaped s); *)
-    match s with
-      "" -> i
-    | _ ->
-	if i > 255 then 0xffff else scan (i + 1)
-  in scan 0
-
-let enc_to_ucs = Charmap.make_enc_to_ucs no_char enc2u
-
 open Charmap
 
-let () = 
+let main () =
+  let file, dir = parse_arg () in
+  let inchan = 
+    match file with
+      None -> stdin
+    | Some file -> open_in file in
+  let codeset_name, aliases, unread_line = parse_header file inchan in
+  let enc2u, u2enc = parse_body unread_line inchan in
+  let ucs_to_enc = StringTbl.of_map "" u2enc in
+(* search unused ucs-character *)
+  let no_char = 
+    let rec scan i =
+      let s = Tbl31.get ucs_to_enc i in
+(*    Printf.eprintf "%d - %s\n" i (String.escaped s); *)
+      match s with
+	"" -> i
+      | _ ->
+	  if i > 255 then 0xffff else scan (i + 1)
+    in scan 0 in
+  let enc_to_ucs = Charmap.make_enc_to_ucs no_char enc2u in
   let data = CMap {name = codeset_name; 
 		   ucs_to_enc = ucs_to_enc;
-		   enc_to_ucs = enc_to_ucs} in
-  Database.write dir "mar" output_value codeset_name data;
+		   enc_to_ucs = enc_to_ucs} in 
+  begin
+    Database.write dir "mar" output_value codeset_name data;
+    List.iter (fun a -> 
+      Database.write dir "mar" output_value a (Alias codeset_name))
+      aliases;
+  end
 
-List.iter (fun a -> 
-  Database.write dir "mar" output_value a (Alias codeset_name))
-  aliases;
+let () = main ()
