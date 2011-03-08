@@ -5,6 +5,7 @@
 %  source: ECMA registry
 
 % alias ISO-IR-2
+% alias ISO_646.IRV:1983
 % alias IRV
 CHARMAP
 <U0000>     /x00         NULL (NUL)

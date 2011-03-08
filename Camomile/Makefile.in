@@ -345,7 +345,7 @@ test :
 	echo $(CHARMAP_DATA)
 charmap_data : $(CHARMAP_DATA)
 $(CHARMAP_DATA) : charmaps/%.mar : tools/camomilecharmap.$(OCAMLBEST) charmaps/%
-	tools/camomilecharmap.$(OCAMLBEST) -d charmaps charmaps/$*
+	tools/camomilecharmap.$(OCAMLBEST) -d charmaps charmaps/$* || true
 
 # Compilation of locale data
 ############################
