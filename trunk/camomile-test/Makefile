@@ -29,7 +29,6 @@ OCAMLOPT = ocamlfind ocamlopt
 OCAMLDEP = ocamldep -slash
 OCAMLLEX = ocamllex.opt
 OCAMLYACC= ocamlyacc
-OCAMLLIB = C:\OCaml\lib
 OCAMLBEST= opt
 OCAMLVERSION = 3.11
 OCAMLWEB = ocamlweb
