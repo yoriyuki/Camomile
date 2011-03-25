@@ -81,7 +81,7 @@ let test_enc file =
       prerr_newline ()
 	
 let filter name =
-  not (Str.string_match (Str.regexp ".*\\.\\.UTF8") name 0)
+  not (Str.string_match (Str.regexp ".*\\.\\..*") name 0)
 
 let _ = foreach_file (input_filename "data/enc") ~filter test_enc
 
