@@ -60,7 +60,7 @@ unidata : Unicode Inc. : see unidata/README
 
 The library is designed to work all platform supported by ocaml, but
 currently the build procedure requires GNU tools (GNU coreutils, Make,
-grep, sh).
+grep, sh) and a special care is needed for MinGW port.
 In the top of the source directory, do the following.
 	$ ./configure
 	$ make
@@ -85,9 +85,11 @@ If you have ocamldoc,
 creates dochtml directory in the source directory, and HTML
 documentation.
 
-If you use MinGW port of OCaml and put OCaml stuff into the folder
-C:/OCaml, then specify prefix when invoking configure.  
-	  $ configure --prefix=C:/OCaml 
+1.1 MinGW port
+
+If you use MinGW port of OCaml, then you must specify --prefix
+argument of configure where "share" directory is located.
+	  $ configure --prefix=C:/mingw 
 The prefix must be in the MSDOS file format and separators of path
 must be /, not \.
 
