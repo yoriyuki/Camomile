@@ -1,7 +1,8 @@
 #
 # autoconf input for Objective Caml programs
 # Copyright (C) 2001 Jean-Christophe Filliâtre
-#		2002. 2004, 2005 Yamagata Yoriyuki
+#		2002, 2004, 2005, 2010 Yamagata Yoriyuki
+#		2011  National Institute of Advanced Science and Technology
 #   from a first script by Georges Mariano 
 # 
 # This library is free software; you can redistribute it and/or
@@ -30,6 +31,7 @@
 #   OCAMLWEB      "ocamlweb" (not mandatory)
 #   OCAMLINSTALL  "install-with-ocamlfind" if ocamlfind is found,
 #                 "install-without-ocamlfind" otherwise
+#   COPTIONS	  options for C complier
 
 
 # check for one particular file of the sources 
@@ -41,6 +43,13 @@ AC_CHECK_PROG(CPPO,cppo,cppo,false)
 # We need grep
 
 AC_PROG_FGREP
+
+# Hack for MinGW
+
+WS232=`gcc -print-file-name=libws2_32.a`
+if test -e "$WS232" ; then
+   COPTIONS="-ccopt -L`dirname $WS232`"
+fi
 
 # Check for Ocaml compilers
 
@@ -174,8 +183,7 @@ AC_SUBST(OCAMLINSTALL)
 AC_SUBST(OCAMLDOC)
 AC_SUBST(VERSION)
 AC_SUBST(CPPO)
+AC_SUBST(COPTIONS)
 
 # Finally create the Makefile from Makefile.in
 AC_OUTPUT(Makefile META)
-chmod a-w Makefile
-chmod a-w META

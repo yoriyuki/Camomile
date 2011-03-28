@@ -43,7 +43,7 @@ OCAMLMKLIB = @OCAMLMKLIB@
 
 # compiler options
 BOPTIONS = @DEBUG@ @ASSERT@
-OOPTIONS = @PROFILE@ @ASSERT@
+OOPTIONS = @COPTIONS@ @PROFILE@ @ASSERT@
 
 #
 PACKAGE = camomile
@@ -521,7 +521,7 @@ allclean : distclean
 
 depend : .depend
 
-.depend : camomileLibrary.mli camomileLibrary.ml camomileDefaultConfig.ml *.ml *.mli internal/*.ml \
+.depend : camomileLibrary.mli camomileLibrary.ml camomileDefaultConfig.ml *.ml *.mli internal/*.ml internal/uReStrParser.mli internal/uReStrParser.ml \
 	internal/*.mli public/*.ml public/*.mli mappings/*.ml \
 	toolslib/*.ml toolslib/*.mli $(TOOLS:.byte=.ml)
 	$(OCAMLDEP) $(SUBDIR) *.ml *.mli \
