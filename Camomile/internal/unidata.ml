@@ -182,7 +182,6 @@ end
 module Make (Config : ConfigInt.Type) = struct
 
 let read_data ?datadir name =
-  (try Helpers.sanitize name with _ -> raise Not_found);
   let datadir =
     match datadir with
       Some d -> d
