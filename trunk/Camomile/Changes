@@ -1,3 +1,11 @@
+From 0.8.1 to 0.8.2
+
+* File names of Data files which is produced and used by camomile are
+  now properly escaped, to avoid security risk and more liberal use of
+  aliases which contain "." or "/" etc.
+
+* Charmap tables are updated to the recent ones of glibc. 
+
 From 0.8.0 to 0.8.1
 
 * Bugs affecting UMap.remove and USet.fold_range are fixed.  (Pointed
