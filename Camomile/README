@@ -6,7 +6,7 @@ character type, UTF-8, UTF-16, UTF-32 strings, conversion to/from
 about 200 encodings, collation and locale-sensitive case mappings, and
 more.
 
-Copyright 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010 Yoriyuki
+Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010 Yoriyuki
 Yamagata 
 	  2011 National Institute of Advanced Science and Technology
 
@@ -86,8 +86,8 @@ documentation.
 
 1.1 MinGW port
 
-If you use MinGW port of OCaml, then you must specify --prefix
-argument of configure where "share" directory is located.
+If you use MinGW port of OCaml, then you must specify where "share"
+directory by --prefix is located when you run configure.
 	  $ configure --prefix=C:/mingw 
 The prefix must be in the MSDOS file format and separators of path
 must be /, not \.
