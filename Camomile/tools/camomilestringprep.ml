@@ -34,7 +34,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yoriyuki.yamagata@aist.go.jp *)
+(* yori@sourceforge.net *)
 
 open StringPrep_data
 

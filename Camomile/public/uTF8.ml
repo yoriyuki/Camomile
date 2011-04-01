@@ -32,9 +32,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yoriyuki.yamagata@aist.go.jp *)
-(* $Id: uTF8.ml,v 1.11 2004/09/04 16:07:38 yori Exp $ *)
-(* Copyright 2002, 2003 Yamagata Yoriyuki. distributed with LGPL *)
+(* yori@users.sourceforge.net *)
 
 type t = string
 type index = int

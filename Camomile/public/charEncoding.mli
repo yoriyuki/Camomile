@@ -30,8 +30,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yoriyuki.yamagata@aist.go.jp *)
-
+(* yori@users.sourceforge.net *)
 
 module type Interface = sig
 (** Module for character encodings. *)

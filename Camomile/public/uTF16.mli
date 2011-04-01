@@ -30,7 +30,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yoriyuki.yamagata@aist.go.jp *)
+(* yori@users.sourceforge.net *)
 
 (** UTF-16 encoded string. the type is the bigarray of 16-bit integers.
    The characters must be 21-bits code points, and not surrogate points,

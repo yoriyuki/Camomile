@@ -32,10 +32,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yoriyuki.yamagata@aist.go.jp *)
-
-
-(* $Id: uTF16.ml,v 1.7 2004/09/04 16:07:38 yori Exp $ *)
+(* yori@users.sourceforge.net *)
 
 open Bigarray
 

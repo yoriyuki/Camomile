@@ -31,7 +31,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yoriyuki.yamagata@aist.go.jp *)
+(* yori@users.sourceforge.net *)
 
 val decompose : UChar.t -> UChar.t list
 val add_decomposition : XString.t -> UChar.t -> unit

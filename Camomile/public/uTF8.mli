@@ -32,7 +32,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yoriyuki.yamagata@aist.go.jp *)
+(* yori@users.sourceforge.net *)
 
 
 (** UTF-8 encoded Unicode strings. The type is normal string. *)
