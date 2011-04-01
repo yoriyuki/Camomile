@@ -17,8 +17,8 @@ let test_decoding enc_name file utf8_file =
   let file = enc_filename file in
   let utf8_file = enc_filename utf8_file in
   let enc = of_name enc_name in
-  let src = new in_channel enc (open_in file) in
-  let dst = new in_channel utf8 (open_in utf8_file) in
+  let src = new in_channel enc (open_in_bin file) in
+  let dst = new in_channel utf8 (open_in_bin utf8_file) in
   test  
     ~desc:("Decoding: "^ enc_name) 
     ~body:(fun () -> expect_pass ~body:(fun () ->
@@ -41,8 +41,8 @@ let test_decoding enc_name file utf8_file =
 let test_encoding enc_name utf8_file = 
   let enc = of_name enc_name in
   let utf8_file = enc_filename utf8_file in
-  let us = stream_of_channel (new in_channel utf8 (open_in utf8_file)) in
-  let us0 = stream_of_channel (new in_channel utf8 (open_in utf8_file)) in
+  let us = stream_of_channel (new in_channel utf8 (open_in_bin utf8_file)) in
+  let us0 = stream_of_channel (new in_channel utf8 (open_in_bin utf8_file)) in
   let cs = char_stream_of enc us0 in
   let us' = ustream_of enc cs in
   test

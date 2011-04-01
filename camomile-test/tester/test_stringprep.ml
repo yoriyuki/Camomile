@@ -95,7 +95,7 @@ let check_line n s =
 exception Ok of string
 
 let check_file f =
-  let c = open_in f in
+  let c = open_in_bin f in
   let rec check line n =
     try
       raise (Ok (input_line c))
