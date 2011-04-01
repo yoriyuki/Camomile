@@ -36,7 +36,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yoriyuki.yamagata@aist.go.jp *)
+(* yori@users.sourceforge.net *)
 
 (** Unicode characters. All 31bit code points are allowed.*) 
 type t

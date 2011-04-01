@@ -33,7 +33,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yoriyuki.yamagata@aist.go.jp *)
+(* yori@users.sourceforge.net *)
 
 type t = 
     (int32, Bigarray.int32_elt, Bigarray.c_layout) Bigarray.Array1.t

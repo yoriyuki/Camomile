@@ -1,4 +1,4 @@
-(* Copyright 2010, Sylvain Le Gal, Yamagata Yoriyuki, distributed with LGPL *)
+(* Copyright 2010, Sylvain Le Gal, Yamagata Yoriyuki*)
 
 (* This library is free software; you can redistribute it and/or *)
 (* modify it under the terms of the GNU Lesser General Public License *)
@@ -30,7 +30,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yoriyuki.yamagata@aist.go.jp *)
+(* yori@useyrs.sourceforge.net *)
 
 
 (** modules configured by environmental variables.  *)

@@ -31,7 +31,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yoriyuki.yamagata@aist.go.jp *)
+(* yori@users.sourceforge.net *)
 
 
 let rec bits n = if n = 0 then 0 else 1 + bits (n lsr 1)
