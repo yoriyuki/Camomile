@@ -1,4 +1,4 @@
-Camomile 0.8.1 (beta):
+Camomile 0.8.2 (beta):
 
 This is a beta release of Camomile library package.  Camomile is a
 comprehensive Unicode library for ocaml.  Camomile provides Unicode
@@ -6,8 +6,9 @@ character type, UTF-8, UTF-16, UTF-32 strings, conversion to/from
 about 200 encodings, collation and locale-sensitive case mappings, and
 more.
 
-Copyright 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010 Yoriyuki
+Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010 Yoriyuki
 Yamagata 
+	  2011 National Institute of Advanced Science and Technology
 
 This library is free software; you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as
@@ -21,7 +22,7 @@ executable file containing portions of this library, and distribute
 that executable file under terms of your choice, without any of the
 additional requirements listed in clause 6 of the GNU Library General
 Public License. By "a publicly distributed version of this library", we
-mean either the unmodified Library as distributed by INRIA, or a
+mean either the unmodified Library as distributed by the authors, or a
 modified version of this library that is distributed under the
 conditions defined in clause 3 of the GNU Library General Public
 License. This exception does not however invalidate any other reasons
@@ -33,34 +34,32 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 Lesser General Public License for more details.
 
-The GNU Lesser General Public License (LGPL) is contained in the file COPYING.
+The GNU Lesser General Public License (LGPL) is contained in the file
+COPYING.
 
 The following files are authored by different persons.  For their
 licenses, see the relevant notice of each file or directory.
 
 camomileDynConfig.ml* : Sylvain Le Gall
-	Licensed by LGPL	      
 
 internal/stringPrep_data.ml*, public/stringPrep.ml*,
 tools/camomilestringprep.ml parse_age.ml, many changes to Makefile.in
 public/uCharInfo.ml* : Pierre Chambart
-	Licensed by LGPL
 
 configure.in Makefile.in : Jean-Christophe FILLIATRE
-	Licensed by LGPL
 
-locales : International Business Machines : 
+locales/*.txt : International Business Machines : 
 	derived from the ICU package.  see locales/licence.html
-mappings : Free Software Foundation : 
+charmap/* : Free Software Foundation : 
 	derived from glibc.  Licensed by LGPL
 	(CP932 has a different origin.  See the preamble of the file CP932)
-unidata : Unicode Inc. : see unidata/README
+unidata : Unicode Inc. : see unidata/README.  See also unidata/tr10/README.
 
 1. Installation
 
 The library is designed to work all platform supported by ocaml, but
 currently the build procedure requires GNU tools (GNU coreutils, Make,
-grep, sh).
+grep, sh) and a special care is needed for MinGW port.
 In the top of the source directory, do the following.
 	$ ./configure
 	$ make
@@ -85,9 +84,11 @@ If you have ocamldoc,
 creates dochtml directory in the source directory, and HTML
 documentation.
 
-If you use MinGW port of OCaml and put OCaml stuff into the folder
-C:/OCaml, then specify prefix when invoking configure.  
-	  $ configure --prefix=C:/OCaml 
+1.1 MinGW port
+
+If you use MinGW port of OCaml, then you must specify where "share"
+directory by --prefix is located when you run configure.
+	  $ configure --prefix=C:/mingw 
 The prefix must be in the MSDOS file format and separators of path
 must be /, not \.
 
