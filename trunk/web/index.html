@@ -26,38 +26,25 @@ similar to OCaml standard library (see README for details).
 
 <H3>News</H3> 
 
-<p>2010/07/08 <a href="http://prdownloads.sourceforge.net/camomile/camomile-0.8.1.tar.bz2">Camomile
-  0.8.1</a> is released.  This is a bug fix release, which fixes bugs
-  affecing UMap.remove and USet.fold_range.  (Pointed out by Chris
-  Kuklewicz.)
-
-<p>2010/07/06 <a
-  href="http://prdownloads.sourceforge.net/camomile/camomile-0.8.0.tar.bz2">Camomile
-  0.8.0</a> is released.   This release contains new feature as well
-  as bug fixes.
-  <ol>
-    <li> Reorganize the module structure : Make CamomileLibrary.Default to
-  the new top-level module CamomileLibraryDefault, so that linking
-  CamomileLibrary does not automatically cause to load the data files
-  from hard-coded location.  Also, adding new CamomileLibraryDyn
-  module, which is configured by environmental variables (See
-  camomileDynConfig.mli). </li>
-  <li>StringPrep module:  String preparation according to RFC3454,
-  contributed by Pierre Chambart.</li>
-  <li>Avl-Tree balanced bug fix, pointed out by Stanisław T. Findeisen.</li>
-  </ol>
-  The package is tested on Linux
-  (Ubuntu 8.04 + godi version of OCaml 3.11.2).</p>
+<p>2011/04/12 <a
+   href="http://prdownloads.sourceforge.net/camomile/camomile-0.8.2.tar.bz2">Camomile
+  0.8.2</a> is released.  This is a minor update including
+<ol>
+  <li>File names of data files which is produced and used by camomile are
+  now properly escaped, to avoid security risk and more liberal use of
+  aliases which contain "." or "/" etc,</li>
+  <li>Charmap tables are updated to the recent ones of glibc.</li>
+</ol>
 
 <H3>Download</H3>
 
 <p>Recent release: 
-<A href="http://prdownloads.sourceforge.net/camomile/camomile-0.8.1.tar.bz2">
-camomile-0.8.1</A> 
+<A href="http://prdownloads.sourceforge.net/camomile/camomile-0.8.2.tar.bz2">
+camomile-0.8.2</A> 
 
 <p><A
 href="https://sourceforge.net/scm/?type=svn&group_id=40603">
-Current SVN version</A></p>
+Subversion repository</A></p>
 
 <h3>Documentation</h3>
 
@@ -86,7 +73,7 @@ Canadian, Thai and Japanese standards with their locales.  There is no problem e
 <h3>Known problems</h3>
 
 See <a href="https://sourceforge.net/tracker/?group_id=40603&atid=428416">bug
-trucker</a>
+tracker</a>
 
 <h3>Miscellaneous</h3>
 
@@ -102,7 +89,7 @@ trucker</a>
 <p>Many people provided bug fixes.</p>
 
 <p>This page is hosted in <A href="http://sourceforge.net">Sourceforge</A>.
-Our project information can be seen
+You can see ur project information 
 <A href="http://sourceforge.net/projects/camomile">here.</A>
 
 If you have a comment on this page, contact to <A
@@ -114,7 +101,7 @@ width="88" height="31" border="0"
 alt="SourceForge Logo"></A>
 <HR>
 <!-- hhmts start -->
-Last modified: Jul 08, 2010
+Last modified: Apr. 12, 2011
 <!-- hhmts end -->
 </BODY>
 </html>
