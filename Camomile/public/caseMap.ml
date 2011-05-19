@@ -60,7 +60,11 @@ let conditional_casing_tbl = load_conditional_casing_tbl ()
 let conditional_casing u = UCharTbl.get conditional_casing_tbl u
 
 let casefolding_tbl = load_casefolding_tbl ()
-let casefolding_char u = UCharTbl.get casefolding_tbl u
+
+let casefolding_char u = 
+  match UCharTbl.get casefolding_tbl u with 
+    [] -> [u] (* default *)
+  |  us -> us 
 
 let is_null u = UChar.uint_code u = 0
 
@@ -237,8 +241,8 @@ let is_cased u =
       let buf = Text.Buf.create 0 in
 	Text.iter 
 	  (fun u -> 
-	     let us = casefolding_char u in
-	       List.iter (Text.Buf.add_char buf) us)
+	    let us = casefolding_char u in
+	    List.iter (Text.Buf.add_char buf) us)
 	  t;
 	Text.Buf.contents buf
 
