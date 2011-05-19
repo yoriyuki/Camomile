@@ -1,3 +1,8 @@
+From 0.8.2 to 0.8.3
+
+* The bug that casefolding mapes lowercase letters to empty string is
+  fixed.
+
 From 0.8.1 to 0.8.2
 
 * File names of Data files which is produced and used by camomile are
