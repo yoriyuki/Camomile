@@ -64,7 +64,7 @@ let casefolding_tbl = load_casefolding_tbl ()
 let casefolding_char u = 
   match UCharTbl.get casefolding_tbl u with 
     [] -> [u] (* default *)
-  |  us -> us 
+  | us -> us 
 
 let is_null u = UChar.uint_code u = 0
 
