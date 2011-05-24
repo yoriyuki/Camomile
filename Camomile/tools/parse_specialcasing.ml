@@ -1,7 +1,5 @@
 (** Parse the data used fot case mappings *)
-(* Copyright (C) 2002 Yamagata Yoriyuki *)
-(*               2011 National Institute of Advanced Industrial *)
-(*                    Science and Technology *)
+(* Copyright (C) 2002, 2011 Yamagata Yoriyuki *)
 
 (* This library is free software; you can redistribute it and/or *)
 (* modify it under the terms of the GNU Lesser General Public License *)

@@ -1,8 +1,7 @@
 (** Parse version data of Unicode charactor *)
 
 (* Copyright (C) 2010 Pierre Chambart *)
-(*               2011 National Institute of Industrial Science and*)
-(*                    Technology *)
+(*               2011 Yoriyuki Yamagata *)
 
 (* This library is free software; you can redistribute it and/or *)
 (* modify it under the terms of the GNU Lesser General Public License *)

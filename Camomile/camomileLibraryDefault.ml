@@ -1,5 +1,4 @@
-(* Copyright (C) 2010 Yoriyuki Yamagata *)
-(*               2011 National Institute of Advanced Industrial *)
+(* Copyright (C) 2010, 2011 Yoriyuki Yamagata *)
 
 (* This library is free software; you can redistribute it and/or *)
 (* modify it under the terms of the GNU Lesser General Public License *)
