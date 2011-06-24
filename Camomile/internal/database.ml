@@ -1,6 +1,5 @@
 (** Database.ml : Unified interfaces of stored data for Camomile *)
-(* Copyright (C) 2011 National Institute of Advanced Science and *)
-(* Technology *)
+(* Copyright (C) 2011 Yoriyuki Yamagata *)
 
 (* This library is free software; you can redistribute it and/or *)
 (* modify it under the terms of the GNU Lesser General Public License *)
