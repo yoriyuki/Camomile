@@ -416,7 +416,7 @@ module Make (Text : UnicodeString.Type) = struct
   let search_forward ?(sem=`Longest) ((n, r) as c) t i =
     let groups = Array.make n None in
     let rec scan i =
-      if Text.out_of_range t i then raise Not_found else
+      if Text.out_of_range t i then None else
       try let j, g = exec_first [] t i [r] in (i, j, g) with Exit -> 
 	scan (Text.next t i) in
     let i, j, g = scan i in

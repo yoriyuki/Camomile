@@ -1,5 +1,5 @@
 (* Lexer for regular expresions *)
-(* Copyright (C) 2003 Yamagata Yoriyuki *)
+(* Copyright (C) 2003 - 2011 Yamagata Yoriyuki *)
 
 (* This library is free software; you can redistribute it and/or *)
 (* modify it under the terms of the GNU Lesser General Public License *)
@@ -92,11 +92,11 @@ rule token = parse
     UCHAR (UChar.chr_of_uint n)}
 | '\\' ascii_char {
   let s = Lexing.lexeme lexbuf in
-  ASCII s.[0]}
+  ASCII s.[1]}
 | '\\' utf8_char {
   let s = Lexing.lexeme lexbuf in
   UTF8.validate s;
-  UCHAR (UTF8.look s 2)}
+  UCHAR (UTF8.look s 1)}
 | ascii_char {
   let s = Lexing.lexeme lexbuf in
   ASCII s.[0]}

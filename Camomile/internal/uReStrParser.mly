@@ -1,5 +1,5 @@
 /* Parser for regular expressions
-Copyright (C)  2003, 2006 Yamagata Yoriyuki
+Copyright (C)  2003 - 2011 Yamagata Yoriyuki
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
 as published by the Free Software Foundation; either version 2 of
@@ -112,8 +112,8 @@ let set_of_string s =
 %left HAT
 %left LEFT_BRACKET RIGHT_BRACKET
 %left LEFT_BRACE LEFT_BRACE
-%left UCHAR ASCII SPACE DOT DOLLAR SPACE BOS EOS
-%nonassoc ASTARISK PLUS QUESTION REPN
+%left UCHAR ASCII DOLLAR SPACE BOS EOS
+%left DOT ASTARISK PLUS QUESTION REPN
 
 %start start
 %type <UReStrParserType.tree> start
@@ -124,8 +124,7 @@ start :
 | END {`Epsilon};
 
 regexp :
-  string {`String $1}
-| LEFT_BRACKET charset RIGHT_BRACKET {`SetNotation $2}
+  LEFT_BRACKET charset RIGHT_BRACKET {`SetNotation $2}
 | DOT {`Set any}
 | HAT {bol}
 | DOLLAR {eol}
@@ -136,6 +135,7 @@ regexp :
 | regexp ALT regexp {`Alt ($1, $3)}
 | regexp regexp %prec CONCAT {`Seq ($1, $2)}
 | LEFT_PAREN regexp RIGHT_PAREN {`Group $2}
+| string {`String $1}
 | BOS {`BoS}
 | EOS {`EoS}
 
