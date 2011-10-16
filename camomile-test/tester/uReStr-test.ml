@@ -312,3 +312,18 @@ expect_pass "search" (fun () ->
   expect_not_contain "如法" text;
   expect_not_contain "[{Ideographic}]\\{3,\\}" text;
 );
+
+(* Bugs reported by KAWAKAMI Shigenobu *)
+
+expect_pass "dot" (fun () ->
+  expect_contain "Sr\\." "Sra. y Sr. Zapatero - 1";
+  expect_contain "Sr[.]" "Sra. y Sr. Zapatero - 2";
+  expect_contain "Sr\\u002e" "Sra. y Sr. Zapatero - 3";
+);
+
+expect_pass "tag" (fun () ->
+  eq_matched_string "^</?a>" "<a>abcdefg-1</a>" "<a>";
+  eq_matched_string "</?a>" "</a>-2" "</a>";
+  eq_matched_string "^<\\(/?\\)a>" "<a>abcdefg-3</a>" "<a>";
+  eq_matched_string "^<\\(/\\)?a>" "<a>abcdefg-4</a>" "<a>";
+);
