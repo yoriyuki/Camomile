@@ -417,15 +417,17 @@ module Make (Text : UnicodeString.Type) = struct
     let groups = Array.make n None in
     let rec scan i =
       if Text.out_of_range t i then None else
-      try let j, g = exec_first [] t i [r] in (i, j, g) with Exit -> 
+      try let j, g = exec_first [] t i [r] in Some (i, j, g) with Exit -> 
 	scan (Text.next t i) in
-    let i, j, g = scan i in
-    match sem with
-      `First ->
-	set_groups groups g;
-	groups.(0) <- Some (SubText.refer t i j);
-	Some groups
-    | _ ->
-	regexp_match ~sem c t i
+    match scan i with
+      Some (i, j, g) ->
+	(match sem with
+	  `First ->
+	    set_groups groups g;
+	    groups.(0) <- Some (SubText.refer t i j);
+	    Some groups
+	| _ ->
+	    regexp_match ~sem c t i)
+    | None -> None
 
 end
