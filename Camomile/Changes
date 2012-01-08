@@ -1,3 +1,15 @@
+From 0.8.3 to 0.8.4
+
+* Scoping rule of "." in regular expressions is fixed to match the rule
+  of Str of stdlib.  (Pointed out by Kawakami Shigenobu.)
+
+* search_forward in URe and UReStr returns None if there is no matched
+  substring, not raises Not_found.  (Pointed out by Kawakami Shigenobu.)
+
+* IMap.domain and map_to_set fix (imported from batteries).
+
+* Fix bug that ISet.(compare empty empty) = -1 (imported from batteries).
+
 From 0.8.2 to 0.8.3
 
 * The bug that casefolding mapes lowercase letters to empty string is
