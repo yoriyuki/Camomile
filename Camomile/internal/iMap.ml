@@ -154,30 +154,10 @@ let rec set_to_map s v =
   let r = right_branch s in
   make_tree (set_to_map l v) (n1, n2, v) (set_to_map r v)
 
-let rec domain m =
-  if is_empty m then empty else
-  let (k1, k2, _), m' = split_leftmost m in
-  let f n1 n2 _ (k1, k2, s) =
-    if k1 = n2 + 1 then (k1, n2, s) else
-    (n1, n2, make_tree s (k1, k2) empty) in
-  let k1, k2, s =fold_range f m' (k1, k2, empty) in
-  make_tree s (k1, k2) empty
+let domain m =
+  let f n1 n2 _ s = ISet.add_range n1 n2 s in
+  fold_range f m ISet.empty
 
-let rec map_to_set p m =
-  let rec loop m =
-    if is_empty m then None else
-    let (k1, k2, v), m' = split_leftmost m in
-    if p v then Some (k1, k2, m') else
-    loop m' in
-  match loop m with
-    Some (k1, k2, m') ->
-      let f n1 n2 v (k1, k2, s) =
-	if p v then
-	  if k1 = n2 + 1 then (k1, n2, s) else
-	  (n1, n2, make_tree s (k1, k2) empty) 
-	else
-	  (k1, k2, s) in
-      let (k1, k2, s) = fold_range f m' (k1, k2, empty) in
-      make_tree s (k1, k2) empty
-  | None -> empty
-	
+let map_to_set p m =
+  let f n1 n2 v s = if p v then ISet.add_range n1 n2 s else s in
+  fold_range f m ISet.empty

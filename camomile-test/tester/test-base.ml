@@ -223,6 +223,25 @@ let _ =
 	  (assoc i) al
       done))
 
+(* domain, set_to_map, map_to_set *)
+
+let _ =
+  random_test
+    ~desc:"UMap <-> USet"
+    ~log:"UMap <-> USet"
+    ~data:(fun size -> random_assoc size)
+    ~body:(fun al -> expect_pass (fun () ->
+      let umap = umap_of_assoc al in
+      let dom = UMap.domain umap in
+      let umap' = UMap.set_to_map dom 1 in
+      let umap'' = UMap.map (fun _ -> 1) umap in
+      for i = 0 to 0x8000000 do
+	expect_equal_app
+	  (UMap.find (UChar.chr i)) umap'
+	  (UMap.find (UChar.chr i)) umap''
+      done))
+      
+
 (* Tests for UCharTbl *)
 
 let test_tbl utbl uset exc =
