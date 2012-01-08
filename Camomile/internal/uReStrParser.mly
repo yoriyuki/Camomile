@@ -135,7 +135,7 @@ regexp :
 | regexp ALT regexp {`Alt ($1, $3)}
 | regexp regexp %prec CONCAT {`Seq ($1, $2)}
 | LEFT_PAREN regexp RIGHT_PAREN {`Group $2}
-| string {`String $1}
+| uchar {`String [$1]}
 | BOS {`BoS}
 | EOS {`EoS}
 
@@ -149,10 +149,6 @@ uchar :
 | AND {UChar.of_char '&'}
 | OR {UChar.of_char '|'}
 | COLON {UChar.of_char ':'};
-
-string :
-  uchar {[$1]}
-| uchar string {$1 :: $2};
 
 charset :
 | head_charset_char {`Set (USet.add $1 USet.empty)}

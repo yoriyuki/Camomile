@@ -289,8 +289,9 @@ expect_pass "phonebook" (fun () ->
   
 let contain r t =
   let r = URegexp.compile (UReStr.regexp r) in
-  try ignore (URegexp.search_forward ~sem:`First r t 0); true with
-    Not_found -> false in
+     match URegexp.search_forward ~sem:`First r t 0 with
+     Some _ -> true
+     | None -> false in
 
 let expect_contain r t =
   expect_true ~msg:(lazy r) (contain r t) in
