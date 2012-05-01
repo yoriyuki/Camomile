@@ -39,7 +39,10 @@
     #include "configInt.mli"
   end
 
-(** Indivisual modules *)
+(** Default configuration. *)
+  module DefaultConfig : ConfigInt.Type
+
+(** Individual modules *)
 
   module OOChannel : sig
     #include "oOChannel.mli"
