@@ -1,0 +1,31 @@
+
+-------------------------------------------------------------
+/home/cyocum/Camomile/camomile-test/tester/uReStr-test.opt
+-------------------------------------------------------------
+        user:  cyocum
+        time:  Thu, 18 Oct 2012 11:22:34
+          os:  Unix
+  input root:  .
+ output root:  tester
+-------------------------------------------------------------
+
+  Fail - expected No match
+          but got [|(0, "a"); |]
+    in test ab : bos
+  uncaught exception: Not_found
+  Unresolved: search
+  uncaught exception: Not_found
+  Unresolved: dot
+  Fail - No match: <a>abcdefg-1</a>: tag
+
+-------------------------------------------------------------
+Summary:
+  21 passed
+   2 failed
+   2 unresolved
+
+   4 testcase(s) to review
+
+The tests take 0.012000 seconds
+-------------------------------------------------------------
+

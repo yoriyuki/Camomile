@@ -1,0 +1,31 @@
+
+-------------------------------------------------------------
+/home/cyocum/Camomile/camomile-test/tester/test-uCol.opt
+-------------------------------------------------------------
+        user:  cyocum
+        time:  Thu, 18 Oct 2012 11:22:33
+          os:  Unix
+  input root:  .
+ output root:  tester
+-------------------------------------------------------------
+
+  Fail - the previous key is greater than the current:
+value: 1
+previous: cølibat 
+code : 0063 00F8 006C 0069 0062 0061 0074  
+key \b\031\bf\bR\bF\b\026\b\021\b\129\000\000\001\001\001\001\001\001\001\000\000\001\001\001\001\001\001\001\000\000
+current: colon 
+code : 0063 006F 006C 006F 006E  
+key \b\031\bd\bR\bd\b^\000\000\001\001\001\001\001\000\000\001\001\001\001\001\000\000
+: Canadian French
+
+-------------------------------------------------------------
+Summary:
+154352 passed
+   1 failed
+
+   1 testcase(s) to review
+
+The tests take 1.076067 seconds
+-------------------------------------------------------------
+

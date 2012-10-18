@@ -1,0 +1,123 @@
+
+-------------------------------------------------------------
+/home/cyocum/Camomile/camomile-test/tester/test-charEncoding.opt
+-------------------------------------------------------------
+        user:  cyocum
+        time:  Thu, 18 Oct 2012 11:22:31
+          os:  Unix
+  input root:  .
+ output root:  tester
+-------------------------------------------------------------
+
+Warning: TSCII is not supported
+Warning: IBM1122 is not supported
+Warning: IBM1155 is not supported
+Warning: IBM1364 is not supported
+Warning: suntzus is not supported
+Exception: Sys_error("./data/enc/ISO-8859-4..UTF8: No such file or directory")
+Warning: IBM937 is not supported
+Warning: IBM1141 is not supported
+Warning: IBM1145 is not supported
+Warning: IBM1025 is not supported
+Warning: IBM935 is not supported
+Warning: IBM932 is not supported
+Warning: EUC-CN is not supported
+Warning: IBM12712 is not supported
+Exception: Sys_error("./data/enc/ISO-8859-9..UTF8: No such file or directory")
+Warning: IBM930 is not supported
+Warning: IBM1148 is not supported
+Warning: IBM1388 is not supported
+Warning: IBM1046 is not supported
+Warning: IBM1371 is not supported
+Warning: IBM4909 is not supported
+Warning: IBM1142 is not supported
+Warning: IBM4899 is not supported
+Warning: WINDOWS-1258 is not supported
+Warning: IBM1149 is not supported
+Warning: IBM1123 is not supported
+  Fail - expected \u000000c9
+          but got \u000000ee
+    in test location 129 : Decoding: CSA_Z243.4-1985-1
+  Fail - expected \u00000020
+          but got exception CharEncoding.Configure(Config).Out_of_range
+    in test location 1 : Encoding: CSA_Z243.4-1985-1
+Warning: IBM4971 is not supported
+Warning: IBM1112 is not supported
+Warning: NF_Z_62-010_1973 is not supported
+Warning: ISO-2022-JP-3 is not supported
+Warning: IBM1143 is not supported
+Warning: IBM1144 is not supported
+Exception: Sys_error("./data/enc/ISO-8859-6..UTF8: No such file or directory")
+Exception: Sys_error("./data/enc/ISO-8859-5..UTF8: No such file or directory")
+Warning: UTF-7 is not supported
+Warning: IBM1147 is not supported
+Warning: IBM901 is not supported
+Warning: IBM9030 is not supported
+Warning: IBM1390 is not supported
+Warning: IBM933 is not supported
+Warning: IBM1162 is not supported
+Warning: IBM1146 is not supported
+Exception: Sys_error("./data/enc/ISO-8859-7..UTF8: No such file or directory")
+Warning: ISO-2022-CN-EXT is not supported
+Warning: IBM1137 is not supported
+Warning: IBM1140 is not supported
+Warning: CVS is not supported
+Warning: IBM902 is not supported
+Warning: IBM1166 is not supported
+  Fail - expected \u00003084
+          but got exception CharEncoding.Configure(Config).Malformed_code
+    in test location 5980 : Decoding: EUC-JISX0213
+  Fail - expected \u00003084
+          but got exception CharEncoding.Configure(Config).Out_of_range
+    in test location 5980 : Encoding: EUC-JISX0213
+  Fail - expected \u00000020
+          but got exception CharEncoding.Configure(Config).Malformed_code
+    in test location 1 : Decoding: IBM1133
+  Fail - expected \u00000020
+          but got exception CharEncoding.Configure(Config).Out_of_range
+    in test location 1 : Encoding: IBM1133
+Warning: IBM4517 is not supported
+Warning: IBM9448 is not supported
+Warning: IBM1167 is not supported
+Warning: IBM921 is not supported
+Warning: IBM16804 is not supported
+Warning: IBM1154 is not supported
+Warning: IBM1158 is not supported
+Warning: IBM1399 is not supported
+Warning: IBM939 is not supported
+Warning: IBM1008 is not supported
+Exception: Sys_error("./data/enc/ISO-8859-8..UTF8: No such file or directory")
+  Fail - expected \u000000d1
+          but got \u0000004e
+    in test location 531 : Decoding: TCVN-5712
+  Fail - expected \u000000d1
+          but got \u0000004e
+    in test location 531 : Encoding: TCVN-5712
+Warning: IBM943 is not supported
+Warning: IBM1130 is not supported
+Warning: IBM1097 is not supported
+Warning: IBM9066 is not supported
+Warning: IBM1156 is not supported
+Warning: IBM803 is not supported
+Warning: IBM1153 is not supported
+Warning: IBM1157 is not supported
+Warning: IBM5347 is not supported
+  Fail - expected \u000030a0
+          but got exception CharEncoding.Configure(Config).Malformed_code
+    in test location 747 : Decoding: SHIFT_JISX0213
+  Fail - expected \u000030a0
+          but got exception CharEncoding.Configure(Config).Out_of_range
+    in test location 747 : Encoding: SHIFT_JISX0213
+Exception: Sys_error("./data/enc/ISO-8859-3..UTF8: No such file or directory")
+Warning: WINDOWS-1255 is not supported
+
+-------------------------------------------------------------
+Summary:
+ 134 passed
+  10 failed
+
+  10 testcase(s) to review
+
+The tests take 0.636039 seconds
+-------------------------------------------------------------
+
