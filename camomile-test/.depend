@@ -1,0 +1,31 @@
+lib/blender.cmo: lib/blender.cmi
+lib/blender.cmx: lib/blender.cmi
+lib/blenderMain.cmo: lib/blender.cmi
+lib/blenderMain.cmx: lib/blender.cmx
+lib/blender.cmi:
+tester-lib/testUColJapanese.cmo:
+tester-lib/testUColJapanese.cmx:
+tester-lib/uStorageTest.cmo: lib/blender.cmi
+tester-lib/uStorageTest.cmx: lib/blender.cmx
+tester/test-base.cmo: tester-lib/uStorageTest.cmo lib/blender.cmi
+tester/test-base.cmx: tester-lib/uStorageTest.cmx lib/blender.cmx
+tester/test-caseMap.cmo: lib/blender.cmi
+tester/test-caseMap.cmx: lib/blender.cmx
+tester/test-charEncoding.cmo: lib/blender.cmi
+tester/test-charEncoding.cmx: lib/blender.cmx
+tester/test-normalform.cmo: lib/blender.cmi
+tester/test-normalform.cmx: lib/blender.cmx
+tester/test-uCol.cmo: tester-lib/testUColJapanese.cmo lib/blender.cmi
+tester/test-uCol.cmx: tester-lib/testUColJapanese.cmx lib/blender.cmx
+tester/test-uTF8.cmo: tester-lib/uStorageTest.cmo lib/blender.cmi
+tester/test-uTF8.cmx: tester-lib/uStorageTest.cmx lib/blender.cmx
+tester/testOOChannel.cmo: lib/blender.cmi
+tester/testOOChannel.cmx: lib/blender.cmx
+tester/test_stringprep.cmo: lib/blender.cmi
+tester/test_stringprep.cmx: lib/blender.cmx
+tester/uCS4-test.cmo: tester-lib/uStorageTest.cmo lib/blender.cmi
+tester/uCS4-test.cmx: tester-lib/uStorageTest.cmx lib/blender.cmx
+tester/uReStr-test.cmo: lib/blender.cmi
+tester/uReStr-test.cmx: lib/blender.cmx
+tester/uTF16-test.cmo: tester-lib/uStorageTest.cmo lib/blender.cmi
+tester/uTF16-test.cmx: tester-lib/uStorageTest.cmx lib/blender.cmx
