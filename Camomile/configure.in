@@ -161,7 +161,7 @@ profile=$enableval, profile=no)
 
 if test "$profile" = yes ; then PROFILE=-p; else PROFILE=; fi
 
-VERSION=0.8.4
+VERSION=0.8.5
 
 # substitutions to perform
 AC_SUBST(OCAMLC)
