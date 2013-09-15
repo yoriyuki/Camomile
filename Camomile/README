@@ -1,4 +1,4 @@
-Camomile 0.8.4 (beta):
+Camomile 0.8.5 (beta):
 
 This is a beta release of Camomile library package.  Camomile is a
 comprehensive Unicode library for ocaml.  Camomile provides Unicode
@@ -6,7 +6,7 @@ character type, UTF-8, UTF-16, UTF-32 strings, conversion to/from
 about 200 encodings, collation and locale-sensitive case mappings, and
 more.
 
-Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010, 2011
+Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010, 2011, 2013
 Yoriyuki Yamagata
 
 This library is free software; you can redistribute it and/or modify
@@ -159,7 +159,7 @@ following.
 
 4. Author
 
-You can contact the author by yori@users.sourceforge.net
+You can contact the author by yoriyuki.y@gmail.com
 
 5. Acknowledgment
 
