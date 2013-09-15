@@ -389,18 +389,18 @@ MLI = camomileLibrary.mli camomileLibraryDefault.mli camomileLibraryDyn.mli
 install: $(INSTALL) install-data
 
 install-without-ocamlfind:
-	mkdir -p $(OCAMLLIB)
-	cp -f camomileLibrary.cmi '$(OCAMLLIB)'
-	cp -f camomileLibraryDefault.cmi '$(OCAMLLIB)'	
-	cp -f camomileLibraryDyn.cmi '$(OCAMLLIB)'	
-	if [ -f camomileLibrary.cmx ]; then cp -f camomileLibrary.cmx '$(OCAMLLIB)'; fi
-	if [ -f camomileLibrary.cma ]; then cp -f camomileLibrary.cma '$(OCAMLLIB)'; fi
-	if [ -f camomileLibrary.cmxa ]; then cp -f camomileLibrary.cmxa '$(OCAMLLIB)'; fi
-	if [ -f camomileLibraryDefault.cmx ]; then cp -f camomileLibraryDefault.cmx '$(OCAMLLIB)'; fi
-	if [ -f camomileLibraryDyn.cmx ]; then cp -f camomileLibraryDyn.cmx '$(OCAMLLIB)'; fi
-	if [ -f camomile.cma ]; then cp -f camomile.cma '$(OCAMLLIB)'; fi
-	if [ -f camomile.cmxa ]; then cp -f camomile.cmxa '$(OCAMLLIB)'; fi
-	if [ -f camomile.a ]; then cp -f camomile.a '$(OCAMLLIB)'; fi
+	mkdir -p $(DESTDIR)$(OCAMLLIB)
+	cp -f camomileLibrary.cmi '$(DESTDIR)$(OCAMLLIB)'
+	cp -f camomileLibraryDefault.cmi '$(DESTDIR)$(OCAMLLIB)'	
+	cp -f camomileLibraryDyn.cmi '$(DESTDIR)$(OCAMLLIB)'	
+	if [ -f camomileLibrary.cmx ]; then cp -f camomileLibrary.cmx '$(DESTDIR)$(OCAMLLIB)'; fi
+	if [ -f camomileLibrary.cma ]; then cp -f camomileLibrary.cma '$(DESTDIR)$(OCAMLLIB)'; fi
+	if [ -f camomileLibrary.cmxa ]; then cp -f camomileLibrary.cmxa '$(DESTDIR)$(OCAMLLIB)'; fi
+	if [ -f camomileLibraryDefault.cmx ]; then cp -f camomileLibraryDefault.cmx '$(DESTDIR)$(OCAMLLIB)'; fi
+	if [ -f camomileLibraryDyn.cmx ]; then cp -f camomileLibraryDyn.cmx '$(DESTDIR)$(OCAMLLIB)'; fi
+	if [ -f camomile.cma ]; then cp -f camomile.cma '$(DESTDIR)$(OCAMLLIB)'; fi
+	if [ -f camomile.cmxa ]; then cp -f camomile.cmxa '$(DESTDIR)$(OCAMLLIB)'; fi
+	if [ -f camomile.a ]; then cp -f camomile.a '$(DESTDIR)$(OCAMLLIB)'; fi
 
 install-with-ocamlfind:
 	files= &&\
@@ -415,28 +415,28 @@ install-with-ocamlfind:
 	ocamlfind install camomile $$files META $(MLI) camomileLibrary.cmi camomileLibraryDefault.cmi camomileLibraryDyn.cmi
 
 install-data:
-	mkdir -p '$(DATADIR)'
-	mkdir -p '$(DATADIR)'/camomile
-	mkdir -p '$(DATADIR)'/camomile/database
-	cp -f database/*.mar '$(DATADIR)'/camomile/database || true
-	mkdir -p '$(DATADIR)'/camomile/charmaps
-	cp -f charmaps/*.mar '$(DATADIR)'/camomile/charmaps || true
-	mkdir -p '$(DATADIR)'/camomile/mappings
-	cp -f mappings/*.mar '$(DATADIR)'/camomile/mappings || true
-	mkdir -p '$(DATADIR)'/camomile/locales
-	cp -f locales/*.mar '$(DATADIR)'/camomile/locales || true
+	mkdir -p '$(DESTDIR)$(DATADIR)'
+	mkdir -p '$(DESTDIR)$(DATADIR)'/camomile
+	mkdir -p '$(DESTDIR)$(DATADIR)'/camomile/database
+	cp -f database/*.mar '$(DESTDIR)$(DATADIR)'/camomile/database || true
+	mkdir -p '$(DESTDIR)$(DATADIR)'/camomile/charmaps
+	cp -f charmaps/*.mar '$(DESTDIR)$(DATADIR)'/camomile/charmaps || true
+	mkdir -p '$(DESTDIR)$(DATADIR)'/camomile/mappings
+	cp -f mappings/*.mar '$(DESTDIR)$(DATADIR)'/camomile/mappings || true
+	mkdir -p '$(DESTDIR)$(DATADIR)'/camomile/locales
+	cp -f locales/*.mar '$(DESTDIR)$(DATADIR)'/camomile/locales || true
 
 uninstall: $(UNINSTALL)
 
 uninstall-without-ocamlfind:
-	rm -f '$(OCAMLLIB)'/camomile.*
-	rm -f '$(OCAMLLIB)'/camomileLibrary.*
-	rm -f '$(OCAMLLIB)'/camomileLibraryDefault.*
-	rm -f '$(OCAMLLIB)'/camomileLibraryDyn.*
+	rm -f '$(DESTDIR)$(OCAMLLIB)'/camomile.*
+	rm -f '$(DESTDIR)$(OCAMLLIB)'/camomileLibrary.*
+	rm -f '$(DESTDIR)$(OCAMLLIB)'/camomileLibraryDefault.*
+	rm -f '$(DESTDIR)$(OCAMLLIB)'/camomileLibraryDyn.*
 
 uninstall-with-ocamlfind:
 	ocamlfind remove camomile
-	rm -fr '$(DATADIR)'/camomile
+	rm -fr '$(DESTDIR)$(DATADIR)'/camomile
 
 ###################################################################
 # Generic rules
