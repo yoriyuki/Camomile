@@ -1,5 +1,7 @@
 module ConfigInt = ConfigInt
 
+module DefaultConfig = CamomileDefaultConfig
+
 (** Individual modules *)
 
 module OOChannel = OOChannel
