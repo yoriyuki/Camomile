@@ -1,3 +1,9 @@
+From 0.8.4 to 0.8.5
+
+* The pull request https://github.com/yoriyuki/Camomile/pull/1 is merged.
+
+* The traditional tar-ball release.
+
 From 0.8.3 to 0.8.4
 
 * Scoping rule of "." in regular expressions is fixed to match the rule

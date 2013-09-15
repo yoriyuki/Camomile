@@ -184,10 +184,7 @@ let read_data ?datadir name =
     match datadir with
       Some d -> d
     | None -> Config.datadir in
-  try
-    Database.read datadir "mar" input_value name
-  with
-    Not_found -> failwith (Printf.sprintf "Camomile: resource %S not found in database %s" (name^".mar") datadir)
+  Database.read datadir "mar" input_value name
 
 type general_category_type = 
   [ `Lu		(* Letter, Uppercase *)
