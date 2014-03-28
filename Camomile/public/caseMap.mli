@@ -45,6 +45,9 @@ module type Type =
     val lowercase : ?locale:string -> text -> text
     val uppercase : ?locale:string -> text -> text
 
+    (** Capitalize the first letter of the text *)
+    val capitalize : ?locale:string -> text -> text
+
     (** Capitalize the beginning of words *)
     val titlecase : ?locale:string -> text -> text
 
