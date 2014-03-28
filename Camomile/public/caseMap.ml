@@ -218,14 +218,14 @@ module Make (Config : ConfigInt.Type) (Text : UnicodeString.Type) =  struct
       let u = Text.look t i in
       (match conditional_casing u with
 	[] -> 
-	  Text.Buf.add_char buf (to_upper1 u)
+	  Text.Buf.add_char buf (to_title1 u)
       | conds  ->
 	  try
 	    let p = is_matched_casing_property ?locale t i in
 	    let c = List.find p conds in
-	    List.iter (Text.Buf.add_char buf) c.upper
+	    List.iter (Text.Buf.add_char buf) c.title
 	  with 
-	    Not_found -> Text.Buf.add_char buf (to_upper1 u));
+	    Not_found -> Text.Buf.add_char buf (to_title1 u));
       copy (Text.next t i)
 
     let titlecase ?locale t =
