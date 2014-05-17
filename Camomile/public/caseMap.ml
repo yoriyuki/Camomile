@@ -38,66 +38,67 @@ module type Type =
     type text
     val lowercase : ?locale:string -> text -> text
     val uppercase : ?locale:string -> text -> text
+    val capitalize : ?locale:string -> text -> text
     val titlecase : ?locale:string -> text -> text
     val casefolding : text -> text
     val compare_caseless : text -> text -> int
   end
 
 module Make (Config : ConfigInt.Type) (Text : UnicodeString.Type) =  struct
-  module Unidata = Unidata.Make(Config)
-  open Unidata
-  module UCharInfo = UCharInfo.Make(Config)
-  open UCharInfo
+    module Unidata = Unidata.Make(Config)
+    open Unidata
+    module UCharInfo = UCharInfo.Make(Config)
+    open UCharInfo
 
-let uppercase_tbl = load_property_tbl `Uppercase
+    let uppercase_tbl = load_property_tbl `Uppercase
 
-let is_uppercase u = UCharTbl.Bool.get uppercase_tbl u 
+    let is_uppercase u = UCharTbl.Bool.get uppercase_tbl u 
 
-let lowercase_tbl = load_property_tbl `Lowercase
-let is_lowercase u = UCharTbl.Bool.get lowercase_tbl u 
+    let lowercase_tbl = load_property_tbl `Lowercase
+    let is_lowercase u = UCharTbl.Bool.get lowercase_tbl u 
 
-let conditional_casing_tbl = load_conditional_casing_tbl ()
-let conditional_casing u = UCharTbl.get conditional_casing_tbl u
+    let conditional_casing_tbl = load_conditional_casing_tbl ()
+    let conditional_casing u = UCharTbl.get conditional_casing_tbl u
 
-let casefolding_tbl = load_casefolding_tbl ()
+    let casefolding_tbl = load_casefolding_tbl ()
 
-let casefolding_char u = 
-  match UCharTbl.get casefolding_tbl u with 
-    [] -> [u] (* default *)
-  | us -> us 
+    let casefolding_char u = 
+      match UCharTbl.get casefolding_tbl u with 
+	[] -> [u] (* default *)
+      | us -> us 
 
-let is_null u = UChar.uint_code u = 0
+    let is_null u = UChar.uint_code u = 0
 
-let to_lower1_tbl = load_to_lower1_tbl ()
+    let to_lower1_tbl = load_to_lower1_tbl ()
 
-let to_lower1 u = 
-  let u' = UCharTbl.get to_lower1_tbl u in
-  if is_null u' then u else u'
+    let to_lower1 u = 
+      let u' = UCharTbl.get to_lower1_tbl u in
+      if is_null u' then u else u'
 
-let to_upper1_tbl = load_to_upper1_tbl ()
-let to_upper1 u = 
-  let u' = UCharTbl.get to_upper1_tbl u in
-  if is_null u' then u else u'
+    let to_upper1_tbl = load_to_upper1_tbl ()
+    let to_upper1 u = 
+      let u' = UCharTbl.get to_upper1_tbl u in
+      if is_null u' then u else u'
 
-let to_title1_tbl = load_to_title1_tbl ()
-let to_title1 u = 
-  let u' = UCharTbl.get to_title1_tbl u in
-  if is_null u' then u else u'
+    let to_title1_tbl = load_to_title1_tbl ()
+    let to_title1 u = 
+      let u' = UCharTbl.get to_title1_tbl u in
+      if is_null u' then u else u'
 
-let is_case_ignorable u =
-  let n = UChar.uint_code u in
-  if n = 0x0027 || n = 0x00ad || n = 0x2016 then true else
-  match (general_category u) with
-    `Mn -> true
-  | `Me -> true
-  | `Cf -> true
-  | `Lm -> true
-  | `Sk -> true
-  | _ -> false
+    let is_case_ignorable u =
+      let n = UChar.uint_code u in
+      if n = 0x0027 || n = 0x00ad || n = 0x2016 then true else
+      match (general_category u) with
+	`Mn -> true
+      | `Me -> true
+      | `Cf -> true
+      | `Lm -> true
+      | `Sk -> true
+      | _ -> false
 
-(* Fix me: "normalization clause" of UTR#25 is ommited. *)
-let is_cased u = 
-  is_uppercase u || is_lowercase u || general_category u = `Lt 
+    (* Fix me: "normalization clause" of UTR#25 is ommited. *)
+    let is_cased u = 
+      is_uppercase u || is_lowercase u || general_category u = `Lt 
 
     type text = Text.t
 
@@ -204,6 +205,29 @@ let is_cased u =
       in
       loop (Text.nth t 0)
 
+    let capitalize ?locale t =
+      let buf = Text.Buf.create 0 in
+      let rec copy i =
+	if Text.out_of_range t i then Text.Buf.contents buf else
+	let u = Text.look t i in
+	Text.Buf.add_char buf u;
+        copy (Text.next t i)
+      in
+      let i = Text.nth t 0 in
+      if Text.out_of_range t i then Text.Buf.contents buf else
+      let u = Text.look t i in
+      (match conditional_casing u with
+	[] -> 
+	  Text.Buf.add_char buf (to_title1 u)
+      | conds  ->
+	  try
+	    let p = is_matched_casing_property ?locale t i in
+	    let c = List.find p conds in
+	    List.iter (Text.Buf.add_char buf) c.title
+	  with 
+	    Not_found -> Text.Buf.add_char buf (to_title1 u));
+      copy (Text.next t i)
+
     let titlecase ?locale t =
       let buf = Text.Buf.create 0 in
       let rec loop is_head i =
@@ -236,7 +260,7 @@ let is_cased u =
 	loop is_head (Text.next t i)
       in
       loop true (Text.nth t 0)
-	
+
     let casefolding t =
       let buf = Text.Buf.create 0 in
 	Text.iter 
