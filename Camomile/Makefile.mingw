@@ -85,7 +85,7 @@ test/unitest.byte test/test_recode_netstring.byte test/casemap.byte
 .PHONY : all byte opt tools test test.opt data charmap_data unimaps database
 all : byte $(OCAMLBEST) unimaps charmap_data
 byte : camomile.cma
-opt : camomile.cmxa
+opt : camomile.cmxa camomile.cmxs
 tools : $(TOOLS)
 test : byte $(TESTS)
 test.opt : opt test/recode.opt test/unitest.opt
@@ -172,6 +172,9 @@ camomile.cma : $(INT) $(OBJECTS)
 camomile.cmxa : $(INT) $(OPTOBJECTS)
 	$(OCAMLOPT) $(OFLAGS) -a -o camomile.cmxa $(OPTOBJECTS)
 
+camomile.cmxs : camomile.cmxa
+	$(OCAMLOPT) -shared -o camomile.cmxs camomile.cmxa
+
 tools/camlcharmap.byte : camomile.cma tools/camlcharmap.ml
 	$(OCAMLC) $(BFLAGS) -o tools/camlcharmap.byte str.cma camomile.cma tools/camlcharmap.ml
 
@@ -223,6 +226,7 @@ install: all
 	cp -f $(INT) $(OCAMLLIB)
 	test -f camomile.cma && cp -f camomile.cma $(OCAMLLIB)
 	test -f camomile.cmxa && cp -f camomile.cmxa $(OCAMLLIB)
+	test -f camomile.cmxs && cp -f camomile.cmxs $(OCAMLLIB)
 	mkdir -p $(DATADIR)
 	mkdir -p $(DATADIR)/camomile
 	mkdir -p $(DATADIR)/camomile/database
