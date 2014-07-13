@@ -5,4 +5,5 @@ requires="bigarray"
 
 archive(byte)="camomile.cma"
 archive(native)="camomile.cmxa"
+archive(native, plugin)="camomile.cmxs"
 
