@@ -140,7 +140,7 @@ camomile.cma : $(OBJECTS) camomileLibrary.cmo camomileLibraryDefault.cmo camomil
 camomile.cmxa : $(OPTOBJECTS) camomileLibrary.cmx camomileLibraryDefault.cmx camomileLibraryDyn.cmx
 	$(OCAMLOPT) -a -o camomile.cmxa $(OPTOBJECTS) camomileLibrary.cmx camomileLibraryDefault.cmx camomileLibraryDyn.cmx
 camomile.cmxs : camomile.cmxa
-	$(OCAMLOPT) -shared -o camomile.cmxs camomile.cmxa
+	$(OCAMLOPT) -shared -linkall -o camomile.cmxs camomile.cmxa
 
 camomileLibrary.cma : $(OBJECTS) camomileLibrary.cmo
 	$(OCAMLC) -a -o camomileLibrary.cma $(OBJECTS) camomileLibrary.cmo
