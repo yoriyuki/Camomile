@@ -41,7 +41,6 @@ OCAMLDEP = @OCAMLDEP@ -slash
 OCAMLLIB = @OCAMLLIB@
 OCAMLBEST= @OCAMLBEST@
 OCAMLVERSION = @OCAMLVERSION@
-CAMLP4O = -pp "@CAMLP4O@ -I $(OCAMLLIB)"
 INSTALL = @OCAMLINSTALL@
 UNINSTALL = un@OCAMLINSTALL@
 OCAMLDOC = @OCAMLDOC@
@@ -215,12 +214,6 @@ $(TOOLS) : %.byte : toolslib.cma %.cmo
 
 $(OPTTOOLS) : %.opt : toolslib.cmxa %.cmx
 	$(OCAMLOPT) $(OFLAGS) -o $@ $(OPTTOOLSLIB) $*.cmx
-
-tools/camomilelocaledef.cmo : tools/camomilelocaledef.ml
-	$(OCAMLC) $(CAMLP4O) -c $(BFLAGS) tools/camomilelocaledef.ml
-
-tools/camomilelocaledef.cmx : tools/camomilelocaledef.ml
-	$(OCAMLOPT) $(CAMLP4O) -c $(OFLAGS) tools/camomilelocaledef.ml
 
 # Compile unidata
 ###################################################################
@@ -541,7 +534,7 @@ depend : .depend
 	mappings/*.ml mappings/*.mli \
 	toolslib/*.ml toolslib/*.mli \
 	> .depend
-	$(OCAMLDEP) $(CAMLP4O) $(SUBDIR) \
+	$(OCAMLDEP) $(SUBDIR) \
 	tools/$(TOOLS:.byte=.ml) >> .depend
 
 include .depend

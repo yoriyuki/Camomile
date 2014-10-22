@@ -136,9 +136,6 @@ fi
 AC_CHECK_PROG(OCAMLWEB,ocamlweb,ocamlweb,true)
 
 AC_CHECK_PROG(CAMLP4O,camlp4o,camlp4o,no)
-if test "$CAMLP4O" = no ; then
-	AC_MSG_ERROR(Cannot find camlp4o.)
-fi
 
 AC_CHECK_PROG(OCAMLINSTALL,ocamlfind,install-with-ocamlfind,install-without-ocamlfind)
 
