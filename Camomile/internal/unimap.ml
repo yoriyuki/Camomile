@@ -58,7 +58,7 @@ val of_name : string -> t
 end
 
 
-module Make (Config : ConfigInt.Type) = struct
+module Make (Config : ConfigInt.Type) : Type = struct
 
 type mapping = {no_char : int; tbl : Tbl31.Bytes.t}
 

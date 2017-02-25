@@ -298,7 +298,7 @@ val load_composition_exclusion_tbl : unit -> UCharTbl.Bool.t
 
 end
 
-module Make (Config : ConfigInt.Type) = struct
+module Make (Config : ConfigInt.Type) : Type = struct
 include Unidata.Make(Config)
 
 (* General category *)
