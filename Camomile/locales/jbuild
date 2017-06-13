@@ -284,3 +284,1407 @@
     (zh_TW.mar           as locales/zh_TW.mar)
     (zh_TW_STROKE.mar    as locales/zh_TW_STROKE.mar)
     ))))
+
+(alias
+ ((name database)
+  (deps ((glob_files ../database/*.mar)))))
+
+(rule
+ ((targets (af.mar))
+  (deps    (af.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (af_ZA.mar))
+  (deps    (af_ZA.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (am_ET.mar))
+  (deps    (am_ET.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (am.mar))
+  (deps    (am.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_AE.mar))
+  (deps    (ar_AE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_BH.mar))
+  (deps    (ar_BH.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_DZ.mar))
+  (deps    (ar_DZ.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_EG.mar))
+  (deps    (ar_EG.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_IN.mar))
+  (deps    (ar_IN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_IQ.mar))
+  (deps    (ar_IQ.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_JO.mar))
+  (deps    (ar_JO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_KW.mar))
+  (deps    (ar_KW.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_LB.mar))
+  (deps    (ar_LB.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_LY.mar))
+  (deps    (ar_LY.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_MA.mar))
+  (deps    (ar_MA.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar.mar))
+  (deps    (ar.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_OM.mar))
+  (deps    (ar_OM.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_QA.mar))
+  (deps    (ar_QA.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_SA.mar))
+  (deps    (ar_SA.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_SD.mar))
+  (deps    (ar_SD.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_SY.mar))
+  (deps    (ar_SY.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_TN.mar))
+  (deps    (ar_TN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ar_YE.mar))
+  (deps    (ar_YE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (az_AZ.mar))
+  (deps    (az_AZ.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (az.mar))
+  (deps    (az.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (be_BY.mar))
+  (deps    (be_BY.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (be.mar))
+  (deps    (be.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (bg_BG.mar))
+  (deps    (bg_BG.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (bg.mar))
+  (deps    (bg.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (bn_IN.mar))
+  (deps    (bn_IN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (bn.mar))
+  (deps    (bn.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ca_ES.mar))
+  (deps    (ca_ES.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ca_ES_PREEURO.mar))
+  (deps    (ca_ES_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ca.mar))
+  (deps    (ca.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (cs_CZ.mar))
+  (deps    (cs_CZ.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (cs.mar))
+  (deps    (cs.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (da_DK.mar))
+  (deps    (da_DK.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (da.mar))
+  (deps    (da.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (de_AT.mar))
+  (deps    (de_AT.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (de_AT_PREEURO.mar))
+  (deps    (de_AT_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (de_BE.mar))
+  (deps    (de_BE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (de_CH.mar))
+  (deps    (de_CH.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (de_DE.mar))
+  (deps    (de_DE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (de_DE_PREEURO.mar))
+  (deps    (de_DE_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (de_LI.mar))
+  (deps    (de_LI.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (de_LU.mar))
+  (deps    (de_LU.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (de_LU_PREEURO.mar))
+  (deps    (de_LU_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (de.mar))
+  (deps    (de.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (de__PHONEBOOK.mar))
+  (deps    (de__PHONEBOOK.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (div.mar))
+  (deps    (div.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (div_MV.mar))
+  (deps    (div_MV.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (el_GR.mar))
+  (deps    (el_GR.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (el_GR_PREEURO.mar))
+  (deps    (el_GR_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (el.mar))
+  (deps    (el.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_AS.mar))
+  (deps    (en_AS.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_AU.mar))
+  (deps    (en_AU.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_BE.mar))
+  (deps    (en_BE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_BE_PREEURO.mar))
+  (deps    (en_BE_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_BW.mar))
+  (deps    (en_BW.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_BZ.mar))
+  (deps    (en_BZ.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_CA.mar))
+  (deps    (en_CA.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_GB_EURO.mar))
+  (deps    (en_GB_EURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_GB.mar))
+  (deps    (en_GB.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_GU.mar))
+  (deps    (en_GU.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_HK.mar))
+  (deps    (en_HK.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_IE.mar))
+  (deps    (en_IE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_IE_PREEURO.mar))
+  (deps    (en_IE_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_IN.mar))
+  (deps    (en_IN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_JM.mar))
+  (deps    (en_JM.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en.mar))
+  (deps    (en.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_MH.mar))
+  (deps    (en_MH.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_MP.mar))
+  (deps    (en_MP.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_MT.mar))
+  (deps    (en_MT.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_NZ.mar))
+  (deps    (en_NZ.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_PH.mar))
+  (deps    (en_PH.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_SG.mar))
+  (deps    (en_SG.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_TT.mar))
+  (deps    (en_TT.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_UM.mar))
+  (deps    (en_UM.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_US.mar))
+  (deps    (en_US.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_US_POSIX.mar))
+  (deps    (en_US_POSIX.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_VI.mar))
+  (deps    (en_VI.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_ZA.mar))
+  (deps    (en_ZA.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (en_ZW.mar))
+  (deps    (en_ZW.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (eo.mar))
+  (deps    (eo.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_AR.mar))
+  (deps    (es_AR.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_BO.mar))
+  (deps    (es_BO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_CL.mar))
+  (deps    (es_CL.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_CO.mar))
+  (deps    (es_CO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_CR.mar))
+  (deps    (es_CR.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_DO.mar))
+  (deps    (es_DO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_EC.mar))
+  (deps    (es_EC.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_ES.mar))
+  (deps    (es_ES.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_ES_PREEURO.mar))
+  (deps    (es_ES_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_GT.mar))
+  (deps    (es_GT.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_HN.mar))
+  (deps    (es_HN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es.mar))
+  (deps    (es.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_MX.mar))
+  (deps    (es_MX.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_NI.mar))
+  (deps    (es_NI.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_PA.mar))
+  (deps    (es_PA.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_PE.mar))
+  (deps    (es_PE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_PR.mar))
+  (deps    (es_PR.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_PY.mar))
+  (deps    (es_PY.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_SV.mar))
+  (deps    (es_SV.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es__TRADITIONAL.mar))
+  (deps    (es__TRADITIONAL.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_US.mar))
+  (deps    (es_US.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_UY.mar))
+  (deps    (es_UY.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (es_VE.mar))
+  (deps    (es_VE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (et_EE.mar))
+  (deps    (et_EE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (et.mar))
+  (deps    (et.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (eu_ES.mar))
+  (deps    (eu_ES.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (eu_ES_PREEURO.mar))
+  (deps    (eu_ES_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (eu.mar))
+  (deps    (eu.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fa_IN.mar))
+  (deps    (fa_IN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fa_IR.mar))
+  (deps    (fa_IR.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fa.mar))
+  (deps    (fa.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fi_FI.mar))
+  (deps    (fi_FI.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fi_FI_PREEURO.mar))
+  (deps    (fi_FI_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fi.mar))
+  (deps    (fi.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fo_FO.mar))
+  (deps    (fo_FO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fo.mar))
+  (deps    (fo.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fr_BE.mar))
+  (deps    (fr_BE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fr_BE_PREEURO.mar))
+  (deps    (fr_BE_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fr_CA.mar))
+  (deps    (fr_CA.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fr_CH.mar))
+  (deps    (fr_CH.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fr_FR.mar))
+  (deps    (fr_FR.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fr_FR_PREEURO.mar))
+  (deps    (fr_FR_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fr_LU.mar))
+  (deps    (fr_LU.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fr_LU_PREEURO.mar))
+  (deps    (fr_LU_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fr.mar))
+  (deps    (fr.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (fr_MC.mar))
+  (deps    (fr_MC.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ga_IE.mar))
+  (deps    (ga_IE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ga_IE_PREEURO.mar))
+  (deps    (ga_IE_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ga.mar))
+  (deps    (ga.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (gl_ES.mar))
+  (deps    (gl_ES.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (gl_ES_PREEURO.mar))
+  (deps    (gl_ES_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (gl.mar))
+  (deps    (gl.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (gu_IN.mar))
+  (deps    (gu_IN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (gu.mar))
+  (deps    (gu.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (gv_GB.mar))
+  (deps    (gv_GB.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (gv.mar))
+  (deps    (gv.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (he_IL.mar))
+  (deps    (he_IL.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (he.mar))
+  (deps    (he.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (hi__DIRECT.mar))
+  (deps    (hi__DIRECT.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (hi_IN.mar))
+  (deps    (hi_IN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (hi.mar))
+  (deps    (hi.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (hr_HR.mar))
+  (deps    (hr_HR.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (hr.mar))
+  (deps    (hr.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (hu_HU.mar))
+  (deps    (hu_HU.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (hu.mar))
+  (deps    (hu.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (hy_AM.mar))
+  (deps    (hy_AM.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (hy_AM_REVISED.mar))
+  (deps    (hy_AM_REVISED.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (hy.mar))
+  (deps    (hy.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (id_ID.mar))
+  (deps    (id_ID.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (id.mar))
+  (deps    (id.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (index.mar))
+  (deps    (index.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (is_IS.mar))
+  (deps    (is_IS.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (is.mar))
+  (deps    (is.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (it_CH.mar))
+  (deps    (it_CH.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (it_IT.mar))
+  (deps    (it_IT.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (it_IT_PREEURO.mar))
+  (deps    (it_IT_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (it.mar))
+  (deps    (it.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (iw_IL.mar))
+  (deps    (iw_IL.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (iw.mar))
+  (deps    (iw.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ja_JP.mar))
+  (deps    (ja_JP.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ja.mar))
+  (deps    (ja.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ka_GE.mar))
+  (deps    (ka_GE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ka.mar))
+  (deps    (ka.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (kk_KZ.mar))
+  (deps    (kk_KZ.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (kk.mar))
+  (deps    (kk.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (kl_GL.mar))
+  (deps    (kl_GL.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (kl.mar))
+  (deps    (kl.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (kn_IN.mar))
+  (deps    (kn_IN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (kn.mar))
+  (deps    (kn.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (kok_IN.mar))
+  (deps    (kok_IN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (kok.mar))
+  (deps    (kok.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ko_KR.mar))
+  (deps    (ko_KR.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ko.mar))
+  (deps    (ko.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (kw_GB.mar))
+  (deps    (kw_GB.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (kw.mar))
+  (deps    (kw.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ky_KG.mar))
+  (deps    (ky_KG.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ky.mar))
+  (deps    (ky.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (lt_LT.mar))
+  (deps    (lt_LT.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (lt.mar))
+  (deps    (lt.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (lv_LV.mar))
+  (deps    (lv_LV.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (lv.mar))
+  (deps    (lv.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (mk.mar))
+  (deps    (mk.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (mk_MK.mar))
+  (deps    (mk_MK.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (mn.mar))
+  (deps    (mn.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (mn_MN.mar))
+  (deps    (mn_MN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (mr_IN.mar))
+  (deps    (mr_IN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (mr.mar))
+  (deps    (mr.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ms_BN.mar))
+  (deps    (ms_BN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ms.mar))
+  (deps    (ms.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ms_MY.mar))
+  (deps    (ms_MY.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (mt.mar))
+  (deps    (mt.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (mt_MT.mar))
+  (deps    (mt_MT.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (nb.mar))
+  (deps    (nb.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (nb_NO.mar))
+  (deps    (nb_NO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (nl_BE.mar))
+  (deps    (nl_BE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (nl_BE_PREEURO.mar))
+  (deps    (nl_BE_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (nl.mar))
+  (deps    (nl.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (nl_NL.mar))
+  (deps    (nl_NL.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (nl_NL_PREEURO.mar))
+  (deps    (nl_NL_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (nn.mar))
+  (deps    (nn.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (nn_NO.mar))
+  (deps    (nn_NO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (no.mar))
+  (deps    (no.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (no_NO.mar))
+  (deps    (no_NO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (no_NO_NY.mar))
+  (deps    (no_NO_NY.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (om_ET.mar))
+  (deps    (om_ET.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (om_KE.mar))
+  (deps    (om_KE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (om.mar))
+  (deps    (om.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (pa_IN.mar))
+  (deps    (pa_IN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (pa.mar))
+  (deps    (pa.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (pl.mar))
+  (deps    (pl.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (pl_PL.mar))
+  (deps    (pl_PL.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (pt_BR.mar))
+  (deps    (pt_BR.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (pt.mar))
+  (deps    (pt.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (pt_PT.mar))
+  (deps    (pt_PT.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (pt_PT_PREEURO.mar))
+  (deps    (pt_PT_PREEURO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ro.mar))
+  (deps    (ro.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (root.mar))
+  (deps    (root.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ro_RO.mar))
+  (deps    (ro_RO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ru.mar))
+  (deps    (ru.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ru_RU.mar))
+  (deps    (ru_RU.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ru_UA.mar))
+  (deps    (ru_UA.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sa_IN.mar))
+  (deps    (sa_IN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sa.mar))
+  (deps    (sa.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sh.mar))
+  (deps    (sh.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sh_YU.mar))
+  (deps    (sh_YU.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sk.mar))
+  (deps    (sk.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sk_SK.mar))
+  (deps    (sk_SK.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sl.mar))
+  (deps    (sl.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sl_SI.mar))
+  (deps    (sl_SI.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (so_DJ.mar))
+  (deps    (so_DJ.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (so_ET.mar))
+  (deps    (so_ET.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (so_KE.mar))
+  (deps    (so_KE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (so.mar))
+  (deps    (so.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (so_SO.mar))
+  (deps    (so_SO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sq_AL.mar))
+  (deps    (sq_AL.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sq.mar))
+  (deps    (sq.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sr.mar))
+  (deps    (sr.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sr_YU.mar))
+  (deps    (sr_YU.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sv_FI.mar))
+  (deps    (sv_FI.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sv.mar))
+  (deps    (sv.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sv_SE.mar))
+  (deps    (sv_SE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sw_KE.mar))
+  (deps    (sw_KE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sw.mar))
+  (deps    (sw.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (sw_TZ.mar))
+  (deps    (sw_TZ.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (syr.mar))
+  (deps    (syr.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (syr_SY.mar))
+  (deps    (syr_SY.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ta_IN.mar))
+  (deps    (ta_IN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ta.mar))
+  (deps    (ta.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (te_IN.mar))
+  (deps    (te_IN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (te.mar))
+  (deps    (te.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (test_1.mar))
+  (deps    (test_1.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (th.mar))
+  (deps    (th.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (th_TH.mar))
+  (deps    (th_TH.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ti_ER.mar))
+  (deps    (ti_ER.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ti_ET.mar))
+  (deps    (ti_ET.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ti.mar))
+  (deps    (ti.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (tr.mar))
+  (deps    (tr.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (tr_TR.mar))
+  (deps    (tr_TR.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (tt.mar))
+  (deps    (tt.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (tt_RU.mar))
+  (deps    (tt_RU.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (uk.mar))
+  (deps    (uk.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (uk_UA.mar))
+  (deps    (uk_UA.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ur.mar))
+  (deps    (ur.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (ur_PK.mar))
+  (deps    (ur_PK.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (uz.mar))
+  (deps    (uz.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (uz_UZ.mar))
+  (deps    (uz_UZ.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (vi.mar))
+  (deps    (vi.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (vi_VN.mar))
+  (deps    (vi_VN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (zh_CN.mar))
+  (deps    (zh_CN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (zh_HK.mar))
+  (deps    (zh_HK.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (zh.mar))
+  (deps    (zh.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (zh_MO.mar))
+  (deps    (zh_MO.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (zh__PINYIN.mar))
+  (deps    (zh__PINYIN.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (zh_SG.mar))
+  (deps    (zh_SG.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (zh_TW.mar))
+  (deps    (zh_TW.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))
+
+(rule
+ ((targets (zh_TW_STROKE.mar))
+  (deps    (zh_TW_STROKE.txt (alias database)))
+  (action  (chdir .. (run tools/camomilelocaledef.exe --file ${<} locales)))))

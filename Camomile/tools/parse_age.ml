@@ -37,9 +37,9 @@
 
 
 (* remove comments *)
-let range_pat = 
+let range_pat =
   Str.regexp "\\([0-9A-Fa-f]+\\)\\.\\.\\([0-9A-Fa-f]+\\)[ \\t]*;[ \\t]*\\([0-9]+\\)\\.\\([0-9]+\\)"
-let num_pat = 
+let num_pat =
   Str.regexp "\\([0-9A-Za-z]+\\)+[ \\t]*;[ \\t]*\\([0-9]+\\)\\.\\([0-9]+\\)"
 
 let char_of_string s =
@@ -69,24 +69,22 @@ let parse_line map s =
 
 exception Ok of string
 
-let parse () =
+let parse ic =
   let rec parse map =
     try
-      raise (Ok (read_line ()))
+      raise (Ok (input_line ic))
     with
-      | End_of_file -> map
-      | Ok s ->
-	  let map = parse_line map s in
-	  parse map
+    | End_of_file -> close_in ic; map
+    | Ok s ->
+      let map = parse_line map s in
+      parse map
   in
   parse UMap.empty
 
-let main () =
-  Arg.parse [] 
-    (fun dir -> 
-       let map = parse () in
-       Database.write dir "mar" output_value "age" 
-	 (UCharTbl.Char.of_map undefined_version map))
-    "Parse DerivedAge.txt"
-
-let _ = main ()
+let () =
+  match Sys.argv with
+  | [|_; dir; input_fname|] ->
+    let map = parse (open_in input_fname) in
+    Database.write dir "mar" output_value "age"
+      (UCharTbl.Char.of_map undefined_version map)
+  | _ -> failwith "invalid command line"

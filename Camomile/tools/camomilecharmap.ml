@@ -40,14 +40,14 @@ let parse_arg () =
   let dir = ref "." in
   let file = ref None in
   let helptext =
-    "camomilecharmap[.byte, .opt] -d outputpath file: 
+    "camomilecharmap[.byte, .opt] -d outputpath file:
       reads charmap from file and places output to outputpath."
   in
-  Arg.parse 
-    [("-d", 
+  Arg.parse
+    [("-d",
       Arg.String ((:=) dir),
       "[directory]\toutputpath")]
-    (fun s -> 
+    (fun s ->
       if !file <> None then failwith "Too many arguments" else
       file := Some s)
     helptext;
@@ -60,10 +60,10 @@ let blank_pat = Str.regexp "[ \t]+"
 let empty_line = Str.regexp "[ \t]*$"
 let alias_pat = Str.regexp ".[ \t]*alias[ \t]+\\(.*\\)$"
 
-let entry_pat = Str.regexp 
+let entry_pat = Str.regexp
     "\\(.IRREVERSIBLE.\\)?<U\\([0-9A-F]*\\)>[ \t]+\\([^ \t]*\\)"
 
-let range_pat = Str.regexp 
+let range_pat = Str.regexp
     "\\(.IRREVERSIBLE.\\)?<U\\([0-9A-F]*\\)>\\.\\.<U\\([0-9A-F]*\\)>[ \t]+\\([^ \t]*\\)"
 
 exception Break
@@ -72,8 +72,8 @@ let begin_with s s' =
   if String.length s' < String.length s then false else
   try for i = 0 to (String.length s) - 1 do
     if s.[i] <> s'.[i] then raise Break
-  done; 
-    true 
+  done;
+    true
   with Break -> false
 
 let parse_header file inchan =
@@ -96,7 +96,7 @@ let parse_header file inchan =
     else if begin_with "CHARMAP" s then raise Break
     else if Str.string_match empty_line s 0 || s.[0] = !comment_char then ()
     else begin unread_line := Some s; raise Break end
-  done; assert false with Break -> 
+  done; assert false with Break ->
     match !codeset_name with
       None -> failwith "Codeset name is not defined"
     | Some s -> s, !aliases, unread_line
@@ -136,14 +136,14 @@ let get_enc s esc =
     Buffer.add_char b (Char.chr n);
     let i = j in
     if i >= String.length s then () else
-    let j = 
-      try String.index_from s (i + 1) esc with 
+    let j =
+      try String.index_from s (i + 1) esc with
 	Not_found -> String.length s in
     loop i j in
   if s.[0] <> esc then invalid_arg ("get_enc: " ^ s) else
-  loop 
+  loop
     0
-    (try String.index_from s 1 esc with Not_found -> 
+    (try String.index_from s 1 esc with Not_found ->
       String.length s);
   Buffer.contents b
 
@@ -154,7 +154,7 @@ let incr_enc s =
   let i = String.length s' - 1 in
   let c' = Char.chr (1 + Char.code s.[i]) in
   s'.[i] <- c'
-    
+
 let irreversible = ".IRREVERSIBLE."
 
 let is_irreversible s =
@@ -168,7 +168,7 @@ let parse_body unread_line inchan =
   try while true do
     let s =
       match !unread_line with
-	None -> input_line inchan 
+	None -> input_line inchan
       | Some s -> unread_line := None; s in
     if Str.string_match entry_pat s 0 then
       let n = int_of_name (Str.matched_group 2 s) in
@@ -204,7 +204,7 @@ open Charmap
 
 let main () =
   let file, dir = parse_arg () in
-  let inchan = 
+  let inchan =
     match file with
       None -> stdin
     | Some file -> open_in file in
@@ -212,7 +212,7 @@ let main () =
   let enc2u, u2enc = parse_body unread_line inchan in
   let ucs_to_enc = StringTbl.of_map "" u2enc in
 (* search unused ucs-character *)
-  let no_char = 
+  let no_char =
     let rec scan i =
       let s = Tbl31.get ucs_to_enc i in
 (*    Printf.eprintf "%d - %s\n" i (String.escaped s); *)
@@ -222,12 +222,12 @@ let main () =
 	  if i > 255 then 0xffff else scan (i + 1)
     in scan 0 in
   let enc_to_ucs = Charmap.make_enc_to_ucs no_char enc2u in
-  let data = CMap {name = codeset_name; 
+  let data = CMap {name = codeset_name;
 		   ucs_to_enc = ucs_to_enc;
-		   enc_to_ucs = enc_to_ucs} in 
+		   enc_to_ucs = enc_to_ucs} in
   begin
     Database.write dir "mar" output_value codeset_name data;
-    List.iter (fun a -> 
+    List.iter (fun a ->
       Database.write dir "mar" output_value a (Alias codeset_name))
       aliases;
   end

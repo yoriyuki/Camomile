@@ -7,11 +7,26 @@
 (install
  ((section share)
   (files
-   (cns11643.mar as mappings/cns11643.mar)
-   (gb2312.mar   as mappings/gb2312.mar)
-   (iso88597.mar as mappings/iso88597.mar)
-   (jisx0201.mar as mappings/jisx0201.mar)
-   (jisx0208.mar as mappings/jisx0208.mar)
-   (jisx0212.mar as mappings/jisx0212.mar)
-   (ksc5601.mar  as mappings/ksc5601.mar)
-   )))
+   ((cns11643.mar as mappings/cns11643.mar)
+    (gb2312.mar   as mappings/gb2312.mar)
+    (iso88597.mar as mappings/iso88597.mar)
+    (jisx0201.mar as mappings/jisx0201.mar)
+    (jisx0208.mar as mappings/jisx0208.mar)
+    (jisx0212.mar as mappings/jisx0212.mar)
+    (ksc5601.mar  as mappings/ksc5601.mar)
+    ))))
+
+(rule
+ ((targets (cns11643.mar
+            jisx0201.mar
+            ksc5601.mar
+            gb2312.mar
+            jisx0208.mar
+            iso88597.mar
+            jisx0212.mar))
+  (deps    (../charmaps/GB2312
+            ../charmaps/EUC-JP
+            ../charmaps/EUC-KR
+            ../charmaps/EUC-TW
+            ../charmaps/ISO-8859-7))
+  (action  (run ./gen_mappings.exe))))

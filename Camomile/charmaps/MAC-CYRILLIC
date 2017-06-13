@@ -2,7 +2,7 @@
 <comment_char> %
 <escape_char> /
 
-% alias CP10007
+% _alias CP10007
 CHARMAP
 <U0000>     /x00         NULL
 <U0001>     /x01         START OF HEADING

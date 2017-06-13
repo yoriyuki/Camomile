@@ -36,16 +36,16 @@
 module Unidata = Unidata.Make(Camomileconfig)
 open Unidata
 
-let tbl_rw = 
+let tbl_rw =
   let max_uchar = UChar.chr_of_uint 0x7fffffff in
   let null = UChar.chr_of_uint 0 in
   let n = num_of_script `Common in
   ref (UMap.add_range null max_uchar n UMap.empty)
 
 (* remove comments *)
-let range_pat = 
+let range_pat =
   Str.regexp "\\([0-9A-Fa-f]+\\)\\.\\.\\([0-9A-Fa-f]+\\)[ \\t]*;[ \\t]*\\([^ \\t]+\\)"
-let num_pat = 
+let num_pat =
   Str.regexp "\\([0-9A-Za-z]+\\)+[ \\t]*;[ \\t]*\\([^ \\t]+\\)"
 
 (* let get_line () =
@@ -54,9 +54,9 @@ let num_pat =
 
 let prev_entry = ref 0
 
-let read_data () =
+let read_data ic =
   try while true do
-    let s = read_line () in
+    let s = input_line ic in
     if Str.string_match range_pat s 0 then
       let u1 = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_group 1 s))) in
       let u2 = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_group 2 s))) in
@@ -68,20 +68,16 @@ let read_data () =
       let n = int_of_string ("0x"^(Str.matched_group 1 s)) in
       let name = Str.matched_group 2 s in
       let script = script_of_name name in
-      let num = num_of_script script in      
+      let num = num_of_script script in
       tbl_rw := UMap.add (UChar.chr_of_uint n) num !tbl_rw
     else ()
-  done with End_of_file -> ()
+  done with End_of_file -> close_in ic
 
-let main () =
-  begin
-    read_data ();
-    Arg.parse [] 
-      (fun dir -> 
-	let write name value = Database.write dir "mar" output_value name value in
-	write "scripts_map" (UMap.map script_of_num !tbl_rw);
-	write "scripts" (UCharTbl.Bits.of_map (num_of_script `Common) !tbl_rw))
-      "Parse Scripts.txt"
-  end
-    
-let _ = main ()
+let () =
+  match Sys.argv with
+  | [|_; dir; input_fname|] ->
+    read_data (open_in input_fname);
+    let write name value = Database.write dir "mar" output_value name value in
+    write "scripts_map" (UMap.map script_of_num !tbl_rw);
+    write "scripts" (UCharTbl.Bits.of_map (num_of_script `Common) !tbl_rw)
+  | _ -> failwith "invalid command line"

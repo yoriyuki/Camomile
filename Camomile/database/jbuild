@@ -108,3 +108,326 @@
     (XID_Start.mar                              as database/XID_Start.mar)
     (XID_Start_set.mar                          as database/XID_Start_set.mar)
     ))))
+
+;; PROPS
+
+(rule
+ ((targets (White_Space.mar White_Space_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . White_Space ${<}))))
+
+(rule
+ ((targets (Bidi_Control.mar Bidi_Control_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Bidi_Control ${<}))))
+
+(rule
+ ((targets (Join_Control.mar Join_Control_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Join_Control ${<}))))
+
+(rule
+ ((targets (Hyphen.mar Hyphen_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Hyphen ${<}))))
+
+(rule
+ ((targets (Quotation_Mark.mar Quotation_Mark_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Quotation_Mark ${<}))))
+
+(rule
+ ((targets (Terminal_Punctuation.mar Terminal_Punctuation_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Terminal_Punctuation ${<}))))
+
+(rule
+ ((targets (Other_Math.mar Other_Math_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Other_Math ${<}))))
+
+(rule
+ ((targets (Hex_Digit.mar Hex_Digit_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Hex_Digit ${<}))))
+
+(rule
+ ((targets (ASCII_Hex_Digit.mar ASCII_Hex_Digit_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . ASCII_Hex_Digit ${<}))))
+
+(rule
+ ((targets (Other_Alphabetic.mar Other_Alphabetic_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Other_Alphabetic ${<}))))
+
+(rule
+ ((targets (Ideographic.mar Ideographic_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Ideographic ${<}))))
+
+(rule
+ ((targets (Diacritic.mar Diacritic_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Diacritic ${<}))))
+
+(rule
+ ((targets (Extender.mar Extender_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Extender ${<}))))
+
+(rule
+ ((targets (Other_Lowercase.mar Other_Lowercase_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Other_Lowercase ${<}))))
+
+(rule
+ ((targets (Other_Uppercase.mar Other_Uppercase_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Other_Uppercase ${<}))))
+
+(rule
+ ((targets (Noncharacter_Code_Point.mar Noncharacter_Code_Point_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Noncharacter_Code_Point ${<}))))
+
+(rule
+ ((targets (Other_Grapheme_Extend.mar Other_Grapheme_Extend_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Other_Grapheme_Extend ${<}))))
+
+(rule
+ ((targets (Grapheme_Link.mar Grapheme_Link_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Grapheme_Link ${<}))))
+
+(rule
+ ((targets (IDS_Binary_Operator.mar IDS_Binary_Operator_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . IDS_Binary_Operator ${<}))))
+
+(rule
+ ((targets (IDS_Trinary_Operator.mar IDS_Trinary_Operator_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . IDS_Trinary_Operator ${<}))))
+
+(rule
+ ((targets (Radical.mar Radical_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Radical ${<}))))
+
+(rule
+ ((targets (Unified_Ideograph.mar Unified_Ideograph_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Unified_Ideograph ${<}))))
+
+(rule
+ ((targets (Other_Default_Ignorable_Code_Point.mar Other_Default_Ignorable_Code_Point_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Other_Default_Ignorable_Code_Point ${<}))))
+
+(rule
+ ((targets (Deprecated.mar Deprecated_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Deprecated ${<}))))
+
+(rule
+ ((targets (Soft_Dotted.mar Soft_Dotted_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Soft_Dotted ${<}))))
+
+(rule
+ ((targets (Logical_Order_Exception.mar Logical_Order_Exception_set.mar))
+  (deps    (../unidata/PropList.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Logical_Order_Exception ${<}))))
+
+;; CORE_DERIVED_PROPS
+
+(rule
+ ((targets (Math.mar Math_set.mar))
+  (deps    (../unidata/DerivedCoreProperties.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Math ${<}))))
+
+(rule
+ ((targets (Alphabetic.mar Alphabetic_set.mar))
+  (deps    (../unidata/DerivedCoreProperties.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Alphabetic ${<}))))
+
+(rule
+ ((targets (Lowercase.mar Lowercase_set.mar))
+  (deps    (../unidata/DerivedCoreProperties.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Lowercase ${<}))))
+
+(rule
+ ((targets (Uppercase.mar Uppercase_set.mar))
+  (deps    (../unidata/DerivedCoreProperties.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Uppercase ${<}))))
+
+(rule
+ ((targets (ID_Start.mar ID_Start_set.mar))
+  (deps    (../unidata/DerivedCoreProperties.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . ID_Start ${<}))))
+
+(rule
+ ((targets (ID_Continue.mar ID_Continue_set.mar))
+  (deps    (../unidata/DerivedCoreProperties.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . ID_Continue ${<}))))
+
+(rule
+ ((targets (XID_Start.mar XID_Start_set.mar))
+  (deps    (../unidata/DerivedCoreProperties.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . XID_Start ${<}))))
+
+(rule
+ ((targets (XID_Continue.mar XID_Continue_set.mar))
+  (deps    (../unidata/DerivedCoreProperties.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . XID_Continue ${<}))))
+
+(rule
+ ((targets (Default_Ignorable_Code_Point.mar Default_Ignorable_Code_Point_set.mar))
+  (deps    (../unidata/DerivedCoreProperties.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Default_Ignorable_Code_Point ${<}))))
+
+(rule
+ ((targets (Grapheme_Extend.mar Grapheme_Extend_set.mar))
+  (deps    (../unidata/DerivedCoreProperties.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Grapheme_Extend ${<}))))
+
+(rule
+ ((targets (Grapheme_Base.mar Grapheme_Base_set.mar))
+  (deps    (../unidata/DerivedCoreProperties.txt))
+  (action  (run ../tools/parse_uniset.exe -filter . Grapheme_Base ${<}))))
+
+;; FROM_UNIDATA
+
+(rule
+ ((targets (combined_class.mar
+            combined_class_map.mar
+            composition.mar
+            decomposition.mar
+            general_category.mar
+            to_lower1.mar
+            to_title1.mar
+            to_upper1.mar
+            general_category_map.mar))
+  (deps    (../unidata/UnicodeData.txt))
+  (action  (run ../tools/parse_unidata.exe . ${<}))))
+
+;; STRINGPREP_TABLES
+
+(rule
+ ((targets (map_b1b2.mar
+            map_b1.mar
+            d1.mar d2.mar
+            saslprep_map.mar
+            nodeprep_prohibited.mar
+            resourceprep_prohibited.mar
+            nameprep_prohibited.mar
+            saslprep_prohibited.mar
+            trace_prohibited.mar
+            iscsi_prohibited.mar
+            mib_prohibited.mar))
+   (deps   ((glob_files ../unidata/stringprep/*)))
+   (action (run ../tools/camomilestringprep.exe -in ../unidata/stringprep -out .))))
+
+;; other
+
+(rule
+ ((targets (allkeys.mar acset.mar))
+  (deps    (../unidata/tr10/allkeys.txt
+            combined_class.mar
+            composition.mar
+            decomposition.mar
+            general_category.mar
+            to_lower1.mar
+            to_title1.mar
+            to_upper1.mar
+            general_category_map.mar
+            White_Space.mar
+            Bidi_Control.mar
+            Join_Control.mar
+            Hyphen.mar
+            Quotation_Mark.mar
+            Terminal_Punctuation.mar
+            Other_Math.mar
+            Hex_Digit.mar
+            ASCII_Hex_Digit.mar
+            Other_Alphabetic.mar
+            Ideographic.mar
+            Diacritic.mar
+            Extender.mar
+            Other_Lowercase.mar
+            Other_Uppercase.mar
+            Noncharacter_Code_Point.mar
+            Other_Grapheme_Extend.mar
+            Grapheme_Link.mar
+            IDS_Binary_Operator.mar
+            IDS_Trinary_Operator.mar
+            Radical.mar
+            Unified_Ideograph.mar
+            Other_Default_Ignorable_Code_Point.mar
+            Deprecated.mar
+            Soft_Dotted.mar
+            Logical_Order_Exception.mar
+            ))
+  (action  (chdir .. (run tools/parse_allkeys.exe database ${<})))))
+
+(rule
+ ((targets (case_folding.mar))
+  (deps    (../unidata/CaseFolding.txt))
+  (action  (run ../tools/parse_casefolding.exe . ${<}))))
+
+(rule
+ ((targets (composition_exclusion.mar composition_exclusion_set.mar))
+  (deps    (../unidata/CompositionExclusions.txt))
+  (action  (run ../tools/parse_uniset.exe . composition_exclusion ${<}))))
+
+(rule
+ ((targets (special_casing.mar))
+  (deps    (../unidata/SpecialCasing.txt
+            combined_class.mar
+            composition.mar
+            decomposition.mar
+            general_category.mar
+            to_lower1.mar
+            to_title1.mar
+            to_upper1.mar
+            general_category_map.mar
+            White_Space.mar
+            Bidi_Control.mar
+            Join_Control.mar
+            Hyphen.mar
+            Quotation_Mark.mar
+            Terminal_Punctuation.mar
+            Other_Math.mar
+            Hex_Digit.mar
+            ASCII_Hex_Digit.mar
+            Other_Alphabetic.mar
+            Ideographic.mar
+            Diacritic.mar
+            Extender.mar
+            Other_Lowercase.mar
+            Other_Uppercase.mar
+            Noncharacter_Code_Point.mar
+            Other_Grapheme_Extend.mar
+            Grapheme_Link.mar
+            IDS_Binary_Operator.mar
+            IDS_Trinary_Operator.mar
+            Radical.mar
+            Unified_Ideograph.mar
+            Other_Default_Ignorable_Code_Point.mar
+            Deprecated.mar
+            Soft_Dotted.mar
+            Logical_Order_Exception.mar
+            ))
+  (action  (chdir .. (run tools/parse_specialcasing.exe database ${<})))))
+
+(rule
+ ((targets (scripts.mar scripts_map.mar))
+  (deps    (../unidata/Scripts.txt))
+  (action  (run ../tools/parse_scripts.exe . ${<}))))
+
+(rule
+ ((targets (age.mar))
+  (deps    (../unidata/DerivedAge.txt))
+  (action  (run ../tools/parse_age.exe . ${<}))))

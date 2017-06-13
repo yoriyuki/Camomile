@@ -2,7 +2,8 @@
 
 (library
  ((name toolslib)
-  (libraries (bigarray str))))
+  (wrapped false)
+  (libraries (camomile bigarray str))))
 
-(ocamllex  (coLexer))
-(ocamlyacc (coParser))
+(ocamllex  (colLexer))
+(ocamlyacc (colParser))

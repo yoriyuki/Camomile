@@ -47,13 +47,13 @@ let scolon_pat = Str.regexp ";"
 let blank_pat = Str.regexp "[ \t]+"
 
 let comment_pat = Str.regexp "\\(^#.*\\)\\|\\([ \t]*$\\)"
-let entry_pat = 
+let entry_pat =
   Str.regexp "\\([^;]*\\); \\([^;]*\\); \\([^;]*\\);.*"
 
-let loaddata () = 
+let loaddata ic =
   let count = ref 0 in
   try while true do
-    let line = read_line () in
+    let line = input_line ic in
     incr count;
     if Str.string_match comment_pat line 0 then () else
     if Str.string_match entry_pat line 0 then
@@ -65,7 +65,7 @@ let loaddata () =
         folds := UMap.add u mapping !folds
       else ()
     else failwith (Printf.sprintf "Malformed entry in the line %d" !count)
-  done with End_of_file -> ()
+  done with End_of_file -> close_in ic
 
 module Tbl = UCharTbl.Make (struct
   type t = UChar.t list
@@ -74,8 +74,9 @@ module Tbl = UCharTbl.Make (struct
 end)
 
 let  _ =
-  let dir = ref "" in
-  Arg.parse [] (fun s -> dir := s) "Parse the CaseFolding file";
-  loaddata ();
-  let tbl = Tbl.of_map [] !folds in
-  Database.write !dir "mar" output_value "case_folding" tbl
+  match Sys.argv with
+  | [|_; dir; input_fname|] ->
+    loaddata (open_in input_fname);
+    let tbl = Tbl.of_map [] !folds in
+    Database.write dir "mar" output_value "case_folding" tbl
+  | _ -> failwith "invalid command line"
