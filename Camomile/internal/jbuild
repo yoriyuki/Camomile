@@ -2,3 +2,6 @@
 
 (ocamllex  (uReStrLexer))
 (ocamlyacc (uReStrParser))
+
+;; mli only modules are not properly supported by the compiler yet
+(rule (copy# uReStrParserType.mli uReStrParserType.ml))
