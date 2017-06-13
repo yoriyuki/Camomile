@@ -1,0 +1,18 @@
+(jbuild_version 1)
+
+(executables
+ ((names (parse_unidata
+          parse_uniset
+          camomilecharmap
+          parse_specialcasing
+          parse_casefolding
+          parse_scripts
+          parse_allkeys
+          parse_age
+          camomilestringprep))
+  (libraries (toolslib))))
+
+(executable
+ ((name camomilelocaledef)
+  (libraries (toolslib))
+  (preprocess (action (run camlp4o ${<})))))
