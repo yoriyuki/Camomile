@@ -1,0 +1,35 @@
+(jbuild_version 1)
+
+;; Default config, overridden by the configure.ml script
+(rule (with-stdout-to installConfig.ml
+       (echo "let share_dir = \"/usr/share/camomile\"")))
+
+(rule
+ ((targets (camomileLibrary.mli))
+  (deps    (camomileLibrary.mlip
+            configInt.mli public/oOChannel.mli public/uChar.mli
+            public/uSet.mli public/uMap.mli public/uCharTbl.mli
+            public/unicodeString.mli public/uText.mli public/xString.mli
+            public/subText.mli public/uLine.mli public/locale.mli
+            public/uTF8.mli public/uTF16.mli public/uCS4.mli
+            public/uPervasives.mli public/uRe.mli public/charEncoding.mli
+            public/uCharInfo.mli public/uNF.mli public/uCol.mli
+            public/caseMap.mli public/uReStr.mli public/stringPrep.mli))
+  (action   (run cppo -I internal -I public -I toolslib -I . -o ${@} ${<}))))
+
+(rule
+ ((targets (camomileLibrary.ml))
+  (deps    (camomileLibrary.mlp
+            configInt.mli public/oOChannel.mli public/uChar.mli
+            public/uSet.mli public/uMap.mli public/uCharTbl.mli
+            public/unicodeString.mli public/uText.mli public/xString.mli
+            public/subText.mli public/uLine.mli public/locale.mli
+            public/uTF8.mli public/uTF16.mli public/uCS4.mli
+            public/uPervasives.mli public/uRe.mli public/charEncoding.mli
+            public/uCharInfo.mli public/uNF.mli public/uCol.mli
+            public/caseMap.mli public/uReStr.mli public/stringPrep.mli))
+  (action   (run cppo -I internal -I public -I toolslib -I . -o ${@} ${<}))))
+
+(library
+ ((name camomile)
+  (libraries (bigarray))))

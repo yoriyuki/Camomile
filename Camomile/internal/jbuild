@@ -1,0 +1,4 @@
+(jbuild_version 1)
+
+(ocamllex  (uReStrLexer))
+(ocamlyacc (uReStrParser))
