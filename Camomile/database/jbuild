@@ -332,44 +332,47 @@
 
 ;; other
 
+(alias
+ ((name database)
+  (deps (combined_class.mar
+         composition.mar
+         decomposition.mar
+         general_category.mar
+         to_lower1.mar
+         to_title1.mar
+         to_upper1.mar
+         general_category_map.mar
+         White_Space.mar
+         Bidi_Control.mar
+         Join_Control.mar
+         Hyphen.mar
+         Quotation_Mark.mar
+         Terminal_Punctuation.mar
+         Other_Math.mar
+         Hex_Digit.mar
+         ASCII_Hex_Digit.mar
+         Other_Alphabetic.mar
+         Ideographic.mar
+         Diacritic.mar
+         Extender.mar
+         Other_Lowercase.mar
+         Other_Uppercase.mar
+         Noncharacter_Code_Point.mar
+         Other_Grapheme_Extend.mar
+         Grapheme_Link.mar
+         IDS_Binary_Operator.mar
+         IDS_Trinary_Operator.mar
+         Radical.mar
+         Unified_Ideograph.mar
+         Other_Default_Ignorable_Code_Point.mar
+         Deprecated.mar
+         Soft_Dotted.mar
+         Logical_Order_Exception.mar))))
+
 (rule
  ((targets (allkeys.mar acset.mar))
   (deps    (../unidata/tr10/allkeys.txt
-            combined_class.mar
-            composition.mar
-            decomposition.mar
-            general_category.mar
-            to_lower1.mar
-            to_title1.mar
-            to_upper1.mar
-            general_category_map.mar
-            White_Space.mar
-            Bidi_Control.mar
-            Join_Control.mar
-            Hyphen.mar
-            Quotation_Mark.mar
-            Terminal_Punctuation.mar
-            Other_Math.mar
-            Hex_Digit.mar
-            ASCII_Hex_Digit.mar
-            Other_Alphabetic.mar
-            Ideographic.mar
-            Diacritic.mar
-            Extender.mar
-            Other_Lowercase.mar
-            Other_Uppercase.mar
-            Noncharacter_Code_Point.mar
-            Other_Grapheme_Extend.mar
-            Grapheme_Link.mar
-            IDS_Binary_Operator.mar
-            IDS_Trinary_Operator.mar
-            Radical.mar
-            Unified_Ideograph.mar
-            Other_Default_Ignorable_Code_Point.mar
-            Deprecated.mar
-            Soft_Dotted.mar
-            Logical_Order_Exception.mar
-            ))
+            (alias database)))
   (action  (chdir .. (run tools/parse_allkeys.exe database ${<})))))
 
 (rule
@@ -385,41 +388,7 @@
 (rule
  ((targets (special_casing.mar))
   (deps    (../unidata/SpecialCasing.txt
-            combined_class.mar
-            composition.mar
-            decomposition.mar
-            general_category.mar
-            to_lower1.mar
-            to_title1.mar
-            to_upper1.mar
-            general_category_map.mar
-            White_Space.mar
-            Bidi_Control.mar
-            Join_Control.mar
-            Hyphen.mar
-            Quotation_Mark.mar
-            Terminal_Punctuation.mar
-            Other_Math.mar
-            Hex_Digit.mar
-            ASCII_Hex_Digit.mar
-            Other_Alphabetic.mar
-            Ideographic.mar
-            Diacritic.mar
-            Extender.mar
-            Other_Lowercase.mar
-            Other_Uppercase.mar
-            Noncharacter_Code_Point.mar
-            Other_Grapheme_Extend.mar
-            Grapheme_Link.mar
-            IDS_Binary_Operator.mar
-            IDS_Trinary_Operator.mar
-            Radical.mar
-            Unified_Ideograph.mar
-            Other_Default_Ignorable_Code_Point.mar
-            Deprecated.mar
-            Soft_Dotted.mar
-            Logical_Order_Exception.mar
-            ))
+            (alias database)))
   (action  (chdir .. (run tools/parse_specialcasing.exe database ${<})))))
 
 (rule
