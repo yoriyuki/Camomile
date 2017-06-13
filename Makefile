@@ -1,7 +1,7 @@
 INSTALL_ARGS := $(if $(PREFIX),--prefix $(PREFIX),)
 
 all:
-	jbuilder build @install --dev
+	jbuilder build @install
 
 install:
 	jbuilder install $(INSTALL_ARGS)
