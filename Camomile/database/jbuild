@@ -367,7 +367,8 @@
          Other_Default_Ignorable_Code_Point.mar
          Deprecated.mar
          Soft_Dotted.mar
-         Logical_Order_Exception.mar))))
+         Logical_Order_Exception.mar
+         scripts.mar))))
 
 (rule
  ((targets (allkeys.mar acset.mar))
