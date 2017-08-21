@@ -56,7 +56,7 @@ and comment = parser
   | [< 'data; rest >] -> comment rest
   | [< >] -> [< >]
 and comment2 = parser
-  | [< '( Some '*', _, _) as data; rest >] ->
+  | [< '( Some '*', _, _); rest >] ->
     (parser
     | [< '(Some '/', _, _); rest >] -> remove_comment rest
     |	[< rest >] -> comment2 rest) rest

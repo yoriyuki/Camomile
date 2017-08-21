@@ -70,11 +70,11 @@ let sq = Char.code '\\'
 let dq = Char.code '"'
 
 let string_to_binary s =
-  let n = String.length s / 2 in
-  let b = String.create n in
+  let n = Bytes.length s / 2 in
+  let b = Bytes.create n in
   for i = 0 to n - 1 do
     let d = int_of_string ("0x" ^ (String.sub s (i * 2) 2)) in
-    b.[i] <- Char.chr d
+    Bytes.set b i (Char.chr d)
   done;
   b
 
@@ -147,8 +147,8 @@ and parse_unknown l =
   match l with
     Text text :: Brace_r :: rest ->
       String_data text, Brace_r :: rest
-  | Text text :: Comma :: rest -> parse_array l []
-  | Text text :: rest -> parse_table l []
+  | Text _ :: Comma :: _ -> parse_array l []
+  | Text _ :: _ -> parse_table l []
   | _ -> parse_array l []
 
 and parse l = match l with
@@ -172,7 +172,7 @@ and parse l = match l with
       let b = string_to_binary data in
       Some (Tagged (tname, Binary b)), rest
   | Text tname :: Colon :: Text "import" :: Brace_l ::
-    Text filename :: Brace_r :: rest ->
+    Text _ :: Brace_r :: rest ->
       prerr_endline "Warning : file loading is not supported.";
       Some (Tagged (tname, Binary "")), rest
   | Text tname :: Colon :: Text "int" :: Brace_l ::
