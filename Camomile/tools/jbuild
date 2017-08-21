@@ -10,11 +10,12 @@
           parse_allkeys
           parse_age
           camomilestringprep))
-  (modules (:standard \ camomilelocaledef))
+  (modules (:standard \ camomilelocaledef camomilelocaledef_lexer))
   (libraries (toolslib))))
 
 (executable
  ((name camomilelocaledef)
   (libraries (toolslib))
-  (modules (camomilelocaledef))
-  (preprocess (action (run camlp4o ${<})))))
+  (modules (camomilelocaledef camomilelocaledef_lexer))
+  (preprocess (per_module
+               ((action (run camlp4o ${<})) (camomilelocaledef_lexer))))))
