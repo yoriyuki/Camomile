@@ -11,6 +11,12 @@ type token =
 let rec stream_to_list_aux a s = (parser
   | [< 'e; rest >] -> stream_to_list_aux (e :: a) rest
   | [< >] -> List.rev a) s
+let pp fmt = function
+  | Brace_r -> Format.fprintf fmt "}"
+  | Brace_l -> Format.fprintf fmt "}"
+  | Colon -> Format.fprintf fmt ":"
+  | Comma -> Format.fprintf fmt ","
+  | Text s -> Format.fprintf fmt "\"%s\"" s
 let stream_to_list s = stream_to_list_aux [] s
 
 let backslash = Char.code '\\'

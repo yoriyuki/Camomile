@@ -217,7 +217,14 @@ let main () =
   let stream = CE.ustream_of enc cs in
   let lexed = lexer stream in
   let data, rest = parse_table lexed [] in
-  if rest <> [] then failwith "Strange trailing data.";
+  if rest <> [] then (
+    let rest =
+      let b = Buffer.create 16 in
+      let fmt = Format.formatter_of_buffer b in
+      Format.pp_print_list pp fmt rest;
+      Buffer.contents b in
+    failwith ("Strange trailing data: '" ^ rest ^ "'")
+  );
   let proc key entry =
     let locale_info = localedef entry in
     Database.write dir "mar" output_value key locale_info
