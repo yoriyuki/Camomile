@@ -8,15 +8,17 @@ type token =
   | Colon
   | Comma
 
-let rec stream_to_list_aux a s = (parser
-  | [< 'e; rest >] -> stream_to_list_aux (e :: a) rest
-  | [< >] -> List.rev a) s
 let pp fmt = function
   | Brace_r -> Format.fprintf fmt "}"
   | Brace_l -> Format.fprintf fmt "}"
   | Colon -> Format.fprintf fmt ":"
   | Comma -> Format.fprintf fmt ","
   | Text s -> Format.fprintf fmt "\"%s\"" s
+
+let rec stream_to_list_aux a s =
+  match Stream.next s with
+  | e -> stream_to_list_aux (e :: a) s
+  | exception Stream.Failure -> List.rev a
 let stream_to_list s = stream_to_list_aux [] s
 
 let backslash = Char.code '\\'
@@ -29,113 +31,141 @@ let backslash = Str.regexp "\\\\\\\\"
 let unescape s =
   let s =
     Str.global_substitute literal_1 (fun _ ->
-      let n = int_of_string (Str.replace_matched "0x\\1" s) in
-      UTF8.init 1 (fun _ -> (UChar.chr_of_uint n)))
+        let n = int_of_string (Str.replace_matched "0x\\1" s) in
+        UTF8.init 1 (fun _ -> UChar.chr_of_uint n))
       s in
   let s =
     Str.global_substitute literal_2 (fun _ ->
-      let n = int_of_string (Str.replace_matched "0x\\1" s) in
-      UTF8.init 1 (fun _ -> (UChar.chr_of_uint n)))
+        let n = int_of_string (Str.replace_matched "0x\\1" s) in
+        UTF8.init 1 (fun _ -> UChar.chr_of_uint n))
       s in
   Str.global_replace backslash "\\\\" s
 
-let rec prep = parser
-  | [< 'u; rest >] ->
+let rec prep s =
+  match Stream.peek s with
+  | None -> Stream.sempty
+  | Some u ->
+    Stream.junk s;
     let c = try Some (UChar.char_of u) with _ -> None in
-    (match Info.general_category u with
-    | `Cc | `Cf when c <> Some '\n' ->  prep rest
-    | ct -> [< '(c, ct, u); prep rest >])
-  | [< >] -> [< >]
+    begin match Info.general_category u with
+      | `Cc | `Cf when c <> Some '\n' -> prep s
+      | ct -> Stream.icons (c, ct, u) (Stream.slazy (fun () -> prep s))
+    end
 
-let rec remove_comment = parser
-  | [< '( Some '/', _, _) as data; rest >] ->
-    (parser
-    | [< '(Some '/', _, _); rest >] -> comment rest
-    | [< '(Some '*', _, _); rest >] -> comment2 rest
-    | [< rest >] -> [< 'data; remove_comment rest >]) rest
-  | [< '( Some '"', _, _) as data; rest >]  -> [< 'data; in_quote rest >]
-  | [< 'data; rest >] -> [< 'data; remove_comment rest >]
-  | [< >] -> [< >]
-and comment = parser
-  | [< '( Some ('\r' | '\n' | '\133'), _, _)
-    | ( _, (`Zl | `Zp), _); rest >] -> remove_comment rest
-  | [< 'data; rest >] -> comment rest
-  | [< >] -> [< >]
-and comment2 = parser
-  | [< '( Some '*', _, _); rest >] ->
-    (parser
-    | [< '(Some '/', _, _); rest >] -> remove_comment rest
-    |	[< rest >] -> comment2 rest) rest
-  | [< 'data; rest >] -> comment2 rest
-  | [< >] -> [< >]
-and in_quote = parser
-  | [< '( Some '\\', _, _) as data1; 'data2; rest >] ->
-    [< 'data1; 'data2; in_quote rest >]
-  | [< '( Some '"', _, _) as data; rest >]  ->
-    [<' data; remove_comment rest >]
-  | [< 'data; rest >] -> [< 'data; in_quote rest >]
-  | [< >] -> [< >]
+let rec remove_comment s =
+  match Stream.next s with
+  | (Some '/', _, _) as data ->
+    begin match Stream.next s with
+      | Some '/', _, _ -> comment s
+      | Some '*', _, _ -> comment2 s
+      | _ -> Stream.icons data (remove_comment s)
+      | exception Stream.Failure -> Stream.icons data (remove_comment s)
+    end
+  | (Some '"', _, _) as data -> Stream.icons data (in_quote s)
+  | data -> Stream.icons data (remove_comment s)
+  | exception Stream.Failure -> Stream.sempty
+and comment s =
+  match Stream.next s with
+  | ( Some ('\r' | '\n' | '\133'), _, _)
+  | ( _, (`Zl | `Zp), _) -> remove_comment s
+  | _ -> comment s
+  | exception Stream.Failure -> Stream.sempty
+and comment2 s =
+  match Stream.next s with
+  | Some '*', _, _ ->
+    begin match Stream.next s with
+      | Some '/', _, _ -> remove_comment s
+      |	_ -> comment2 s
+      | exception Stream.Failure -> comment2 s
+    end
+  | _ -> comment2 s
+  | exception Stream.Failure -> Stream.sempty
+and in_quote s =
+  match Stream.npeek 2 s with
+  | [(Some '\\', _, _) as data1; data2] ->
+    Stream.junk s;
+    Stream.junk s;
+    Stream.icons data1 (Stream.icons data2 (in_quote s))
+  | [(Some '"', _, _) as data; _]
+  | [(Some '"', _, _) as data] ->
+    Stream.junk s;
+    Stream.icons data (remove_comment s)
+  | _ ->
+    begin match Stream.next s with
+    | data -> Stream.icons data (in_quote s)
+    | exception Stream.Failure -> Stream.sempty
+    end
 
-let rec merge_text = parser
-  | [< 'Text s; rest >] -> do_merge s rest
-  | [< 'e; rest >] -> [< 'e; merge_text rest >]
-  | [< >] -> [< >]
-and do_merge s = parser
-  | [< 'Text s'; rest >] -> do_merge (s ^ s') rest
-  | [< 'e; rest >] -> [< 'Text s; 'e; merge_text rest >]
-  | [< >] -> [< >]
+let rec merge_text st =
+  match Stream.next st with
+  | Text s -> do_merge s st
+  | e -> Stream.icons e (merge_text st)
+  | exception Stream.Failure -> Stream.sempty
+and do_merge s st =
+  match Stream.next st with
+  | Text s' -> do_merge (s ^ s') st
+  | e -> Stream.icons (Text s) (Stream.icons e (merge_text st))
+  | exception Stream.Failure -> Stream.sempty
 
 let lexer s =
-  let rec parse = parser
-    | [< '( Some '{', _, _); rest >] -> [< 'Brace_l; parse rest >]
-    | [< '( Some '}', _, _); rest >] -> [< 'Brace_r; parse rest >]
-    | [< '( Some ':', _, _); rest >] -> [< 'Colon; parse rest >]
-    | [< '( Some ',', _, _); rest >] -> [< 'Comma; parse rest >]
-    | [< '( Some '"', _, _); rest >] -> quote rest
-    | [< '( Some ('\r' | '\n' | '\133' | '\t'), _, _)
-    | ( _, (`Zs | `Zl | `Zp), _) ; rest >] ->
-      parse rest
-      | [< 'e; rest >] -> text [< 'e; rest >]
-      | [< >] -> [< >]
+  let rec parse s =
+      match Stream.next s with
+      | Some '{', _, _ -> Stream.icons Brace_l (parse s)
+      | Some '}', _, _ -> Stream.icons Brace_r (parse s)
+      | Some ':', _, _ -> Stream.icons Colon (parse s)
+      | Some ',', _, _ -> Stream.icons Comma (parse s)
+      | Some '"', _, _ -> quote s
+      | Some ('\r' | '\n' | '\133' | '\t'), _, _
+      | _, (`Zs | `Zl | `Zp), _ -> parse s
+      | e -> text (Stream.icons e s)
+      | exception Stream.Failure -> Stream.sempty
   and quote s =
     let buf = Utf8Buffer.create 16 in
-    let rec loop = parser
-      | [< '( Some '\\', _, u1); '(_, _, u2); rest >] ->
+    let rec loop st =
+      match Stream.npeek 2 s with
+      | [Some '\\', _, u1; _, _, u2] ->
+        Stream.junk st;
+        Stream.junk st;
         Utf8Buffer.add_char buf u1;
         Utf8Buffer.add_char buf u2;
-        loop rest
-      |	[< '( Some '"', _, _); rest >]  ->
-        let s = Utf8Buffer.contents buf in
-        let s' = unescape s in
-        [< 'Text s'; parse rest >]
-      |	[< '( _, _, u); rest >] ->
-        Utf8Buffer.add_char buf u;
-        loop rest
-      | [< >] -> failwith "A quote is not enclosed." in
+        loop st
+      |	_ ->
+        begin match Stream.next st with
+        | Some '"', _, _ ->
+          let s = Utf8Buffer.contents buf in
+          let s' = unescape s in
+          Stream.icons (Text s') (parse st)
+        | _, _, u ->
+          Utf8Buffer.add_char buf u;
+          loop st
+        | exception Stream.Failure -> failwith "A quote is not enclosed."
+        end in
     loop s
   and text s =
     let buf = Utf8Buffer.create 16 in
-    let rec loop = parser
-      | [<'( Some ('\r' | '\n' | '\133' | '\t'), _, _)
-      | ( _, (`Zs | `Zl | `Zp), _) ; rest >] ->
+    let rec loop st =
+      match Stream.next st with
+      | (Some ('\r' | '\n' | '\133' | '\t'), _, _)
+      |  _, (`Zs | `Zl | `Zp), _ ->
         let s = Utf8Buffer.contents buf in
         let s' = unescape s in
-        [< 'Text s'; parse rest >]
-      |	[< '( Some ('{' | '}' | ':' | ','| '"'), _, _) as e; rest >] ->
+        Stream.icons (Text s') (parse st)
+      |	(Some ('{' | '}' | ':' | ','| '"'), _, _) as e ->
         let s = Utf8Buffer.contents buf in
         let s' = unescape s in
-        [< 'Text s'; parse [< 'e; rest >] >]
-      |	[< '( _, _, u); rest >] ->
+        Stream.icons (Text s') (parse (Stream.icons e st))
+      |	 _, _, u ->
         Utf8Buffer.add_char buf u;
-        loop rest
-      |	[< >] ->
+        loop st
+      |	exception Stream.Failure ->
         let s = Utf8Buffer.contents buf in
         let s' = unescape s in
-        [< 'Text s' >] in
+        Stream.of_list [Text s'] in
     loop s
   in
   let p = prep s in
   let p1 = remove_comment p in
   let tokens = parse p1 in
   let tokens1 = merge_text tokens in
-  let l = stream_to_list tokens1 in l
+  let l = stream_to_list tokens1 in
+  l

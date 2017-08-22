@@ -16,6 +16,4 @@
 (executable
  ((name camomilelocaledef)
   (libraries (toolslib))
-  (modules (camomilelocaledef camomilelocaledef_lexer))
-  (preprocess (per_module
-               ((action (run camlp4o ${<})) (camomilelocaledef_lexer))))))
+  (modules (camomilelocaledef camomilelocaledef_lexer))))
