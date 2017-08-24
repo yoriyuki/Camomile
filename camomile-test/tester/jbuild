@@ -1,0 +1,71 @@
+(jbuild_version 1)
+
+(executables
+ ((names
+   (testOOChannel
+    test-base
+    test-caseMap
+    test-charEncoding
+    test-normalform
+    test-uCol
+    test-uTF8
+    test_stringprep
+    uCS4-test
+    uReStr-test
+    uTF16-test))
+  (libraries (str camomile blender tester_lib))))
+
+(alias
+ ((name runtest)
+  (deps (testOOChannel.exe))
+  (action (run ${<}))))
+
+(alias
+ ((name runtest)
+  (deps (test-base.exe))
+  (action (run ${<}))))
+
+(alias
+ ((name runtest)
+  (deps (test-caseMap.exe))
+  (action (run ${<}))))
+
+(alias
+ ((name runtest)
+  (deps (test-charEncoding.exe))
+  (action (run ${<}))))
+
+(alias
+ ((name runtest)
+  (deps (test-normalform.exe))
+  (action (run ${<}))))
+
+(alias
+ ((name runtest)
+  (deps (test-uCol.exe))
+  (action (run ${<}))))
+
+(alias
+ ((name runtest)
+  (deps (test-uTF8.exe))
+  (action (run ${<}))))
+
+(alias
+ ((name runtest)
+  (deps (test_stringprep.exe))
+  (action (run ${<}))))
+
+(alias
+ ((name runtest)
+  (deps (uCS4-test.exe))
+  (action (run ${<}))))
+
+(alias
+ ((name runtest)
+  (deps (uReStr-test.exe))
+  (action (run ${<}))))
+
+(alias
+ ((name runtest)
+  (deps (uTF16-test.exe))
+  (action (run ${<}))))
