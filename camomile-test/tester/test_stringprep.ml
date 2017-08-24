@@ -1,7 +1,7 @@
 (* Copyright 2010 Pierre Chambart *)
 
 open Blender
-open CamomileLibraryDyn.Camomile
+open CamomileLibraryTest.Camomile
 module M = StringPrep.Make(UTF8);;
 open M;;
 
