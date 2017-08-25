@@ -32,17 +32,21 @@
 
 (alias
  ((name runtest)
-  (deps (test-charEncoding.exe))
+  (deps (test-charEncoding.exe (glob_files ../data/enc/*)))
   (action (run ${<}))))
 
 (alias
  ((name runtest)
-  (deps (test-normalform.exe))
+  (deps (test-normalform.exe
+         ../unidata/NormalizationTest.txt
+         ../unidata/CollationTest_SHIFTED.txt))
   (action (run ${<}))))
 
 (alias
  ((name runtest)
-  (deps (test-uCol.exe))
+  (deps (test-uCol.exe
+         (glob_files ../unidata/*)
+         (glob_files ../data/*)))
   (action (run ${<}))))
 
 (alias
@@ -52,7 +56,7 @@
 
 (alias
  ((name runtest)
-  (deps (test_stringprep.exe))
+  (deps (test_stringprep.exe ../data/stringprep))
   (action (run ${<}))))
 
 (alias
