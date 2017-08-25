@@ -11,7 +11,7 @@ module UL = ULine.Make(UTF8)
 
 let print_uchar u = sprintf "\\u%08x" (int_of_uchar u)
 
-let enc_filename file = input_filename (Filename.concat "../data/enc" file)
+let enc_filename file = input_filename (Filename.concat "data/enc" file)
 
 let test_decoding enc_name file utf8_file =
   let file = enc_filename file in
@@ -83,7 +83,7 @@ let test_enc file =
 let filter name =
   not (Str.string_match (Str.regexp ".*\\.\\..*") name 0)
 
-let _ = foreach_file (input_filename "../data/enc") ~filter test_enc
+let _ = foreach_file (input_filename "data/enc") ~filter test_enc
 
 (* test for Japanese auto detection *)
 

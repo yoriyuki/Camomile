@@ -108,7 +108,7 @@ let check_file f =
   let _ = check 1 0 in
   close_in c
 
-let testfile = "data/stringprep"
+let testfile = input_filename "data/stringprep"
 
 let _ =
   test

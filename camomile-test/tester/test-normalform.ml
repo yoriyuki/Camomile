@@ -6,7 +6,7 @@ open UPervasives
 open Blender
 open Printf
 
-let testfile = "../unidata/NormalizationTest.txt"
+let testfile = "unidata/NormalizationTest.txt"
 
 let comment = Str.regexp "^#.*"
 let part = Str.regexp "@Part[^1].*"
