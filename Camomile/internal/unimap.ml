@@ -100,7 +100,7 @@ let ucs_to_enc map ucs = read_map map.ucs_to_enc ucs
 
 let loaded = Hashtbl.create 0
 
-let of_name name =
+let of_name name : t =
   try 
     let b = Hashtbl.find loaded name in
     match Weak.get b 0 with
