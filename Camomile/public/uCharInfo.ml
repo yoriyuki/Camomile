@@ -566,7 +566,7 @@ type special_casing_property =
 
 let cache = Weak.create 1
 
-let load_conditional_casing_tbl () =
+let load_conditional_casing_tbl () : special_casing_property list UCharTbl.t =
   match Weak.get cache 0 with
     Some t -> t
   | None ->
