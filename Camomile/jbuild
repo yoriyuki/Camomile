@@ -32,6 +32,7 @@
  ((name camomile)
   (public_name camomile)
   (wrapped false)
+  (flags (-I Camomile :standard))
   (libraries (bigarray))))
 
 ;; Temporary workaround as jbuilder doesn't yet support multi directory libs
