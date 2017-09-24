@@ -1,7 +1,7 @@
 (* $Id: test-uCol.ml,v 1.13 2006/08/13 21:23:08 yori Exp $ *)
 (* Copyright 2002,2003,2004,2005,2006 Yamagata Yoriyuki *)
 
-open CamomileLibraryDyn.Camomile
+open CamomileLibraryTest.Camomile
 open UPervasives
 open Blender
 open Printf
@@ -166,11 +166,11 @@ let uca ~desc variable c =
     prev_line := line
   done with End_of_file -> ()
 
-let _ = read_file 
+let _ = read_file
     (input_filename "unidata/CollationTest_SHIFTED.txt")
     (uca ~desc:"Shifted" `Shifted)
 
-let _ = read_file 
+let _ = read_file
     (input_filename "unidata/CollationTest_NON_IGNORABLE.txt")
     (uca ~desc:"Non ignorable" `Non_ignorable)
 

@@ -1,0 +1,21 @@
+(jbuild_version 1)
+
+(executables
+ ((names (parse_unidata
+          parse_uniset
+          camomilecharmap
+          parse_specialcasing
+          parse_casefolding
+          parse_scripts
+          parse_allkeys
+          parse_age
+          camomilestringprep))
+  (flags (-I Camomile :standard))
+  (modules (:standard \ camomilelocaledef camomilelocaledef_lexer))
+  (libraries (toolslib))))
+
+(executable
+ ((name camomilelocaledef)
+  (libraries (toolslib))
+  (flags (-I Camomile :standard))
+  (modules (camomilelocaledef camomilelocaledef_lexer))))

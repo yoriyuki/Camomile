@@ -6,7 +6,7 @@ open Printf
 
 (* global settings *)
 
-let input_root  = ref "."
+let input_root  = ref "../"
 let output_root = ref (".")
 let debug       = ref false
 let verbose     = ref 2

@@ -1,5 +1,5 @@
 (* Tests for UTF16 *)
-open CamomileLibraryDyn.Camomile
+open CamomileLibraryTest.Camomile
 open UPervasives
 open Blender
 open Printf

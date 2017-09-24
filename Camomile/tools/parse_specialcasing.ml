@@ -70,21 +70,21 @@ let put_record code lower title upper conditions =
      UCharInfo.title = us_of_codes (Str.split blank_pat title);
      UCharInfo.upper = us_of_codes (Str.split blank_pat upper);
      UCharInfo.condition = List.map parse_condition conditions}
-  in 
+  in
   let entry = try UMap.find u !scases with Not_found -> [] in
   scases := UMap.add u (record :: entry) !scases
 
 let comment_pat = Str.regexp "\\(^#.*\\)\\|\\([ \t]*$\\)"
-let no_context_pat = 
+let no_context_pat =
   Str.regexp "\\([^;]*\\);\\([^;]*\\);\\([^;]*\\);\\([^;]*\\);?[ \t]*#.*"
 
 let with_context_pat =
   Str.regexp "\\([^;]*\\);\\([^;]*\\);\\([^;]*\\);\\([^;]*\\);\\([^;]*\\);?[ \t]*#.*"
 
-let loaddata () = 
+let loaddata ic =
   let count = ref 0 in
   try while true do
-    let line = read_line () in
+    let line = input_line ic in
     incr count;
     if Str.string_match comment_pat line 0 then () else
     if Str.string_match no_context_pat line 0 then
@@ -101,7 +101,7 @@ let loaddata () =
       let conditions = Str.matched_group 5 line in
       put_record code lower title upper (Str.split blank_pat conditions)
     else failwith (Printf.sprintf "Malformed entry in the line %d" !count)
-  done with End_of_file -> ()
+  done with End_of_file -> close_in ic
 
 module CasingTbl = UCharTbl.Make (struct
   type t = UCharInfo.special_casing_property list
@@ -110,8 +110,9 @@ module CasingTbl = UCharTbl.Make (struct
 end)
 
 let  _ =
-  let dir = ref "" in
-  Arg.parse [] (fun s -> dir := s) "Parse the SpecialCasing file";
-  loaddata ();
-  let tbl = CasingTbl.of_map [] !scases in
-  Database.write !dir "mar" output_value "special_casing" tbl
+  match Sys.argv with
+  | [|_; dir; input_fname|] ->
+    loaddata (open_in input_fname);
+    let tbl = CasingTbl.of_map [] !scases in
+    Database.write dir "mar" output_value "special_casing" tbl
+  | _ -> failwith "invalid command line"
