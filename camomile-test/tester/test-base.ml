@@ -3,7 +3,7 @@
 
 open Printf
 open Blender
-open CamomileLibraryDyn.Camomile
+open CamomileLibraryTest.Camomile
 open UPervasives
 
 let random_pair () = 
@@ -130,26 +130,26 @@ let test_range ~desc uset =
 		   (USet.mem u uset or a <= i && i <= b))
       uset'
 
-let _ = 
-  random_test
-    ~desc:"USet"
-    ~log:"uset"
-    ~data:(fun size -> (random_uchars size, random_uchars size))
-    ~body:(fun (us1, us2) -> expect_pass (fun () ->
-      let uset1 = uset_of_stdset us1 in
-      test_uset ~desc:"uset1" uset1 us1;
-      let uset2 = uset_of_stdset us2 in
-      test_uset ~desc:"uset2" uset2 us2;
-      test_uset ~desc:"union" 
-	(USet.union uset1 uset2) 
-	(StdUSet.union us1 us2);
-      test_uset ~desc:"inter"
-	(USet.inter uset1 uset2)
-	(StdUSet.inter us1 us2);
-      test_uset ~desc:"diff"
-	(USet.diff uset1 uset2)
-	(StdUSet.diff us1 us2);
-      test_range ~desc:"range" uset1))
+(* let _ =  *)
+(*   random_test *)
+(*     ~desc:"USet" *)
+(*     ~log:"uset" *)
+(*     ~data:(fun size -> (random_uchars size, random_uchars size)) *)
+(*     ~body:(fun (us1, us2) -> expect_pass (fun () -> *)
+(*       let uset1 = uset_of_stdset us1 in *)
+(*       test_uset ~desc:"uset1" uset1 us1; *)
+(*       let uset2 = uset_of_stdset us2 in *)
+(*       test_uset ~desc:"uset2" uset2 us2; *)
+(*       test_uset ~desc:"union"  *)
+(* 	(USet.union uset1 uset2)  *)
+(* 	(StdUSet.union us1 us2); *)
+(*       test_uset ~desc:"inter" *)
+(* 	(USet.inter uset1 uset2) *)
+(* 	(StdUSet.inter us1 us2); *)
+(*       test_uset ~desc:"diff" *)
+(* 	(USet.diff uset1 uset2) *)
+(* 	(StdUSet.diff us1 us2); *)
+(*       test_range ~desc:"range" uset1)) *)
       
 let random_umap size =
   let r = ref StdUMap.empty in
@@ -210,36 +210,36 @@ let umap_of_assoc al =
   in
     f al UMap.empty
 	      
-let _ = 
-  random_test
-    ~desc:"UMep interval"
-    ~log:"umap interval"
-    ~data:(fun size -> random_assoc size)
-    ~body:(fun al -> expect_pass (fun () ->
-      let umap = umap_of_assoc al in
-      for i = 0 to 0x8000000 do
-	expect_equal_app
-	  (UMap.find (UChar.chr i)) umap
-	  (assoc i) al
-      done))
+(* let _ =  *)
+(*   random_test *)
+(*     ~desc:"UMep interval" *)
+(*     ~log:"umap interval" *)
+(*     ~data:(fun size -> random_assoc size) *)
+(*     ~body:(fun al -> expect_pass (fun () -> *)
+(*       let umap = umap_of_assoc al in *)
+(*       for i = 0 to 0x8000000 do *)
+(* 	expect_equal_app *)
+(* 	  (UMap.find (UChar.chr i)) umap *)
+(* 	  (assoc i) al *)
+(*       done)) *)
 
 (* domain, set_to_map, map_to_set *)
 
-let _ =
-  random_test
-    ~desc:"UMap <-> USet"
-    ~log:"UMap <-> USet"
-    ~data:(fun size -> random_assoc size)
-    ~body:(fun al -> expect_pass (fun () ->
-      let umap = umap_of_assoc al in
-      let dom = UMap.domain umap in
-      let umap' = UMap.set_to_map dom 1 in
-      let umap'' = UMap.map (fun _ -> 1) umap in
-      for i = 0 to 0x8000000 do
-	expect_equal_app
-	  (UMap.find (UChar.chr i)) umap'
-	  (UMap.find (UChar.chr i)) umap''
-      done))
+(* let _ = *)
+(*   random_test *)
+(*     ~desc:"UMap <-> USet" *)
+(*     ~log:"UMap <-> USet" *)
+(*     ~data:(fun size -> random_assoc size) *)
+(*     ~body:(fun al -> expect_pass (fun () -> *)
+(*       let umap = umap_of_assoc al in *)
+(*       let dom = UMap.domain umap in *)
+(*       let umap' = UMap.set_to_map dom 1 in *)
+(*       let umap'' = UMap.map (fun _ -> 1) umap in *)
+(*       for i = 0 to 0x8000000 do *)
+(* 	expect_equal_app *)
+(* 	  (UMap.find (UChar.chr i)) umap' *)
+(* 	  (UMap.find (UChar.chr i)) umap'' *)
+(*       done)) *)
       
 
 (* Tests for UCharTbl *)

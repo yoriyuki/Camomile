@@ -66,13 +66,13 @@ let uchar_of_code code = UChar.chr_of_uint (int_of_code code)
 let option_uchar_of_code code =
   if code = "" then None else Some (uchar_of_code code)
 
-let read_unidata () =
+let read_unidata ic =
   try while true do
-    let s = read_line () in
+    let s = input_line ic in
     let tokens = Str.split_delim scolon_pat s in
     match tokens with
       [code; name; catname; comb_cl_str; bidi_str; decomp_str;
-       dec_digit_str; digit_str; num_str; mirrored_str; old_name; comment; 
+       dec_digit_str; digit_str; num_str; mirrored_str; old_name; comment;
        upper_str; lower_str; title_str] ->
 	 let i0 =  int_of_code code in
 	 if i0 >= 0xf0000 && i0 <= 0xffffd then () else
@@ -89,14 +89,14 @@ let read_unidata () =
 	 in
 	 let cat_num = num_of_cat (cat_of_name catname) in
 	 let comb_cl = int_of_string comb_cl_str in
-	 let decomp = 
+	 let decomp =
 	   let char_str = Str.split blank_pat decomp_str in
-	   if char_str = [] then 
-	     if 0xac00 <= i0 && i0 <= 0xd7a3 then `HangulSyllable 
+	   if char_str = [] then
+	     if 0xac00 <= i0 && i0 <= 0xd7a3 then `HangulSyllable
 	     else `Canonform
 	   else if Str.string_match mark_pat (List.hd char_str) 0 then
-	     let us = 
-	       List.map (fun s -> 
+	     let us =
+	       List.map (fun s ->
 		 UChar.chr_of_uint (int_of_string ("0x"^s))) (List.tl char_str)
 	     in
 	     match Str.matched_string (List.hd char_str) with
@@ -117,12 +117,12 @@ let read_unidata () =
 	     | "<fraction>" -> `Composite (`Fraction, us)
 	     | "<compat>" -> `Composite (`Compat, us)
 	     |  _ -> failwith ("Malformed Table"^s)
-	   else 
-	     let us = 
-	       List.map (fun s -> 
-		 UChar.chr_of_uint (int_of_string ("0x"^s))) 
+	   else
+	     let us =
+	       List.map (fun s ->
+		 UChar.chr_of_uint (int_of_string ("0x"^s)))
 		 char_str
-	     in 
+	     in
 	     `Composite(`Canon, us)
 	 in
 	 let upper_us = option_uchar_of_code upper_str in
@@ -131,9 +131,9 @@ let read_unidata () =
 	 let u0 = UChar.chr_of_uint i0 in
 	 let u1 = UChar.chr_of_uint i1 in
 	 if cat_num <> 0 then cat_tbl := UMap.add_range u0 u1 cat_num !cat_tbl;
-	 if comb_cl <>0 then 
+	 if comb_cl <>0 then
 	   combcl_tbl := UMap.add_range u0 u1 comb_cl !combcl_tbl;
-	 if decomp <> `Canonform then 
+	 if decomp <> `Canonform then
 	   decomp_tbl := UMap.add_range u0 u1 decomp !decomp_tbl;
 	 (match upper_us with None -> () | Some u' ->
 	   to_upper1 := UMap.add_range u0 u1 u' !to_upper1);
@@ -142,7 +142,7 @@ let read_unidata () =
 	 (match lower_us with None -> () | Some u' ->
 	   to_lower1 := UMap.add_range u0 u1 u' !to_lower1);
     | _ -> failwith ("Malformed Table "^s)
-  done with End_of_file -> ()
+  done with End_of_file -> close_in ic
 
 let rec decompose decomp_tbl u =
   try match UMap.find u decomp_tbl with
@@ -150,25 +150,25 @@ let rec decompose decomp_tbl u =
       List.fold_right (fun u a -> (decompose decomp_tbl u) @ a) us []
   | `HangulSyllable -> Hangul.decompose u
   | _ -> [u]
-  with 
+  with
     Not_found -> [u]
 
-module CompositeTbl = 
-  UCharTbl.Make (struct 
+module CompositeTbl =
+  UCharTbl.Make (struct
     type t = (UChar.t * UChar.t) list
     let equal = (=)
     let hash = Hashtbl.hash
   end)
 
 module DecompTbl =
-  UCharTbl.Make (struct 
+  UCharTbl.Make (struct
     type t = Unidata.decomposition_info
     let equal = (=)
     let hash = Hashtbl.hash
   end)
 
 module UTbl =
-  UCharTbl.Make (struct 
+  UCharTbl.Make (struct
     type t = UChar.t
     let equal = UChar.eq
     let hash u = UChar.uint_code u
@@ -177,12 +177,16 @@ module UTbl =
 let main () =
   let dir = ref "" in
   begin
-    Arg.parse [] (fun s -> dir := s) "Parse the Unicode data file";
-    read_unidata();
+    let dir, input_fname =
+      match Sys.argv with
+      | [|_; dir; input_fname|] -> (dir, input_fname)
+      | _ -> failwith "invalid command line"
+    in
+    read_unidata (open_in input_fname);
     let comp_tbl =
       let f u d tbl =
 	match d with
-	  `Composite (`Canon, [u1; u2]) -> 
+	  `Composite (`Canon, [u1; u2]) ->
 	    let l = try UMap.find u1 tbl with Not_found -> [] in
 (*	    Printf.printf "\\u%04x : [" (int_of_uchar u1);
 	    List.iter (fun (u2, u) ->
@@ -200,11 +204,11 @@ let main () =
       UMap.fold (fun u d decomps ->
 	match d with
 	  `Composite (`Canon, us) ->
-	    let d = 
-	      List.fold_right 
-		(fun u a -> (decompose !decomp_tbl u) @ a) 
-		us 
-		[] 
+	    let d =
+	      List.fold_right
+		(fun u a -> (decompose !decomp_tbl u) @ a)
+		us
+		[]
 	    in
 	    UMap.add u (`Composite (`Canon, d)) decomps
 	| x -> UMap.add u x decomps)
@@ -212,21 +216,21 @@ let main () =
 	UMap.empty
     in
     let cat_tbl_ro = UCharTbl.Bits.of_map 0 !cat_tbl in
-    let combcl_tbl_ro = 
+    let combcl_tbl_ro =
       UCharTbl.Char.of_map
-	'\000' 
+	'\000'
 	(UMap.map Char.chr !combcl_tbl) in
     let decomp_tbl_ro = DecompTbl.of_map `Canonform decomps in
     let null = UChar.chr_of_uint 0 in
     let to_lower1_ro = UTbl.of_map null !to_lower1 in
     let to_title1_ro = UTbl.of_map null !to_title1 in
     let to_upper1_ro = UTbl.of_map null !to_upper1 in
-    let write name value = Database.write !dir "mar" output_value name value in
+    let write name value = Database.write dir "mar" output_value name value in
     begin
       let gen_cat_map = UMap.map cat_of_num !cat_tbl in
-      write "general_category_map" gen_cat_map;      
+      write "general_category_map" gen_cat_map;
       write "general_category" cat_tbl_ro;
-      write "combined_class_map" !combcl_tbl; 
+      write "combined_class_map" !combcl_tbl;
       write "combined_class" combcl_tbl_ro;
       write "decomposition" decomp_tbl_ro;
       write "composition" comp_tbl_ro;

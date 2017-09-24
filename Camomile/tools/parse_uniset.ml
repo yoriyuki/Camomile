@@ -46,10 +46,17 @@ let num_pat = Str.regexp "[0-9A-Za-z]+"
 
 let prev_entry = ref 0
 
-let read_data () =
+let use_line ?re line =
+  match re with
+  | None -> true
+  | Some re -> Str.string_match re line 0
+
+let read_data ?re ic =
   try while true do
-    let s = read_line () in
-    if Str.string_match range_pat s 0 then
+    let s = input_line ic in
+    if not (use_line ?re s) then
+      ()
+    else if Str.string_match range_pat s 0 then
       let u1 = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_group 1 s))) in
       let u2 = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_group 2 s))) in
       tbl_rw := USet.add_range u1 u2 !tbl_rw
@@ -57,26 +64,27 @@ let read_data () =
       let u = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_string s))) in
       tbl_rw := USet.add u !tbl_rw
     else ()
-  done with End_of_file -> ()
+  done with End_of_file -> close_in ic
 
 let main () =
-  read_data ();
-  let dir, name =
-    let dir = ref None in
-    let name = ref None in
-    Arg.parse [] (fun s ->
-      match !dir with
-	None -> dir := Some s;
-      | Some _ -> 
-	  if !name = None then name := Some s else
-	  raise (Arg.Bad "Too many arguments"))
-      "Parse unicode lists";
-    match !dir, !name with
-      (Some dir, Some name) -> dir, name
-    | _ -> raise (Arg.Bad "Some arguments are missing.") in
+  let dir, name, filter, input_fname =
+    match Sys.argv with
+    | [|_; "-filter"; dir; name; input_fname|] ->
+      (dir, name, true, input_fname)
+    | [|_; dir; name; input_fname|] ->
+      (dir, name, false, input_fname)
+    | _ -> failwith "invalid command line"
+  in
+  let re =
+    if filter then
+      Some (Str.regexp (".*" ^ Str.quote name))
+    else
+      None
+  in
+  read_data (open_in input_fname) ?re;
   let write name value = Database.write dir "mar" output_value name value in
   write (name ^ "_set") !tbl_rw;
   let tbl = UCharTbl.Bool.of_set !tbl_rw in
   write name tbl
-  
+
 let _ = main ()

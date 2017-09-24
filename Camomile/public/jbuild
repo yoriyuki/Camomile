@@ -1,0 +1,4 @@
+(jbuild_version 1)
+
+;; mli only modules are not properly supported by the compiler yet
+(rule (copy# unicodeString.mli unicodeString.ml))

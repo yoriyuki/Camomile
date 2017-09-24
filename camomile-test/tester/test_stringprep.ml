@@ -1,7 +1,7 @@
 (* Copyright 2010 Pierre Chambart *)
 
 open Blender
-open CamomileLibraryDyn.Camomile
+open CamomileLibraryTest.Camomile
 module M = StringPrep.Make(UTF8);;
 open M;;
 
@@ -108,7 +108,7 @@ let check_file f =
   let _ = check 1 0 in
   close_in c
 
-let testfile = "data/stringprep"
+let testfile = input_filename "data/stringprep"
 
 let _ =
   test

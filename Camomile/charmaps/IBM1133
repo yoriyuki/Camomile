@@ -3,6 +3,7 @@
 <escape_char> /
 
 % alias CP1133
+% alias IBM1162
 CHARMAP
 <U0000>     /x00         <control>
 <U0001>     /x01         <control>

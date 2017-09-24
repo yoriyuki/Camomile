@@ -48,12 +48,12 @@ let delim_pat = Str.regexp "[ \t]*\\["
 
 let comment_pat = Str.regexp "\\(^#.*\\)\\|\\([ \t]*$\\)"
 let version_pat = Str.regexp "@version\\(.*\\)"
-let entry_pat = Str.regexp 
+let entry_pat = Str.regexp
     "\\([^;]+\\);[ \t]*\\([^#]+\\)\\(#.*\\)?$"
 let elements_pat = Str.regexp
     "\\([\\.\\*]\\)\\([0-9A-F]+\\)\\.\\([0-9A-F]+\\)\\.\\([0-9A-F]+\\)\\.\\([0-9A-F]+\\)]"
 
-let int_of_code code = 
+let int_of_code code =
   try int_of_string ("0x"^code) with _ -> failwith ("int_of_code: " ^ code)
 
 let uchar_of_code code = UChar.chr_of_uint (int_of_code code)
@@ -67,7 +67,7 @@ let element_of s =
        int_of_code (Str.matched_group 3 s),
        int_of_code (Str.matched_group 4 s))
     in
-    if Str.matched_group 1 s <> "." && w1 > !ref_lastvariable_weight 
+    if Str.matched_group 1 s <> "." && w1 > !ref_lastvariable_weight
     then ref_lastvariable_weight := w1 else ();
     w
   else
@@ -129,10 +129,16 @@ let ws1_of = List.map (fun (w1, _, _) -> w1)
 let ws2_of = List.map (fun (_, w2, _) -> w2)
 let ws3_of = List.map (fun (_, _, w3) -> w3)
 
+let directory, input_fname =
+  match Sys.argv with
+  | [|_; dir; fn|] -> (dir, fn)
+  | _ -> failwith "invalid command line"
+
 let weight1_tbl, weight2_tbl, weight3_lowercasefirst_tbl =
   let weight_tbls = ref (weights1_tbl, EltMap.empty, EltMap.empty) in
+  let ic = open_in input_fname in
   try while true do
-    let line = read_line () in
+    let line = input_line ic in
     if Str.string_match comment_pat line 0 then () else
     if Str.string_match version_pat line 0 then () else
     if Str.string_match entry_pat line 0 then
@@ -146,29 +152,25 @@ let weight1_tbl, weight2_tbl, weight3_lowercasefirst_tbl =
     else
       failwith ("Broken_line: " ^ line)
   done; assert false with End_of_file ->
+    close_in ic;
     !weight_tbls
 
-let weight3_uppercasefirst_tbl = 
+let weight3_uppercasefirst_tbl =
   EltMap.map (List.map swap_case) weight3_lowercasefirst_tbl
 
-let weight1_tbl = 
+let weight1_tbl =
   EltMap.add `LastVariable [!ref_lastvariable_weight] weight1_tbl
 
 let weight1_tbl = IntMap.fold (fun w ws tbl ->
   EltMap.add (`ImplicitWeight ws) [w] tbl) !ref_implicit_weights weight1_tbl
 
 let aceset_info =
-  {lowercase_first_tbl = 
+  {lowercase_first_tbl =
    import (weight1_tbl, weight2_tbl, weight3_lowercasefirst_tbl);
    uppercase_first_tbl =
    import (weight1_tbl, weight2_tbl, weight3_uppercasefirst_tbl)}
 
 let uca_defaults = cetbl_of (create_ace_info aceset_info.lowercase_first_tbl)
-
-let directory =
-  let dir = ref "" in
-  Arg.parse [] (fun s -> dir := s) "Parse the allkeys.txt";
-  !dir
 
 let  _ =
   let write name value = Database.write directory "mar" output_value name value in

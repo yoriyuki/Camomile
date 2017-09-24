@@ -1,4 +1,4 @@
-(** Abstract total order *) 
+(** Abstract total order *)
 (* Copyright (C) 2002 Yamagata Yoriyuki *)
 
 (* This library is free software; you can redistribute it and/or *)
@@ -33,6 +33,8 @@
 (* You can contact the authour by sending email to *)
 (* yori@users.sourceforge.net *)
 
+open CamomileLibraryDyn
+
 type point = int
 
 module Int = struct type t = int let compare = (-) end
@@ -42,7 +44,7 @@ module Map = Map.Make (Int)
 module IntSet = Set
 module IntMap = Map
 
-type node = 
+type node =
     Empty | Leaf of point
   | Node of Set.t * node * node * int
 
@@ -68,7 +70,7 @@ let create l r =
       let h = 1 + max hl hr in
       let s = Set.union (elts l) (elts r) in
       Node (s, l, r, h)
-	
+
 let rec bal = function
     Empty -> Empty
   | Leaf _ as s -> s
@@ -110,7 +112,7 @@ let rec bal = function
   else node
 
 and concat l r = bal (create l r)
- 
+
 let mem p  = function
     Empty -> false
   | Leaf p' -> (p = p')
@@ -119,7 +121,7 @@ let mem p  = function
 let rec compare p1 p2 = function
     Empty -> raise Not_found
   | Leaf p ->
-      if p1 = p && p2 = p then 0 else 
+      if p1 = p && p2 = p then 0 else
       raise Not_found
   | Node (s, s1, s2, _) ->
       if mem p1 s1 then
@@ -136,7 +138,7 @@ let rec compare p1 p2 = function
 let rec top = function
     Empty -> raise Not_found
   |	Leaf p -> p
-  |	Node (_, s1, s2, _) -> 
+  |	Node (_, s1, s2, _) ->
       try top s2 with Not_found -> top s1
 
 let rec top_in m = function
@@ -149,7 +151,7 @@ let rec top_in m = function
 let rec bottom = function
     Empty -> raise Not_found
   |	Leaf p -> p
-  |	Node (_, s1, s2, _) -> 
+  |	Node (_, s1, s2, _) ->
       try bottom s1 with Not_found -> bottom s2
 
 let rec bottom_in m = function
@@ -185,7 +187,7 @@ let rec before p = function
 
 let rec upto p = function
     Empty -> Empty
-  | Leaf p' as s -> 
+  | Leaf p' as s ->
       if p = p' then s else raise Not_found
   | Node (_, s1, s2, h) ->
       if mem p s1 then
@@ -216,8 +218,8 @@ let rec from p = function
 let rec iter proc = function
     Empty -> ()
   | Leaf p -> proc p
-  | Node (_, s1, s2, _) -> 
-      iter proc s1; 
+  | Node (_, s1, s2, _) ->
+      iter proc s1;
       iter proc s2
 
 let rec fold f s init =
@@ -305,14 +307,14 @@ let rec import_aux a i j w2p p2w id =
 
 let import weights =
   let set = List.fold_left (fun set w ->
-    IntSet.add w set) 
-      IntSet.empty 
-      weights 
+    IntSet.add w set)
+      IntSet.empty
+      weights
   in
   let weights = IntSet.fold (fun w ws -> w :: ws) set [] in
   let a = Array.of_list weights in
   Array.sort (-) a;
-  let node, w2p, p2w, id = 
+  let node, w2p, p2w, id =
     import_aux a 0 (Array.length a - 1) IntMap.empty Map.empty 0
   in
   ((node, id), w2p, p2w)

@@ -1,0 +1,17 @@
+opam-version: "1.2"
+name: "camomile"
+version: "0.8.5"
+maintainer: "gregoire@ocamlpro.com"
+authors: "Yoriyuki Yamagata"
+homepage: "https://github.com/yoriyuki/Camomile/wiki"
+bug-reports: "https://github.com/yoriyuki/Camomile/issues"
+license: "LGPL-2+ with OCaml linking exception"
+dev-repo: "https://github.com/yoriyuki/Camomile.git"
+build: [
+  ["ocaml" "configure.ml" "--share" share]
+  ["jbuilder" "build" "-p" name "-j" jobs]
+]
+depends: [
+  "jbuilder" {build & >= "1.0+beta7"}
+  "cppo" {build}
+]

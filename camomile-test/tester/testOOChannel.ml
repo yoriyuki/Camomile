@@ -4,7 +4,7 @@
 
 open Printf
 open Blender
-open CamomileLibraryDyn.Camomile
+open CamomileLibraryTest.Camomile
 open UPervasives
 open OOChannel
 

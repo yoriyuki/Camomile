@@ -1,0 +1,121 @@
+(jbuild_version 1)
+
+;; Default config, overridden by the configure.ml script
+(rule (with-stdout-to installConfig.ml
+       (echo "let share_dir = \"/usr/share/camomile\"")))
+
+(alias
+ ((name mlis)
+  (deps (configInt.mli public/oOChannel.mli public/uChar.mli
+         public/uSet.mli public/uMap.mli public/uCharTbl.mli
+         public/unicodeString.mli public/uText.mli public/xString.mli
+         public/subText.mli public/uLine.mli public/locale.mli
+         public/uTF8.mli public/uTF16.mli public/uCS4.mli
+         public/uPervasives.mli public/uRe.mli public/charEncoding.mli
+         public/uCharInfo.mli public/uNF.mli public/uCol.mli
+         public/caseMap.mli public/uReStr.mli public/stringPrep.mli))))
+
+(rule
+ ((targets (camomileLibrary.mli))
+  (deps    (camomileLibrary.mlip (alias mlis)))
+  (action   (run cppo -I internal -I public -I toolslib -I . -o ${@} ${<}))))
+
+(rule
+ ((targets (camomileLibrary.ml))
+  (deps    (camomileLibrary.mlp (alias mlis)))
+  (action   (run cppo -I internal -I public -I toolslib -I . -o ${@} ${<}))))
+
+;; mli only modules are not properly supported by the compiler yet
+(rule (copy# configInt.mli configInt.ml))
+
+(library
+ ((name camomile)
+  (public_name camomile)
+  (wrapped false)
+  (flags (-I Camomile :standard))
+  (libraries (bigarray))))
+
+;; Temporary workaround as jbuilder doesn't yet support multi directory libs
+
+(rule (copy# internal/avlTree.ml           avlTree.ml))
+(rule (copy# internal/bitsvect.ml          bitsvect.ml))
+(rule (copy# internal/byte_labeled_dag.ml  byte_labeled_dag.ml))
+(rule (copy# internal/bytesvect.ml         bytesvect.ml))
+(rule (copy# internal/charmap.ml           charmap.ml))
+(rule (copy# internal/database.ml          database.ml))
+(rule (copy# internal/hangul.ml            hangul.ml))
+(rule (copy# internal/iMap.ml              iMap.ml))
+(rule (copy# internal/iSet.ml              iSet.ml))
+(rule (copy# internal/stringPrep_data.ml   stringPrep_data.ml))
+(rule (copy# internal/tbl31.ml             tbl31.ml))
+(rule (copy# internal/uReStrLexer.ml       uReStrLexer.ml))
+(rule (copy# internal/uReStrParser.ml      uReStrParser.ml))
+(rule (copy# internal/uReStrParserType.ml  uReStrParserType.ml))
+(rule (copy# internal/unidata.ml           unidata.ml))
+(rule (copy# internal/unimap.ml            unimap.ml))
+(rule (copy# internal/xArray.ml            xArray.ml))
+
+(rule (copy# internal/avlTree.mli          avlTree.mli))
+(rule (copy# internal/bitsvect.mli         bitsvect.mli))
+(rule (copy# internal/byte_labeled_dag.mli byte_labeled_dag.mli))
+(rule (copy# internal/bytesvect.mli        bytesvect.mli))
+(rule (copy# internal/charmap.mli          charmap.mli))
+(rule (copy# internal/database.mli         database.mli))
+(rule (copy# internal/hangul.mli           hangul.mli))
+(rule (copy# internal/iMap.mli             iMap.mli))
+(rule (copy# internal/iSet.mli             iSet.mli))
+(rule (copy# internal/stringPrep_data.mli  stringPrep_data.mli))
+(rule (copy# internal/tbl31.mli            tbl31.mli))
+(rule (copy# internal/uReStrParser.mli     uReStrParser.mli))
+(rule (copy# internal/uReStrParserType.mli uReStrParserType.mli))
+(rule (copy# internal/unidata.mli          unidata.mli))
+(rule (copy# internal/unimap.mli           unimap.mli))
+(rule (copy# internal/xArray.mli           xArray.mli))
+
+(rule (copy# public/caseMap.ml             caseMap.ml))
+(rule (copy# public/charEncoding.ml        charEncoding.ml))
+(rule (copy# public/oOChannel.ml           oOChannel.ml))
+(rule (copy# public/stringPrep.ml          stringPrep.ml))
+(rule (copy# public/subText.ml             subText.ml))
+(rule (copy# public/uCS4.ml                uCS4.ml))
+(rule (copy# public/uChar.ml               uChar.ml))
+(rule (copy# public/uCharInfo.ml           uCharInfo.ml))
+(rule (copy# public/uCharTbl.ml            uCharTbl.ml))
+(rule (copy# public/uCol.ml                uCol.ml))
+(rule (copy# public/uLine.ml               uLine.ml))
+(rule (copy# public/locale.ml              locale.ml))
+(rule (copy# public/uMap.ml                uMap.ml))
+(rule (copy# public/uNF.ml                 uNF.ml))
+(rule (copy# public/uPervasives.ml         uPervasives.ml))
+(rule (copy# public/uRe.ml                 uRe.ml))
+(rule (copy# public/uReStr.ml              uReStr.ml))
+(rule (copy# public/uSet.ml                uSet.ml))
+(rule (copy# public/uTF16.ml               uTF16.ml))
+(rule (copy# public/uTF8.ml                uTF8.ml))
+(rule (copy# public/uText.ml               uText.ml))
+(rule (copy# public/unicodeString.ml       unicodeString.ml))
+(rule (copy# public/xString.ml             xString.ml))
+
+(rule (copy# public/caseMap.mli            caseMap.mli))
+(rule (copy# public/charEncoding.mli       charEncoding.mli))
+(rule (copy# public/oOChannel.mli          oOChannel.mli))
+(rule (copy# public/stringPrep.mli         stringPrep.mli))
+(rule (copy# public/subText.mli            subText.mli))
+(rule (copy# public/uCS4.mli               uCS4.mli))
+(rule (copy# public/uChar.mli              uChar.mli))
+(rule (copy# public/uCharInfo.mli          uCharInfo.mli))
+(rule (copy# public/uCharTbl.mli           uCharTbl.mli))
+(rule (copy# public/uCol.mli               uCol.mli))
+(rule (copy# public/uLine.mli              uLine.mli))
+(rule (copy# public/locale.mli             locale.mli))
+(rule (copy# public/uMap.mli               uMap.mli))
+(rule (copy# public/uNF.mli                uNF.mli))
+(rule (copy# public/uPervasives.mli        uPervasives.mli))
+(rule (copy# public/uRe.mli                uRe.mli))
+(rule (copy# public/uReStr.mli             uReStr.mli))
+(rule (copy# public/uSet.mli               uSet.mli))
+(rule (copy# public/uTF16.mli              uTF16.mli))
+(rule (copy# public/uTF8.mli               uTF8.mli))
+(rule (copy# public/uText.mli              uText.mli))
+(rule (copy# public/unicodeString.mli      unicodeString.mli))
+(rule (copy# public/xString.mli            xString.mli))

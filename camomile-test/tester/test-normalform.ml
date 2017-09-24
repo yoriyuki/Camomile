@@ -1,7 +1,7 @@
 (* $Id: test-normalform.ml,v 1.7 2006/08/13 21:23:08 yori Exp $ *)
 (* Copyright 2002 Yamagata Yoriyuki *)
 
-open CamomileLibraryDyn.Camomile
+open CamomileLibraryTest.Camomile
 open UPervasives
 open Blender
 open Printf
