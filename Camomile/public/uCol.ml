@@ -505,9 +505,9 @@ let getkey keybuf =
     add_i16 buf1 0;
     let buf2 = secondary_of_keybuf keybuf in
     if col_info.french_accent then
-      let key2 = Bytes.of_string (Buffer.contents buf2) in
+      let key2 = Buffer.to_bytes buf2 in
       reverse key2;
-      Buffer.add_string buf1 (Bytes.to_string key2)
+      Buffer.add_bytes buf1 key2
     else
       Buffer.add_buffer buf1 buf2;
     match prec with `Secondary -> () | _ ->
