@@ -276,46 +276,46 @@ end
 module Make (H : Hashtbl.HashedType) = MakeTbl(ArrayLeaf(H))
 
 module StringContentsHash = struct
-  type t = string tagged
+  type t = Bytes.t tagged
 
   let equal x1 x2 =
     let s1 = untag x1 in
     let s2 = untag x2 in
-    if String.length s1 <> String.length s2 then false else
+    if Bytes.length s1 <> Bytes.length s2 then false else
     let rec loop i =
       if i < 0 then true else
-      if s1.[i] <> s2.[i] then false else
+      if Bytes.get s1 i <> Bytes.get s2 i then false else
       loop (i - 1) in
-    loop (String.length s1 - 1)
+    loop (Bytes.length s1 - 1)
 
   let hash = id
 
 end
 
-let string_hash v =
+let bytes_hash v =
   let rec loop i sum =
     if i < 0 then sum else
-    let a = Char.code v.[i] in
+    let a = Char.code (Bytes.get v i) in
     let sum = sum lsr 7 lxor crc_tbl.(sum lxor a land 0x7f) in
     loop (i - 1) sum in
-  loop (String.length v - 5) 0
+  loop (Bytes.length v - 5) 0
 
 module BoolLeaf = struct
   type elt = bool
-  type t = string
+  type t = Bytes.t
   let level = 0
 
   module Pool = Weak.Make (StringContentsHash)
   let pool = Pool.create 256
 
   let hashcons s = 
-    let n = string_hash s in
+    let n = bytes_hash s in
     let x = Tag (s, n) in
     try Pool.find pool x with Not_found -> 
       Pool.add pool x;
       x
 
-  let make_raw def = String.make 32 (if def then '\255' else '\000')
+  let make_raw def = Bytes.make 32 (if def then '\255' else '\000')
 
   let make def = hashcons (make_raw def)
 
@@ -324,9 +324,9 @@ module BoolLeaf = struct
     i lsr (k mod 8) land 1 <> 0
 
   let boolset s k b =
-    let j = Char.code s.[k / 8] in
+    let j = Char.code (Bytes.get s (k / 8)) in
     let j' = if b then j lor (1 lsl (k mod 8)) else j in 
-    s.[k / 8] <- Char.chr j'
+    Bytes.set s (k / 8) (Char.chr j')
 
   let of_map n0 def m =
     let a = make_raw def in
@@ -354,39 +354,39 @@ module Bool = struct
     let lev = Array.unsafe_get lev (byte2 n) in
     let lev = Array.unsafe_get lev (byte1 n) in
     let k = byte0 n in
-    let i = Char.code (String.unsafe_get lev (k / 8)) in
+    let i = Char.code (Bytes.unsafe_get lev (k / 8)) in
     i lsr (k mod 8) land 1 <> 0
 end
 
 module CharLeaf = struct
   type elt = char
-  type t = string
+  type t = Bytes.t
   let level = 0
 
   module Pool = Weak.Make (StringContentsHash)
   let pool = Pool.create 256
 
   let hashcons s = 
-    let n = string_hash s in
+    let n = bytes_hash s in
     let x = Tag (s, n) in
     try Pool.find pool x with Not_found -> 
       Pool.add pool x;
       x
 
-  let make_raw c = String.make 256 c
+  let make_raw c = Bytes.make 256 c
   let make c = hashcons (make_raw c)
 
   let of_map n0 def m =
     let a = make_raw def in
     IMap.iter_range (fun n1 n2 v ->
-      for i = n1 - n0 to n2 - n0 do a.[i] <- v done)
+      for i = n1 - n0 to n2 - n0 do Bytes.set a i v done)
       m;
     hashcons a
 
   let of_set n0 def s v =
     let a = make_raw def in
     ISet.iter_range (fun n1 n2 ->
-      for i = n1 - n0 to n2 - n0 do a.[i] <- v done)
+      for i = n1 - n0 to n2 - n0 do Bytes.set a i v done)
       s;
     hashcons a
 end
@@ -399,7 +399,7 @@ module Char = struct
     let lev = Array.unsafe_get tbl (byte3 n) in
     let lev = Array.unsafe_get lev (byte2 n) in
     let lev = Array.unsafe_get lev (byte1 n) in
-    String.unsafe_get lev (byte0 n)
+    Bytes.unsafe_get lev (byte0 n)
 end
 
 module BitsContentsHash = struct

@@ -61,13 +61,13 @@ let stream_of_channel inchan =
 
 class type char_input_channel =
   object
-    method input : string -> int -> int -> int
+    method input : Bytes.t -> int -> int -> int
     method close_in : unit -> unit
   end
 
 class type char_output_channel =
   object
-    method output : string -> int -> int -> int
+    method output : Bytes.t -> int -> int -> int
     method flush : unit -> unit
     method close_out : unit -> unit
   end
@@ -78,7 +78,7 @@ class char_input_channel_of (oc : char #obj_input_channel) =
     method input b pos len =
       let p = ref pos in
 	(try while !p < pos + len do
-	  b.[!p] <- oc#get();
+	  Bytes.set b !p (oc#get());
 	  incr p;
 	 done; () with End_of_file -> ());
 	let len = !p - pos in
@@ -86,7 +86,7 @@ class char_input_channel_of (oc : char #obj_input_channel) =
   end
 
 class char_obj_input_channel_of (ic : char_input_channel) =
-  let b = String.make 1024 '\000' in
+  let b = Bytes.make 1024 '\000' in
   let pos = ref 0 in
   let len = ref 0 in
   object (self)
@@ -96,7 +96,7 @@ class char_obj_input_channel_of (ic : char_input_channel) =
 	pos := 0;
 	self#get ()
        end else
-	 let c = b.[!pos] in
+	 let c = Bytes.get b !pos in
 	   incr pos;
 	   c
     method close_in () = ic#close_in ()
@@ -107,25 +107,25 @@ class char_output_channel_of (oc : char #obj_output_channel) =
     method flush = oc#flush
     method close_out = oc#close_out
     method output b p len =
-      for i = p to p+len-1 do oc#put b.[i] done;
+      for i = p to p+len-1 do oc#put (Bytes.get b i) done;
       len
   end
 
 class char_obj_output_channel_of (out : char_output_channel) =
-  let b = String.make 1024 '\000' in
+  let b = Bytes.make 1024 '\000' in
   let pos = ref 0 in
   object
     method put c =
-      b.[!pos] <- c;
+      Bytes.set b !pos c;
       incr pos;
       if !pos >= 1024 then 
 	let n = out#output b 0 1024 in
-	  String.blit b n b 0 (1024 - n);
+	  Bytes.blit b n b 0 (1024 - n);
 	  pos := 1024 - n
     method flush () =    
       let n = out#output b 0 !pos in
 	if n < !pos then begin
-	  String.blit b n b 0 (!pos - n);
+	  Bytes.blit b n b 0 (!pos - n);
 	  pos := !pos -n;
 	  failwith 
 	    "OOChannel.char_output_channel_of#flush: \

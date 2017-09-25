@@ -135,12 +135,12 @@ let is_noncharacter_code_point u =
   UCharTbl.Bool.get noncharacter_code_point_tbl u
 
 let reverse s =
-  if String.length s = 0 then () else
-  let last = String.length s - 1 in
+  if Bytes.length s = 0 then () else
+  let last = Bytes.length s - 1 in
   for i = 0 to last / 2 do
-    let c = s.[i] in
-    s.[i] <- s.[last - i];
-    s.[last - i] <- c
+    let c = Bytes.get s i in
+    Bytes.set s i (Bytes.get s (last - i));
+    Bytes.set s (last - i) c
   done
 
 let shiftright x i j =
@@ -505,9 +505,9 @@ let getkey keybuf =
     add_i16 buf1 0;
     let buf2 = secondary_of_keybuf keybuf in
     if col_info.french_accent then
-      let key2 = Buffer.contents buf2 in
+      let key2 = Bytes.of_string (Buffer.contents buf2) in
       reverse key2;
-      Buffer.add_string buf1 key2
+      Buffer.add_string buf1 (Bytes.to_string key2)
     else
       Buffer.add_buffer buf1 buf2;
     match prec with `Secondary -> () | _ ->
