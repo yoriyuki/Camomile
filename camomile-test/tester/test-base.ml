@@ -315,11 +315,11 @@ let _ = random_test
     ~desc:"UText.of_string"
     ~log:"base_utext_of_string"
     ~data:(fun size ->
-      let s = String.create size in
+      let s = Bytes.create size in
       for i = 0 to size - 1 do
-	s.[i] <- Char.chr (Random.int 0x100)
+	Bytes.set s i (Char.chr (Random.int 0x100))
       done;
-      s)
+      Bytes.to_string s)
     ~body:(fun s -> expect_pass (fun () ->
       let text = UText.of_string s in
       expect_equal (String.length s) (UText.length text);

@@ -19,13 +19,13 @@ let char_gen _ =
 let _ = UTF16Test.test ~desc:"UTF16 test" ~log:"base_utf16" ~char_gen ()
 
 let string_of_int16array a =
-  let s = String.create (2 + 2 * Bigarray.Array1.dim a) in
-  s.[0] <- Char.chr 0xfe; s.[1] <- Char.chr 0xff;
+  let s = Bytes.create (2 + 2 * Bigarray.Array1.dim a) in
+  Bytes.set s 0 (Char.chr 0xfe); Bytes.set s 1 (Char.chr 0xff);
   for i = 0 to Bigarray.Array1.dim a - 1 do
-    s.[2 * i + 2] <- Char.chr (a.{i} lsr 8);
-    s.[2 * i + 3] <- Char.chr (a.{i} land 255)
+    Bytes.set s (2 * i + 2) (Char.chr (a.{i} lsr 8));
+    Bytes.set s (2 * i + 3) (Char.chr (a.{i} land 255))
   done;
-  s
+  Bytes.to_string s
 
 let _ = random_test
     ~desc:"UTF16 validate"

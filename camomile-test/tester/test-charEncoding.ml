@@ -102,7 +102,7 @@ object (self)
   method flush () = ()
   method close_out () = ()
   method output s pos len =
-    Buffer.add_substring b s pos len; len
+    Buffer.add_subbytes b s pos len; len
 end
 
 let () =

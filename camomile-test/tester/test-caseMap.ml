@@ -11,11 +11,11 @@ let _ = random_test
     ~desc:"ASCII"
     ~log:"caseMap_ASCII"
     ~data:(fun size ->
-      let s = String.create size in
+      let s = Bytes.create size in
       for i = 0 to size - 1 do
-	s.[i] <- Char.chr (Random.int 0x80)
+	Bytes.set s i (Char.chr (Random.int 0x80))
       done;
-      s)
+      Bytes.to_string s)
     ~body:(fun s -> expect_pass (fun () ->
       let s1 = UTF8Casing.lowercase s in
       let s2 = String.lowercase s in

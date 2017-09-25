@@ -13,7 +13,7 @@ object (self)
   method flush () = ()
   method close_out () = ()
   method output s pos len =
-    Buffer.add_substring b s pos len; len
+    Buffer.add_subbytes b s pos len; len
   method contents = Buffer.contents b
 end
 
@@ -29,7 +29,7 @@ let () =
 		  let c = new char_obj_output_channel_of 
 		      (bio :> char_output_channel) in
 		  let c = new char_output_channel_of c in
-		  let put c s = c#output s 0 (String.length s) in
+		  let put c s = c#output (Bytes.of_string s) 0 (String.length s) in
 		    put c "---------------\n";
 		    c#flush ();
 		    put c "1 first line  1\n";
@@ -110,7 +110,7 @@ let () =
 	       ~body:
 	       (fun () ->
 		  let occ = new char_input_channel_of (new otext) in
-		  let b = String.create (String.length text) in 
+		  let b = Bytes.create (String.length text) in
 		  let n = occ#input b 0 (String.length text) in
 		    expect_equal 
 		      ~msg:(lazy (sprintf "length %d should be %d" 
@@ -119,7 +119,7 @@ let () =
 		      (String.length text);
 		    expect_equal
 		      ~msg:(lazy ("output differ"))
-		      b
+		      (Bytes.to_string b)
 		      text;
 		    expect_equal_app
 		      ~msg:(lazy ("EOF"))
