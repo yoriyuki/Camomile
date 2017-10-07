@@ -48,7 +48,7 @@ let not_pat = Str.regexp "not_\\(.*\\)"
 let locale_pat = Str.regexp "\\(..\\)\\(_\\(..\\)\\)?\\(_\\(.+\\)\\)?"
 
 let rec parse_condition condition =
-  let s = String.lowercase condition in
+  let s = String.lowercase_ascii condition in
   match s with
     "final_sigma" -> `FinalSigma
   | "after_soft_dotted" -> `AfterSoftDotted

@@ -300,7 +300,7 @@ type script_type =
   | `Tagbanwa ]
 
 let script_of_name name =
-  match String.lowercase name with
+  match String.lowercase_ascii name with
   | "common" -> `Common
   | "inherited" -> `Inherited
   | "latin" -> `Latin

@@ -18,7 +18,7 @@ let _ = random_test
       Bytes.to_string s)
     ~body:(fun s -> expect_pass (fun () ->
       let s1 = UTF8Casing.lowercase s in
-      let s2 = String.lowercase s in
+      let s2 = String.lowercase_ascii s in
       expect_equal
 	~msg:(lazy (sprintf "lowercase: %s <> %s" s1 s2))
 	s1

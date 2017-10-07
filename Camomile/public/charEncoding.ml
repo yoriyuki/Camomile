@@ -1511,18 +1511,18 @@ module Iso2022cn =
 		|	G1 -> state.g1
 		|	G2 -> state.g2
 	      in
-	      m.read (UChar.chr_of_uint (to_ucs4 cs n)); 
+	      m.read (UChar.chr_of_uint (to_ucs4 cs n));
 	      state.remain <- 0;
 	      if state.single_shift then state.single_shift <- false else ()
-	  | 2 -> state.remain <- 1; state.buf.[0] <- c
+	  | 2 -> state.remain <- 1; Bytes.set state.buf 0 c
 	  | _ ->				(*escape seq.*)
-	      state.buf.[~-(state.remain) - 1] <- c;
+     Bytes.set state.buf (~-(state.remain) - 1) c;
 	      state.remain <- state.remain - 1;
 	      let i = Char.code c in
 	      let len = ~- (state.remain) - 1 in
 	      if i >= 0x20 && i <= 0x2f then
 		if len >= 3 then raise Malformed_code else ()
-	      else if i >= 0x30 && i <= 0x7e then 
+	      else if i >= 0x30 && i <= 0x7e then
 		begin
 		  state.remain <- 0;
 		  if comp_sub "$)A" 0 3 state.buf 0 len then
