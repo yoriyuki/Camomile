@@ -3,7 +3,7 @@
 let () =
   let share = ref "/usr/share/camomile" in
   let args =
-    [ "--share", Arg.String share, "DIR directory where to put data files" ]
+    [ "--share", Arg.Set_string share, "DIR directory where to put data files" ]
   in
   Arg.parse args ignore "Configura camomile\noptions are:";
   let oc = open_out "Camomile/installConfig.ml" in
