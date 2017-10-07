@@ -168,7 +168,7 @@ open OOChannel
 
 let rec comp_sub_aux s1 i1 s2 i2 len =
   if len <= 0 then true else
-  if s1.[i1] <> s2.[i2] then false else
+  if s1.[i1] <> Bytes.get s2 i2 then false else
   comp_sub_aux s1 (i1 + 1) s2 (i2 + 1) (len - 1)
 
 let comp_sub s1 i1 len1 s2 i2 len2 =
@@ -328,14 +328,14 @@ let recode_string ~in_enc ~out_enc s =
   Buffer.contents buf
 
 let char_machine_of outchan =
-  let b = String.make 1024 '\000' in
+  let b = Bytes.make 1024 '\000' in
   let pos = ref 0 in
   let read c =
-    b.[!pos] <- c;
+    Bytes.set b !pos c;
     incr pos;
     if !pos >= 1024 then 
        let n = outchan#output b 0 1024 in
-	 String.blit b n b 0 (1024 - n);
+	 Bytes.blit b n b 0 (1024 - n);
 	 pos := 1024 - n
   in
   let flush () =    
@@ -379,7 +379,7 @@ class uchar_input_channel_of enc
     (input : char_input_channel)
     : [UChar.t] obj_input_channel =
   let q = Queue.create () in
-  let b = String.make 1024 '\000' in
+  let b = Bytes.make 1024 '\000' in
   object(self : 'a)
     val m = enc.make_decoder (queueing q)
     val mutable term = false
@@ -388,7 +388,7 @@ class uchar_input_channel_of enc
 	if term then raise End_of_file else
 	(try 
 	   let len = input#input b 0 1024 in
-	     for i = 0 to len - 1 do m.read b.[i] done
+	     for i = 0 to len - 1 do m.read (Bytes.get b i) done
 	 with End_of_file ->
 	  m.term (); term <- true);
 	self#get()
@@ -406,14 +406,14 @@ class in_channel_from_stream enc s =
 
 let fill_string s pos len q =
   begin
-    try while !pos < String.length s do
-      s.[!pos] <- Queue.take q;
+    try while !pos < Bytes.length s do
+      Bytes.set s !pos (Queue.take q);
       incr pos;
     done with Queue.Empty -> ()
   end;
-  let read c = 
-    if !pos < String.length s then begin
-      s.[!pos] <- c;
+  let read c =
+    if !pos < Bytes.length s then begin
+      Bytes.set s !pos c;
       incr pos;
     end else
       Queue.add c q
@@ -445,7 +445,7 @@ class convert_uchar_output enc (uoutput : UChar.t obj_output_channel)
   let m = enc.make_decoder {read = uoutput#put; term = uoutput#close_out} in
   object (self)
     method output s pos len =
-      for i = pos to pos + len - 1 do m.read s.[i] done;
+      for i = pos to pos + len - 1 do m.read (Bytes.get s i) done;
       len;
     method flush = uoutput#flush
     method close_out = m.term
@@ -983,7 +983,7 @@ module Iso2022jp =
 	 mutable g0 : charset;
 	 mutable g2 : charset;
 	 mutable single_shift : bool;
-	 buf : string}
+	 buf : Bytes.t}
 
     let make_enc_2 () =
       let gb2312 = Unimap.of_name "gb2312" in
@@ -1015,7 +1015,7 @@ module Iso2022jp =
 	   g0 = Ascii; 
 	   g2 = Unknown; 
 	   single_shift = false;
-	   buf = String.create 3} 
+	   buf = Bytes.create 3}
 	in
 	let reader c =
 	  let i = Char.code c in
@@ -1038,9 +1038,9 @@ module Iso2022jp =
 		if i <= 0x20 || i = 0x7f then m.read (UChar.chr_of_uint i) else
 		if unibyte state.g0
 		then m.read (to_uchar_2 state.g0 i)
-		else begin state.remain <- 1; state.buf.[0] <- c end
+		else begin state.remain <- 1; Bytes.set state.buf 0 c end
 	    | 1 ->
-		let i1 = Char.code state.buf.[0] in
+		let i1 = Char.code (Bytes.get state.buf 0) in
 		let i2 = Char.code c in
 		if i2 >= 0x21 && i2 <= 0x7e 
 		then 
@@ -1049,7 +1049,7 @@ module Iso2022jp =
 		else raise Malformed_code;
 		state.remain <- 0
 	    | _ ->			(*escape seq.*)
-		state.buf.[~-(state.remain) - 1] <- c;
+		Bytes.set state.buf (~-(state.remain) - 1) c;
 		state.remain <- state.remain - 1;
 		let i = Char.code c in
 		let len = ~- (state.remain) - 1 in
@@ -1110,7 +1110,7 @@ module Iso2022jp =
 	   g0 = Ascii; 
 	   g2 = Unknown; 
 	   single_shift = false;
-	   buf = String.create 1}
+	   buf = Bytes.create 1}
 	in
 	let reader u =
 	  let cs, i = from_uchar_2 u in
@@ -1193,7 +1193,7 @@ module Iso2022jp =
 	   g0 = Ascii; 
 	   g2 = Unknown; 
 	   single_shift = false;
-	   buf = String.create 3} 
+	   buf = Bytes.create 3}
 	in
 	let reader c =
 	  let i = Char.code c in
@@ -1206,9 +1206,9 @@ module Iso2022jp =
 	      if i <= 0x20 || i = 0x7f then m.read (UChar.chr_of_uint i) else
 	      if unibyte state.g0
 	      then m.read (to_uchar state.g0 i)
-	      else begin state.remain <- 1; state.buf.[0] <- c end
+	      else begin state.remain <- 1; Bytes.set state.buf 0 c end
 	  | 1 ->
-	      let i1 = Char.code state.buf.[0] in
+	      let i1 = Char.code (Bytes.get state.buf 0) in
 	      let i2 = Char.code c in
 	      if i2 >= 0x21 && i2 <= 0x7e 
 	      then 
@@ -1217,7 +1217,7 @@ module Iso2022jp =
 	      else raise Malformed_code;
 	      state.remain <- 0
 	  | _ ->			(*escape seq.*)
-	      state.buf.[~-(state.remain) - 1] <- c;
+	      Bytes.set state.buf (~-(state.remain) - 1) c;
 	      state.remain <- state.remain - 1;
 	      let len = ~- (state.remain) - 1 in
 	      if i >= 0x20 && i <= 0x2f 
@@ -1257,7 +1257,7 @@ module Iso2022jp =
 	   g0 = Ascii; 
 	   g2 = Unknown; 
 	   single_shift = false;
-	   buf = String.create 1}
+	   buf = Bytes.create 1}
 	in
 	let reader u =
 	  if UChar.uint_code u = 27 then raise Out_of_range else
@@ -1339,7 +1339,7 @@ module Iso2022kr =
     type state_type = 
 	{mutable remain : int;		(* <0 means escape sequence*)
 	 mutable gl : charset;
-	 buf : string}
+	 buf : Bytes.t}
 
     let make_enc () =
       let ksc5601 = Unimap.of_name "ksc5601" in
@@ -1348,7 +1348,7 @@ module Iso2022kr =
 	let state = 
 	  {remain = 0; 
 	   gl = Ascii; 
-	   buf = String.create 3} 
+	   buf = Bytes.create 3}
 	in
 	let reader c =
 	  let i = Char.code c in
@@ -1362,9 +1362,9 @@ module Iso2022kr =
 	      if i <= 0x20 || i = 0x7f then m.read (UChar.chr_of_uint i) else
 	      (match state.gl with
 		Ascii -> m.read (UChar.chr_of_uint i)
-	      | Ksc5601 -> state.remain <- 1; state.buf.[0] <- c)
+	      | Ksc5601 -> state.remain <- 1; Bytes.set state.buf 0 c)
 	  | 1 ->
-	      let i1 = Char.code state.buf.[0] in
+	      let i1 = Char.code (Bytes.get state.buf 0) in
 	      let i2 = Char.code c in
 	      if i2 >= 0x21 && i2 <= 0x7e 
 	      then 
@@ -1373,7 +1373,7 @@ module Iso2022kr =
 	      else raise Malformed_code;
 	      state.remain <- 0
 	  | _ ->				(*escape seq.*)
-	      state.buf.[~-(state.remain) - 1] <- c;
+	      Bytes.set state.buf (~-(state.remain) - 1) c;
 	      state.remain <- state.remain - 1;
 	      let i = Char.code c in
 	      let len = ~- (state.remain) - 1 in
@@ -1395,7 +1395,7 @@ module Iso2022kr =
 	let state =
 	  {remain = 0; 
 	   gl = Ascii;
-	   buf = String.create 1}
+	   buf = Bytes.create 1}
 	in
 	feed_string m "\027$)C";		(*designator*)
 	let reader u =
@@ -1459,7 +1459,7 @@ module Iso2022cn =
 	 mutable g1 : charset;
 	 mutable g2 : charset;
 	 mutable single_shift : bool;
-	 buf : string}
+	 buf : Bytes.t}
 
     let make_enc () =
       let gb2312 = Unimap.of_name "gb2312" in
@@ -1480,7 +1480,7 @@ module Iso2022cn =
 	   g1 = Unknown;
 	   g2 = Unknown;
 	   single_shift = false;
-	   buf = String.create 3} 
+	   buf = Bytes.create 3}
 	in
 	let reader c =
 	  let i = Char.code c in
@@ -1497,11 +1497,11 @@ module Iso2022cn =
 		    if i <= 0x20 then m.read (UChar.chr_of_uint i) else
 		    (match state.gl with
 		      G0 -> m.read (UChar.chr_of_uint i)
-		    | _ -> state.remain <- 1; state.buf.[0] <- c)
+		    | _ -> state.remain <- 1; Bytes.set state.buf 0 c)
 	      else
-		state.remain <- 1; state.buf.[0] <- c
+		state.remain <- 1; Bytes.set state.buf 0 c
 	  | 1 ->
-	      let i1 = Char.code state.buf.[0] in
+	      let i1 = Char.code (Bytes.get state.buf 0) in
 	      let i2 = Char.code c in
 	      let n = (i1 lsl 8) + i2 in
 	      let cs =
@@ -1511,18 +1511,18 @@ module Iso2022cn =
 		|	G1 -> state.g1
 		|	G2 -> state.g2
 	      in
-	      m.read (UChar.chr_of_uint (to_ucs4 cs n)); 
+	      m.read (UChar.chr_of_uint (to_ucs4 cs n));
 	      state.remain <- 0;
 	      if state.single_shift then state.single_shift <- false else ()
-	  | 2 -> state.remain <- 1; state.buf.[0] <- c
+	  | 2 -> state.remain <- 1; Bytes.set state.buf 0 c
 	  | _ ->				(*escape seq.*)
-	      state.buf.[~-(state.remain) - 1] <- c;
+     Bytes.set state.buf (~-(state.remain) - 1) c;
 	      state.remain <- state.remain - 1;
 	      let i = Char.code c in
 	      let len = ~- (state.remain) - 1 in
 	      if i >= 0x20 && i <= 0x2f then
 		if len >= 3 then raise Malformed_code else ()
-	      else if i >= 0x30 && i <= 0x7e then 
+	      else if i >= 0x30 && i <= 0x7e then
 		begin
 		  state.remain <- 0;
 		  if comp_sub "$)A" 0 3 state.buf 0 len then
@@ -1557,7 +1557,7 @@ module Iso2022cn =
 	   gl = G0;
 	   g1 = Unknown;
 	   g2 = Unknown;
-	   buf = String.create 1;
+	   buf = Bytes.create 1;
 	   single_shift = false;
 	 }
 	in

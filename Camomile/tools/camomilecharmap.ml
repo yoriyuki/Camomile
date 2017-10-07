@@ -149,18 +149,12 @@ let get_enc s esc =
 
 let int_of_name name = (int_of_string ("0x"^name))
 
-let incr_enc s =
-  let s' = String.copy s in
-  let i = String.length s' - 1 in
-  let c' = Char.chr (1 + Char.code s.[i]) in
-  s'.[i] <- c'
-
-let irreversible = ".IRREVERSIBLE."
+let irreversible = Bytes.of_string ".IRREVERSIBLE."
 
 let is_irreversible s =
-  irreversible.[0] <- !escape_char;
-  irreversible.[13] <- !escape_char;
-  begin_with irreversible s
+  Bytes.set irreversible 0 !escape_char;
+  Bytes.set irreversible 13 !escape_char;
+  begin_with (Bytes.to_string irreversible) s
 
 let parse_body unread_line inchan =
   let enc2u = ref [] in
@@ -186,7 +180,6 @@ let parse_body unread_line inchan =
 	  enc2u := (enc, n) :: !enc2u;
 	  if not (irreversible || IMap.mem n !u2enc) then
 	    u2enc := IMap.add n enc !u2enc;
-	  incr_enc enc
 	done
     else if Str.string_match empty_line s 0 || s.[0] = !comment_char then ()
     else if begin_with "END CHARMAP" s then raise Break else

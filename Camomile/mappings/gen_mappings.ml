@@ -88,11 +88,11 @@ let get_enc s esc =
   in
   let constants = Str.split (Str.regexp (String.make 1 esc)) s in
   let chars = List.map Char.chr (List.map proc_constant constants) in
-  let s' = String.create (List.length chars) in
-  for i = 0 to (String.length s') - 1 do
-    s'.[i] <- List.nth chars i
+  let s' = Bytes.create (List.length chars) in
+  for i = 0 to (Bytes.length s') - 1 do
+    Bytes.set s' i (List.nth chars i)
   done;
-  s'
+  Bytes.to_string s'
 
 type cjk_type = CN | GR | JP | KO | TW
 

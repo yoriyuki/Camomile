@@ -70,13 +70,13 @@ let sq = Char.code '\\'
 let dq = Char.code '"'
 
 let string_to_binary s =
-  let n = Bytes.length s / 2 in
+  let n = String.length s / 2 in
   let b = Bytes.create n in
   for i = 0 to n - 1 do
     let d = int_of_string ("0x" ^ (String.sub s (i * 2) 2)) in
     Bytes.set b i (Char.chr d)
   done;
-  b
+  Bytes.to_string b
 
 let root = ref ""
 

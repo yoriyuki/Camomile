@@ -77,7 +77,7 @@ val stream_of_channel : 'a #obj_input_channel -> 'a Stream.t
 *)
 class type char_input_channel =
   object
-    method input : string -> int -> int -> int
+    method input : Bytes.t -> int -> int -> int
     method close_in : unit -> unit
   end
 
@@ -90,7 +90,7 @@ class type char_input_channel =
 *)
 class type char_output_channel =
   object
-    method output : string -> int -> int -> int
+    method output : Bytes.t -> int -> int -> int
     method flush : unit -> unit
     method close_out : unit -> unit
   end
