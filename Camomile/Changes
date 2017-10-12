@@ -1,3 +1,9 @@
+From 0.8.5 to 0.8.6
+
+* The build system is changed to jbuilder
+* OCaml 4.0.6 is supported while the support for OCaml < 4.0.3 is droppped
+* Bug fixes
+
 From 0.8.4 to 0.8.5
 
 * The pull request https://github.com/yoriyuki/Camomile/pull/1 is merged.
@@ -27,7 +33,7 @@ From 0.8.1 to 0.8.2
   now properly escaped, to avoid security risk and more liberal use of
   aliases which contain "." or "/" etc.
 
-* Charmap tables are updated to the recent ones of glibc. 
+* Charmap tables are updated to the recent ones of glibc.
 
 From 0.8.0 to 0.8.1
 
@@ -50,12 +56,12 @@ From 0.7.3 to 0.8.0
 
 From 0.7.2 to 0.7.3
 
-* Windows (with Cygwin) is supported. 
+* Windows (with Cygwin) is supported.
 * Fix ISet, IMap merging bug
   http://sourceforge.net/tracker/?func=detail&aid=2881864&group_id=40603&atid=428416
   is fixed.
 * Fix channel flush bug
-  https://sourceforge.net/tracker/index.php?func=detail&aid=2809898&group_id=40603&atid=428416 
+  https://sourceforge.net/tracker/index.php?func=detail&aid=2809898&group_id=40603&atid=428416
 * Several bug fixes of Makefile, including that cpp is not required to
   build any more.
 
@@ -89,7 +95,7 @@ From 0.6.2 to 0.6.3
 
 From 0.6.1 to 0.6.2
 
-* Insert spaces before ] in the installation scripts of Makefile 
+* Insert spaces before ] in the installation scripts of Makefile
 
 From 0.6.0 to 0.6.1
 
@@ -134,7 +140,7 @@ From 0.5.0 to 0.5.3
 
 From 0.4.2 to 0.5.0
 
-* Stdlib replacement 
+* Stdlib replacement
 * Search string by matching collation
 * Binding to ISO C Locale.
   - UChar.is_printable
@@ -149,7 +155,7 @@ From 0.4.1 to 0.4.2
 
 * Add bigarray to the dependency in META.
 * Fix a bug in input_line function of ULine.
-* Fix a XArray.add_array bug, which affects XString.add_text, 
+* Fix a XArray.add_array bug, which affects XString.add_text,
 UText.Buf.add_string.
 * Make the collator a bit fast.
 
@@ -171,7 +177,7 @@ freed during GC.
 
 * All files in charmap directory become optional.  Previously, the build
 failed if several charmaps were missing.  In addition, you can remove any
-file in the $DATADIR/charmaps and $DATADIR/mappings without causing 
+file in the $DATADIR/charmaps and $DATADIR/mappings without causing
 run time error.  Of course, this makes some encoding dysfunctional.
 Such encodings are treated as non-existent.
 
@@ -203,7 +209,7 @@ From 0.3.0 to 0.3.1
 
 * Performance improvement of collation rule compiler.
 
-	
+
 From 0.2.X to 0.3.0
 
 * Functor design:

@@ -1,6 +1,6 @@
 opam-version: "1.2"
 name: "camomile"
-version: "0.8.5"
+version: "0.8.6"
 maintainer: "gregoire@ocamlpro.com"
 authors: "Yoriyuki Yamagata"
 homepage: "https://github.com/yoriyuki/Camomile/wiki"
