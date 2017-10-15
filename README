@@ -1,12 +1,11 @@
-Camomile 0.8.5 (beta):
+Camomile 0.8.6 (beta):
 
 This is a beta release of Camomile library package.  Camomile is a
-comprehensive Unicode library for ocaml.  Camomile provides Unicode
-character type, UTF-8, UTF-16, UTF-32 strings, conversion to/from
-about 200 encodings, collation and locale-sensitive case mappings, and
-more.
+Unicode library for ocaml.  Camomile provides Unicode character type,
+UTF-8, UTF-16, UTF-32 strings, conversion to/from about 200 encodings,
+collation and locale-sensitive case mappings, and more.
 
-Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010, 2011, 2013
+Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010, 2011, 2013, 2017
 Yoriyuki Yamagata
 
 This library is free software; you can redistribute it and/or modify
@@ -47,49 +46,33 @@ public/uCharInfo.ml* : Pierre Chambart
 
 configure.in Makefile.in : Jean-Christophe FILLIATRE
 
-locales/*.txt : International Business Machines : 
+locales/*.txt : International Business Machines :
 	derived from the ICU package.  see locales/licence.html
-charmap/* : Free Software Foundation : 
+charmap/* : Free Software Foundation :
 	derived from glibc.  Licensed by LGPL
 	(CP932 has a different origin.  See the preamble of the file CP932)
 unidata : Unicode Inc. : see unidata/README.  See also unidata/tr10/README.
 
 1. Installation
 
-The library is designed to work all platform supported by ocaml, but
-currently the build procedure requires GNU tools (GNU coreutils, Make,
-grep, sh) and a special care is needed for MinGW port.
-In the top of the source directory, do the following.
-	$ ./configure
-	$ make
-	$ sudo make install
+To build and install Camomile, you need
+OCaml >= 4.0.3
+jbuilder >= 1.0+beta7
+cppo
+base-bytes
 
-The installation directories depend on whether you have findlib, which
-is automatically detected.  If you do not have findlib, Library files
-(camomile.cma, camomile.cmxa and other auxiliary files) and
-interface files (camomileLibrary.cmi) are installed to ocaml standard
-library directory.  If you have findlib, these files are governed by
-findlib and installed as a package named "camomile".  For either
-cases, data files are put under /usr/local/share/camomile by default.
-If you give the configure option as
-	$ ./configure --datadir=XXXX 
-data files are placed under XXXX/camomile.
+To build the library, on the top directory do
+	$ jbuilder build
+	$ jbuilder install
+
+Data files are put under /usr/local/share/camomile by default.
+The default can be overrided by running
+	$ ocaml configure.ml --share=XXXX
+then data files are placed under XXXX/camomile.
 
 You can uninstall the library by
-	$ sudo make uninstall
+	$ jbuilder uninstall
 
-If you have ocamldoc,
-	$ make dochtml
-creates dochtml directory in the source directory, and HTML
-documentation.
-
-1.1 MinGW port
-
-If you use MinGW port of OCaml, then you must specify where "share"
-directory by --prefix is located when you run configure.
-	  $ configure --prefix=C:/mingw 
-The prefix must be in the MSDOS file format and separators of path
-must be /, not \.
 
 2. Using libraries
 
@@ -134,34 +117,19 @@ a malicious user can change the values of environmental variables.
 
 See CamomileLibrary.mli file.  Also see camomileDynConfig.mli.
 
-2.4 Migration from 0.7.X
-
-If you are just using CamomileLibrary.Default.Camomile module, replace
-it with CamomileLibraryDefault.Camomile (no dot between
-CamomileLibrary and Default).
-
-If you are using CamomileLibrary.Main.Make, use CamomileLibrary.Make
-instead. 
-
 3. Development
-
-You can checkout the development version of Camomile by the following
-command. 
-    $ svn co https://camomile.svn.sourceforge.net/svnroot/camomile camomile  
-
-To build the development version of Camomile, you need autoconf and cppo
-pre-processor.  Then, enter the working directory and do the
-following.
-    $ autoconf
-    $ ./configure --enable-debug ...
-    $ make
-    $ sudo make install
+See https://github.com/yoriyuki/Camomile
 
 4. Author
 
 You can contact the author by yoriyuki.y@gmail.com
 
 5. Acknowledgment
+
+So many people are contributed to Camomile.
+See https://github.com/yoriyuki/Camomile/graphs/contributors
+
+Before GitHub becomes into existence...
 
 Peter Jolly provided CP932 conversion table.  Kawakami Shigenobu
 contributed findlib support.  Pierre Chambart contributed StringPrep
@@ -170,4 +138,3 @@ AVL-trees.  Sylvain Le Gall provided dynamic configuration module
 ConfigDyn.ml.
 
 Many people contributed bug fixes.
-
