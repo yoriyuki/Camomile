@@ -47,6 +47,13 @@ let us_of_codes codes = List.map uchar_of_code codes
 let not_pat = Str.regexp "not_\\(.*\\)"
 let locale_pat = Str.regexp "\\(..\\)\\(_\\(..\\)\\)?\\(_\\(.+\\)\\)?"
 
+(* little hack to maintain 4.02.3 compat with warnings *)
+module String = struct
+  [@@@ocaml.warning "-3-32"]
+  let lowercase_ascii = StringLabels.lowercase
+  include String
+end
+
 let rec parse_condition condition =
   let s = String.lowercase_ascii condition in
   match s with
