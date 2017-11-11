@@ -61,7 +61,7 @@ let hashcons_mapping =
     with
       | Not_found ->
 	  match x with
-	    | Diff v ->
+	    | Diff _ ->
 		Hashtbl.add tbl x x;
 		x
 	    | List l ->
@@ -76,7 +76,7 @@ let output_dir = ref ""
 
 let () = Arg.parse ["-in",Arg.Set_string input_dir,"input directory";
 		    "-out",Arg.Set_string output_dir,"output directory"]
-  (fun s -> ()) "Parse stringprep data file";
+  (fun _ -> ()) "Parse stringprep data file";
 
 module MappingHash =
 struct

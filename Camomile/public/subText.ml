@@ -1,4 +1,4 @@
-(** Sub-texts, parts of original (ur-) texts.  
+(** Sub-texts, parts of original (ur-) texts.
    The signature and semantics matches those of UStorage. *)
 (* Copyright (C) 2002, 2003 Yamagata Yoriyuki. distributed with LGPL *)
 
@@ -54,7 +54,7 @@ module type Type = sig
   val move : t -> index -> int -> index
   val out_of_range : t -> index -> bool
   val compare_index : t -> index -> index -> int
-      
+
   val iter : (UChar.t -> unit) -> t -> unit
   val compare : t -> t -> int
 
@@ -67,7 +67,7 @@ module type Type = sig
     val add_char : buf -> UChar.t -> unit
     val add_string : buf -> t -> unit
     val add_buffer : buf -> buf -> unit
-  end      
+  end
 
   type ur_text
   type ur_index
@@ -88,19 +88,19 @@ module Make (Text : UnicodeString.Type) = struct
     if Text.compare_index t i j >= 0 then true else
     Text.out_of_range t i
 
-  let look ((t, _, _) as s) i = 
+  let look ((t, _, _) as s) i =
     if out_of_range s i then failwith "SubText.look" else
     Text.look t i
 
-  let next (t, _, j) i = Text.next t i
+  let next (t, _, _) i = Text.next t i
 
-  let prev (t, j, _) i = Text.prev t i
+  let prev (t, _, _) i = Text.prev t i
 
   let move (t, _, _) i n = Text.move t i n
 
-  let nth ((t, i, _) as s) n = move s i n
+  let nth ((_, i, _) as s) n = move s i n
 
-  let first (t, i, _) = i
+  let first (_, i, _) = i
 
   let last (t, _, i) = Text.prev t i
 
@@ -112,13 +112,13 @@ module Make (Text : UnicodeString.Type) = struct
     let t = Text.init len f in
     (t, Text.nth t 0, Text.next t (Text.last t))
 
-  let length (t, i, j) = 
+  let length (t, i, j) =
     let rec loop i n =
       if Text.compare_index t i j >= 0 then n else
       loop (Text.next t i) (n + 1) in
     loop i 0
 
-  let iter proc (t, i, j) = 
+  let iter proc (t, i, j) =
     let rec loop i =
       if Text.compare_index t i j >= 0 then () else begin
 	proc (Text.look t i);

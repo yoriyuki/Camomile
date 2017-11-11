@@ -92,7 +92,6 @@ module XStringAux : XStringSig = struct
 end
 
   include XStringAux
-  type text = xstring
   type t = xstring
 
   let init len f = XArray.init len (UChar.chr_of_uint 0) f

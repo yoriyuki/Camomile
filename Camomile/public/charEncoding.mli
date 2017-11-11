@@ -36,8 +36,9 @@ module type Interface = sig
 (** Module for character encodings. *)
 open OOChannel
 
-exception Malformed_code		(**Failure of decoding*)
-exception Out_of_range			(**Failure of encoding*)
+exception Malformed_code (**Failure of decoding*)
+
+exception Out_of_range (**Failure of encoding*)
 
 (** Type for encodings. *)
 type t

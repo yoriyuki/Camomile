@@ -38,7 +38,6 @@ type uchar = UChar.t
 
 let int_of_uchar u = UChar.uint_code u
 let uchar_of_int n = UChar.chr_of_uint n
-let validate_utf8 s = UTF8.validate s
 
 let sprint_uchar u =
   let n = UChar.uint_code u in
@@ -57,16 +56,6 @@ let escaped_uchar u =
     Char.escaped (Char.chr n)
 
 let backslash = Char.code '\\'
-let sq = Char.code '\''
-let dq = Char.code '"'
-let lf = Char.code '\n'
-let cr = Char.code '\r'
-let tab = Char.code '\t'
-let backspace = Char.code '\b'
-
-let bb =  "\\\\"
-let bdq = "\\\""
-let bsq =   "\\'"
 
 let escaped_utf8 s =
   let buf = Buffer.create 0 in

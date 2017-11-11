@@ -35,7 +35,7 @@
 (* You can contact the authour by sending email to *)
 (* yori@users.sourceforge.net *)
 
-type t = 
+type t =
     (int32, Bigarray.int32_elt, Bigarray.c_layout) Bigarray.Array1.t
 
 exception Malformed_code
@@ -59,13 +59,13 @@ val init : int -> (int -> UChar.t) -> t
 
 (** [length s] returns the number of Unicode characters contained in [s] *)
 val length : t -> int
-    
+
 (** Positions in the string represented by the number of characters
    from the head.
    The location of the first character is [0] *)
 type index = int
 
-(** [nth s n] returns the position of the [n]-th Unicode character. 
+(** [nth s n] returns the position of the [n]-th Unicode character.
    The call requires O(n)-time *)
 val nth : t -> int -> index
 
@@ -91,19 +91,19 @@ val compare_index : t -> index -> index -> int
 
 (** [next s i]
    returns the position of the head of the Unicode character
-   located immediately after [i]. 
+   located immediately after [i].
    If [i] is a valid position, the function always success.
    If [i] is a valid position and there is no Unicode character after [i],
-   the position outside [s] is returned.  
+   the position outside [s] is returned.
    If [i] is not a valid position, the behaviour is undefined. *)
 val next : t -> index -> index
 
 (** [prev s i]
    returns the position of the head of the Unicode character
-   located immediately before [i]. 
+   located immediately before [i].
    If [i] is a valid position, the function always success.
    If [i] is a valid position and there is no Unicode character before [i],
-   the position outside [s] is returned.  
+   the position outside [s] is returned.
    If [i] is not a valid position, the behaviour is undefined. *)
 val prev : t -> index -> index
 
@@ -112,10 +112,10 @@ val prev : t -> index -> index
    If n < 0, returns [-n]-th Unicode character before [i].
    If there is no such character, the result is unspecified. *)
 val move : t -> index -> int -> index
-    
+
 (** [iter f s] :
-   Apply [f] to all Unicode characters in [s].  
-   The order of application is same to the order 
+   Apply [f] to all Unicode characters in [s].
+   The order of application is same to the order
    in the Unicode characters in [s]. *)
 val iter : (UChar.t -> unit) -> t -> unit
 
@@ -125,7 +125,8 @@ val compare : t -> t -> int
 (** Buffer module for UCS4 *)
 module Buf : sig
   type buf
-  (** [create n] creates the buffer with the initial size [n]. *)   
+
+  (** [create n] creates the buffer with the initial size [n]. *)
   val create : int -> buf
 
   (** The rest of functions is similar to the ones of Buffer in stdlib. *)

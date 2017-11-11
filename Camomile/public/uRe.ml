@@ -410,7 +410,7 @@ module Make (Text : UnicodeString.Type) = struct
 	  Some groups
     with Exit -> None
 
-  let string_match (n, r) t i =
+  let string_match (_, r) t i =
     try ignore (exec_first [] t i [r]); true with Exit -> false
 
   let search_forward ?(sem=`Longest) ((n, r) as c) t i =

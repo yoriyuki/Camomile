@@ -37,7 +37,8 @@ module type Interface = sig
 (** Module for character encodings. *)
 open OOChannel
 
-exception Malformed_code		(**Failure of decoding*)
+exception Malformed_code	(**Failure of decoding*)
+
 exception Out_of_range			(**Failure of encoding*)
 
 (** Type for encodings. *)
@@ -53,7 +54,7 @@ val automatic : string -> t list -> t -> t
    under the name [name] *)
 val new_enc : string -> t -> unit
 
-(** [alias alias name] : Define [alias] as an alias of 
+(** [alias alias name] : Define [alias] as an alias of
    the encoding with the name [name]. *)
 val alias : string -> string -> unit
 
@@ -63,10 +64,10 @@ val alias : string -> string -> unit
    the encodings defined by charmap.
    See charmaps directory in the source directory for the available encodings.
    In addition to the encodings via the charmap files, camomile supports
-   ISO-2022-CN, ISO-2022-JP, ISO-2022-JP-2, ISO-2022-KR, jauto (Auto 
+   ISO-2022-CN, ISO-2022-JP, ISO-2022-JP-2, ISO-2022-KR, jauto (Auto
    detection of Japanese encodings), UTF-8, UTF-16, UTF-16BE, UTF-16LE.
    UTF-32, UTF-32BE, UTF-32LE, UCS-4(Big endian order).
-   The encoding also can be referred by "IANA/<IANA name>", if the encoding 
+   The encoding also can be referred by "IANA/<IANA name>", if the encoding
    is supported. *)
 val of_name : string -> t
 
@@ -86,7 +87,7 @@ val utf32be : t
 val utf32le : t
 val ucs4 : t
 
-(** [recode_string ~in_enc ~out_enc s] 
+(** [recode_string ~in_enc ~out_enc s]
    converts the string [s] from [in_enc] to [out_enc]. *)
 val recode_string :
    in_enc:t -> out_enc:t -> string -> string
@@ -94,7 +95,7 @@ val recode_string :
 (** [new uchar_input_channel_of enc c_in] creates the new intput
   channel which convert characters to Unicode using encoding
   [enc]. *)
-class uchar_input_channel_of : 
+class uchar_input_channel_of :
   t -> char_input_channel -> [UChar.t] obj_input_channel
 
 (** [new uchar_ouput_channel_of enc c_out] creates the new output
@@ -117,7 +118,7 @@ class convert_uchar_output :
 (** [new convert_input in_enc out_enc c_in] create the new input
   channel using encoding [out_enc] from the input channel using
   encoding [in_enc] *)
-class convert_input : 
+class convert_input :
   in_enc:t -> out_enc:t -> char_input_channel -> char_input_channel
 
 (** [new convert_ouput in_enc out_enc c_in] create the new output
@@ -126,22 +127,22 @@ class convert_input :
 class convert_output :
   in_enc:t -> out_enc:t -> char_output_channel -> char_output_channel
 
-(** [new out_channel enc outchan] creates the output channel object 
+(** [new out_channel enc outchan] creates the output channel object
   {!OOChannel.obj_output_channel} which
   receives Unicode characters and outputs them to [outchan] using
   the encoding [enc]. *)
 class out_channel : t -> Pervasives.out_channel -> [UChar.t] obj_output_channel
 
-(** [new in_channel enc inchan] creates the intput channel object 
+(** [new in_channel enc inchan] creates the intput channel object
    {!OOChannel.obj_input_channel} which
    reads bytes from [inchan] and converts them to Unicode characters. *)
 class in_channel : t -> Pervasives.in_channel -> [UChar.t] obj_input_channel
 
-(** [ustream_of enc chars] converts the byte stream [chars] 
+(** [ustream_of enc chars] converts the byte stream [chars]
    to the Unicode character stream by the encoding [enc]. *)
 val ustream_of : t -> char Stream.t -> UChar.t Stream.t
 
-(** [char_stream_of enc uchars] converts the Unicode character stream 
+(** [char_stream_of enc uchars] converts the Unicode character stream
    [uchars] to the byte stream by the encoding [enc] *)
 val char_stream_of : t -> UChar.t Stream.t -> char Stream.t
 
@@ -149,7 +150,7 @@ module type Type =
   sig
     type text
 
-   (** [decode enc s] converts the string [s] encoded 
+   (** [decode enc s] converts the string [s] encoded
       by the encoding [enc] to the Unicode text. *)
     val decode : t -> string -> text
 
@@ -237,10 +238,9 @@ let automatic name encs def =
   {name = name; make_decoder = make_decoder; make_encoder = def.make_encoder}
 
 let table = Hashtbl.create 0
-let holded = ref []
 
 let install name f =
-  if Hashtbl.mem table name then 
+  if Hashtbl.mem table name then
     failwith (name ^" has been already installed : CharEncoding.install")
   else begin
     Hashtbl.add table name (`P f);
@@ -266,7 +266,7 @@ module Charmap_enc =
 	  if n <> no_char then begin
 	    state := start;
 	    um.read (UChar.chr_of_uint n)
-	  end else			    
+	  end else
 	    match Charmap.next_probe !state i with
 	      None -> raise Malformed_code
 	    | Some next -> state := next in
@@ -283,14 +283,14 @@ module Charmap_enc =
 	let term () = cm.term () in
 	{read = read; term = term}
       in
-      {name = charmap.Charmap.name; 
-       make_decoder = make_decoder; 
+      {name = charmap.Charmap.name;
+       make_decoder = make_decoder;
        make_encoder = make_encoder}
   end
 
 let of_charmap = Charmap_enc.of_charmap
 
-let of_name alias = 
+let of_name alias =
   let name = try Hashtbl.find aliases alias with Not_found -> alias in
   let rec look name =
     match Hashtbl.find table name with
@@ -333,31 +333,31 @@ let char_machine_of outchan =
   let read c =
     Bytes.set b !pos c;
     incr pos;
-    if !pos >= 1024 then 
+    if !pos >= 1024 then
        let n = outchan#output b 0 1024 in
 	 Bytes.blit b n b 0 (1024 - n);
 	 pos := 1024 - n
   in
-  let flush () =    
+  let flush () =
     let n = outchan#output b 0 !pos in
       if n < !pos then begin
 	pos := !pos - n;
-	failwith 
+	failwith
 	  "CharEncoding.char_machine_of: \
              Cannot flush the entire buffer";
       end;
       outchan#flush ();
       pos := 0
   in
-  let term () = 
+  let term () =
     flush ();
-    outchan#close_out () 
+    outchan#close_out ()
   in
     {read = read; term = term}, flush
 
-class uchar_output_channel_of 
+class uchar_output_channel_of
     enc
-    (output : char_output_channel) 
+    (output : char_output_channel)
     : [UChar.t] obj_output_channel =
   let c, flush = char_machine_of output in
   let m = enc.make_encoder c in
@@ -375,7 +375,7 @@ let queueing q =
   let term () = () in
   {read = read; term = term}
 
-class uchar_input_channel_of enc 
+class uchar_input_channel_of enc
     (input : char_input_channel)
     : [UChar.t] obj_input_channel =
   let q = Queue.create () in
@@ -386,7 +386,7 @@ class uchar_input_channel_of enc
     method get() =
       try Queue.take q with Queue.Empty ->
 	if term then raise End_of_file else
-	(try 
+	(try
 	   let len = input#input b 0 1024 in
 	     for i = 0 to len - 1 do m.read (Bytes.get b i) done
 	 with End_of_file ->
@@ -398,13 +398,13 @@ class uchar_input_channel_of enc
 
 class in_channel enc inchan =
   uchar_input_channel_of enc (new OOChannel.of_in_channel inchan)
-  
+
 class in_channel_from_stream enc s =
-  uchar_input_channel_of enc 
-    (new char_input_channel_of    
+  uchar_input_channel_of enc
+    (new char_input_channel_of
        (new channel_of_stream s))
 
-let fill_string s pos len q =
+let fill_string s pos q =
   begin
     try while !pos < Bytes.length s do
       Bytes.set s !pos (Queue.take q);
@@ -424,11 +424,11 @@ let fill_string s pos len q =
 class convert_uchar_input enc (uinput : UChar.t obj_input_channel)
   : char_input_channel =
   let q = Queue.create () in
-  object (self)
+  object
     val eof = false
     method input s pos len =
       let p = ref pos in
-      let m = enc.make_encoder (fill_string s p len q) in
+      let m = enc.make_encoder (fill_string s p q) in
 	try while !p < pos + len do
 	  m.read (uinput#get())
 	done;
@@ -440,10 +440,10 @@ class convert_uchar_input enc (uinput : UChar.t obj_input_channel)
       Queue.clear q;
   end
 
-class convert_uchar_output enc (uoutput : UChar.t obj_output_channel) 
+class convert_uchar_output enc (uoutput : UChar.t obj_output_channel)
   : char_output_channel =
   let m = enc.make_decoder {read = uoutput#put; term = uoutput#close_out} in
-  object (self)
+  object
     method output s pos len =
       for i = pos to pos + len - 1 do m.read (Bytes.get s i) done;
       len;
@@ -456,7 +456,7 @@ class convert_input ~in_enc ~out_enc input =
 
 class convert_output ~in_enc ~out_enc output =
   convert_uchar_output in_enc (new uchar_output_channel_of out_enc output)
-    
+
 let ustream_of enc s = stream_of_channel (new in_channel_from_stream enc s)
 
 class in_char_channel enc input : [char] obj_input_channel =
@@ -478,7 +478,7 @@ class in_char_channel enc input : [char] obj_input_channel =
 class in_char_channel_from_ustream enc us =
   in_char_channel enc (new channel_of_stream us)
 
-let char_stream_of enc us = 
+let char_stream_of enc us =
   stream_of_channel (new in_char_channel_from_ustream enc us)
 
 module type Type =
@@ -522,10 +522,10 @@ let _ =
       let code = Char.code c in
       if code >= 0x80 then raise Malformed_code else
       let u = UChar.chr_of_uint code in output u
-    in 
+    in
     let term () = close () in
     {read = reader; term = term}
-  in    
+  in
   let make_encoder output_machine =
     let output = output_machine.read in
     let close = output_machine.term in
@@ -538,7 +538,7 @@ let _ =
     {read = reader; term = term}
   in
   let enc = fun () ->
-    {name = "US-ASCII"; 
+    {name = "US-ASCII";
      make_decoder = make_decoder;
      make_encoder = make_encoder;}
   in begin
@@ -559,16 +559,16 @@ let _ =
     let reader c =
       let code = Char.code c in
       let u = UChar.chr_of_uint code in output u
-    in 
+    in
     let term () = close () in
     {read = reader; term = term}
-  in    
+  in
   let make_encoder output_machine =
     let output = output_machine.read in
     let close = output_machine.term in
     let reader u =
-      let c = 
-	try (UChar.char_of u) 
+      let c =
+	try (UChar.char_of u)
 	with Invalid_argument _ -> raise Out_of_range
       in
       output c
@@ -577,7 +577,7 @@ let _ =
     {read = reader; term = term}
   in
   let enc = fun () ->
-    {name = "Latin-1"; 
+    {name = "Latin-1";
      make_decoder = make_decoder;
      make_encoder = make_encoder;}
   in begin
@@ -606,7 +606,7 @@ let _ =
 	else if i >= 0xe0 && i <= 0xef then
 	  begin state.remain <- 2; state.cur <- (i - 0xe0) end
 	else if i >= 0xf0 && i <= 0xf7 then
-	  begin state.remain <- 3; state.cur <- (i - 0xf0) end 
+	  begin state.remain <- 3; state.cur <- (i - 0xf0) end
 	else if i >= 0xf8 && i <= 0xfb then
 	  begin state.remain <- 4; state.cur <- (i - 0xf8) end
 	else if i >= 0xfc && i <= 0xfd then
@@ -624,14 +624,14 @@ let _ =
     in
     let term () = close () in
     {read = reader; term = term}
-  in    
+  in
   let make_encoder output_machine =
     let output = output_machine.read in
     let close = output_machine.term in
     let reader u =
       let k = UChar.uint_code u in
       if k >= 0 && k <= 0x7f then output (Char.chr k) else
-      if k >= 0x80 && k <= 0x7ff then 
+      if k >= 0x80 && k <= 0x7ff then
 	let c0 = Char.chr (0xc0 + (k lsr 6)) in
 	let c1 = Char.chr (0x80 + (k land masq)) in
 	begin output c0; output c1; end
@@ -660,7 +660,7 @@ let _ =
 	let c3 = Char.chr (0x80 + ((k lsr 12) land masq)) in
 	let c4 = Char.chr (0x80 + ((k lsr 6) land masq)) in
 	let c5 = Char.chr (0x80 + (k land masq)) in
-	begin 
+	begin
 	  output c0; output c1; output c2; output c3; output c4; output c5
 	end
       else raise Out_of_range
@@ -669,7 +669,7 @@ let _ =
     {read = reader; term = term}
   in
   let enc = fun () ->
-    {name = "UTF-8"; 
+    {name = "UTF-8";
      make_decoder = make_decoder;
      make_encoder = make_encoder;}
   in begin
@@ -677,8 +677,6 @@ let _ =
   end
 
 (* UTF-16 *)
-
-type endian = BE | LE | Unknown
 
 type ucs2_machine =
     {read2 : int -> unit;
@@ -691,7 +689,7 @@ type ucs2_buf =
 let char_machine_be m =
   let state = {first_char = true; buf = 0} in
   let read c =
-    if state.first_char 
+    if state.first_char
     then begin state.buf <- (Char.code c); state.first_char <- false; end
     else begin
       m.read2 ((state.buf lsl 8) lor (Char.code c));
@@ -704,7 +702,7 @@ let char_machine_be m =
 let char_machine_le m =
   let state = {first_char = true; buf = 0} in
   let read c =
-    if state.first_char 
+    if state.first_char
     then begin state.buf <- (Char.code c); state.first_char <- false; end
     else begin
       m.read2 (((Char.code c) lsl 8) lor state.buf);
@@ -736,7 +734,7 @@ let _ =
     let close = m.term in
     let state = {surrogated = false; buf = 0} in
     let read i =
-      if state.surrogated 
+      if state.surrogated
       then
 	if i >= 0xdc00 && i <= 0xdfff then
 	  let i' = (state.buf - 0xd800) lsl 10 + (i - 0xdc00) + 0x10000 in
@@ -744,7 +742,7 @@ let _ =
 	else raise Malformed_code
       else
 	if i = 0xfeff then () else	(*BOM is ignored*)
-	if i <= 0xd7ff || (i >= 0xe000 && i <= 0xfffd) then 
+	if i <= 0xd7ff || (i >= 0xe000 && i <= 0xfffd) then
 	  output (UChar.chr_of_uint i)
 	else if i >= 0xd800 && i <= 0xdbff then
 	  begin state.surrogated <- true; state.buf <- i end
@@ -774,7 +772,7 @@ let _ =
   let make_encoder_be m = make_encoder (be_outmachine m) in
   let make_decoder_le m = char_machine_le (make_decoder m) in
   let make_encoder_le m = make_encoder (le_outmachine m) in
-  
+
   let enc_be =
     {name = "UTF-16BE";
      make_decoder = make_decoder_be;
@@ -786,7 +784,7 @@ let _ =
      make_encoder = make_encoder_le;}
   in
 
-  let enc_unknown = 
+  let enc_unknown =
     fun () -> automatic "UTF-16" [enc_be; enc_le] enc_be in
 
   begin
@@ -950,35 +948,30 @@ let enc_to_ucs map enc =
   let ucs = Unimap.enc_to_ucs map enc in
   if ucs = no_char then raise Malformed_code else ucs
 
-let ucs_to_enc map enc =
-  let no_char = Unimap.no_char_enc map in
-  let enc = Unimap.ucs_to_enc map enc in
-  if enc = no_char then raise Out_of_range else enc
-
 module Iso2022jp =
   struct
 
     type charset = Ascii | Jisx0208_1978 | Jisx0208_1983 | Jisx0201_roman
-  | Jisx0201_kana | Gb2312_1980 | Ksc5601_1987 | Jisx0212_1990 
+  | Jisx0201_kana | Gb2312_1980 | Ksc5601_1987 | Jisx0212_1990
   | Iso88591 | Iso88597 | Unknown
 
     let unibyte charset =
       match charset with
 	Ascii -> true | Jisx0201_roman -> true | Jisx0201_kana -> true
-      | Iso88591 -> true | Iso88597 -> true 
+      | Iso88591 -> true | Iso88597 -> true
       | Jisx0208_1978 -> false | Jisx0208_1983 -> false |Jisx0212_1990 -> false
       | Gb2312_1980 -> false | Ksc5601_1987 -> false | Unknown -> assert false
 
     let set94 charset =
       match charset with
 	Ascii -> true | Jisx0201_roman -> true | Jisx0201_kana -> true
-      | Iso88591 -> false | Iso88597 -> false 
+      | Iso88591 -> false | Iso88597 -> false
       | Jisx0208_1978 -> true | Jisx0208_1983 -> true |Jisx0212_1990 -> true
       | Gb2312_1980 -> true | Ksc5601_1987 -> true | Unknown -> assert false
-	    
+
     let esc = Char.chr 0x1b			(* \027 *)
 
-    type state_type = 
+    type state_type =
 	{mutable remain : int;		(* <0 means escape sequence*)
 	 mutable g0 : charset;
 	 mutable g2 : charset;
@@ -1010,26 +1003,26 @@ module Iso2022jp =
 	    | Unknown -> raise Malformed_code
 	  in UChar.chr_of_uint ucode
 	in
-	let state = 
-	  {remain = 0; 
-	   g0 = Ascii; 
-	   g2 = Unknown; 
+	let state =
+	  {remain = 0;
+	   g0 = Ascii;
+	   g2 = Unknown;
 	   single_shift = false;
 	   buf = Bytes.create 3}
 	in
 	let reader c =
 	  let i = Char.code c in
 	  if i >= 0x80 then raise Malformed_code else
-	  if state.single_shift 
-	  then 
+	  if state.single_shift
+	  then
 	    if i >= 0x20 && i <= 0x7f
 	    then
 	      begin
-		m.read (to_uchar_2 state.g2 i); 
-		state.single_shift <- false 
+		m.read (to_uchar_2 state.g2 i);
+		state.single_shift <- false
 	      end
 	    else raise Malformed_code
-	  else 
+	  else
 	    match state.remain with
 	      0 ->
 		(* escape sequence?. *)
@@ -1042,8 +1035,8 @@ module Iso2022jp =
 	    | 1 ->
 		let i1 = Char.code (Bytes.get state.buf 0) in
 		let i2 = Char.code c in
-		if i2 >= 0x21 && i2 <= 0x7e 
-		then 
+		if i2 >= 0x21 && i2 <= 0x7e
+		then
 		  let u = to_uchar_2 state.g0 ((i1 lsl 8) + i2) in
 		  m.read u
 		else raise Malformed_code;
@@ -1083,7 +1076,7 @@ module Iso2022jp =
 		end else raise Malformed_code
 	in
 	{read = reader; term = m.term} in
-      
+
       let make_encoder_2 m =
 	let from_uchar_2 u =
 	  let n = UChar.code u in
@@ -1103,12 +1096,12 @@ module Iso2022jp =
 	  let n' = Unimap.ucs_to_enc jisx0201 n in
 	  if n' = Unimap.no_char_enc jisx0201 then raise Out_of_range else
 	  if n' >= 0x80 then Jisx0201_kana, (n' - 0x80) else Jisx0201_roman, n'
-	in	  
+	in
 	(*fields other than g0, g2 are not used*)
 	let state =
-	  {remain = 0; 
-	   g0 = Ascii; 
-	   g2 = Unknown; 
+	  {remain = 0;
+	   g0 = Ascii;
+	   g2 = Unknown;
 	   single_shift = false;
 	   buf = Bytes.create 1}
 	in
@@ -1151,14 +1144,14 @@ module Iso2022jp =
 		  m.read c1; m.read c2
 	      |	_ -> assert false)
 	  else				(*set96*)
-	    (* since RFC allows G2 is cleared in the begining of lines, 
+	    (* since RFC allows G2 is cleared in the begining of lines,
 	     * we set G2 every times. *)
 	    (match cs with
 	      Iso88591 ->
-		m.read esc; m.read '.'; m.read 'A'; 
+		m.read esc; m.read '.'; m.read 'A';
 		m.read esc; m.read 'N'; m.read c2
 	    | Iso88597 ->
-		m.read esc; m.read '.'; m.read 'F'; 
+		m.read esc; m.read '.'; m.read 'F';
 		m.read esc; m.read 'N'; m.read c2
 	    | _ -> assert false)
 	in
@@ -1167,7 +1160,7 @@ module Iso2022jp =
 	  begin m.read esc; m.read '('; m.read 'B' end;
 	  m.term ()
 	in
-	{read = reader; term = term} in	
+	{read = reader; term = term} in
 
       {name = "ISO-2022-JP-2";
        make_decoder = make_decoder_2;
@@ -1188,10 +1181,10 @@ module Iso2022jp =
 	    | _ -> raise Malformed_code
 	  in UChar.chr_of_uint ucode
 	in
-	let state = 
-	  {remain = 0; 
-	   g0 = Ascii; 
-	   g2 = Unknown; 
+	let state =
+	  {remain = 0;
+	   g0 = Ascii;
+	   g2 = Unknown;
 	   single_shift = false;
 	   buf = Bytes.create 3}
 	in
@@ -1210,8 +1203,8 @@ module Iso2022jp =
 	  | 1 ->
 	      let i1 = Char.code (Bytes.get state.buf 0) in
 	      let i2 = Char.code c in
-	      if i2 >= 0x21 && i2 <= 0x7e 
-	      then 
+	      if i2 >= 0x21 && i2 <= 0x7e
+	      then
 		let u = to_uchar state.g0 ((i1 lsl 8) + i2) in
 		m.read u
 	      else raise Malformed_code;
@@ -1220,10 +1213,10 @@ module Iso2022jp =
 	      Bytes.set state.buf (~-(state.remain) - 1) c;
 	      state.remain <- state.remain - 1;
 	      let len = ~- (state.remain) - 1 in
-	      if i >= 0x20 && i <= 0x2f 
+	      if i >= 0x20 && i <= 0x2f
 	      then
 		begin if len >= 3 then raise Malformed_code else () end
-	      else if i >= 0x30 && i <= 0x7e then 
+	      else if i >= 0x30 && i <= 0x7e then
 		begin
 		  state.remain <- 0;
 		  if comp_sub "(B" 0 2 state.buf 0 len then
@@ -1250,12 +1243,12 @@ module Iso2022jp =
 	  let n' = Unimap.ucs_to_enc jisx0201 n in
 	  if n' = Unimap.no_char_enc jisx0201 then raise Out_of_range else
 	  if n' >= 0x80 then raise Out_of_range else Jisx0201_roman, n'
-	in	  
+	in
 	(*fields other than g0, g2 are not used*)
 	let state =
-	  {remain = 0; 
-	   g0 = Ascii; 
-	   g2 = Unknown; 
+	  {remain = 0;
+	   g0 = Ascii;
+	   g2 = Unknown;
 	   single_shift = false;
 	   buf = Bytes.create 1}
 	in
@@ -1293,7 +1286,7 @@ module Iso2022jp =
        make_decoder = make_decoder;
        make_encoder = make_encoder}
 
-let init () = 
+let init () =
   install "ISO-2022-JP-2" make_enc_2;
   install "csISO2022JP2" make_enc_2;
   install "ISO-2022-JP" make_enc;
@@ -1306,21 +1299,21 @@ let _ = Iso2022jp.init ()
 
 module J_auto =
   struct
-	
+
     let jauto =
       fun () ->
 	let euc_jp = of_name "EUC-JP" in
 	let sjis = of_name "SHIFT_JIS" in
 	let iso2022jp = of_name "ISO-2022-JP-2" in
-	automatic 
-	  "japanese_auto_detection" 
-	  [iso2022jp; euc_jp; sjis] 
+	automatic
+	  "japanese_auto_detection"
+	  [iso2022jp; euc_jp; sjis]
 	  euc_jp
 
     let init () =
       let _ = install "japanese_auto_detection" jauto in
       let _ = install "jauto" jauto in ()
-	
+
   end
 
 let _ = J_auto.init ()
@@ -1329,14 +1322,14 @@ let _ = J_auto.init ()
 
 module Iso2022kr =
   struct
-    
+
     let esc = Char.chr 0x1b			(* \027 *)
     let si = Char.chr 0x0f
     let so = Char.chr 0x0e
 
     type charset = Ascii | Ksc5601
 
-    type state_type = 
+    type state_type =
 	{mutable remain : int;		(* <0 means escape sequence*)
 	 mutable gl : charset;
 	 buf : Bytes.t}
@@ -1345,9 +1338,9 @@ module Iso2022kr =
       let ksc5601 = Unimap.of_name "ksc5601" in
 
       let make_decoder m =
-	let state = 
-	  {remain = 0; 
-	   gl = Ascii; 
+	let state =
+	  {remain = 0;
+	   gl = Ascii;
 	   buf = Bytes.create 3}
 	in
 	let reader c =
@@ -1366,8 +1359,8 @@ module Iso2022kr =
 	  | 1 ->
 	      let i1 = Char.code (Bytes.get state.buf 0) in
 	      let i2 = Char.code c in
-	      if i2 >= 0x21 && i2 <= 0x7e 
-	      then 
+	      if i2 >= 0x21 && i2 <= 0x7e
+	      then
 		let n = enc_to_ucs ksc5601 ((i1 lsl 8) + i2) in
 		m.read (UChar.chr_of_uint n)
 	      else raise Malformed_code;
@@ -1379,21 +1372,21 @@ module Iso2022kr =
 	      let len = ~- (state.remain) - 1 in
 	      if i >= 0x20 && i <= 0x2f then
 		if len >= 3 then raise Malformed_code else ()
-	      else if i >= 0x30 && i <= 0x7e then 
+	      else if i >= 0x30 && i <= 0x7e then
 		begin
 		  state.remain <- 0;
 		  (* designator *)
-		  if comp_sub "$)C" 0 3 state.buf 0 len then () 
+		  if comp_sub "$)C" 0 3 state.buf 0 len then ()
 		  else raise Malformed_code
 		end
 	      else raise Malformed_code
 	in
 	{read = reader; term = m.term} in
-      
+
       let make_encoder m =
 	(*fields other than gl are not used*)
 	let state =
-	  {remain = 0; 
+	  {remain = 0;
 	   gl = Ascii;
 	   buf = Bytes.create 1}
 	in
@@ -1404,7 +1397,7 @@ module Iso2022kr =
 	    if n = 0x0e || n = 0x0f || n = 0x1b then raise Out_of_range else
 	    match state.gl with
 	      Ascii -> m.read (Char.chr n)
-	    | Ksc5601 -> 
+	    | Ksc5601 ->
 		state.gl <- Ascii;
 		m.read si; m.read (Char.chr n)
 	  else
@@ -1424,13 +1417,13 @@ module Iso2022kr =
 	  m.term ()
 	in
 	{read = reader; term = term} in
-      
+
       {name = "ISO-2022-KR";
        make_decoder = make_decoder;
        make_encoder = make_encoder}
 
-let init () = 
-let _ = install "ISO-2022-KR" make_enc in 
+let init () =
+let _ = install "ISO-2022-KR" make_enc in
 let _ = install "csISO2022KR" make_enc  in ()
 end
 
@@ -1440,20 +1433,21 @@ let _ = Iso2022kr.init ()
 
 module Iso2022cn =
   struct
-    
+
     let esc = Char.chr 0x1b			(* \027 *)
     let si = Char.chr 0x0f
     let so = Char.chr 0x0e
-    let uLF = UChar.chr_of_uint (Char.code '\n')
 
     let cns_p1 = 0x10000
     let cns_p2 = 0x20000
 
     type charset = Ascii | GB_2312 | CNS_11643_p1 | CNS_11643_p2 | Unknown
 
+    [@@@ocaml.warning "-37"]
     type assign = G0 | G1 | G2
+    [@@@ocaml.warning "+37"]
 
-    type state_type = 
+    type state_type =
 	{mutable remain : int;		(* <0 means escape sequence*)
 	 mutable gl : assign;
 	 mutable g1 : charset;
@@ -1474,8 +1468,8 @@ module Iso2022cn =
 	  | CNS_11643_p2 -> enc_to_ucs cns11643 (cns_p2 lor n)
 	  | Unknown -> raise Malformed_code
 	in
-	let state = 
-	  {remain = 0; 
+	let state =
+	  {remain = 0;
 	   gl = G0;
 	   g1 = Unknown;
 	   g2 = Unknown;
@@ -1538,7 +1532,7 @@ module Iso2022cn =
 	      else raise Malformed_code
 	in
 	{read = reader; term = m.term} in
-      
+
       let make_encoder m =
 	let from_ucs4 n =
 	  if n <= 0x7f then Ascii, n else
@@ -1553,7 +1547,7 @@ module Iso2022cn =
 	in
 	(*fields other than gl, g1, g2 are not used*)
 	let state =
-	  {remain = 0; 
+	  {remain = 0;
 	   gl = G0;
 	   g1 = Unknown;
 	   g2 = Unknown;
@@ -1620,14 +1614,14 @@ module Iso2022cn =
 	  if state.gl = G0 then () else m.read si;
 	  m.term ();
 	in {read = reader; term = term} in
-      
+
       {name = "ISO-2022-CN";
        make_decoder = make_decoder;
        make_encoder = make_encoder}
 
-    let init () = 
+    let init () =
       let _ = install "ISO-2022-CN" make_enc in ()
-	
+
   end
 
 let _ = Iso2022cn.init ()

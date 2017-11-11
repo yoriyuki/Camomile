@@ -72,12 +72,12 @@ let bottom' l =
 
 let rec tripling l1 l2 l3 =
   match l1, l2, l3 with
-    x1 :: r1, x2 :: r2, x3 :: r3 -> 
+    x1 :: r1, x2 :: r2, x3 :: r3 ->
       (x1, x2, x3) :: tripling r1 r2 r3
   | [], [], [] -> []
   | _ -> assert false
 
-let rec de_tripling = function 
+let rec de_tripling = function
     (x1, x2, x3) :: rest ->
       let l1, l2, l3 = de_tripling rest in
       (x1 :: l1, x2 :: l2, x3 :: l3)
@@ -91,8 +91,8 @@ let ce_of ceset us =
     (EltMap.find e ceset.tbl3)
 
 let complete_ignorable ceset =
-  let ces = 
-    tripling 
+  let ces =
+    tripling
       (EltMap.find `CompleteIgnorable ceset.tbl1)
       (EltMap.find `CompleteIgnorable ceset.tbl2)
       (EltMap.find `CompleteIgnorable ceset.tbl3)
@@ -122,7 +122,7 @@ let first_trailing ceset =
   | _ -> assert false
 
 let top ceset =
-  (AbsOrd.top ceset.l1, 
+  (AbsOrd.top ceset.l1,
    AbsOrd.top ceset.l2,
    AbsOrd.top ceset.l3)
 
@@ -133,10 +133,10 @@ let rec next prec ((p1, p2, p3) as ce) ceset =
        bottom' ceset.l2,
        bottom' ceset.l3)
   | `Secondary ->
-      (try 
+      (try
 	(p1,
 	 AbsOrd.next p2 ceset.l2,
-	 bottom' ceset.l3) 
+	 bottom' ceset.l3)
       with Not_found ->
 	next `Primary ce ceset)
   | `Tertiary ->
@@ -151,10 +151,10 @@ let rec prev prec ((p1, p2, p3) as ce) ceset =
        AbsOrd.top ceset.l2,
        AbsOrd.top ceset.l3)
   | `Secondary ->
-      (try 
+      (try
 	(p1,
 	 AbsOrd.prev p2 ceset.l2,
-	 AbsOrd.top ceset.l3) 
+	 AbsOrd.top ceset.l3)
       with Not_found ->
 	prev `Primary ce ceset)
   | `Tertiary ->
@@ -244,8 +244,8 @@ let put e ces ceset =
   let contractions =
     match e with
       `Seq (u :: us) ->
-	let entry = 
-	  try UCharMap.find u ceset.contractions 
+	let entry =
+	  try UCharMap.find u ceset.contractions
 	  with Not_found -> []
 	in
 	UCharMap.add u (us :: entry) ceset.contractions
@@ -259,7 +259,7 @@ let put e ces ceset =
    tbl1 = tbl1;
    tbl2 = tbl2;
    tbl3 = tbl3}
-    
+
 (* the following potion of code comes from uCol.ml *)
 let rec add_list x = function
     [] -> ()
@@ -271,57 +271,24 @@ let rec burst_aux x i a =
 
 let burst x = burst_aux x (XArray.length x - 1) []
 
-let logical_order_exception_tbl = 
-  Info.load_property_tbl `Logical_Order_Exception
-
-let is_logical_order_exception u = 
-  UCharTbl.Bool.get logical_order_exception_tbl u
-
-let noncharacter_code_point_tbl = 
+let noncharacter_code_point_tbl =
   Info.load_property_tbl `Noncharacter_Code_Point
 
-let is_noncharacter_code_point u = 
+let is_noncharacter_code_point u =
   UCharTbl.Bool.get noncharacter_code_point_tbl u
-
-let rec rearrange_aux x pos =
-  if pos > XString.length x - 2 then () else
-  let u = XString.get x pos in
-  if is_logical_order_exception u then begin
-    XString.set x pos (XString.get x (pos + 1));
-    XString.set x (pos + 1) u;
-    rearrange_aux x (pos + 2)
-  end else
-    rearrange_aux x (pos + 1)
-
-let rearrange x = rearrange_aux x 0
-
-let rec remove_ignorable_aux ceset x i k =	(*k < i *)
-  if XArray.length x <= i then begin
-    XArray.shrink x k;
-  end else
-    let u = XArray.get x i in
-    if ce_of ceset [u] = [complete_ignorable ceset] then
-      remove_ignorable_aux ceset x (i + 1) k
-    else begin
-      XArray.set x k u; remove_ignorable_aux ceset x (i + 1) (k + 1)
-    end
-
-let remove_ignorable ce_tbl x = remove_ignorable_aux ce_tbl x 0 0
-
-let compose_weight a b = a land 0x3ffff lsl 15 lor (b land 0x7fff)
 
 let assign_implicit ceset a b =
   let rec search pos =
-    let next = 
+    let next =
       try Some (AbsOrd.next pos ceset.l1)
-      with Not_found -> None 
+      with Not_found -> None
     in
     match next with
       None -> pos
     | Some next ->
-	let v = 
-	  try Some (AbsOrd.Map.find next ceset.implicits) 
-	  with Not_found -> None 
+	let v =
+	  try Some (AbsOrd.Map.find next ceset.implicits)
+	  with Not_found -> None
 	in
 	match v with
 	  Some [a'; b'] ->
@@ -334,7 +301,7 @@ let assign_implicit ceset a b =
   let implicits = AbsOrd.Map.add p [a; b] ceset.implicits in
   let tbl1 = EltMap.add (`ImplicitWeight [a; b]) [p] ceset.tbl1 in
   p,
-  {l1 = l1; 
+  {l1 = l1;
    l2 = ceset.l2;
    l3 = ceset.l3;
    implicits = implicits;
@@ -342,13 +309,13 @@ let assign_implicit ceset a b =
    tbl1 = tbl1;
    tbl2 = ceset.tbl2;
    tbl3 = ceset.tbl3}
-  
+
 let implicit_ce ceset cebuf u =
   let n = UChar.uint_code u in
-  if 
-    n < 0 || n > 0x10ffff || 
-    Info.general_category u = `Cs || 
-    is_noncharacter_code_point u 
+  if
+    n < 0 || n > 0x10ffff ||
+    Info.general_category u = `Cs ||
+    is_noncharacter_code_point u
   then begin
     XArray.add_element cebuf (complete_ignorable ceset);
     ceset
@@ -370,7 +337,7 @@ let implicit_ce ceset cebuf u =
     in
     let p2 = List.hd (EltMap.find (`UCA_Weight 0x0020) ceset.tbl2) in
     let p3 = List.hd (EltMap.find (`UCA_Weight 0x0002) ceset.tbl3) in
-    XArray.add_element cebuf (p1, p2, p3); 
+    XArray.add_element cebuf (p1, p2, p3);
     ceset
 
 let shiftright x i j =
@@ -404,26 +371,26 @@ let rec match_us1 x i = function
 let rec longest_match ce_buf x i = function
     [] -> assert false
   | (us, ces) :: rest ->
-      try 
+      try
 	let j = match_us1 x i us in
 	add_list ce_buf ces;
 	j
       with Exit -> longest_match ce_buf x i rest
-  
+
 let rec getce ceset ce_buf x i =
   if i >= XString.length x then ceset else
   let u = XString.get x i in
-  let contractions = 
-    try UCharMap.find u ceset.contractions 
+  let contractions =
+    try UCharMap.find u ceset.contractions
     with Not_found -> []
   in
   let ces = List.map (fun us -> (us, ce_of ceset (u :: us))) contractions in
-  let ces = List.sort (fun (us1, _) (us2, _) -> 
+  let ces = List.sort (fun (us1, _) (us2, _) ->
     List.length us2 - List.length us1) ces
   in
   let ceset, i' = match ces with
-    [] -> 
-      let ceset = implicit_ce ceset ce_buf u in 
+    [] ->
+      let ceset = implicit_ce ceset ce_buf u in
       (ceset, i + 1)
   | [([], [ce])] -> XArray.add_element ce_buf ce; (ceset, i + 1)
   | info -> (ceset, longest_match ce_buf x (i + 1) info)
@@ -445,17 +412,17 @@ let map2_triple f (x1, x2, x3) (y1, y2, y3) =
 let import weight_tbls =
   let burst weight_tbl = EltMap.fold (fun _ w ws -> w @ ws) weight_tbl [] in
   let weights1, weights2, weights3 = map_triple burst weight_tbls in
-  let l1, w1_to_p1, p1_to_w1 = AbsOrd.import weights1 in
-  let l2, w2_to_p2, p2_to_w2 = AbsOrd.import weights2 in
-  let l3, w3_to_p3, p3_to_w3 = AbsOrd.import weights3 in
+  let l1, w1_to_p1, _p1_to_w1 = AbsOrd.import weights1 in
+  let l2, w2_to_p2, _p2_to_w2 = AbsOrd.import weights2 in
+  let l3, w3_to_p3, _p3_to_w3 = AbsOrd.import weights3 in
   let w_to_ps = (w1_to_p1, w2_to_p2, w3_to_p3) in
-  let tbls = 
-    map2_triple 
+  let tbls =
+    map2_triple
       (fun weight_tbl w_to_p ->
-	EltMap.map 
+	EltMap.map
 	  (fun ws -> List.map (fun w -> AbsOrd.IntMap.find w w_to_p) ws)
 	  weight_tbl)
-      weight_tbls 
+      weight_tbls
       w_to_ps
   in
   let tbls =
@@ -467,8 +434,8 @@ let import weight_tbls =
   let tbl1, tbl2, tbl3 =
     map2_triple (fun tbl w_to_p ->
       AbsOrd.IntMap.fold (fun w p tbl ->
-	EltMap.add (`UCA_Weight w) [p] tbl) 
-	w_to_p 
+	EltMap.add (`UCA_Weight w) [p] tbl)
+	w_to_p
 	tbl)
       tbls
       w_to_ps
@@ -490,7 +457,7 @@ let import weight_tbls =
       UCharMap.empty
   in
   {l1 = l1; l2 = l2; l3 = l3;
-   implicits = implicits;  
+   implicits = implicits;
    contractions = contractions;
    tbl1 = tbl1; tbl2 = tbl2; tbl3 = tbl3}
 
@@ -507,7 +474,8 @@ type ace_info =
      french : bool;
      hiraganaQ : bool}
 
-let create_ace_info 
+[@@@ocaml.warning "-27"]
+let create_ace_info
     ?(variable_option=`Shifted)
     ?(french=false)
     ?(hiraganaQ=false)
@@ -516,12 +484,7 @@ let create_ace_info
    variable_option = variable_option;
    french = false;
    hiraganaQ = false}
-
-let max_weight = function
-    `Primary -> 0xfb3f
-  | `Secondary -> 0xff
-  | `Tertiary -> 0x7f
-  | `Quaternary -> assert false
+[@@@ocaml.warning "+27"]
 
 let incr_ws min max ws =
   let prefix, w = split_last ws in
@@ -534,25 +497,25 @@ let incr_ws min max ws =
 
 let weights_of ace_info =
   let first_regular =
-    let p, _, _ = 
+    let p, _, _ =
       if ace_info.hiraganaQ then hiraganaQ ace_info.ceset else
       last_variable ace_info.ceset in
     AbsOrd.next p ace_info.ceset.l1 in
   let p1_to_w1, _, _ =
-    AbsOrd.fold 
+    AbsOrd.fold
       (fun p (pw, ws, rw) ->
 	let ws, next =
-	  try      
+	  try
 	    let ws = AbsOrd.Map.find p ace_info.ceset.implicits in
 	    match rw with None -> failwith "Variables have too high weight." |
 	    Some regular ->
-	      let next = ws @ [0xffff; regular] in 
+	      let next = ws @ [0xffff; regular] in
 	      (ws, next)
 	  with Not_found ->
 	    (ws, (incr_ws rw 0xfb3f ws)) in
-	let rw = 
-	  match rw with 
-	    Some _ -> rw 
+	let rw =
+	  match rw with
+	    Some _ -> rw
 	  | None ->
 	      if AbsOrd.compare p first_regular ace_info.ceset.l1 >= 0 then
 		match ws with
@@ -564,13 +527,13 @@ let weights_of ace_info =
       (AbsOrd.Map.empty, [0], None) in
   let p2_to_w2, _ =
     AbsOrd.fold
-      (fun p (pw, ws) -> 
+      (fun p (pw, ws) ->
 	(AbsOrd.Map.add p ws pw, incr_ws (Some 1) 0xff ws))
       ace_info.ceset.l2
       (AbsOrd.Map.empty, [0]) in
   let p3_to_w3, _ =
     AbsOrd.fold
-      (fun p (pw, ws) -> 
+      (fun p (pw, ws) ->
 	(AbsOrd.Map.add p ws pw, incr_ws (Some 1) 0x7f ws))
       ace_info.ceset.l3
       (AbsOrd.Map.empty, [0]) in
@@ -592,11 +555,11 @@ let rec list_map3 f l1 l2 l3 =
   | _ -> assert false
 
 let compose_ces french (ws1, ws2, ws3) =
-  let len = 
+  let len =
     max (List.length ws1) (max (List.length ws2) (List.length ws3))
   in
   let ws1 = pad0 len ws1 in
-  let ws2 = 
+  let ws2 =
     let x = pad0 len ws2 in
     if french then List.rev x else x
   in
@@ -625,8 +588,8 @@ let cetbl_of ace_info =
 	  [w] -> w
 	| _ -> failwith "Too high weight for the HiraganaQ weight")
     | _ -> assert false with
-      Not_found -> 
-	if ace_info.hiraganaQ then 
+      Not_found ->
+	if ace_info.hiraganaQ then
 	  failwith "no HiraganaQ weight"
 	else 0 in
   let weight_map = EltMap.fold (fun e ps1 weight_map ->
@@ -635,8 +598,8 @@ let cetbl_of ace_info =
 	let ps2 = EltMap.find e ace_info.ceset.tbl2 in
 	let ps3 = EltMap.find e ace_info.ceset.tbl3 in
 	let ps = tripling ps1 ps2 ps3 in
-	let ws = 
-	  List.map 
+	let ws =
+	  List.map
 	    (fun p -> map2_triple AbsOrd.Map.find p p_to_w)
 	    ps
 	in
@@ -656,6 +619,6 @@ let cetbl_of ace_info =
    Unidata.hiraganaQ_weight = hiraganaQ_weight;
    Unidata.tbl = Tbl.of_map [] weight_map}
 
-type aceset_info = 
+type aceset_info =
     {lowercase_first_tbl : ceset;
      uppercase_first_tbl : ceset}

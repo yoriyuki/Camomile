@@ -38,9 +38,6 @@
 
 include ISet
 
-external uset_of_iset : ISet.t -> t = "%identity"
-external iset_of_uset : t -> ISet.t = "%identity"
-
 let mem u s = ISet.mem (UChar.uint_code u) s
 
 let add u s = ISet.add (UChar.uint_code u) s

@@ -39,7 +39,7 @@ sig
   type text
 
   open OOChannel
-  
+
   class nfd : UChar.t #obj_output_channel -> [UChar.t] obj_output_channel
   class nfc : UChar.t #obj_output_channel -> [UChar.t] obj_output_channel
   class nfkd : UChar.t #obj_output_channel -> [UChar.t] obj_output_channel
@@ -67,7 +67,7 @@ sig
   val nfc_append : text -> text -> text
 
 (** [put_nfd b t], [put_nfkd b t], [put_nfc b t], [put_nfkc b t]
-   clear the contents of [b] and put the NFD, NFKD, NFC, NFKC 
+   clear the contents of [b] and put the NFD, NFKD, NFC, NFKC
    forms of [t] into [b] respectively. *)
 
   val put_nfd : XString.t -> text -> unit
@@ -77,8 +77,8 @@ sig
 
   type index
 
-  val nfd_inc : 
-      text -> index -> 
+  val nfd_inc :
+      text -> index ->
 	([`Inc of UChar.t list * index * 'a lazy_t ] as 'a)
 
   val canon_compare : text -> text -> int
@@ -125,7 +125,7 @@ let blit x i x' i' len =
     XString.set x' (i' + k) (XString.get x (i + k));
   done
 
-let rec nfd u =
+let nfd u =
   match decomposition u with
     `HangulSyllable -> Hangul.decompose u
   | `Composite (`Canon, d) -> d
@@ -135,7 +135,7 @@ let nfd_decompose = nfd
 
 let rec nfkd u =
   match decomposition u with
-    `HangulSyllable -> 
+    `HangulSyllable ->
       Hangul.decompose u
   | `Composite (_, d) ->
       List.fold_right (fun u a -> (nfkd u) @ a) d []
@@ -143,11 +143,11 @@ let rec nfkd u =
 
 let nfkd_decompose = nfkd
 
-let rec canon_decompose_uchar x u =
+let canon_decompose_uchar x u =
   match decomposition u with
     `HangulSyllable ->
       Hangul.add_decomposition x u
-  | `Composite (`Canon, d) -> 
+  | `Composite (`Canon, d) ->
       add_list x d
   | _ -> XString.add_char x u
 
@@ -160,7 +160,7 @@ class canon_decompose (c_out : UChar.t OOChannel.obj_output_channel) =
 
 let rec kompat_decompose_uchar x u =
   match decomposition u with
-    `Composite (_, d) -> 
+    `Composite (_, d) ->
       List.iter (kompat_decompose_uchar x) d
   | _ -> Hangul.add_decomposition x u
 
@@ -191,7 +191,7 @@ class canon_reorder c_out : [UChar.t] OOChannel.obj_output_channel =
   object (self)
     val mutable sq = []
     method private out_buf =
-      let sq' = 
+      let sq' =
 	List.stable_sort
 	  (fun (c1, _) (c2, _) -> c1 - c2)
 	  sq in
@@ -204,12 +204,12 @@ class canon_reorder c_out : [UChar.t] OOChannel.obj_output_channel =
 	 c_out#put u)
       else
 	sq <- (c, u) :: sq
-    method close_out () = 
+    method close_out () =
       self#out_buf;
       c_out#close_out ()
-    method flush () =  
+    method flush () =
       if sq <> [] then
-	failwith 
+	failwith
 	  "uNF.canon_reorder#flush: \
              Cannot flush the entire buffer";
       c_out#flush ()
@@ -217,7 +217,7 @@ class canon_reorder c_out : [UChar.t] OOChannel.obj_output_channel =
 
 let rec look_composition u1 = function
     [] -> None
-  | (u, u') :: rest when u = u1 ->
+  | (u, u') :: _ when u = u1 ->
       if composition_exclusion u' || combined_class u' <> 0 then None
       else Some u'
   | _ :: rest -> look_composition u1 rest
@@ -234,7 +234,7 @@ let rec canon_compose_loop x i j x' k c' =
 	None -> true
       | Some u' ->
 	  XString.set x' k u';
-	  shiftright x i (j - 1); 
+	  shiftright x i (j - 1);
 	  false
     else true
     in
@@ -245,13 +245,13 @@ let rec canon_compose_loop x i j x' k c' =
       let i' = if b then i else i + 1 in
       let c' = if b then c else c' in
       canon_compose_loop x i' (j + 1) x' k c'
-	
+
 let canon_compose x' x =
   if XString.length x = 0 then () else
   let pos = ref 0 in
-  while 
+  while
     !pos < XString.length x &&
-    combined_class (XString.get x !pos) <> 0 
+    combined_class (XString.get x !pos) <> 0
   do incr pos done;
   blit x 0 x' 0 !pos;
   if !pos < XString.length x then begin
@@ -295,7 +295,7 @@ class canon_compose c_out : [UChar.t] OOChannel.obj_output_channel =
     method close_out () =
       self#output_buffer ();
       c_out#close_out ()
-    method flush () = 
+    method flush () =
       self#output_buffer ();
       c_out#flush ()
   end
@@ -311,14 +311,14 @@ class nfc c_out =
   let c = new canon_reorder c in
   object
     inherit canon_decompose c
-    method flush = c_out#flush
+    method! flush = c_out#flush
   end
 
 class nfkd c_out  =
   let c = new canon_reorder c_out in
   object
     inherit kompat_decompose c
-    method flush = c_out#flush
+    method! flush = c_out#flush
   end
 
 class nfkc c_out =
@@ -326,7 +326,7 @@ class nfkc c_out =
   let c = new canon_reorder c in
   object
     inherit kompat_decompose c
-    method flush = c_out#flush
+    method! flush = c_out#flush
   end
 
 
@@ -339,11 +339,11 @@ class nfkc c_out =
       if Text.out_of_range t i then inc_end i else
       let i' = Text.next t i in
       `Inc (nfd (Text.look t i), i', lazy (inc_canon_decompose t i'))
-	
-    let rec canon_insert_list ((u, c) as x) a =
+
+    let rec canon_insert_list ((_, c) as x) a =
       match a with
 	[] -> [x]
-      | (u', c') as y :: rest ->
+      | (_, c') as y :: rest ->
 	  if c' <= c then
 	    y :: canon_insert_list x rest
 	  else
@@ -357,24 +357,24 @@ class nfkc c_out =
       let rec loop a = function
 	  [] -> split1_list a
 	| (u, 0) :: rest -> (split1_list a) @ (u :: (loop [] rest))
-	| (u, c) as x :: rest ->
+	| (_, _) as x :: rest ->
 	    loop (canon_insert_list x a) rest in
       loop [] sq
 
     let rec read_combined_class = function
 	[] -> []
-      | u :: rest -> 
+      | u :: rest ->
 	  (u, combined_class u) :: read_combined_class rest
 
     let inc_reorder f t i =
-      let `Inc (us, i', f) = f t i in 
+      let `Inc (us, i', f) = f t i in
       let rec loop (f : inc Lazy.t) a i =
 	let `Inc (us, i', f) = Lazy.force f in
 	let a' = read_combined_class us in
 	match a' with
 	  [] ->
 	    `Inc (canon_sort_list a, i, lazy (inc_end i))
-	| (_, 0) :: _ -> 
+	| (_, 0) :: _ ->
 	    `Inc (canon_sort_list a, i, lazy (loop f a' i'))
 	| _ -> loop f (a @ a') i' in
       loop f (read_combined_class us) i'
@@ -416,7 +416,7 @@ class nfkc c_out =
 
     let kompat_decompose x t =
       Text.iter (kompat_decompose_uchar x) t
-	
+
     let text_of_xstring x = Text.init (XString.length x) (XString.get x)
 
     let nfd t =
@@ -475,7 +475,7 @@ class nfkc c_out =
 
       type buf = {mutable normalized : bool; mutable buf : XString.t}
 
-      let create bufsize = 
+      let create bufsize =
 	{normalized = true; buf = XString.make ~bufsize 0 null}
 
       let contents b =

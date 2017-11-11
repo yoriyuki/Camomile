@@ -1,4 +1,4 @@
-(** Line IO *) 
+(** Line IO *)
 (* Copyright (C) 2003 Yamagata Yoriyuki. distributed with LGPL *)
 
 (* This library is free software; you can redistribute it and/or *)
@@ -35,7 +35,7 @@
 
 open OOChannel
 
-type separator = 
+type separator =
   [ `CR
   | `LF
   | `CRLF
@@ -44,7 +44,7 @@ type separator =
   | `PS ]
 
 class input (op : separator) (inchan : UChar.t #obj_input_channel) =
-  let sp = 
+  let sp =
     match op with
       `CR -> [UChar.chr_of_uint 0x000d]
     | `LF -> [UChar.chr_of_uint 0x000a]
@@ -59,7 +59,7 @@ class input (op : separator) (inchan : UChar.t #obj_input_channel) =
     val mutable out_buf = []
     method get() =
       match out_buf with
-	u :: rest ->	    
+	u :: rest ->
 	  out_buf <- rest;
 	  u
       | [] ->
@@ -96,7 +96,7 @@ class input (op : separator) (inchan : UChar.t #obj_input_channel) =
   end
 
 class output (op : separator) (outchan : UChar.t #obj_output_channel) =
-  let sp = 
+  let sp =
     match op with
       `CR -> [UChar.chr_of_uint 0x000d]
     | `LF -> [UChar.chr_of_uint 0x000a]
@@ -118,10 +118,10 @@ class output (op : separator) (outchan : UChar.t #obj_output_channel) =
 	| _ -> self#put u
       end else
 	match UChar.uint_code u with
-	  0x000d -> 
+	  0x000d ->
 	    self#output_newline;
 	    wait <- true
-	| 0x000a | 0x0085 | 0x2028 | 0x2029 -> 
+	| 0x000a | 0x0085 | 0x2028 | 0x2029 ->
 	    self#output_newline
 	| _ -> outchan#put u
 
@@ -147,10 +147,10 @@ module Make (Text : UnicodeString.Type) = struct
   type text = Text.t
 
   class input_line inchan =
-    object (self)
+    object
       val b = Text.Buf.create 0
       val mutable wait = false
-	  
+
       method get() =
 	Text.Buf.clear b;
 	let rec loop () =
@@ -161,8 +161,8 @@ module Make (Text : UnicodeString.Type) = struct
 	      if x then loop () else ()
 	  | 0x0d -> wait <- true
 	  | 0x85 | 0x0c | 0x2028 | 0x2029 -> ()
-	  | n -> 
-	      Text.Buf.add_char b (UChar.chr_of_uint n); 
+	  | n ->
+	      Text.Buf.add_char b (UChar.chr_of_uint n);
 	      loop () in
 	try
 	  loop ();
@@ -179,7 +179,7 @@ module Make (Text : UnicodeString.Type) = struct
     end
 
   class output_line ?(sp:separator=`LF) outchan =
-    let sp = 
+    let sp =
       match sp with
 	`CR -> [UChar.chr_of_uint 0x000d]
       | `LF -> [UChar.chr_of_uint 0x000a]

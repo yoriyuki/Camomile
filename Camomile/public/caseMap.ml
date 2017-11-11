@@ -46,7 +46,6 @@ module type Type =
 
 module Make (Config : ConfigInt.Type) (Text : UnicodeString.Type) =  struct
     module Unidata = Unidata.Make(Config)
-    open Unidata
     module UCharInfo = UCharInfo.Make(Config)
     open UCharInfo
 
@@ -166,7 +165,7 @@ module Make (Config : ConfigInt.Type) (Text : UnicodeString.Type) =  struct
       | `BeforeDot -> is_before_dot t i
       | `Not cond -> not (match_condition ?locale t i cond)
 
-    let rec is_matched_casing_property ?locale t i prop =
+    let is_matched_casing_property ?locale t i prop =
       List.for_all (match_condition ?locale t i) prop.condition
 
     let lowercase ?locale t =

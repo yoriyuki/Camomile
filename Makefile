@@ -1,7 +1,7 @@
 INSTALL_ARGS := $(if $(PREFIX),--prefix $(PREFIX),)
 
 all:
-	jbuilder build @install
+	jbuilder build --dev @install
 
 install:
 	jbuilder install $(INSTALL_ARGS)
@@ -18,5 +18,6 @@ clean:
 	jbuilder clean
 
 .PHONY: all-supported-ocaml-versions
+# unfortunately we cannot turn on warnings in development because of 4.02.3
 all-supported-ocaml-versions:
 	jbuilder build --workspace jbuild-workspace.dev

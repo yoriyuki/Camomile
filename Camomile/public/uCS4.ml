@@ -61,7 +61,7 @@ let next _ i = i + 1
 
 let prev _ i = i - 1
 
-let move (a:t) i c = i + c
+let move (_:t) i c = i + c
 
 let first _ = 0
 
@@ -71,7 +71,7 @@ let out_of_range (a:t) i = i < 0 || i >= Array1.dim a
 
 let compare_index _ i j = i - j
 
-let nth (a:t) c = c
+let nth (_:t) c = c
 
 let get (a:t) c = look a c
 
@@ -85,8 +85,8 @@ let iter proc (a:t) = iter_aux proc a 0
 
 let init len f =
   let a = Array1.create int32 c_layout len in
-  for i = 0 to len - 1 do 
-    a.{i} <- Int32.of_int (UChar.uint_code (f i)) 
+  for i = 0 to len - 1 do
+    a.{i} <- Int32.of_int (UChar.uint_code (f i))
   done;
   a
 
@@ -138,7 +138,7 @@ module Buf = struct
     buf1.pos <- len
 end
 
-let compare (a:t) (b:t) = 
+let compare (a:t) (b:t) =
   match Array1.dim a - Array1.dim b with
     0 -> Pervasives.compare a b
   | sgn -> sgn

@@ -34,8 +34,6 @@
 (* You can contact the authour by sending email to *)
 (* yori@users.sourceforge.net *)
 
-open Unidata
-
 let folds = ref UMap.empty
 
 let int_of_code code = int_of_string ("0x"^code)

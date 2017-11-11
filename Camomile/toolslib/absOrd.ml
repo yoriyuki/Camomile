@@ -33,8 +33,6 @@
 (* You can contact the authour by sending email to *)
 (* yori@users.sourceforge.net *)
 
-open CamomileLibraryDyn
-
 type point = int
 
 module Int = struct type t = int let compare = (-) end
@@ -79,7 +77,7 @@ let rec bal = function
   let hr = height r in
   if hl - hr > 2 then
     match l with
-      Node (ls, ll, lr, _) ->
+      Node (_, ll, lr, _) ->
 	let hll = height ll in
 	let hlr = height lr in
 	if hll >= hlr then
@@ -95,7 +93,7 @@ let rec bal = function
     |	_ -> assert false
   else if hr - hl > 2 then
     match r with
-      Node (rs, rl, rr, _) ->
+      Node (_, rl, rr, _) ->
 	let hrl = height rl in
 	let hrr = height rr in
 	if hrl <= hrr then
@@ -123,7 +121,7 @@ let rec compare p1 p2 = function
   | Leaf p ->
       if p1 = p && p2 = p then 0 else
       raise Not_found
-  | Node (s, s1, s2, _) ->
+  | Node (_, s1, s2, _) ->
       if mem p1 s1 then
 	if mem p2 s1 then compare p1 p2 s1 else
 	if mem p2 s2 then -1 else
@@ -141,25 +139,11 @@ let rec top = function
   |	Node (_, s1, s2, _) ->
       try top s2 with Not_found -> top s1
 
-let rec top_in m = function
-    Empty -> raise Not_found
-  | Leaf p ->
-      if Map.mem p m then p else raise Not_found
-  | Node (_, s1, s2, _) ->
-      try top_in m s2 with Not_found -> top_in m s1
-
 let rec bottom = function
     Empty -> raise Not_found
   |	Leaf p -> p
   |	Node (_, s1, s2, _) ->
       try bottom s1 with Not_found -> bottom s2
-
-let rec bottom_in m = function
-    Empty -> raise Not_found
-  | Leaf p ->
-      if Map.mem p m then p else raise Not_found
-  | Node (_, s1, s2, _) ->
-      try bottom_in m s1 with Not_found -> bottom_in m s1
 
 let rec next p = function
     Empty -> raise Not_found
@@ -174,46 +158,6 @@ let rec prev p = function
   |	Node (_, s1, s2, _) ->
       if mem p s2 then try prev p s2 with Not_found -> top s1 else
       prev p s1
-
-let rec before p = function
-    Empty -> Empty
-  | Leaf p' ->
-      if p = p' then Empty else raise Not_found
-  | Node (_, s1, s2, h) ->
-      if mem p s1 then
-	before p s1
-      else
-	concat s1 (before p s2)
-
-let rec upto p = function
-    Empty -> Empty
-  | Leaf p' as s ->
-      if p = p' then s else raise Not_found
-  | Node (_, s1, s2, h) ->
-      if mem p s1 then
-	upto p s1
-      else
-	concat s1 (upto p s2)
-
-let rec after p = function
-    Empty -> Empty
-  | Leaf p' ->
-      if p = p' then Empty else raise Not_found
-  | Node (_, s1, s2, h) ->
-      if mem p s1 then
-	concat (after p s1) s2
-      else
-	after p s2
-
-let rec from p = function
-    Empty -> Empty
-  | Leaf p' as s ->
-      if p = p' then s else raise Not_found
-  | Node (_, s1, s2, h) ->
-      if mem p s1 then
-	concat (from p s1) s2
-      else
-	from p s2
 
 let rec iter proc = function
     Empty -> ()
@@ -232,7 +176,7 @@ let rec fold f s init =
 let rec put_to_top p = function
     Empty -> Leaf p
   | Leaf _ as s1 -> create s1 (Leaf p)
-  | Node (s, s1, s2, h) ->
+  | Node (s, s1, s2, _) ->
       let s' = Set.add p s in
       let s2' = put_to_top p s2 in
       let h = 1 + max (height s1) (height s2') in
@@ -241,7 +185,7 @@ let rec put_to_top p = function
 let rec put_to_bottom p = function
     Empty -> Leaf p
   | Leaf _ as s2 -> create (Leaf p) s2
-  | Node (s, s1, s2, h) ->
+  | Node (s, s1, s2, _) ->
       let s' = Set.add p s in
       let s1' = put_to_bottom p s1 in
       let h = 1 + max (height s1') (height s2) in
@@ -251,7 +195,7 @@ let rec put_before p0 p = function
     Empty -> raise Not_found
   | Leaf p1 as s ->
       if p1 = p0 then create (Leaf p) s else raise Not_found
-  | Node (s, s1, s2, h) ->
+  | Node (s, s1, s2, _) ->
       let s' = Set.add p s in
       let s1', s2' =
 	if mem p0 s1 then (put_before p0 p s1), s2 else
@@ -264,7 +208,7 @@ let rec put_after p0 p = function
     Empty -> raise Not_found
   | Leaf p1 as s ->
       if p1 = p0 then create s (Leaf p) else raise Not_found
-  | Node (s, s1, s2, h) ->
+  | Node (s, s1, s2, _) ->
       let s' = Set.add p s in
       let s1', s2' =
 	if mem p0 s1 then (put_after p0 p s1), s2 else

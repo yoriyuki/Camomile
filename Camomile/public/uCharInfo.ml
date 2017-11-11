@@ -1,4 +1,3 @@
-(** Unicode character informations *)
 (* Copyright (C) 2002 Yamagata Yoriyuki.*)
 (*               2010 Pierre Chambart *)
 
@@ -37,81 +36,43 @@
 
 module type Type = sig
 
-(** Character Information *)
+  type general_category_type =
+    [ `Lu
+    | `Ll
+    | `Lt
+    | `Mn
+    | `Mc
+    | `Me
+    | `Nd
+    | `Nl
+    | `No
+    | `Zs
+    | `Zl
+    | `Zp
+    | `Cc
+    | `Cf
+    | `Cs
+    | `Co
+    | `Cn
+    | `Lm
+    | `Lo
+    | `Pc
+    | `Pd
+    | `Ps
+    | `Pe
+    | `Pi
+    | `Pf
+    | `Po
+    | `Sm
+    | `Sc
+    | `Sk
+    | `So ]
 
-(** Type of Unicode general character categories.  
-   Each variant specifies
- - [`Lu] : Letter, Uppercase 
- - [`Ll] : Letter, Lowercase 
- - [`Lt] : Letter, Titlecase 
- - [`Mn] : Mark, Non-Spacing 
- - [`Mc] : Mark, Spacing Combining 
- - [`Me] : Mark, Enclosing 
- - [`Nd] : Number, Decimal Digit 
- - [`Nl] : Number, Letter 
- - [`No] : Number, Other 
- - [`Zs] : Separator, Space 
- - [`Zl] : Separator, Line 
- - [`Zp] : Separator, Paragraph 
- - [`Cc] : Other, Control 
- - [`Cf] : Other, Format 
- - [`Cs] : Other, Surrogate 
- - [`Co] : Other, Private Use 
- - [`Cn] : Other, Not Assigned 
- - [`Lm] : Letter, Modifier 
- - [`Lo] : Letter, Other 
- - [`Pc] : Punctuation, Connector 
- - [`Pd] : Punctuation, Dash 
- - [`Ps] : Punctuation, Open 
- - [`Pe] : Punctuation, Close 
- - [`Pi] : Punctuation, Initial
- - [`Pf] : Punctuation, Final
- - [`Po] : Punctuation, Other 
- - [`Sm] : Symbol, Math 
- - [`Sc] : Symbol, Currency 
- - [`Sk] : Symbol, Modifier 
- - [`So] : Symbol, Other  *)
-type general_category_type = 
-  [ `Lu		(** Letter, Uppercase *)
-  | `Ll		(** Letter, Lowercase *)
-  | `Lt		(** Letter, Titlecase *)
-  | `Mn		(** Mark, Non-Spacing *)
-  | `Mc		(** Mark, Spacing Combining *)
-  | `Me		(** Mark, Enclosing *)
-  | `Nd		(** Number, Decimal Digit *)
-  | `Nl		(** Number, Letter *)
-  | `No		(** Number, Other *)
-  | `Zs		(** Separator, Space *)
-  | `Zl		(** Separator, Line *)
-  | `Zp		(** Separator, Paragraph *)
-  | `Cc		(** Other, Control *)
-  | `Cf		(** Other, Format *)
-  | `Cs		(** Other, Surrogate *)
-  | `Co		(** Other, Private Use *)
-  | `Cn		(** Other, Not Assigned *)
-  | `Lm		(** Letter, Modifier *)
-  | `Lo		(** Letter, Other *)
-  | `Pc		(** Punctuation, Connector *)
-  | `Pd		(** Punctuation, Dash *)
-  | `Ps		(** Punctuation, Open *)
-  | `Pe		(** Punctuation, Close *)
-  | `Pi		(** Punctuation, Initial quote  *)
-  | `Pf		(** Punctuation, Final quote  *)
-  | `Po		(** Punctuation, Other *)
-  | `Sm		(** Symbol, Math *)
-  | `Sc		(** Symbol, Currency *)
-  | `Sk		(** Symbol, Modifier *)
-  | `So	        (** Symbol, Other *) ]
-
-val general_category : UChar.t -> general_category_type
+  val general_category : UChar.t -> general_category_type
 val load_general_category_map : unit -> general_category_type UMap.t
 
-(** Type of character properties *)
-type character_property_type = [
-
-(**Derived Core Properties*)
-
-    `Math				
+type character_property_type =
+  [ `Math
   | `Alphabetic
   | `Lowercase
   | `Uppercase
@@ -122,10 +83,7 @@ type character_property_type = [
   | `Default_Ignorable_Code_Point
   | `Grapheme_Extend
   | `Grapheme_Base
-
-(**Extended Properties*)
-
-  | `Bidi_Control			
+  | `Bidi_Control
   | `White_Space
   | `Hyphen
   | `Quotation_Mark
@@ -151,23 +109,14 @@ type character_property_type = [
   | `Soft_Dotted
   | `Logical_Order_Exception ]
 
-(** Load the table for the given character type. *)
 val load_property_tbl : character_property_type -> UCharTbl.Bool.t
 
-(** Load the table for the given name of the character type.
-   The name can be obtained by removing ` from its name of 
-   the polymorphic variant tag. *)
 val load_property_tbl_by_name : string -> UCharTbl.Bool.t
 
-(** Load the set of characters of the given character type. *)
 val load_property_set : character_property_type -> USet.t
 
-(** Load the set of characters of the given name of the character type.
-   The name can be obtained by removing ` from its name of 
-   the polymorphic variant tag. *)
 val load_property_set_by_name : string -> USet.t
 
-(** Type for script type *)
 type script_type =
   [ `Common
   | `Inherited
@@ -218,9 +167,8 @@ type script_type =
 val script : UChar.t -> script_type
 val load_script_map : unit -> script_type UMap.t
 
-(** age *)
 type version_type =
-  [ `Nc		(** undefined code point *)
+  [ `Nc
   | `v1_0
   | `v1_1
   | `v2_0
@@ -229,13 +177,9 @@ type version_type =
   | `v3_1
   | `v3_2 ]
 
-(** [age c] unicode version in wich [c] was introduced *)
 val age : UChar.t -> version_type
-(** [older v1 v2] is [true] if [v1] is older ( or the same version )
-    than [v2]. Everithing is older than [`Nc] *)
-val older : version_type -> version_type -> bool
 
-(** casing *)
+val older : version_type -> version_type -> bool
 
 val load_to_lower1_tbl : unit -> UChar.t UCharTbl.t
 val load_to_upper1_tbl : unit -> UChar.t UCharTbl.t
@@ -253,47 +197,29 @@ type special_casing_property =
   {lower : UChar.t list;
   title : UChar.t list;
   upper : UChar.t list;
-  condition : casemap_condition list;} 
+  condition : casemap_condition list;}
 
-val load_conditional_casing_tbl : 
+val load_conditional_casing_tbl :
     unit -> special_casing_property list UCharTbl.t
 
 val load_casefolding_tbl : unit -> UChar.t list UCharTbl.t
 
-(** Combined class
-   A combined class is an integer of 0 -- 255, showing how this character
-   interacts to other combined characters.  *)
 val combined_class : UChar.t -> int
 
-(** Decomposition *)
-
-(** Types of decomposition. *)
 type decomposition_type =
     [ `Canon | `Font | `NoBreak | `Initial | `Medial | `Final |
     `Isolated | `Circle | `Super | `Sub | `Vertical | `Wide | `Narrow |
     `Small | `Square | `Fraction | `Compat ]
 
 type decomposition_info =
-(** Already in the canonical form *)
-    [ `Canonform
-(** Hangul is treated algotighmically.*)
+  [ `Canonform
   | `HangulSyllable
-(** [`Composite (dtype, text)]
-   means the given character is decomposed into text by dtype
-   decomposition. *)
   | `Composite of decomposition_type * UChar.t list ]
 
 val load_decomposition_tbl : unit -> decomposition_info UCharTbl.t
 
-(** Canonical Composition *)
-
-(** The return value [[(u_1, u'_1); ... (u_n, u'_1)]] means
-   for the given character [u], [u u_i] forms 
-   the canonical composition [u'_i].
-   If u is a Hangul jamo, composition returns []. *)
 val load_composition_tbl : unit -> (UChar.t * UChar.t) list UCharTbl.t
 
-(** Whether the given composed character is used in NFC or NFKC *)
 val load_composition_exclusion_tbl : unit -> UCharTbl.Bool.t
 
 end
@@ -303,7 +229,7 @@ include Unidata.Make(Config)
 
 (* General category *)
 
-let general_category_tbl : UCharTbl.Bits.t = 
+let general_category_tbl : UCharTbl.Bits.t =
   read_data "general_category"
 
 let general_category u =
@@ -315,7 +241,7 @@ let general_category u =
       if n >= 0x60000000 && n <= 0x7f000000 then `Co else `Cn
   | x -> cat_of_num x
 
-let load_general_category_map () = 
+let load_general_category_map () =
   read_data "general_category_map"
 
 (* character property *)
@@ -360,7 +286,7 @@ type character_property_type =
 
 let name_of_property p =
   match p with
-    `Math -> "Math"  			
+    `Math -> "Math"
   | `Alphabetic -> "Alphabetic"
   | `Lowercase -> "Lowercase"
   | `Uppercase -> "Uppercase"
@@ -371,7 +297,7 @@ let name_of_property p =
   | `Default_Ignorable_Code_Point -> "Default_Ignorable_Code_Point"
   | `Grapheme_Extend -> "Grapheme_Extend"
   | `Grapheme_Base -> "Grapheme_Base"
-  | `Bidi_Control -> "Bidi_Control"			
+  | `Bidi_Control -> "Bidi_Control"
   | `White_Space -> "White_Space"
   | `Hyphen -> "Hyphen"
   | `Quotation_Mark -> "Quotation_Mark"
@@ -438,11 +364,11 @@ let property_of_name : string -> character_property_type = function
 
 let loaded_props = Hashtbl.create 0
 
-let load_property_tbl p = 
-  try 
+let load_property_tbl p =
+  try
     let b = Hashtbl.find loaded_props p in
     match Weak.get b 0 with
-      None -> 
+      None ->
 	Hashtbl.remove loaded_props p;
 	raise Not_found
     | Some x -> x
@@ -453,16 +379,16 @@ let load_property_tbl p =
     Hashtbl.add loaded_props p b;
     tbl
 
-let load_property_tbl_by_name s = 
+let load_property_tbl_by_name s =
    load_property_tbl (property_of_name s)
 
 let loaded_prop_sets = Hashtbl.create 0
 
-let load_property_set p = 
-  try 
+let load_property_set p =
+  try
     let b = Hashtbl.find loaded_prop_sets p in
     match Weak.get b 0 with
-      None -> 
+      None ->
 	Hashtbl.remove loaded_prop_sets p;
 	raise Not_found
     | Some x -> x
@@ -482,8 +408,6 @@ let script_tbl : UCharTbl.Bits.t = read_data "scripts"
 
 let script u = script_of_num (UCharTbl.Bits.get script_tbl u)
 let load_script_map () = read_data "scripts_map"
-
-(** age *)
 
 type version_type =
   [ `Nc
@@ -533,7 +457,7 @@ let load_to_lower1_tbl () =
       let t = read_data  "to_lower1" in
       Weak.set cache 0 (Some t);
       t
-      
+
 let load_to_upper1_tbl () =
   match Weak.get cache 1 with
     Some t -> t
@@ -562,7 +486,7 @@ type special_casing_property =
   {lower : UChar.t list;
   title : UChar.t list;
   upper : UChar.t list;
-  condition : casemap_condition list;} 
+  condition : casemap_condition list;}
 
 let cache = Weak.create 1
 
@@ -617,7 +541,7 @@ let load_composition_tbl () =
 
 let cache = Weak.create 1
 
-let load_composition_exclusion_tbl () = 
+let load_composition_exclusion_tbl () =
   match Weak.get cache 0 with
     Some t -> t
   | None ->
