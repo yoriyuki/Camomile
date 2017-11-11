@@ -56,7 +56,7 @@ unidata : Unicode Inc. : see unidata/README.  See also unidata/tr10/README.
 1. Installation
 
 To build and install Camomile, you need
-OCaml >= 4.0.3
+OCaml >= 4.02.3
 jbuilder >= 1.0+beta7
 cppo
 base-bytes
