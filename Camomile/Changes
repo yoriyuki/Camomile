@@ -1,5 +1,9 @@
 From 0.8.5 to 0.8.6
 
+* OCaml 4.02.3 is again supported
+
+From 0.8.5 to 0.8.6
+
 * The build system is changed to jbuilder
 * OCaml 4.0.6 is supported while the support for OCaml < 4.0.3 is droppped
 * Bug fixes
