@@ -57,11 +57,12 @@ let rec remove_comment s =
     begin match Stream.next s with
       | Some '/', _, _ -> comment s
       | Some '*', _, _ -> comment2 s
-      | _ -> Stream.icons data (remove_comment s)
-      | exception Stream.Failure -> Stream.icons data (remove_comment s)
+      | _ -> Stream.icons data (Stream.slazy (fun () -> remove_comment s))
+      | exception Stream.Failure ->
+        Stream.icons data (Stream.slazy (fun () -> remove_comment s))
     end
-  | (Some '"', _, _) as data -> Stream.icons data (in_quote s)
-  | data -> Stream.icons data (remove_comment s)
+  | (Some '"', _, _) as data -> Stream.icons data (Stream.slazy (fun () -> in_quote s))
+  | data -> Stream.icons data (Stream.slazy (fun () -> remove_comment s))
   | exception Stream.Failure -> Stream.sempty
 and comment s =
   match Stream.next s with
@@ -84,35 +85,39 @@ and in_quote s =
   | [(Some '\\', _, _) as data1; data2] ->
     Stream.junk s;
     Stream.junk s;
-    Stream.icons data1 (Stream.icons data2 (in_quote s))
+    Stream.icons data1 (Stream.icons data2 (Stream.slazy (fun () -> in_quote s)))
   | [(Some '"', _, _) as data; _]
   | [(Some '"', _, _) as data] ->
     Stream.junk s;
-    Stream.icons data (remove_comment s)
+    Stream.icons data (Stream.slazy (fun () -> remove_comment s))
   | _ ->
     begin match Stream.next s with
-    | data -> Stream.icons data (in_quote s)
+    | data -> Stream.icons data (Stream.slazy (fun () -> in_quote s))
     | exception Stream.Failure -> Stream.sempty
     end
 
 let rec merge_text st =
   match Stream.next st with
   | Text s -> do_merge s st
-  | e -> Stream.icons e (merge_text st)
+  | e -> Stream.icons e (Stream.slazy (fun () -> merge_text st))
   | exception Stream.Failure -> Stream.sempty
 and do_merge s st =
   match Stream.next st with
-  | Text s' -> do_merge (s ^ s') st
-  | e -> Stream.icons (Text s) (Stream.icons e (merge_text st))
-  | exception Stream.Failure -> Stream.sempty
+  | Text s' ->
+    do_merge (s ^ s') st
+  | e ->
+    Stream.icons (Text s)
+      (Stream.icons e (Stream.slazy (fun () -> merge_text st)))
+  | exception Stream.Failure ->
+    Stream.sempty
 
 let lexer s =
   let rec parse s =
       match Stream.next s with
-      | Some '{', _, _ -> Stream.icons Brace_l (parse s)
-      | Some '}', _, _ -> Stream.icons Brace_r (parse s)
-      | Some ':', _, _ -> Stream.icons Colon (parse s)
-      | Some ',', _, _ -> Stream.icons Comma (parse s)
+      | Some '{', _, _ -> Stream.icons Brace_l (Stream.slazy (fun () -> parse s))
+      | Some '}', _, _ -> Stream.icons Brace_r (Stream.slazy (fun () -> parse s))
+      | Some ':', _, _ -> Stream.icons Colon (Stream.slazy (fun () -> parse s))
+      | Some ',', _, _ -> Stream.icons Comma (Stream.slazy (fun () -> parse s))
       | Some '"', _, _ -> quote s
       | Some ('\r' | '\n' | '\133' | '\t'), _, _
       | _, (`Zs | `Zl | `Zp), _ -> parse s
@@ -133,7 +138,7 @@ let lexer s =
         | Some '"', _, _ ->
           let s = Utf8Buffer.contents buf in
           let s' = unescape s in
-          Stream.icons (Text s') (parse st)
+          Stream.icons (Text s') (Stream.slazy (fun () -> parse st))
         | _, _, u ->
           Utf8Buffer.add_char buf u;
           loop st
@@ -148,11 +153,12 @@ let lexer s =
       |  _, (`Zs | `Zl | `Zp), _ ->
         let s = Utf8Buffer.contents buf in
         let s' = unescape s in
-        Stream.icons (Text s') (parse st)
+        Stream.icons (Text s') (Stream.slazy (fun () -> parse st))
       |	(Some ('{' | '}' | ':' | ','| '"'), _, _) as e ->
         let s = Utf8Buffer.contents buf in
         let s' = unescape s in
-        Stream.icons (Text s') (parse (Stream.icons e st))
+        Stream.icons (Text s')
+          (Stream.slazy (fun () -> parse (Stream.icons e st)))
       |	 _, _, u ->
         Utf8Buffer.add_char buf u;
         loop st
