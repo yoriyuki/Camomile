@@ -34,33 +34,22 @@
 (* yori@users.sourceforge.net *)
 
 
-let (>!) = (>)
-
 let compare_uint n1 n2 =
   let sgn1 = (n1 lsr 24) - (n2 lsr 24) in
   if sgn1 = 0 then (n1 land 0xffffff) - (n2 land 0xffffff) else sgn1
 
 let (>) n1 n2 = compare_uint n1 n2 > 0
-let (>=) n1 n2 = compare_uint n1 n2 >= 0
 let (<) n1 n2 = compare_uint n1 n2 < 0
 let (<=) n1 n2 = compare_uint n1 n2 <= 0
-let compare = compare_uint
-
-let max n1 n2 = if n1 >= n2 then n1 else n2
-let min n1 n2 = if n1 <= n2 then n1 else n2
 
 let max_int = ~-1
 let min_int = 0
 
 type 'a t = (int * int * 'a) AvlTree.tree
 
-type 'a map = 'a t
-
 type key = int
 
 include AvlTree
-
-let singleton n v = singleton_tree (n, n, v)
 
 let make ?(eq = (=)) l (n1, n2, v) r =
   let n1, l =
@@ -93,7 +82,7 @@ let rec until n s =
   if n < n1 then until n s0 else
   make_tree s0 (n1, n, v) empty
 
-let rec before n s = if n = min_int then empty else until (n - 1) s
+let before n s = if n = min_int then empty else until (n - 1) s
 
 let add_range ?eq n1 n2 v s =
   if n1 > n2 then invalid_arg "IMap.add_range" else

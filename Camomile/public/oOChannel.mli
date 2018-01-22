@@ -36,29 +36,31 @@
 (** Generic input channel
   Have the same interface of Polymorphic input channel of
   http://www.ocaml-programming.de/rec/IO-Classes.html
-  All channels of Camomile having this interface must confirm 
+  All channels of Camomile having this interface must confirm
   the behaviour defined in the recommendation above.
 *)
-class type ['a] obj_input_channel = 
-  object 
+class type ['a] obj_input_channel =
+  object
     method close_in : unit -> unit
-    method get : unit -> 'a 
+    method get : unit -> 'a
   end
 
 (** Generic output channel
   Have the same interface of Polymorphic output channel of
   http://www.ocaml-programming.de/rec/IO-Classes.html
-  All channels of Camomile having this interface must confirm 
+  All channels of Camomile having this interface must confirm
   the behaviour defined in the recommendation above.
 *)
-class type ['a] obj_output_channel = 
+class type ['a] obj_output_channel =
   object
-    (** If close_oout cannot output all buffered objects, flush raises
-      Failure *)
+
+    (** If [close_out] cannot output all buffered objects, flush raises
+        [Failure] *)
     method close_out : unit -> unit
-    (** If flush cannot output all buffered objects, flush raises
-      Failure *)
+
+    (** If [flush] cannot output all buffered objects, flush raises Failure *)
     method flush : unit -> unit
+
     method put : 'a -> unit
   end
 
@@ -100,14 +102,14 @@ class char_input_channel_of : char #obj_input_channel ->
   char_input_channel
 
 (** Convert a character input channel to a polymorphic input channel*)
-class char_obj_input_channel_of : char_input_channel -> 
+class char_obj_input_channel_of : char_input_channel ->
   [char] obj_input_channel
 
 (** Convert a polymorphic output channel to a character output channel *)
 class char_output_channel_of : char #obj_output_channel -> char_output_channel
 
 (** Convert a character output channel to a polymorphic output channel *)
-class char_obj_output_channel_of : char_output_channel -> 
+class char_obj_output_channel_of : char_output_channel ->
   [char] obj_output_channel
 
 (** Convert an OCaml input channel to an OO-based character input channel *)

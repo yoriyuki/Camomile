@@ -52,20 +52,11 @@ let byte2 n = n lsr 16 land 255
 let byte1 n = n lsr 8 land 255
 let byte0 n = n land 255
 
-let compare_uint n1 n2 =
-  let sgn1 = (n1 lsr 24) - (n2 lsr 24) in
-  if sgn1 = 0 then (n1 land 0xffffff) - (n2 land 0xffffff) else sgn1
-
 let (lsl) x n =
   if n >= Sys.word_size then 0 else
   if n <= ~- Sys.word_size then 0 else
   if n < 0 then x lsr (~-n) else
   x lsl n
-
-let byte st n =
-  match st with
-    0 -> byte0 n | 1 -> byte1 n | 2 -> byte2 n | 3 -> byte3 n
-  | _ -> assert false
 
 type 'a tbl = 'a array array array array
 type 'a t = 'a tbl
@@ -318,10 +309,6 @@ module BoolLeaf = struct
   let make_raw def = Bytes.make 32 (if def then '\255' else '\000')
 
   let make def = hashcons (make_raw def)
-
-  let boolget s k =
-    let i = Char.code (String.unsafe_get s (k / 8)) in
-    i lsr (k mod 8) land 1 <> 0
 
   let boolset s k b =
     let j = Char.code (Bytes.get s (k / 8)) in

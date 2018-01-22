@@ -42,13 +42,9 @@ let compare_uint n1 n2 =
   if sgn1 = 0 then (n1 land 0xffffff) - (n2 land 0xffffff) else sgn1
 
 let (>) n1 n2 = compare_uint n1 n2 > 0
-let (>=) n1 n2 = compare_uint n1 n2 >= 0
 let (<) n1 n2 = compare_uint n1 n2 < 0
 let (<=) n1 n2 = compare_uint n1 n2 <= 0
 let compare = compare_uint
-
-let max n1 n2 = if n1 >= n2 then n1 else n2
-let min n1 n2 = if n1 <= n2 then n1 else n2
 
 let max_int = ~-1
 let min_int = 0
@@ -110,7 +106,7 @@ let rec until n s =
   if n < v1 then until n s0 else
   make_tree s0 (v1, n) empty
 
-let rec before n s = if n = min_int then empty else until (n - 1) s
+let before n s = if n = min_int then empty else until (n - 1) s
 
 let add_range n1 n2 s =
   if n1 > n2 then invalid_arg "ISet.add_range" else
@@ -206,7 +202,7 @@ let rec compare_aux x1 x2 =
       let v = root s in
       let r = right_branch s in
       compare_aux (`Set l :: `Range v :: `Set r :: rest) x
-  | x, `Set s :: rest ->
+  | _, `Set s :: rest ->
       if is_empty s then compare_aux x1 rest else
       let l = left_branch s in
       let v = root s in

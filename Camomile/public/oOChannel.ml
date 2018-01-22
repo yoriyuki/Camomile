@@ -73,7 +73,7 @@ class type char_output_channel =
   end
 
 class char_input_channel_of (oc : char #obj_input_channel) =
-  object (self)
+  object
     method close_in () = oc#close_in ()
     method input b pos len =
       let p = ref pos in

@@ -43,7 +43,6 @@ type t = int
 
 exception Out_of_range
 
-external unsafe_chr_of_uint : int -> t = "%identity"
 external uint_code : t -> int = "%identity"
 
 let char_of c = 

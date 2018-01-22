@@ -71,8 +71,8 @@ let read_unidata ic =
     let s = input_line ic in
     let tokens = Str.split_delim scolon_pat s in
     match tokens with
-      [code; name; catname; comb_cl_str; bidi_str; decomp_str;
-       dec_digit_str; digit_str; num_str; mirrored_str; old_name; comment;
+      [code; _name; catname; comb_cl_str; _bidi_str; decomp_str;
+       _dec_digit_str; _digit_str; _num_str; _mirrored_str; _old_name; _comment;
        upper_str; lower_str; title_str] ->
 	 let i0 =  int_of_code code in
 	 if i0 >= 0xf0000 && i0 <= 0xffffd then () else
@@ -175,7 +175,6 @@ module UTbl =
   end)
 
 let main () =
-  let dir = ref "" in
   begin
     let dir, input_fname =
       match Sys.argv with

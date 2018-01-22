@@ -38,39 +38,39 @@ module type Type = sig
 
 (** Character Information *)
 
-(** Type of Unicode general character categories.  
+(** Type of Unicode general character categories.
    Each variant specifies
- - [`Lu] : Letter, Uppercase 
- - [`Ll] : Letter, Lowercase 
- - [`Lt] : Letter, Titlecase 
- - [`Mn] : Mark, Non-Spacing 
- - [`Mc] : Mark, Spacing Combining 
- - [`Me] : Mark, Enclosing 
- - [`Nd] : Number, Decimal Digit 
- - [`Nl] : Number, Letter 
- - [`No] : Number, Other 
- - [`Zs] : Separator, Space 
- - [`Zl] : Separator, Line 
- - [`Zp] : Separator, Paragraph 
- - [`Cc] : Other, Control 
- - [`Cf] : Other, Format 
- - [`Cs] : Other, Surrogate 
- - [`Co] : Other, Private Use 
- - [`Cn] : Other, Not Assigned 
- - [`Lm] : Letter, Modifier 
- - [`Lo] : Letter, Other 
- - [`Pc] : Punctuation, Connector 
- - [`Pd] : Punctuation, Dash 
- - [`Ps] : Punctuation, Open 
- - [`Pe] : Punctuation, Close 
+ - [`Lu] : Letter, Uppercase
+ - [`Ll] : Letter, Lowercase
+ - [`Lt] : Letter, Titlecase
+ - [`Mn] : Mark, Non-Spacing
+ - [`Mc] : Mark, Spacing Combining
+ - [`Me] : Mark, Enclosing
+ - [`Nd] : Number, Decimal Digit
+ - [`Nl] : Number, Letter
+ - [`No] : Number, Other
+ - [`Zs] : Separator, Space
+ - [`Zl] : Separator, Line
+ - [`Zp] : Separator, Paragraph
+ - [`Cc] : Other, Control
+ - [`Cf] : Other, Format
+ - [`Cs] : Other, Surrogate
+ - [`Co] : Other, Private Use
+ - [`Cn] : Other, Not Assigned
+ - [`Lm] : Letter, Modifier
+ - [`Lo] : Letter, Other
+ - [`Pc] : Punctuation, Connector
+ - [`Pd] : Punctuation, Dash
+ - [`Ps] : Punctuation, Open
+ - [`Pe] : Punctuation, Close
  - [`Pi] : Punctuation, Initial
  - [`Pf] : Punctuation, Final
- - [`Po] : Punctuation, Other 
- - [`Sm] : Symbol, Math 
- - [`Sc] : Symbol, Currency 
- - [`Sk] : Symbol, Modifier 
+ - [`Po] : Punctuation, Other
+ - [`Sm] : Symbol, Math
+ - [`Sc] : Symbol, Currency
+ - [`Sk] : Symbol, Modifier
  - [`So] : Symbol, Other  *)
-type general_category_type = 
+type general_category_type =
   [ `Lu		(** Letter, Uppercase *)
   | `Ll		(** Letter, Lowercase *)
   | `Lt		(** Letter, Titlecase *)
@@ -106,11 +106,8 @@ val general_category : UChar.t -> general_category_type
 val load_general_category_map : unit -> general_category_type UMap.t
 
 (** Type of character properties *)
-type character_property_type = [
-
-(**Derived Core Properties*)
-
-    `Math				
+type character_property_type =
+  [ `Math (**Derived Core Properties*)
   | `Alphabetic
   | `Lowercase
   | `Uppercase
@@ -122,9 +119,7 @@ type character_property_type = [
   | `Grapheme_Extend
   | `Grapheme_Base
 
-(**Extended Properties*)
-
-  | `Bidi_Control			
+  | `Bidi_Control (**Extended Properties*)
   | `White_Space
   | `Hyphen
   | `Quotation_Mark
@@ -154,7 +149,7 @@ type character_property_type = [
 val load_property_tbl : character_property_type -> UCharTbl.Bool.t
 
 (** Load the table for the given name of the character type.
-   The name can be obtained by removing ` from its name of 
+   The name can be obtained by removing ` from its name of
    the polymorphic variant tag. *)
 val load_property_tbl_by_name : string -> UCharTbl.Bool.t
 
@@ -162,7 +157,7 @@ val load_property_tbl_by_name : string -> UCharTbl.Bool.t
 val load_property_set : character_property_type -> USet.t
 
 (** Load the set of characters of the given name of the character type.
-   The name can be obtained by removing ` from its name of 
+   The name can be obtained by removing ` from its name of
    the polymorphic variant tag. *)
 val load_property_set_by_name : string -> USet.t
 
@@ -230,6 +225,7 @@ type version_type =
 
 (** [age c] unicode version in wich [c] was introduced *)
 val age : UChar.t -> version_type
+
 (** [older v1 v2] is [true] if [v1] is older ( or the same version )
     than [v2]. Everithing is older than [`Nc] *)
 val older : version_type -> version_type -> bool
@@ -252,9 +248,9 @@ type special_casing_property =
   {lower : UChar.t list;
   title : UChar.t list;
   upper : UChar.t list;
-  condition : casemap_condition list;} 
+  condition : casemap_condition list;}
 
-val load_conditional_casing_tbl : 
+val load_conditional_casing_tbl :
     unit -> special_casing_property list UCharTbl.t
 
 val load_casefolding_tbl : unit -> UChar.t list UCharTbl.t
@@ -273,21 +269,19 @@ type decomposition_type =
     `Small | `Square | `Fraction | `Compat ]
 
 type decomposition_info =
-(** Already in the canonical form *)
-    [ `Canonform
-(** Hangul is treated algotighmically.*)
-  | `HangulSyllable
-(** [`Composite (dtype, text)]
-   means the given character is decomposed into text by dtype
-   decomposition. *)
-  | `Composite of decomposition_type * UChar.t list ]
+  [ `Canonform (** Already in the canonical form *)
+  | `HangulSyllable (** Hangul is treated algotighmically.*)
+  | `Composite of decomposition_type * UChar.t list
+    (** [`Composite (dtype, text)] means the given character is decomposed into
+        text by dtype decomposition. *)
+  ]
 
 val load_decomposition_tbl : unit -> decomposition_info UCharTbl.t
 
 (** Canonical Composition *)
 
 (** The return value [[(u_1, u'_1); ... (u_n, u'_1)]] means
-   for the given character [u], [u u_i] forms 
+   for the given character [u], [u u_i] forms
    the canonical composition [u'_i].
    If u is a Hangul jamo, composition returns []. *)
 val load_composition_tbl : unit -> (UChar.t * UChar.t) list UCharTbl.t

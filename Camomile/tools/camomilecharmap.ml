@@ -113,13 +113,13 @@ let rec int_of_hex s i j =
   if i >= j then n else
   n lsl 4 lor (int_of_hex s (i + 1) j)
 
-let rec int_of_oct s i j =
+let int_of_oct s i j =
   let n = Char.code s.[i] - zero in
   if n < 0 || n > 7 then invalid_arg "int_of_oct" else
   if i >= j then n else
   n lsl 3 lor (int_of_hex s (i + 1) j)
 
-let rec int_of_dec s i j =
+let int_of_dec s i j =
   let n = Char.code s.[i]- zero in
   if n < 0 || n > 9 then invalid_arg "int_of_oct" else
   if i >= j then n else

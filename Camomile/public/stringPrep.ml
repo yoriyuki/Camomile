@@ -166,8 +166,8 @@ struct
       prohibited = make_set (mib_prohibited ());
       check_bidi = false;
       unicode_version = `v3_2;
-      bidi_ral = (fun x -> false);
-      bidi_l = (fun x -> false) }
+      bidi_ral = (fun _ -> false);
+      bidi_l = (fun _ -> false) }
 
   let to_internal_profile : profile -> unit -> internal_profile = function
     | `Nameprep -> nameprep

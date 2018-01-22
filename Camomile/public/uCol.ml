@@ -669,7 +669,7 @@ let getkey keybuf =
 	    (match a, prev with
 	      [], _ | _, [_] ->
 		(match Lazy.force f with
-		  `Inc ([], i, f) -> `Inc (a @ prev, i, lazy (inc_end i))
+		  `Inc ([], i, _) -> `Inc (a @ prev, i, lazy (inc_end i))
 		| `Inc (us, i, f) -> loop i f prev a us)
 	    | _ -> `Inc (a, i, lazy (loop i f [] [] [])))
 	| u :: rest ->
@@ -817,22 +817,22 @@ let getkey keybuf =
 	    let `Inc (ces, i, f) = Lazy.force f in
 	    if ces = [] then raise Exit else
 	    test_match i f j (primaries_of_ces col_info ces) in
-      let rec keys loc f i j ces =
+      let keys loc f i j ces =
 	let keybuf = create_keybuf prec col_info in
 	add_list keybuf ces;
-	let rec loop loc f ks =
+	let rec loop f ks =
 	  let `Inc (ces, loc, f) = Lazy.force f in
 	  if Text.compare_index t loc j > 0 || ces = [] then ks else begin
 	    add_list keybuf ces;
 	    if Text.compare_index t loc i >= 0 then
-	      loop loc f ((getkey keybuf, i) :: ks)
+	      loop f ((getkey keybuf, i) :: ks)
 	    else
-	      loop loc f ks
+	      loop f ks
 	  end in
 	  if Text.compare_index t loc i >= 0 then
-	    loop loc f [(getkey keybuf, i)]
+	    loop f [(getkey keybuf, i)]
 	  else
-	    loop loc f [] in
+	    loop f [] in
       let rec scan loc f =
 	let `Inc (ces, i, f) = Lazy.force f in
 	if ces = [] then raise Not_found else

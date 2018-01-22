@@ -21,7 +21,6 @@ let rec stream_to_list_aux a s =
   | exception Stream.Failure -> List.rev a
 let stream_to_list s = stream_to_list_aux [] s
 
-let backslash = Char.code '\\'
 let literal_1 = Str.regexp
     "\\\\[u]\\([0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f]\\)"
 let literal_2 = Str.regexp

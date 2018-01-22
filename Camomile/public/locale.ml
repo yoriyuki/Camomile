@@ -47,23 +47,15 @@ let rec parse_locale_aux i s =
 
 let parse_locale = parse_locale_aux 0
 
-let isoc_locale_of ~locale ~enc =
-  match parse_locale locale with
-    [lg] -> lg ^ "." ^ enc
-  | [lg; nt] -> lg ^ "_" ^ nt ^ "." ^ enc
-  | [lg; nt; md] ->
-      lg ^ "_" ^ nt ^ "." ^ enc ^ "@" ^ md
-  | _ -> invalid_arg ("locale: " ^ locale)
-  
 let rec cut_last = function
     [] -> assert false
-  | [x] -> []
+  | [_] -> []
   | x :: rest -> x :: cut_last rest
 
 let read root suffix reader locale =
   let locale_path = parse_locale locale in
   let rec search locale_path =
-    let basename = 
+    let basename =
       if locale_path = [] then "root" else
       String.concat "_" locale_path
     in

@@ -38,8 +38,6 @@ yori@users.sourceforge.net
 
 %{
 open Toolslib
-open UCharInfo
-open UCol
 open AbsCe
 
 
@@ -229,7 +227,7 @@ main :
 | OPTION {fun prefix ces ceset ->
     match $1 with ["variable"; "top"] -> 
       (match prefix, ces with
-	[], [pos] ->
+	[], [_] ->
 	  put `LastVariable ces ceset
       | _, _ ->
 	  failwith "Variable top should be neither contraction nor prefixed.")

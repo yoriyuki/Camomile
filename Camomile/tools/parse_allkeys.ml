@@ -35,8 +35,6 @@
 (* yori@users.sourceforge.net *)
 
 
-open Toolslib
-open Unidata
 open AbsCe
 
 module Int = struct type t = int let compare = (-) end

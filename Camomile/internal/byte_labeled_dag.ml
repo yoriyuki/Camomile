@@ -34,7 +34,7 @@
 (* yori@users.sourceforge.net *)
 
 
-type bytes_node = 
+type bytes_node =
     {bytes_leaf_offset : int;
      bytes_leaf : Bytesvect.t;
      bytes_default : int;
@@ -73,8 +73,8 @@ let make_bytes def vs =
   let rec scan d c leaf branch = function
       [] -> (make_node leaf branch, [])
     | (s, n) :: rest as vs ->
-	if String.length s <= d ||  d >= 0 && s.[d] <> c then 
-	  (make_node leaf branch, vs) 
+	if String.length s <= d ||  d >= 0 && s.[d] <> c then
+	  (make_node leaf branch, vs)
 	else
 	  let c' = s.[d + 1] in
 	  if String.length s = d + 2 then begin
@@ -90,7 +90,7 @@ let make_bytes def vs =
   let comp (s1, _) (s2, _) = Pervasives.compare s1 s2 in
   let vs = List.sort comp vs in
   match vs with
-    (s, n) :: _ -> 
+    (_, _) :: _ ->
       let leaf = Array.make 256 def in
       let branch = Array.make 256 None in
       let tbl, _ = scan ~-1 '\000' leaf branch vs in
@@ -98,14 +98,14 @@ let make_bytes def vs =
   | _ -> invalid_arg "Broken table"
 
 
-let look_leaf_bytes tbl b = 
+let look_leaf_bytes tbl b =
   let i = b - tbl.bytes_leaf_offset in
-  if i < 0 || i >= Bytesvect.length tbl.bytes_leaf then 
+  if i < 0 || i >= Bytesvect.length tbl.bytes_leaf then
     tbl.bytes_default
   else
     Bytesvect.get tbl.bytes_leaf i
 
-let look_branch_bytes tbl b = 
+let look_branch_bytes tbl b =
   let i = b - tbl.bytes_branch_offset in
   if i < 0 || i >= Array.length tbl.bytes_branch then None else
   tbl.bytes_branch.(i)
