@@ -70,10 +70,10 @@ module StdUMap = Map.Make (UChar)
 
 let random_uchars size =
   let r = ref StdUSet.empty in
-  for i = 1 to size / 2 do
+  for _ = 1 to size / 2 do
     r := StdUSet.add (uchar_of_int (Random.int 0x10000)) !r
   done;
-  for i = 1 to size - size / 2 do
+  for _ = 1 to size - size / 2 do
     r := StdUSet.add (uchar_of_int (Random.int 0x8000000)) !r
   done;
   !r
@@ -127,7 +127,7 @@ let test_range ~desc uset =
 		 let i = int_of_uchar u in
 		 expect_true
 		   ~msg:(lazy (sprintf "\\u%08x is in %s but souldn't" i desc))
-		   (USet.mem u uset or a <= i && i <= b))
+		   (USet.mem u uset || a <= i && i <= b))
       uset'
 
 (* let _ =  *)
@@ -153,11 +153,11 @@ let test_range ~desc uset =
       
 let random_umap size =
   let r = ref StdUMap.empty in
-  for i = 1 to size / 2 do
+  for _ = 1 to size / 2 do
     let v = 1.0 /. (float_of_int (Random.int 10)) in
     r := StdUMap.add (uchar_of_int (Random.int 0x10000)) v !r
   done;
-  for i = 1 to size - size / 2 do
+  for _ = 1 to size - size / 2 do
     let v = 1.0 /. (float_of_int (Random.int 10)) in
     r := StdUMap.add (uchar_of_int (Random.int 0x8000000)) v !r
   done;
@@ -171,9 +171,9 @@ let _ =
     ~desc:"UMep"
     ~log:"umap"
     ~data:(fun size -> random_umap size)
-    ~body:(fun m -> expect_pass (fun () ->
+    ~body:(fun m -> expect_pass ~body:(fun () ->
       let umap = umap_of_stdmap m in
-      StdUMap.iter (fun u v ->
+      StdUMap.iter (fun u _ ->
 	let n = int_of_uchar u in
 	expect_equal_app
 	  (StdUMap.find u) m
@@ -251,7 +251,7 @@ let test_tbl utbl uset exc =
 	~msg:(lazy (sprintf "\\u%08x is missing" (int_of_uchar u)))
 	(UCharTbl.Bool.get utbl u)) 
     uset;
-  for i = 0 to 100 do
+  for _ = 0 to 100 do
     let u = uchar_of_int (Random.int 0x8000000) in
     expect_equal_app
       ~msg:(lazy 
@@ -275,7 +275,7 @@ let _ =
     ~desc:"UCharTbl.Bool"
     ~log:"uchartbl_bool"
     ~data:(fun size -> uset_of_stdset (random_uchars size))
-    ~body:(fun uset -> expect_pass (fun () ->
+    ~body:(fun uset -> expect_pass ~body:(fun () ->
       let utbl = UCharTbl.Bool.of_set uset in
       test_tbl utbl uset []))
 
@@ -298,9 +298,9 @@ let _= random_test
     ~desc:"UCharTbl"
     ~log:"uchartbl"
     ~data:(fun size -> umap_of_stdmap (random_umap size))
-    ~body:(fun umap -> expect_pass (fun () ->
+    ~body:(fun umap -> expect_pass ~body:(fun () ->
       let tbl = Tbl.of_map 0.0 umap in
-      UMap.iter (fun u v ->
+      UMap.iter (fun u _ ->
 	test_map tbl umap u;
 	let n = int_of_uchar u in
 	let u = uchar_of_int (n + 1) in
@@ -320,7 +320,7 @@ let _ = random_test
 	Bytes.set s i (Char.chr (Random.int 0x100))
       done;
       Bytes.to_string s)
-    ~body:(fun s -> expect_pass (fun () ->
+    ~body:(fun s -> expect_pass ~body:(fun () ->
       let text = UText.of_string s in
       expect_equal (String.length s) (UText.length text);
       for i = 0 to String.length s - 1 do
@@ -333,7 +333,7 @@ let _ = random_test
     ~desc:"UText.make"
     ~log:"base_utext_make"
     ~data:(fun size -> Random.int 0x8000000, size)
-    ~body:(fun (n, size) -> expect_pass (fun () ->
+    ~body:(fun (n, size) -> expect_pass ~body:(fun () ->
       let u = uchar_of_int n in
       let text = UText.make size u in
       for i = 0 to size - 1 do
@@ -351,7 +351,7 @@ let _ = random_test
     ~log:"base_UText_ustring"
     ~data:(fun size -> 
       Array.init size (fun _ -> uchar_of_int (Random.int 0x8000000)))
-    ~body:(fun a -> expect_pass (fun () ->
+    ~body:(fun a -> expect_pass ~body:(fun () ->
 
       (* tests for ustring *)
       let s = UText.make (Array.length a) (uchar_of_int 0) in
@@ -388,7 +388,7 @@ let _ = random_test
 	~msg:(lazy (sprintf "ustring index: count %d" !r))
 	!r (UText.length s);
 
-      for i = 0 to 100 do
+      for _ = 0 to 100 do
 	let pos = Random.int (UText.length s) in
 	let cur = UText.nth s pos in
 	expect_equal 
@@ -414,7 +414,7 @@ let _ = random_test
     ~log:"base_utext"
     ~data:(fun size -> 
       Array.init size (fun _ -> uchar_of_int (Random.int 0x8000000)))
-    ~body:(fun a -> expect_pass (fun () ->
+    ~body:(fun a -> expect_pass ~body:(fun () ->
       
       (* tests for ustring *)
       let s = UText.make (Array.length a) (uchar_of_int 0) in
@@ -514,7 +514,7 @@ let _ = random_test
     ~log:"base_xstring_extra"
     ~data:(fun size -> 
       Array.init size (fun _ -> uchar_of_int (Random.int 0x8000000)))
-    ~body:(fun a -> expect_pass (fun () ->
+    ~body:(fun a -> expect_pass ~body:(fun () ->
       
       let size = Array.length a in
       (* tests for ustring *)
@@ -583,7 +583,7 @@ module SubTextTest (Text : UnicodeString.Type) = struct
       ~log:(log ^ "_test2")
       ~data:(fun size -> 
 	Text.init size (fun _ -> uchar_of_int (Random.int 0x8000000)))
-      ~body:(fun t -> expect_pass (fun () ->
+      ~body:(fun t -> expect_pass ~body:(fun () ->
 
 	let len = Text.length t in
 	let pos = Random.int len in

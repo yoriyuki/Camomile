@@ -8,7 +8,6 @@ open Printf
 
 let input_root  = ref "../"
 let output_root = ref (".")
-let debug       = ref false
 let verbose     = ref 2
 let repetition = ref 10
 let data_size = ref 5000
@@ -64,10 +63,6 @@ let is_expected = function
   | Pass | XFail -> true
   | _ -> false
 
-let needs_review = function
-  | UPass | Fail _ | Unresolved | Untested -> true
-  | _ -> false
-
 let to_string = function
   | Pass           -> "Pass"
   | UPass          -> "Unexpected Pass"
@@ -98,10 +93,8 @@ let count_var = function
 
 (* Tests *)
 
-let test_queue = Queue.create ()
-
 let do_test ~desc ~rep ~body =
-  for i = 1 to rep do
+  for _ = 1 to rep do
     let result = 
       if !handle_exception then
 	try
@@ -214,7 +207,7 @@ let expect_pass ~(body : unit -> unit) =
   try body (); Pass with EFail m -> Fail m
 
 let expect_fail ~(body : unit -> unit) = 
-  try body (); UPass with EFail m -> XFail
+  try body (); UPass with EFail _ -> XFail
 
 (* Front end *)
 

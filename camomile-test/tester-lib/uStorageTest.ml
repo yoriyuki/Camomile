@@ -13,14 +13,14 @@ module Make (Text : UnicodeString.Type) =
 	~desc ~log ()
 	= random_test ~desc ~log
 	~data:(fun size -> Array.init size char_gen)
-	~body:(fun a -> expect_pass (fun () ->
+	~body:(fun a -> expect_pass ~body:(fun () ->
 
 	  (* tests for ustring *)
 	  let s = Text.init (Array.length a) (Array.get a) in
 	  let len = Text.length s in
 	  expect_equal ~msg:(lazy "init") len (Array.length a);
 
-	  for c = 0 to 50 do
+	  for _ = 0 to 50 do
 	    let i = Random.int len in
 	    expect_equal 
 	      ~msg:(lazy (sprintf "set/get: location %d" i))
@@ -51,7 +51,7 @@ module Make (Text : UnicodeString.Type) =
 	    ~msg:(lazy (sprintf "index: count %d" !r))
 	    !r len;
 
-	  for i = 0 to 100 do
+	  for _ = 0 to 100 do
 	    let pos = Random.int len in
 	    let cur = Text.nth s pos in
 	    expect_equal 
