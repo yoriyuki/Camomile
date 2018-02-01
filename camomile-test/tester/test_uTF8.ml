@@ -2,7 +2,6 @@
 open CamomileLibraryTest.Camomile
 open UPervasives
 open Blender
-open Printf
 
 module UTF8Conv = CharEncoding.Make (UTF8)
 module UTF8Test = UStorageTest.Make (UTF8)
@@ -14,7 +13,7 @@ let _ = random_test
     ~log:"base_utf8_validate"
     ~data:(fun size -> 
       Array.init size (fun _ -> uchar_of_int (Random.int 0x8000000)))
-    ~body:(fun a -> expect_pass (fun () ->
+    ~body:(fun a -> expect_pass ~body:(fun () ->
       let s = UTF8.init (Array.length a) (fun i -> a.(i)) in
       let s' = UTF8Conv.encode CharEncoding.utf8 s in
       expect_true (UTF8.compare s s' = 0);

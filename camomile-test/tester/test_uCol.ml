@@ -61,7 +61,7 @@ let uca ~desc variable c =
     let sgn1 = Ucomp.compare ~variable !prev t in
     let sgn2 = Ucomp.compare_with_key ~variable !prev_key t in
     let sgn3 = ~- (Ucomp.compare_with_key ~variable t_key !prev) in
-    test ~desc ~body:(fun () -> expect_pass (fun () ->
+    test ~desc ~body:(fun () -> expect_pass ~body:(fun () ->
       expect_true
 	~msg:(lazy (sprintf 
 		      "the previous line is greater than the current:\n\
@@ -194,7 +194,7 @@ let locale_test ~desc ?variable ~locale c =
 	(UTF8Comp.compare_with_key ?variable ~locale !prev_key line) in
     let sgn3 = - sgn_of 
 	(UTF8Comp.compare_with_key ?variable ~locale key !prev) in
-    test ~desc ~body:(fun () -> expect_pass (fun () ->
+    test ~desc ~body:(fun () -> expect_pass ~body:(fun () ->
       expect_true
 	~msg:(lazy (sprintf 
 		      "the previous key is greater than the current:\n\
@@ -269,7 +269,7 @@ let test_list ~desc ?variable ~locale list =
 	(UTF8Comp.compare_with_key ?variable ~locale prev_key t) in
     let sgn3 = - sgn_of
 	(UTF8Comp.compare_with_key ?variable ~locale key prev) in
-    test ~desc ~body:(fun () -> expect_pass (fun () ->
+    test ~desc ~body:(fun () -> expect_pass ~body:(fun () ->
       expect_true
 	~msg:(lazy (sprintf 
 		      "the previous key is greater than the current:\n\
