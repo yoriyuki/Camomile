@@ -2,7 +2,6 @@
 open CamomileLibraryTest.Camomile
 open UPervasives
 open Blender
-open Printf
 open Bigarray
 
 module UCS4Test = UStorageTest.Make (UCS4)
@@ -14,7 +13,7 @@ let _ = random_test
     ~log:"base_utf16_validate"
     ~data:(fun size -> Array.init size 
 	(fun _ -> uchar_of_int (Random.int 0x8000000)))
-    ~body:(fun a -> expect_pass (fun () ->
+    ~body:(fun a -> expect_pass ~body:(fun () ->
       let s = UCS4.init (Array.length a) (fun i -> a.(i)) in
 (*      UTF16.validate s *)
       expect_equal_app UCS4.validate s (fun () -> ()) ()))

@@ -12,7 +12,7 @@ uninstall:
 reinstall: uninstall reinstall
 
 test:
-	jbuilder runtest
+	jbuilder runtest --dev
 
 clean:
 	jbuilder clean

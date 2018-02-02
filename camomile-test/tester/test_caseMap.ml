@@ -23,7 +23,7 @@ let _ = random_test
 	Bytes.set s i (Char.chr (Random.int 0x80))
       done;
       Bytes.to_string s)
-    ~body:(fun s -> expect_pass (fun () ->
+    ~body:(fun s -> expect_pass ~body:(fun () ->
       let s1 = UTF8Casing.lowercase s in
       let s2 = String.lowercase_ascii s in
       expect_equal
@@ -31,7 +31,7 @@ let _ = random_test
 	s1
 	s2;
       let s1 = UTF8Casing.uppercase s in
-      let s2 = String.uppercase s in
+      let s2 = String.uppercase_ascii s in
       expect_equal
 	~msg:(lazy (sprintf "uppercase: %s <> %s" s1 s2))
 	s1

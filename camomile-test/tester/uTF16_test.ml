@@ -2,7 +2,6 @@
 open CamomileLibraryTest.Camomile
 open UPervasives
 open Blender
-open Printf
 open Bigarray
 
 module UTF16Conv = CharEncoding.Make (UTF16)
@@ -31,7 +30,7 @@ let _ = random_test
     ~desc:"UTF16 validate"
     ~log:"base_utf16_validate"
     ~data:(fun size -> Array.init size char_gen)
-    ~body:(fun a -> expect_pass (fun () ->
+    ~body:(fun a -> expect_pass ~body:(fun () ->
       let s = UTF16.init (Array.length a) (fun i -> a.(i)) in
       let s' = UTF16Conv.encode CharEncoding.utf16be s in
       expect_true (s' = string_of_int16array s);

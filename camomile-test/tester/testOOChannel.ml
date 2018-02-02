@@ -4,12 +4,11 @@
 
 open Printf
 open Blender
-open CamomileLibraryTest.Camomile
-open UPervasives
+open CamomileLibraryTest.Camomile
 open OOChannel
 
 class buffer_io b = 
-object (self)
+object
   method flush () = ()
   method close_out () = ()
   method output s pos len =
@@ -29,8 +28,8 @@ let () =
 		  let c = new char_obj_output_channel_of 
 		      (bio :> char_output_channel) in
 		  let c = new char_output_channel_of c in
-		  let put c s = c#output (Bytes.of_string s) 0 (String.length s) in
-		    put c "---------------\n";
+		  let put c s = ignore (c#output (Bytes.of_string s) 0 (String.length s)) in
+		    (put c "---------------\n");
 		    c#flush ();
 		    put c "1 first line  1\n";
 		    c#flush () ;

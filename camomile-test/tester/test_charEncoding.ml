@@ -98,7 +98,7 @@ let _ =
 
 
 class buffer_io b = 
-object (self)
+object
   method flush () = ()
   method close_out () = ()
   method output s pos len =

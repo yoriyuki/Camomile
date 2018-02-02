@@ -77,7 +77,7 @@ let eq_matched_string ?(pos=0) ?(sem=`Longest) r t t0 =
       expect_equal ~msg:(lazy t)~printer:(fun x -> x) t0 t
 
 let expect_pass desc body =
-  test ~desc ~body:(fun () -> expect_pass body)
+  test ~desc ~body:(fun () -> expect_pass ~body)
 
 let expect_match r t =
   let r = UReStr.regexp r in
