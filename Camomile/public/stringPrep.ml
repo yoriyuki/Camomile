@@ -32,8 +32,6 @@
 (* You can contact the authour by sending email to *)
 (* yori@users.sourceforge.net *)
 
-open StringPrep_data
-
 module type Type =
 sig
   type text
@@ -61,8 +59,8 @@ struct
 
   module UNF = UNF.Make ( Config ) ( Text )
   module UCharInfo = UCharInfo.Make ( Config )
-  module StringPrep_data = StringPrep_data.Make ( Config )
-  open StringPrep_data
+  module StringPrep_data' = StringPrep_data.Make ( Config )
+  open StringPrep_data'
 
   type text = Text.t
 
@@ -96,8 +94,8 @@ struct
 
   let make_map map =
     let f x =
-      let m = MappingMap.get map x in
-      mapping_to_list x m
+      let m = StringPrep_data.MappingMap.get map x in
+      StringPrep_data.mapping_to_list x m
     in
     f
 

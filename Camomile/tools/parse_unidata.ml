@@ -35,7 +35,6 @@
 
 
 module Unidata = Unidata.Make(Camomileconfig)
-open Unidata
 
 (* It seems that the default value of combined class is 0 *)
 type combined_class = int
@@ -51,7 +50,7 @@ let cat_tbl = ref (UMap.add_range null max_uchar 0 UMap.empty)
 
 let combcl_tbl = ref UMap.empty
 
-let decomp_tbl : decomposition_info UMap.t ref = ref UMap.empty
+let decomp_tbl : Unidata.decomposition_info UMap.t ref = ref UMap.empty
 
 let to_lower1 = ref UMap.empty
 let to_title1 = ref UMap.empty
@@ -87,7 +86,7 @@ let read_unidata ic =
 	   else if i0 = 0x20000 then 0x2a6d5(*CJK Ideographic Extension B*)
 	   else i0
 	 in
-	 let cat_num = num_of_cat (cat_of_name catname) in
+	 let cat_num = Unidata.num_of_cat (Unidata.cat_of_name catname) in
 	 let comb_cl = int_of_string comb_cl_str in
 	 let decomp =
 	   let char_str = Str.split blank_pat decomp_str in
@@ -226,7 +225,7 @@ let main () =
     let to_upper1_ro = UTbl.of_map null !to_upper1 in
     let write name value = Database.write dir "mar" output_value name value in
     begin
-      let gen_cat_map = UMap.map cat_of_num !cat_tbl in
+      let gen_cat_map = UMap.map Unidata.cat_of_num !cat_tbl in
       write "general_category_map" gen_cat_map;
       write "general_category" cat_tbl_ro;
       write "combined_class_map" !combcl_tbl;

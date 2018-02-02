@@ -93,17 +93,15 @@ module Make (Config : ConfigInt.Type) (Text : UnicodeString.Type) =
 
 module UInfo = UCharInfo.Make(Config)
 
-open UInfo
-
 let null = UChar.chr_of_uint 0
 
-let decomposition_tbl = load_decomposition_tbl ()
+let decomposition_tbl = UInfo.load_decomposition_tbl ()
 let decomposition u = UCharTbl.get decomposition_tbl u
 
-let composition_exclusion_tbl = load_composition_exclusion_tbl ()
+let composition_exclusion_tbl = UInfo.load_composition_exclusion_tbl ()
 let composition_exclusion u = UCharTbl.Bool.get composition_exclusion_tbl u
 
-let composition_tbl = load_composition_tbl ()
+let composition_tbl = UInfo.load_composition_tbl ()
 let composition u = UCharTbl.get composition_tbl u
 
 let rec add_list x = function
@@ -176,12 +174,12 @@ let canon_reorder x =
   let pos = ref 0 in
   for i = 0 to XString.length x - 1 do
     let u = XString.get x i in
-    let c = combined_class u in
+    let c = UInfo.combined_class u in
     if c = 0 then chead := i else begin
       pos := i - 1;
       while
 	!pos >= !chead &&
-	combined_class (XString.get x !pos) > c
+	UInfo.combined_class (XString.get x !pos) > c
       do decr pos done;
       rotate x (!pos + 1) i
     end
@@ -198,7 +196,7 @@ class canon_reorder c_out : [UChar.t] OOChannel.obj_output_channel =
       List.iter (fun (_, u) -> c_out#put u) sq';
       sq <- []
     method put u =
-      let c = combined_class u in
+      let c = UInfo.combined_class u in
       if c = 0 then
 	(if sq <> [] then self#out_buf;
 	 c_out#put u)
@@ -218,7 +216,7 @@ class canon_reorder c_out : [UChar.t] OOChannel.obj_output_channel =
 let rec look_composition u1 = function
     [] -> None
   | (u, u') :: _ when u = u1 ->
-      if composition_exclusion u' || combined_class u' <> 0 then None
+      if composition_exclusion u' || UInfo.combined_class u' <> 0 then None
       else Some u'
   | _ :: rest -> look_composition u1 rest
 
@@ -228,7 +226,7 @@ let rec canon_compose_loop x i j x' k c' =
     k + max (XString.length x - i) 0
   end else
     let u = XString.get x j in
-    let c = combined_class u in
+    let c = UInfo.combined_class u in
     let b = if j = i || c' <> c then (*not blocked!*)
       match look_composition u (composition (XString.get x' k)) with
 	None -> true
@@ -251,7 +249,7 @@ let canon_compose x' x =
   let pos = ref 0 in
   while
     !pos < XString.length x &&
-    combined_class (XString.get x !pos) <> 0
+    UInfo.combined_class (XString.get x !pos) <> 0
   do incr pos done;
   blit x 0 x' 0 !pos;
   if !pos < XString.length x then begin
@@ -279,7 +277,7 @@ class canon_compose c_out : [UChar.t] OOChannel.obj_output_channel =
       if has_strt then c_out#put strt;
       Queue.iter c_out#put sq;
     method put u =
-      let c = combined_class u in
+      let c = UInfo.combined_class u in
       if not has_strt then
 	if c = 0 then self#set_strt u
 	else c_out#put u
@@ -364,7 +362,7 @@ class nfkc c_out =
     let rec read_combined_class = function
 	[] -> []
       | u :: rest ->
-	  (u, combined_class u) :: read_combined_class rest
+	  (u, UInfo.combined_class u) :: read_combined_class rest
 
     let inc_reorder f t i =
       let `Inc (us, i', f) = f t i in

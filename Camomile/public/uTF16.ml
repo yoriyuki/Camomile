@@ -64,7 +64,7 @@ let look (a:t) i : UChar.t =
   if n0 < 0xd800 || n0 >= 0xe000 then UChar.chr_of_uint n0 else
   if n0 < 0xdc00 then
     let n1 = a.{i + 1} in
-    UChar.chr_of_uint 
+    UChar.chr_of_uint
       (((n0 - 0xd800) lsl 10) + (n1 - 0xdc00) + 0x10000)
   else invalid_arg "UTF16.look"
 
@@ -92,7 +92,7 @@ let rec move_forward (a:t) i c =
 let rec move_backward (a:t) i c =
   if c < 0 then move_backward a (prev a i) (c + 1) else i
 
-let move (a:t) i c = 
+let move (a:t) i c =
   if c > 0 then move_forward a i c else
   if c < 0 then move_backward a i c else
   i

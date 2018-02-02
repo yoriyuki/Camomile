@@ -35,8 +35,6 @@
 (* yori@users.sourceforge.net *)
 
 
-open AbsCe
-
 module Int = struct type t = int let compare = (-) end
 module IntMap = Map.Make (Int)
 
@@ -113,9 +111,9 @@ let swap_case_weight = function
   | _ -> assert false
 
 let weights1_tbl =
-  let s = EltMap.empty in
-  let s = EltMap.add `FirstImplicit [compose_weight 0xfb40 0x8000] s in
-  let s = EltMap.add `FirstTrailing [compose_weight 0xfc00 0x8000] s in
+  let s = AbsCe.EltMap.empty in
+  let s = AbsCe.EltMap.add `FirstImplicit [compose_weight 0xfb40 0x8000] s in
+  let s = AbsCe.EltMap.add `FirstTrailing [compose_weight 0xfc00 0x8000] s in
   s
 
 let map_triple f (x1, x2, x3) = (f x1, f x2, f x3)
@@ -133,7 +131,7 @@ let directory, input_fname =
   | _ -> failwith "invalid command line"
 
 let weight1_tbl, weight2_tbl, weight3_lowercasefirst_tbl =
-  let weight_tbls = ref (weights1_tbl, EltMap.empty, EltMap.empty) in
+  let weight_tbls = ref (weights1_tbl, AbsCe.EltMap.empty, AbsCe.EltMap.empty) in
   let ic = open_in input_fname in
   try while true do
     let line = input_line ic in
@@ -146,7 +144,7 @@ let weight1_tbl, weight2_tbl, weight3_lowercasefirst_tbl =
       let es = List.map element_of (Str.split delim_pat s2) in
       let es = handle_implicit_weight es in
       let ws = (ws1_of es, ws2_of es, ws3_of es) in
-      weight_tbls := map2_triple (EltMap.add (`Seq us)) ws !weight_tbls;
+      weight_tbls := map2_triple (AbsCe.EltMap.add (`Seq us)) ws !weight_tbls;
     else
       failwith ("Broken_line: " ^ line)
   done; assert false with End_of_file ->
@@ -154,21 +152,24 @@ let weight1_tbl, weight2_tbl, weight3_lowercasefirst_tbl =
     !weight_tbls
 
 let weight3_uppercasefirst_tbl =
-  EltMap.map (List.map swap_case) weight3_lowercasefirst_tbl
+  AbsCe.EltMap.map (List.map swap_case) weight3_lowercasefirst_tbl
 
 let weight1_tbl =
-  EltMap.add `LastVariable [!ref_lastvariable_weight] weight1_tbl
+  AbsCe.EltMap.add `LastVariable [!ref_lastvariable_weight] weight1_tbl
 
 let weight1_tbl = IntMap.fold (fun w ws tbl ->
-  EltMap.add (`ImplicitWeight ws) [w] tbl) !ref_implicit_weights weight1_tbl
+  AbsCe.EltMap.add (`ImplicitWeight ws) [w] tbl) !ref_implicit_weights weight1_tbl
 
 let aceset_info =
-  {lowercase_first_tbl =
-   import (weight1_tbl, weight2_tbl, weight3_lowercasefirst_tbl);
-   uppercase_first_tbl =
-   import (weight1_tbl, weight2_tbl, weight3_uppercasefirst_tbl)}
+  { AbsCe
+    .lowercase_first_tbl =
+      AbsCe.import (weight1_tbl, weight2_tbl, weight3_lowercasefirst_tbl)
+  ; uppercase_first_tbl =
+      AbsCe.import (weight1_tbl, weight2_tbl, weight3_uppercasefirst_tbl)
+  }
 
-let uca_defaults = cetbl_of (create_ace_info aceset_info.lowercase_first_tbl)
+let uca_defaults =
+  AbsCe.cetbl_of (AbsCe.create_ace_info aceset_info.lowercase_first_tbl)
 
 let  _ =
   let write name value = Database.write directory "mar" output_value name value in
