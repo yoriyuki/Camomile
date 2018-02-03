@@ -39,13 +39,13 @@
 let poly = 0x48000000
 
 let crc_tbl = Array.init 128 (fun i ->
-  let rec loop j sum =
-    if j < 0 then sum else
-    if i land (1 lsl j) <> 0 then
-      loop (j - 1) (sum lxor (poly lsr j))
-    else
-      loop (j - 1) sum in
-  loop (7 - 1) 0)
+    let rec loop j sum =
+      if j < 0 then sum else
+      if i land (1 lsl j) <> 0 then
+        loop (j - 1) (sum lxor (poly lsr j))
+      else
+        loop (j - 1) sum in
+    loop (7 - 1) 0)
 
 let byte3 n = n lsr 24 land 127
 let byte2 n = n lsr 16 land 255
@@ -56,7 +56,7 @@ let (lsl) x n =
   if n >= Sys.word_size then 0 else
   if n <= ~- Sys.word_size then 0 else
   if n < 0 then x lsr (~-n) else
-  x lsl n
+    x lsl n
 
 type 'a tbl = 'a array array array array
 type 'a t = 'a tbl
@@ -73,14 +73,14 @@ let get tbl n =
   Array.unsafe_get lev (byte0 n)
 
 (* let get tbl n =
-  Printf.printf "level 3 %d" (Array.length tbl); print_newline ();
-  let lev = tbl.(byte3 n) in
-  Printf.printf "level 2 %d" (Array.length tbl); print_newline ();
-  let lev = lev.(byte2 n) in
-  Printf.printf "level 1 %d" (Array.length tbl); print_newline ();
-  let lev = lev.(byte1 n) in
-  Printf.printf "level 0 %d" (Array.length tbl); print_newline ();
-  lev.(byte0 n) *)
+   Printf.printf "level 3 %d" (Array.length tbl); print_newline ();
+   let lev = tbl.(byte3 n) in
+   Printf.printf "level 2 %d" (Array.length tbl); print_newline ();
+   let lev = lev.(byte2 n) in
+   Printf.printf "level 1 %d" (Array.length tbl); print_newline ();
+   let lev = lev.(byte1 n) in
+   Printf.printf "level 0 %d" (Array.length tbl); print_newline ();
+   lev.(byte0 n) *)
 
 module type NodeType = sig 
   type elt
@@ -105,9 +105,9 @@ module MakeNode (Sub : NodeType) = struct
       let a = untag x in
       let b = untag y in
       let rec loop i =
-	if i < 0 then true else
-	if a.(i) == b.(i) then loop (i - 1) else
-	false in
+        if i < 0 then true else
+        if a.(i) == b.(i) then loop (i - 1) else
+          false in
       loop  (if level = 3 then 127 else 255)
 
     let hash = id
@@ -119,18 +119,18 @@ module MakeNode (Sub : NodeType) = struct
   let crc_hash v =
     let rec loop i sum =
       if i < 0 then sum else
-      let a = id v.(i) in
-      let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte3 a) land 0x7f) in
-      let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte2 a) land 0x7f) in
-      let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte1 a) land 0x7f) in
-      let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte0 a) land 0x7f) in
-      loop (i - 1) sum in
+        let a = id v.(i) in
+        let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte3 a) land 0x7f) in
+        let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte2 a) land 0x7f) in
+        let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte1 a) land 0x7f) in
+        let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte0 a) land 0x7f) in
+        loop (i - 1) sum in
     loop (if level = 3 then 127 else 255) 0
 
   let hashcons a =
     let n = crc_hash a in
     let b = Array.map untag a in
-(*    prerr_int (Array.length b); prerr_newline(); *)
+    (*    prerr_int (Array.length b); prerr_newline(); *)
     let x = Tag (b, n) in
     try NodePool.find pool x with Not_found ->
       NodePool.add pool x;
@@ -138,36 +138,36 @@ module MakeNode (Sub : NodeType) = struct
 
   let make_raw def = 
     Array.make (if level = 3 then 128 else 256) (Sub.make def)
-      
+
   let make def = hashcons (make_raw def)
 
   let of_map n0 def m =
     let a = make_raw def in begin
       if IMap.is_empty m then () else
-      let l = AvlTree.left_branch m in
-      let r = AvlTree.right_branch m in
-      if IMap.is_empty l && IMap.is_empty r then
-	let k1, k2, v = AvlTree.root m in
-	let i1 = (k1 - n0) lsr (8 * level) in
-	let n1 = n0 lor (i1 lsl (8 * level)) in
-	let n2 = n1 lor (1 lsl (8 * level) - 1) in
-	a.(i1) <- Sub.of_map n1 def (IMap.until n2 (IMap.from n1 m));
-	let i2 = (k2 - n0) lsr (8 * level) in
-	if i1 <> i2 then
-	  let n1 = n0 lor (i2 lsl (8 * level)) in
-	  let n2 = n1 lor (1 lsl (8 * level) - 1) in
-	  a.(i2) <- Sub.of_map n1 def (IMap.until n2 (IMap.from n1 m));
-	  let b = Sub.make v in
-	  for i = i1 + 1 to i2 - 1 do a.(i) <- b done;
-	else ()
-      else
-	for i = 0 to if level = 3 then 127 else 255 do
-	  let n1 = n0 lor (i lsl (8 * level)) in
-	  let n2 = n1 lor (1 lsl (8 * level) - 1) in
-	  let m' = IMap.until n2 (IMap.from n1 m) in
-	  if IMap.is_empty m' then () else
-	  a.(i) <- Sub.of_map n1 def m'
-	done
+        let l = AvlTree.left_branch m in
+        let r = AvlTree.right_branch m in
+        if IMap.is_empty l && IMap.is_empty r then
+          let k1, k2, v = AvlTree.root m in
+          let i1 = (k1 - n0) lsr (8 * level) in
+          let n1 = n0 lor (i1 lsl (8 * level)) in
+          let n2 = n1 lor (1 lsl (8 * level) - 1) in
+          a.(i1) <- Sub.of_map n1 def (IMap.until n2 (IMap.from n1 m));
+          let i2 = (k2 - n0) lsr (8 * level) in
+          if i1 <> i2 then
+            let n1 = n0 lor (i2 lsl (8 * level)) in
+            let n2 = n1 lor (1 lsl (8 * level) - 1) in
+            a.(i2) <- Sub.of_map n1 def (IMap.until n2 (IMap.from n1 m));
+            let b = Sub.make v in
+            for i = i1 + 1 to i2 - 1 do a.(i) <- b done;
+          else ()
+        else
+          for i = 0 to if level = 3 then 127 else 255 do
+            let n1 = n0 lor (i lsl (8 * level)) in
+            let n2 = n1 lor (1 lsl (8 * level) - 1) in
+            let m' = IMap.until n2 (IMap.from n1 m) in
+            if IMap.is_empty m' then () else
+              a.(i) <- Sub.of_map n1 def m'
+          done
     end;
     hashcons a
 
@@ -178,7 +178,7 @@ module MakeNode (Sub : NodeType) = struct
       let n2 = n1 lor (1 lsl (8 * level) - 1) in
       let s' = ISet.until n2 (ISet.from n1 s) in
       if ISet.is_empty s' then () else
-      a.(i) <- Sub.of_set n1 def s' v
+        a.(i) <- Sub.of_set n1 def s' v
     done;
     hashcons a
 end
@@ -207,9 +207,9 @@ module ArrayLeaf (H : Hashtbl.HashedType) = struct
       let a = untag x in
       let b = untag y in
       let rec loop i =
-	if i >= 255 then true else
-	if H.equal a.(i) b.(i) then loop (i + 1) else
-	false in
+        if i >= 255 then true else
+        if H.equal a.(i) b.(i) then loop (i + 1) else
+          false in
       loop 0
 
     let hash = id
@@ -222,12 +222,12 @@ module ArrayLeaf (H : Hashtbl.HashedType) = struct
   let crc_hash v =
     let rec loop i sum =
       if i < 0 then sum else
-      let a = H.hash v.(i) in
-      let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte3 a) land 0x7f) in
-      let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte2 a) land 0x7f) in
-      let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte1 a) land 0x7f) in
-      let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte0 a) land 0x7f) in
-      loop (i - 1) sum in
+        let a = H.hash v.(i) in
+        let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte3 a) land 0x7f) in
+        let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte2 a) land 0x7f) in
+        let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte1 a) land 0x7f) in
+        let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte0 a) land 0x7f) in
+        loop (i - 1) sum in
     loop 255 0
 
   let hashcons a =
@@ -243,16 +243,16 @@ module ArrayLeaf (H : Hashtbl.HashedType) = struct
   let of_map n0 def m =
     let a = make_raw def in
     IMap.iter_range (fun n1 n2 v ->
-(*       Printf.eprintf "Tl31.ArrayLeaf.of_map : %x %x - %x: %s\n" n0 n1 n2 *)
-(* 	(String.escaped (Obj.magic v)); *)
-      for i = n1 - n0 to n2 - n0 do a.(i) <- v done)
+        (*       Printf.eprintf "Tl31.ArrayLeaf.of_map : %x %x - %x: %s\n" n0 n1 n2 *)
+        (* 	(String.escaped (Obj.magic v)); *)
+        for i = n1 - n0 to n2 - n0 do a.(i) <- v done)
       m;
     hashcons a
 
   let of_set n0 def s v =
     let a = make_raw def in
     ISet.iter_range (fun n1 n2 ->
-      for i = n1 - n0 to n2 - n0 do a.(i) <- v done)
+        for i = n1 - n0 to n2 - n0 do a.(i) <- v done)
       s;
     hashcons a
 end
@@ -273,11 +273,11 @@ module StringContentsHash = struct
     let s1 = untag x1 in
     let s2 = untag x2 in
     if Bytes.length s1 <> Bytes.length s2 then false else
-    let rec loop i =
-      if i < 0 then true else
-      if Bytes.get s1 i <> Bytes.get s2 i then false else
-      loop (i - 1) in
-    loop (Bytes.length s1 - 1)
+      let rec loop i =
+        if i < 0 then true else
+        if Bytes.get s1 i <> Bytes.get s2 i then false else
+          loop (i - 1) in
+      loop (Bytes.length s1 - 1)
 
   let hash = id
 
@@ -286,9 +286,9 @@ end
 let bytes_hash v =
   let rec loop i sum =
     if i < 0 then sum else
-    let a = Char.code (Bytes.get v i) in
-    let sum = sum lsr 7 lxor crc_tbl.(sum lxor a land 0x7f) in
-    loop (i - 1) sum in
+      let a = Char.code (Bytes.get v i) in
+      let sum = sum lsr 7 lxor crc_tbl.(sum lxor a land 0x7f) in
+      loop (i - 1) sum in
   loop (Bytes.length v - 5) 0
 
 module BoolLeaf = struct
@@ -318,14 +318,14 @@ module BoolLeaf = struct
   let of_map n0 def m =
     let a = make_raw def in
     IMap.iter_range (fun n1 n2 v ->
-      for i = n1 - n0 to n2 - n0 do boolset a i v done)
+        for i = n1 - n0 to n2 - n0 do boolset a i v done)
       m;
     hashcons a
 
   let of_set n0 def s v =
     let a = make_raw def in
     ISet.iter_range (fun n1 n2 ->
-      for i = n1 - n0 to n2 - n0 do boolset a i v done)
+        for i = n1 - n0 to n2 - n0 do boolset a i v done)
       s;
     hashcons a
 end
@@ -366,14 +366,14 @@ module CharLeaf = struct
   let of_map n0 def m =
     let a = make_raw def in
     IMap.iter_range (fun n1 n2 v ->
-      for i = n1 - n0 to n2 - n0 do Bytes.set a i v done)
+        for i = n1 - n0 to n2 - n0 do Bytes.set a i v done)
       m;
     hashcons a
 
   let of_set n0 def s v =
     let a = make_raw def in
     ISet.iter_range (fun n1 n2 ->
-      for i = n1 - n0 to n2 - n0 do Bytes.set a i v done)
+        for i = n1 - n0 to n2 - n0 do Bytes.set a i v done)
       s;
     hashcons a
 end
@@ -414,9 +414,9 @@ module BitsLeaf = struct
   let hash v =
     let rec loop i sum =
       if i < 0 then sum else
-      let a = Bitsvect.get v i in
-      let sum = sum lsr 7 lxor crc_tbl.(sum lxor a land 0x7f) in
-      loop (i - 1) sum in
+        let a = Bitsvect.get v i in
+        let sum = sum lsr 7 lxor crc_tbl.(sum lxor a land 0x7f) in
+        loop (i - 1) sum in
     loop (Bitsvect.length v - 5) 0
 
   let hashcons a = 
@@ -432,14 +432,14 @@ module BitsLeaf = struct
   let of_map n0 def m =
     let a = make_raw def in
     IMap.iter_range (fun n1 n2 v ->
-      for i = n1 - n0 to n2 - n0 do Bitsvect.set a i v done)
+        for i = n1 - n0 to n2 - n0 do Bitsvect.set a i v done)
       m;
     hashcons a
 
   let of_set n0 def s v =
     let a = make_raw def in
     ISet.iter_range (fun n1 n2 ->
-      for i = n1 - n0 to n2 - n0 do Bitsvect.set a i v done)
+        for i = n1 - n0 to n2 - n0 do Bitsvect.set a i v done)
       s;
     hashcons a
 end
@@ -462,7 +462,7 @@ module BytesContentsHash = struct
     let rec loop i =
       if i < 0 then true else
       if Bytesvect.get a1 i = Bytesvect.get a2 i then 
-	loop (i - 1) 
+        loop (i - 1) 
       else false in
     loop 255
 
@@ -480,12 +480,12 @@ module BytesLeaf = struct
   let hash v =
     let rec loop i sum =
       if i < 0 then sum else
-      let a = Bytesvect.get v i in
-      let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte3 a) land 0x7f) in
-      let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte2 a) land 0x7f) in
-      let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte1 a) land 0x7f) in
-      let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte0 a) land 0x7f) in
-      loop (i - 1) sum in
+        let a = Bytesvect.get v i in
+        let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte3 a) land 0x7f) in
+        let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte2 a) land 0x7f) in
+        let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte1 a) land 0x7f) in
+        let sum = sum lsr 7 lxor crc_tbl.(sum lxor (byte0 a) land 0x7f) in
+        loop (i - 1) sum in
     loop 255 0
 
   let hashcons a = 
@@ -501,14 +501,14 @@ module BytesLeaf = struct
   let of_map n0 def m =
     let a = make_raw def in
     IMap.iter_range (fun n1 n2 v ->
-      for i = n1 - n0 to n2 - n0 do Bytesvect.set a i v done)
+        for i = n1 - n0 to n2 - n0 do Bytesvect.set a i v done)
       m;
     hashcons a
 
   let of_set n0 def s v =
     let a = make_raw def in
     ISet.iter_range (fun n1 n2 ->
-      for i = n1 - n0 to n2 - n0 do Bytesvect.set a i v done)
+        for i = n1 - n0 to n2 - n0 do Bytesvect.set a i v done)
       s;
     hashcons a
 end

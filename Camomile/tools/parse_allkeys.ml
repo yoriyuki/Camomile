@@ -73,23 +73,23 @@ let compose_weight a b = a land 0x3ffff lsl 15 lor (b land 0x7fff)
 
 let ref_implicit_weights = ref
     (IntMap.add (compose_weight 0xfb40 0x8000) [0xfb40; 0x8000]
-    IntMap.empty)
+       IntMap.empty)
 
 let rec handle_implicit_weight = function
     [] -> []
   | (a, w2, w3) :: (b, 0x0000, 0x0000) :: rest
     when a >= 0xfb40 && b >= 0x8000 ->
-      let w = compose_weight a b in
-      ref_implicit_weights := IntMap.add w [a; b] !ref_implicit_weights;
-      (w, w2, w3) :: handle_implicit_weight rest
+    let w = compose_weight a b in
+    ref_implicit_weights := IntMap.add w [a; b] !ref_implicit_weights;
+    (w, w2, w3) :: handle_implicit_weight rest
   | (w1, w2, w3) :: rest ->
-      assert (w1 <> 0xffff);
-      if w1 >= 0xfb40 then
-	let w = w1 land 0x3ffff lsl 15 in
-	ref_implicit_weights := IntMap.add w [w1] !ref_implicit_weights;
-	(w, w2, w3) :: handle_implicit_weight rest
-      else
-	(w1, w2, w3) :: handle_implicit_weight rest
+    assert (w1 <> 0xffff);
+    if w1 >= 0xfb40 then
+      let w = w1 land 0x3ffff lsl 15 in
+      ref_implicit_weights := IntMap.add w [w1] !ref_implicit_weights;
+      (w, w2, w3) :: handle_implicit_weight rest
+    else
+      (w1, w2, w3) :: handle_implicit_weight rest
 
 let swap_case = function
     0x0002 -> 0x0008
@@ -134,20 +134,20 @@ let weight1_tbl, weight2_tbl, weight3_lowercasefirst_tbl =
   let weight_tbls = ref (weights1_tbl, AbsCe.EltMap.empty, AbsCe.EltMap.empty) in
   let ic = open_in input_fname in
   try while true do
-    let line = input_line ic in
-    if Str.string_match comment_pat line 0 then () else
-    if Str.string_match version_pat line 0 then () else
-    if Str.string_match entry_pat line 0 then
-      let s1 = Str.matched_group 1 line in
-      let s2 = Str.matched_group 2 line in
-      let us = List.map uchar_of_code (Str.split blank_pat s1) in
-      let es = List.map element_of (Str.split delim_pat s2) in
-      let es = handle_implicit_weight es in
-      let ws = (ws1_of es, ws2_of es, ws3_of es) in
-      weight_tbls := map2_triple (AbsCe.EltMap.add (`Seq us)) ws !weight_tbls;
-    else
-      failwith ("Broken_line: " ^ line)
-  done; assert false with End_of_file ->
+      let line = input_line ic in
+      if Str.string_match comment_pat line 0 then () else
+      if Str.string_match version_pat line 0 then () else
+      if Str.string_match entry_pat line 0 then
+        let s1 = Str.matched_group 1 line in
+        let s2 = Str.matched_group 2 line in
+        let us = List.map uchar_of_code (Str.split blank_pat s1) in
+        let es = List.map element_of (Str.split delim_pat s2) in
+        let es = handle_implicit_weight es in
+        let ws = (ws1_of es, ws2_of es, ws3_of es) in
+        weight_tbls := map2_triple (AbsCe.EltMap.add (`Seq us)) ws !weight_tbls;
+      else
+        failwith ("Broken_line: " ^ line)
+    done; assert false with End_of_file ->
     close_in ic;
     !weight_tbls
 
@@ -158,7 +158,7 @@ let weight1_tbl =
   AbsCe.EltMap.add `LastVariable [!ref_lastvariable_weight] weight1_tbl
 
 let weight1_tbl = IntMap.fold (fun w ws tbl ->
-  AbsCe.EltMap.add (`ImplicitWeight ws) [w] tbl) !ref_implicit_weights weight1_tbl
+    AbsCe.EltMap.add (`ImplicitWeight ws) [w] tbl) !ref_implicit_weights weight1_tbl
 
 let aceset_info =
   { AbsCe

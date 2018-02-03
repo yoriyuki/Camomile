@@ -48,29 +48,29 @@ let num_pat =
   Str.regexp "\\([0-9A-Za-z]+\\)+[ \\t]*;[ \\t]*\\([^ \\t]+\\)"
 
 (* let get_line () =
-  let s = read_line () in
-  if Str.string_match line_pat s 0 then Str.matched_group 1 s else s *)
+   let s = read_line () in
+   if Str.string_match line_pat s 0 then Str.matched_group 1 s else s *)
 
 let prev_entry = ref 0
 
 let read_data ic =
   try while true do
-    let s = input_line ic in
-    if Str.string_match range_pat s 0 then
-      let u1 = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_group 1 s))) in
-      let u2 = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_group 2 s))) in
-      let name = Str.matched_group 3 s in
-      let script = Unidata.script_of_name name in
-      let num = Unidata.num_of_script script in
-      tbl_rw := UMap.add_range u1 u2 num !tbl_rw
-    else if Str.string_match num_pat s 0 then
-      let n = int_of_string ("0x"^(Str.matched_group 1 s)) in
-      let name = Str.matched_group 2 s in
-      let script = Unidata.script_of_name name in
-      let num = Unidata.num_of_script script in
-      tbl_rw := UMap.add (UChar.chr_of_uint n) num !tbl_rw
-    else ()
-  done with End_of_file -> close_in ic
+      let s = input_line ic in
+      if Str.string_match range_pat s 0 then
+        let u1 = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_group 1 s))) in
+        let u2 = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_group 2 s))) in
+        let name = Str.matched_group 3 s in
+        let script = Unidata.script_of_name name in
+        let num = Unidata.num_of_script script in
+        tbl_rw := UMap.add_range u1 u2 num !tbl_rw
+      else if Str.string_match num_pat s 0 then
+        let n = int_of_string ("0x"^(Str.matched_group 1 s)) in
+        let name = Str.matched_group 2 s in
+        let script = Unidata.script_of_name name in
+        let num = Unidata.num_of_script script in
+        tbl_rw := UMap.add (UChar.chr_of_uint n) num !tbl_rw
+      else ()
+    done with End_of_file -> close_in ic
 
 let () =
   match Sys.argv with

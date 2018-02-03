@@ -39,13 +39,13 @@ sig
   type text
 
   open OOChannel
-  
+
   class nfd : UChar.t #obj_output_channel -> [UChar.t] obj_output_channel
   class nfc : UChar.t #obj_output_channel -> [UChar.t] obj_output_channel
   class nfkd : UChar.t #obj_output_channel -> [UChar.t] obj_output_channel
   class nfkc : UChar.t #obj_output_channel -> [UChar.t] obj_output_channel
 
-(** Conversion to NFD, NFKD, NFC, NFKC forms. *)
+  (** Conversion to NFD, NFKD, NFC, NFKC forms. *)
 
   val nfd : text -> text
   val nfkd : text -> text
@@ -66,9 +66,9 @@ sig
 
   val nfc_append : text -> text -> text
 
-(** [put_nfd b t], [put_nfkd b t], [put_nfc b t], [put_nfkc b t]
-   clear the contents of [b] and put the NFD, NFKD, NFC, NFKC 
-   forms of [t] into [b] respectively. *)
+  (** [put_nfd b t], [put_nfkd b t], [put_nfc b t], [put_nfkc b t]
+      clear the contents of [b] and put the NFD, NFKD, NFC, NFKC 
+      forms of [t] into [b] respectively. *)
 
   val put_nfd : XString.t -> text -> unit
   val put_nfkd : XString.t -> text -> unit
@@ -78,8 +78,8 @@ sig
   type index
 
   val nfd_inc : 
-      text -> index -> 
-	([`Inc of UChar.t list * index * 'a lazy_t ] as 'a)
+    text -> index -> 
+    ([`Inc of UChar.t list * index * 'a lazy_t ] as 'a)
 
   val canon_compare : text -> text -> int
 

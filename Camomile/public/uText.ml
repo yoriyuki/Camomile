@@ -36,7 +36,7 @@
 
 include Array
 type mutability = [ `Mutable | `Immutable ]
-      
+
 type 'a text = UChar.t array
 type utext = [`Imutable] text
 type t = utext
@@ -67,22 +67,22 @@ let rec compare_aux i t1 t2 =
   if i >= length t1 then
     if i >= length t2 then 0 else ~-1
   else if i >= length t2 then 1 else
-  match UChar.compare (get t1 i) (get t2 i) with
-    0 -> compare_aux (i + 1) t1 t2
-  | sgn -> sgn
+    match UChar.compare (get t1 i) (get t2 i) with
+      0 -> compare_aux (i + 1) t1 t2
+    | sgn -> sgn
 
 let compare t1 t2 = compare_aux 0 t1 t2
 
 module Buf =
-  struct
-    include XArray
+struct
+  include XArray
 
-    type buf = UChar.t xarray
+  type buf = UChar.t xarray
 
-    let create bufsize = XArray.make ~bufsize 0 (UChar.chr_of_uint 0)
-    let contents = array_of
-    let contents_string = array_of
-    let add_char = add_element
-    let add_string = add_array
-    let add_buffer = add_xarray
-  end
+  let create bufsize = XArray.make ~bufsize 0 (UChar.chr_of_uint 0)
+  let contents = array_of
+  let contents_string = array_of
+  let add_char = add_element
+  let add_string = add_array
+  let add_buffer = add_xarray
+end

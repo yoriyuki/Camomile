@@ -73,20 +73,20 @@ let printer_utf8 f s =
   let b = UTF8.Buf.create 0 in
   UTF8.iter
     (fun u ->
-      if UChar.uint_code u = 92  then
-	UTF8.Buf.add_string b "\\\\"
-      else if UChar.uint_code u < 0x80 then UTF8.Buf.add_char b u
-      else
-	let s = sprint_uchar u in
-	UTF8.Buf.add_string b s)
+       if UChar.uint_code u = 92  then
+         UTF8.Buf.add_string b "\\\\"
+       else if UChar.uint_code u < 0x80 then UTF8.Buf.add_char b u
+       else
+         let s = sprint_uchar u in
+         UTF8.Buf.add_string b s)
     s;
   let s = UTF8.Buf.contents b in
-    Format.fprintf f "\"%s\"" s
+  Format.fprintf f "\"%s\"" s
 
 let printer_uchar f u =
   Format.fprintf f "'%s'"
     (if UChar.uint_code u = backslash then "\\\\"
-    else if UChar.uint_code u < 0x80 then 
-      UTF8.init 1 (fun _ -> u)
-    else
-      sprint_uchar u)
+     else if UChar.uint_code u < 0x80 then 
+       UTF8.init 1 (fun _ -> u)
+     else
+       sprint_uchar u)

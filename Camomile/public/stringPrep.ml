@@ -84,13 +84,13 @@ struct
     | `Mib (** RFC 4011 *) ]
 
   type internal_profile =
-      { map : UChar.t -> UChar.t list;
-	normalize : normalisation;
-	prohibited : UChar.t -> bool;
-	check_bidi : bool;
-	unicode_version : UCharInfo.version_type;
-        bidi_ral : UChar.t -> bool;
-        bidi_l : UChar.t -> bool; }
+    { map : UChar.t -> UChar.t list;
+      normalize : normalisation;
+      prohibited : UChar.t -> bool;
+      check_bidi : bool;
+      unicode_version : UCharInfo.version_type;
+      bidi_ral : UChar.t -> bool;
+      bidi_l : UChar.t -> bool; }
 
   let make_map map =
     let f x =
@@ -184,26 +184,26 @@ struct
       if Text.out_of_range text next
       then is_rand_al_cat index
       else
-	if is_lcat index
-	then false
-	else check_rand_al_cat next
+      if is_lcat index
+      then false
+      else check_rand_al_cat next
     in
     let rec check_not_rand_al_cat index =
       if is_rand_al_cat index
       then false
       else
-	let next = Text.next text index in
-	if Text.out_of_range text next
-	then true
-	else check_not_rand_al_cat next
+        let next = Text.next text index in
+        if Text.out_of_range text next
+        then true
+        else check_not_rand_al_cat next
     in
     let first = Text.first text in
     if Text.out_of_range text first
     then (* empty text *) true
     else
-      if is_rand_al_cat first
-      then check_rand_al_cat first
-      else check_not_rand_al_cat first
+    if is_rand_al_cat first
+    then check_rand_al_cat first
+    else check_not_rand_al_cat first
 
   let normalisation : normalisation -> text -> text = function
     | `C -> UNF.nfc
@@ -225,14 +225,14 @@ struct
       if Text.out_of_range text index
       then ()
       else begin
-	let char = (Text.look text index) in
-	let prohibited =
-	  (not (UCharInfo.older (UCharInfo.age char) profile.unicode_version))
-	  || ( profile.prohibited char )
-	in
-	if prohibited
-	then raise (Prohibited (Text.look text index))
-	else check_prohibited (Text.next text index)
+        let char = (Text.look text index) in
+        let prohibited =
+          (not (UCharInfo.older (UCharInfo.age char) profile.unicode_version))
+          || ( profile.prohibited char )
+        in
+        if prohibited
+        then raise (Prohibited (Text.look text index))
+        else check_prohibited (Text.next text index)
       end
     in
     check_prohibited (Text.first text);

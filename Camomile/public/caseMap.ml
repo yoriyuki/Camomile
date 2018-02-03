@@ -276,15 +276,15 @@ module Make (Config : ConfigInt.Type) (Text : UnicodeString.Type) =  struct
         else
           let u = Text.look t2 i2 in
           loop i1 (Text.next t2 i2) us1 (casefolding_char u)
-	    | (u :: r) as us2 ->
-	      match us1 with
-		      [] ->
-		      if Text.out_of_range t1 i1 then -1 else
-		        let u = Text.look t1 i1 in
-		        loop (Text.next t1 i1) i2 (casefolding_char u) us2
-	      | u' :: r' ->
-		      let sgn = UChar.compare u' u in
-		      if sgn = 0 then loop i1 i2 r' r else sgn
+      | (u :: r) as us2 ->
+        match us1 with
+          [] ->
+          if Text.out_of_range t1 i1 then -1 else
+            let u = Text.look t1 i1 in
+            loop (Text.next t1 i1) i2 (casefolding_char u) us2
+        | u' :: r' ->
+          let sgn = UChar.compare u' u in
+          if sgn = 0 then loop i1 i2 r' r else sgn
     in loop (Text.first t1) (Text.first t2) [] []
 
 end

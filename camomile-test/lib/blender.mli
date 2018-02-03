@@ -10,10 +10,10 @@ type result =
   | Fail of string          (** test failed but was expected to succeed *)
   | XFail                   (** test failed as expected *)
   | Unresolved              (** manual inspection required to determine
-			        outcome *)
+                                			        outcome *)
   | Untested                (** test is still under development *)
   | Unsupported of string   (** test depends on a feature that is not
-			        available in the current environment. *)
+                                			        available in the current environment. *)
 
 (** [test desc body] executes a test case containing the code in
     [body].  Diagnostic information uses [desc] to identify the test
@@ -21,8 +21,8 @@ type result =
 val test : desc:string -> body:(unit -> result) -> unit
 val repeat_test : desc:string -> body:(unit -> result) -> unit
 val random_test : 
-    desc:string -> log:string -> data:(int -> 'a)
-	-> body:('a -> result) -> unit
+  desc:string -> log:string -> data:(int -> 'a)
+  -> body:('a -> result) -> unit
 
 (** Expect based testing
 
@@ -45,7 +45,7 @@ val expect_equal : ?msg:string lazy_t -> ?printer:('a -> string) ->
 (** [expect_equal_app f x g y] executes [f x] and [g y] an expects
     that they produce the same value or raise the same exception. *)
 val expect_equal_app : ?msg:string lazy_t -> ?printer:('b -> string) ->
-                       ('a -> 'b) -> 'a -> ('c -> 'b) -> 'c -> unit
+  ('a -> 'b) -> 'a -> ('c -> 'b) -> 'c -> unit
 
 (** Test directory structures *)
 

@@ -41,8 +41,8 @@ let range_pat = Str.regexp "\\([0-9A-Fa-f]+\\)\\.\\.\\([0-9A-Fa-f]+\\)"
 let num_pat = Str.regexp "[0-9A-Za-z]+"
 
 (* let get_line () =
-  let s = read_line () in
-  if Str.string_match line_pat s 0 then Str.matched_group 1 s else s *)
+   let s = read_line () in
+   if Str.string_match line_pat s 0 then Str.matched_group 1 s else s *)
 
 let prev_entry = ref 0
 
@@ -53,18 +53,18 @@ let use_line ?re line =
 
 let read_data ?re ic =
   try while true do
-    let s = input_line ic in
-    if not (use_line ?re s) then
-      ()
-    else if Str.string_match range_pat s 0 then
-      let u1 = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_group 1 s))) in
-      let u2 = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_group 2 s))) in
-      tbl_rw := USet.add_range u1 u2 !tbl_rw
-    else if Str.string_match num_pat s 0 then
-      let u = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_string s))) in
-      tbl_rw := USet.add u !tbl_rw
-    else ()
-  done with End_of_file -> close_in ic
+      let s = input_line ic in
+      if not (use_line ?re s) then
+        ()
+      else if Str.string_match range_pat s 0 then
+        let u1 = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_group 1 s))) in
+        let u2 = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_group 2 s))) in
+        tbl_rw := USet.add_range u1 u2 !tbl_rw
+      else if Str.string_match num_pat s 0 then
+        let u = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_string s))) in
+        tbl_rw := USet.add u !tbl_rw
+      else ()
+    done with End_of_file -> close_in ic
 
 let main () =
   let dir, name, filter, input_fname =

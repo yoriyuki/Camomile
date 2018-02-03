@@ -33,7 +33,7 @@
 (* yori@users.sourceforge.net *)
 
 (** Sub-texts, parts of original (ur-) texts.  
-   The signature and semantics matches those of UStorage. *)
+    The signature and semantics matches those of UStorage. *)
 module type Type = sig
   type t
 
@@ -53,7 +53,7 @@ module type Type = sig
   val move : t -> index -> int -> index
   val out_of_range : t -> index -> bool
   val compare_index : t -> index -> index -> int
-      
+
   val iter : (UChar.t -> unit) -> t -> unit
   val compare : t -> t -> int
 
@@ -68,26 +68,26 @@ module type Type = sig
     val add_buffer : buf -> buf -> unit
   end      
 
-(** The type of original texts. *)
+  (** The type of original texts. *)
   type ur_text
 
-(** The type of indexes of original texts. *)
+  (** The type of indexes of original texts. *)
   type ur_index
 
-(** [refer t i j] returns the part of [t] from [i] until [j].
-   The character pointed by [j] is not included in the result.
-   If [j] is equal to [i] or located before [j], the result is
-   an empty string. *)
+  (** [refer t i j] returns the part of [t] from [i] until [j].
+      The character pointed by [j] is not included in the result.
+      If [j] is equal to [i] or located before [j], the result is
+      an empty string. *)
   val refer : ur_text -> ur_index -> ur_index -> t
 
-(** [excerpt t] copies the contents of [t] as a new ur_text. *)
+  (** [excerpt t] copies the contents of [t] as a new ur_text. *)
   val excerpt : t -> ur_text
 
-(** [context t] returns the tuple [(s, i, j)] such that
-   [t = refer s i j]. *)
+  (** [context t] returns the tuple [(s, i, j)] such that
+      [t = refer s i j]. *)
   val context : t -> ur_text * ur_index * ur_index
 
-(** Conversion from indexes of sub-texts to ur_texts. *)
+  (** Conversion from indexes of sub-texts to ur_texts. *)
   val ur_index_of : t -> index -> ur_index
 end
 

@@ -198,36 +198,36 @@ let _ =
         let nfkd = NF.nfkd s in
 
         test ~desc:"NFC"
-	        ~body:(fun () -> expect_pass ~body:(fun () ->
-	            expect_true
-	              ~msg:(lazy (sprintf "%s <> %s"
-		                          (print_text s)
-		                          (print_text nfc)))
-	              (eq s nfc)));
+          ~body:(fun () -> expect_pass ~body:(fun () ->
+              expect_true
+                ~msg:(lazy (sprintf "%s <> %s"
+                              (print_text s)
+                              (print_text nfc)))
+                (eq s nfc)));
 
         test ~desc:"NFD"
-	        ~body:(fun () -> expect_pass ~body:(fun () ->
-	            expect_true
-	              ~msg:(lazy (sprintf "%s <> %s"
-		                          (print_text s)
-		                          (print_text nfd)))
-	              (eq s nfd)));
+          ~body:(fun () -> expect_pass ~body:(fun () ->
+              expect_true
+                ~msg:(lazy (sprintf "%s <> %s"
+                              (print_text s)
+                              (print_text nfd)))
+                (eq s nfd)));
 
         test ~desc:"NFKC"
-	        ~body:(fun () -> expect_pass ~body:(fun () ->
-	            expect_true
-	              ~msg:(lazy (sprintf "%s <> %s"
-		                          (print_text s)
-		                          (print_text nfkc)))
-	              (eq s nfkc)));
+          ~body:(fun () -> expect_pass ~body:(fun () ->
+              expect_true
+                ~msg:(lazy (sprintf "%s <> %s"
+                              (print_text s)
+                              (print_text nfkc)))
+                (eq s nfkc)));
 
         test ~desc:"NFKD"
-	        ~body:(fun () -> expect_pass ~body:(fun () ->
-	            expect_true
-	              ~msg:(lazy (sprintf "%s <> %s"
-		                          (print_text s)
-		                          (print_text nfkd)))
-	              (eq s nfkd)))
+          ~body:(fun () -> expect_pass ~body:(fun () ->
+              expect_true
+                ~msg:(lazy (sprintf "%s <> %s"
+                              (print_text s)
+                              (print_text nfkd)))
+                (eq s nfkd)))
   done
 
 let _ =  random_test
@@ -238,7 +238,7 @@ let _ =  random_test
     ~body:(fun a -> expect_pass ~body:(fun () ->
         let t = UText.init (Array.length a) (Array.get a) in
         expect_equal ~msg:(lazy "NFD <> NFD(NFC)")
-	        (NF.nfd t) (NF.nfd (NF.nfc t))))
+          (NF.nfd t) (NF.nfd (NF.nfc t))))
 
 let _ =  random_test
     ~desc:"NFKD ?= NFKD(NFKC)"
@@ -248,4 +248,4 @@ let _ =  random_test
     ~body:(fun a -> expect_pass ~body:(fun () ->
         let t = UText.init (Array.length a) (Array.get a) in
         expect_equal ~msg:(lazy "NFKD <> NFKD(NFKC)")
-	        (NF.nfkd t) (NF.nfd (NF.nfkc t))))
+          (NF.nfkd t) (NF.nfd (NF.nfkc t))))

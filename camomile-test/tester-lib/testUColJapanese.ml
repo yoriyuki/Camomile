@@ -117,19 +117,19 @@ let test_list_2 =     ["aaaahbbbb"; "aaaaイbbbb"; "aaaaIbbbb"]
 
 let test_desc_3 =  "test_1 &[before 3]UE <<< ウェ <<< UE <<< ue"
 let test_list_3 =     ["aaaaudbbbb";
-     "aaaaウェbbbb"; 
-     "aaaaUEbbbb"; 
-     "aaaauebbbb";
-     "aaaaUFbbbb"]
+                       "aaaaウェbbbb"; 
+                       "aaaaUEbbbb"; 
+                       "aaaauebbbb";
+                       "aaaaUFbbbb"]
 
 let test_desc_4 = "test_1 &[before 3]V <<< ヴェ/ェ = V <<< v"
 let test_list_4 =      ["aaaaVェabbb";
-      "aaaaヴェbbbb";
-      "aaaaVェcbbb";
-      "aaaavェcbbb"]
+                        "aaaaヴェbbbb";
+                        "aaaaVェcbbb";
+                        "aaaavェcbbb"]
 
 let test_desc_5 = "test_1 &皇帝 < emperor"
 let test_list_5 =     ["anon_皇帝";
-     "anon_emperor"]
+                       "anon_emperor"]
 
 

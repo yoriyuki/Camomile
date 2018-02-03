@@ -1,5 +1,5 @@
 (** UCS4 encoded string. The type is the bigarray of 32-bit integers.
-   Bigarray.cma or Bigarray.cmxa must be linked when this module is used. *)
+    Bigarray.cma or Bigarray.cmxa must be linked when this module is used. *)
 
 (* Copyright (C) 2002, 2003, 2004 Yamagata Yoriyuki. *)
 
@@ -47,9 +47,9 @@ exception Malformed_code
 
 let rec validate_aux (a:t) i =
   if i >= Array1.dim a then () else
-  match Int32.to_int (Int32.shift_right a.{i} 31) with
-    0 -> validate_aux a (i + 1)
-  | _ -> raise Malformed_code
+    match Int32.to_int (Int32.shift_right a.{i} 31) with
+      0 -> validate_aux a (i + 1)
+    | _ -> raise Malformed_code
 
 let validate (a:t) = validate_aux a 0
 
@@ -112,10 +112,10 @@ module Buf = struct
 
   let resize buf n =
     if Array1.dim buf.contents >= n then () else
-    let a = Array1.create int32 c_layout (2 * n) in
-    let a' = Array1.sub a 0 (Array1.dim buf.contents) in
-    Array1.blit buf.contents a';
-    buf.contents <- a
+      let a = Array1.create int32 c_layout (2 * n) in
+      let a' = Array1.sub a 0 (Array1.dim buf.contents) in
+      Array1.blit buf.contents a';
+      buf.contents <- a
 
   let add_char buf u =
     resize buf (buf.pos + 1);

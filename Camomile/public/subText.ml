@@ -1,5 +1,5 @@
 (** Sub-texts, parts of original (ur-) texts.
-   The signature and semantics matches those of UStorage. *)
+    The signature and semantics matches those of UStorage. *)
 (* Copyright (C) 2002, 2003 Yamagata Yoriyuki. distributed with LGPL *)
 
 (* This library is free software; you can redistribute it and/or *)
@@ -86,11 +86,11 @@ module Make (Text : UnicodeString.Type) = struct
   let out_of_range (t, i0, j) i =
     if Text.compare_index t i0 i > 0 then true else
     if Text.compare_index t i j >= 0 then true else
-    Text.out_of_range t i
+      Text.out_of_range t i
 
   let look ((t, _, _) as s) i =
     if out_of_range s i then failwith "SubText.look" else
-    Text.look t i
+      Text.look t i
 
   let next (t, _, _) i = Text.next t i
 
@@ -115,26 +115,26 @@ module Make (Text : UnicodeString.Type) = struct
   let length (t, i, j) =
     let rec loop i n =
       if Text.compare_index t i j >= 0 then n else
-      loop (Text.next t i) (n + 1) in
+        loop (Text.next t i) (n + 1) in
     loop i 0
 
   let iter proc (t, i, j) =
     let rec loop i =
       if Text.compare_index t i j >= 0 then () else begin
-	proc (Text.look t i);
-	loop (Text.next t i)
+        proc (Text.look t i);
+        loop (Text.next t i)
       end in
     loop i
 
   let compare (t1, i1, j1) (t2, i2, j2) =
     let rec loop i1 i2 =
       if Text.compare_index t1 i1 j1 >= 0 then
-	if Text.compare_index t2 i2 j2 >= 0 then 0 else ~-1
+        if Text.compare_index t2 i2 j2 >= 0 then 0 else ~-1
       else if Text.compare_index t2 i2 j2 >= 0 then 1 else
-      let sgn = UChar.compare (Text.look t1 i1) (Text.look t2 i2) in
-      if sgn = 0 then
-	loop (Text.next t1  i1) (Text.next t2 i2)
-      else sgn in
+        let sgn = UChar.compare (Text.look t1 i1) (Text.look t2 i2) in
+        if sgn = 0 then
+          loop (Text.next t1  i1) (Text.next t2 i2)
+        else sgn in
     loop i1 i2
 
   module Buf = struct

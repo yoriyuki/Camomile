@@ -36,26 +36,26 @@
 (** Case mappings as defined in Unicode Technical Report #21 *)
 
 (** For locale, see {!Locale}.
-   If locale is omitted, default mapping is used. *)
+    If locale is omitted, default mapping is used. *)
 
 module type Type =
-  sig
-    type text
+sig
+  type text
 
-    val lowercase : ?locale:string -> text -> text
-    val uppercase : ?locale:string -> text -> text
+  val lowercase : ?locale:string -> text -> text
+  val uppercase : ?locale:string -> text -> text
 
-    (** Capitalize the first letter of the text *)
-    val capitalize : ?locale:string -> text -> text
+  (** Capitalize the first letter of the text *)
+  val capitalize : ?locale:string -> text -> text
 
-    (** Capitalize the beginning of words *)
-    val titlecase : ?locale:string -> text -> text
+  (** Capitalize the beginning of words *)
+  val titlecase : ?locale:string -> text -> text
 
-    (** Case foldding *)
-    val casefolding : text -> text
+  (** Case foldding *)
+  val casefolding : text -> text
 
-    (** Caseless comparison *)
-    val compare_caseless : text -> text -> int
-  end
+  (** Caseless comparison *)
+  val compare_caseless : text -> text -> int
+end
 
 module Make (Config : ConfigInt.Type) (Text : UnicodeString.Type) :  (Type with type text = Text.t)

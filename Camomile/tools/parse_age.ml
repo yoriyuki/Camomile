@@ -59,13 +59,13 @@ let parse_line map s =
     let minor = int_of_string (Str.matched_group 4 s) in
     UMap.add_range u1 u2 (make_version_char major minor) map
   else
-    if Str.string_match num_pat s 0
-    then
+  if Str.string_match num_pat s 0
+  then
     let u = char_of_string (Str.matched_group 1 s) in
     let major = int_of_string (Str.matched_group 2 s) in
     let minor = int_of_string (Str.matched_group 3 s) in
     UMap.add u (make_version_char major minor) map
-    else map
+  else map
 
 exception Ok of string
 

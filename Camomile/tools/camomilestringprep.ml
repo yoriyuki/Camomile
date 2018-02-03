@@ -40,14 +40,14 @@ let hashcons_list =
   let rec f = function
     | [] -> []
     | h::q as l ->
-	try
-	  Hashtbl.find tbl l
-	with
-	  | Not_found ->
-	      let q = f q in
-	      let l = h::q in
-	      Hashtbl.add tbl l l;
-	      l
+      try
+        Hashtbl.find tbl l
+      with
+      | Not_found ->
+        let q = f q in
+        let l = h::q in
+        Hashtbl.add tbl l l;
+        l
   in
   f
 
@@ -71,8 +71,8 @@ let input_dir = ref ""
 let output_dir = ref ""
 
 let () = Arg.parse ["-in",Arg.Set_string input_dir,"input directory";
-		    "-out",Arg.Set_string output_dir,"output directory"]
-  (fun _ -> ()) "Parse stringprep data file";
+                    "-out",Arg.Set_string output_dir,"output directory"]
+    (fun _ -> ()) "Parse stringprep data file";
 
 module MappingHash =
 struct
@@ -128,10 +128,10 @@ let parse_set file =
     try
       raise (Ok (input_line c))
     with
-      | End_of_file -> set
-      | Ok s ->
-	  let set = parse_set_line set s in
-	  parse set
+    | End_of_file -> set
+    | Ok s ->
+      let set = parse_set_line set s in
+      parse set
   in
   parse USet.empty
 
@@ -163,10 +163,10 @@ let parse_map file =
     try
       raise (Ok (input_line c))
     with
-      | End_of_file -> l
-      | Ok s ->
-	  let line = parse_map_line s in
-	  parse (line::l)
+    | End_of_file -> l
+    | Ok s ->
+      let line = parse_map_line s in
+      parse (line::l)
   in
   parse []
 
