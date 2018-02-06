@@ -57,7 +57,7 @@ class ['a] channel_of_stream s  =
 
 let stream_of_channel inchan =
   Stream.from (fun _ ->
-    try Some (inchan#get()) with End_of_file -> None)
+      try Some (inchan#get()) with End_of_file -> None)
 
 class type char_input_channel =
   object
@@ -77,12 +77,12 @@ class char_input_channel_of (oc : char #obj_input_channel) =
     method close_in () = oc#close_in ()
     method input b pos len =
       let p = ref pos in
-	(try while !p < pos + len do
-	  Bytes.set b !p (oc#get());
-	  incr p;
-	 done; () with End_of_file -> ());
-	let len = !p - pos in
-	  if len <= 0 then raise End_of_file else len
+      (try while !p < pos + len do
+           Bytes.set b !p (oc#get());
+           incr p;
+         done; () with End_of_file -> ());
+      let len = !p - pos in
+      if len <= 0 then raise End_of_file else len
   end
 
 class char_obj_input_channel_of (ic : char_input_channel) =
@@ -92,16 +92,16 @@ class char_obj_input_channel_of (ic : char_input_channel) =
   object (self)
     method get () =
       if !pos >= !len then begin
-	len := ic#input b 0 1024;
-	pos := 0;
-	self#get ()
-       end else
-	 let c = Bytes.get b !pos in
-	   incr pos;
-	   c
+        len := ic#input b 0 1024;
+        pos := 0;
+        self#get ()
+      end else
+        let c = Bytes.get b !pos in
+        incr pos;
+        c
     method close_in () = ic#close_in ()
   end
-    
+
 class char_output_channel_of (oc : char #obj_output_channel) =
   object
     method flush = oc#flush
@@ -119,19 +119,19 @@ class char_obj_output_channel_of (out : char_output_channel) =
       Bytes.set b !pos c;
       incr pos;
       if !pos >= 1024 then 
-	let n = out#output b 0 1024 in
-	  Bytes.blit b n b 0 (1024 - n);
-	  pos := 1024 - n
+        let n = out#output b 0 1024 in
+        Bytes.blit b n b 0 (1024 - n);
+        pos := 1024 - n
     method flush () =    
       let n = out#output b 0 !pos in
-	if n < !pos then begin
-	  Bytes.blit b n b 0 (!pos - n);
-	  pos := !pos -n;
-	  failwith 
-	    "OOChannel.char_output_channel_of#flush: \
-             Cannot flush the entire buffer";
-	end else
-	  pos := 0
+      if n < !pos then begin
+        Bytes.blit b n b 0 (!pos - n);
+        pos := !pos -n;
+        failwith 
+          "OOChannel.char_output_channel_of#flush: \
+           Cannot flush the entire buffer";
+      end else
+        pos := 0
     method close_out () = 
       out#flush ();
       out#close_out () 

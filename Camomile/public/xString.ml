@@ -1,6 +1,6 @@
 (** eXtensible Unicode string.  
-   The semantics matches the description of UStorage. 
-   The detail may be going to change.*)
+    The semantics matches the description of UStorage. 
+    The detail may be going to change.*)
 
 (* Copyright 2002, 2003 Yamagata Yoriyuki. distributed with LGPL *)
 
@@ -66,7 +66,7 @@ module type XStringSig = sig
   val append : xstring -> xstring -> xstring
   val utext_of : xstring -> UText.t
   val ustring_of : xstring -> UText.ustring
-      
+
   val iter : (UChar.t -> unit) -> xstring -> unit
   val compare : xstring -> xstring -> int
 end
@@ -79,9 +79,9 @@ module XStringAux : XStringSig = struct
     if i >= length t1 then
       if i >= length t2 then 0 else ~-1
     else if i >= length t2 then 1 else
-    match UChar.compare (XArray.get t1 i) (XArray.get t2 i) with
-      0 -> compare_aux (i + 1) t1 t2
-    | sgn -> sgn
+      match UChar.compare (XArray.get t1 i) (XArray.get t2 i) with
+        0 -> compare_aux (i + 1) t1 t2
+      | sgn -> sgn
 
   let compare t1 t2 = compare_aux 0 t1 t2
   let add_xstring = add_xarray
@@ -91,17 +91,17 @@ module XStringAux : XStringSig = struct
   let utext_of b = UText.init (length b) (get b)
 end
 
+include XStringAux
+type t = xstring
+
+let init len f = XArray.init len (UChar.chr_of_uint 0) f
+
+module Buf =
+struct
   include XStringAux
-  type t = xstring
-
-  let init len f = XArray.init len (UChar.chr_of_uint 0) f
-
-  module Buf =
-    struct
-      include XStringAux
-      type buf = xstring
-      let create bufsize = make ~bufsize 0 (UChar.chr_of_uint 0)
-      let contents x = x
-      let add_string = add_xstring
-      let add_buffer = add_xstring
-    end
+  type buf = xstring
+  let create bufsize = make ~bufsize 0 (UChar.chr_of_uint 0)
+  let contents x = x
+  let add_string = add_xstring
+  let add_buffer = add_xstring
+end

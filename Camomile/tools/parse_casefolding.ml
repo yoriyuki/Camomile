@@ -51,25 +51,25 @@ let entry_pat =
 let loaddata ic =
   let count = ref 0 in
   try while true do
-    let line = input_line ic in
-    incr count;
-    if Str.string_match comment_pat line 0 then () else
-    if Str.string_match entry_pat line 0 then
-      let u = uchar_of_code (Str.matched_group 1 line) in
-      let status = Str.matched_group 2 line in
-      let mapping = Str.matched_group 3 line in
-      if status = "C" || status = "F" then
-	let mapping = us_of_codes (Str.split blank_pat mapping) in
-        folds := UMap.add u mapping !folds
-      else ()
-    else failwith (Printf.sprintf "Malformed entry in the line %d" !count)
-  done with End_of_file -> close_in ic
+      let line = input_line ic in
+      incr count;
+      if Str.string_match comment_pat line 0 then () else
+      if Str.string_match entry_pat line 0 then
+        let u = uchar_of_code (Str.matched_group 1 line) in
+        let status = Str.matched_group 2 line in
+        let mapping = Str.matched_group 3 line in
+        if status = "C" || status = "F" then
+          let mapping = us_of_codes (Str.split blank_pat mapping) in
+          folds := UMap.add u mapping !folds
+        else ()
+      else failwith (Printf.sprintf "Malformed entry in the line %d" !count)
+    done with End_of_file -> close_in ic
 
 module Tbl = UCharTbl.Make (struct
-  type t = UChar.t list
-  let equal = (=)
-  let hash = Hashtbl.hash
-end)
+    type t = UChar.t list
+    let equal = (=)
+    let hash = Hashtbl.hash
+  end)
 
 let  _ =
   match Sys.argv with

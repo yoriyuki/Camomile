@@ -3,16 +3,16 @@
 (executables
  ((names
    (testOOChannel
-    test-base
-    test-caseMap
-    test-charEncoding
-    test-normalform
-    test-uCol
-    test-uTF8
+    test_base
+    test_caseMap
+    test_charEncoding
+    test_normalform
+    test_uCol
+    test_uTF8
     test_stringprep
-    uCS4-test
-    uReStr-test
-    uTF16-test))
+    uCS4_test
+    uReStr_test
+    uTF16_test))
   (libraries (str camomile blender tester_lib))))
 
 (alias
@@ -22,36 +22,36 @@
 
 (alias
  ((name runtest)
-  (deps (test-base.exe))
+  (deps (test_base.exe))
   (action (run ${<}))))
 
 (alias
  ((name runtest)
-  (deps (test-caseMap.exe))
+  (deps (test_caseMap.exe))
   (action (run ${<}))))
 
 (alias
  ((name runtest)
-  (deps (test-charEncoding.exe (glob_files ../data/enc/*)))
+  (deps (test_charEncoding.exe (glob_files ../data/enc/*)))
   (action (run ${<}))))
 
 (alias
  ((name runtest)
-  (deps (test-normalform.exe
+  (deps (test_normalform.exe
          ../unidata/NormalizationTest.txt
          ../unidata/CollationTest_SHIFTED.txt))
   (action (run ${<}))))
 
 (alias
  ((name runtest)
-  (deps (test-uCol.exe
+  (deps (test_uCol.exe
          (glob_files ../unidata/*)
          (glob_files ../data/*)))
   (action (run ${<}))))
 
 (alias
  ((name runtest)
-  (deps (test-uTF8.exe))
+  (deps (test_uTF8.exe))
   (action (run ${<}))))
 
 (alias
@@ -61,15 +61,15 @@
 
 (alias
  ((name runtest)
-  (deps (uCS4-test.exe))
+  (deps (uCS4_test.exe))
   (action (run ${<}))))
 
 (alias
  ((name runtest)
-  (deps (uReStr-test.exe))
+  (deps (uReStr_test.exe))
   (action (run ${<}))))
 
 (alias
  ((name runtest)
-  (deps (uTF16-test.exe))
+  (deps (uTF16_test.exe))
   (action (run ${<}))))

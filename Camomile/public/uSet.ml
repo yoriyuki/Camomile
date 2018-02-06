@@ -1,5 +1,5 @@
 (** Sets of Unicode characters, implemented as sets of intervals.
-   The signature is mostly same to Set.S in stdlib *)
+    The signature is mostly same to Set.S in stdlib *)
 
 (* Copyright (C) 2002, 2003 Yamagata Yoriyuki. *)
 

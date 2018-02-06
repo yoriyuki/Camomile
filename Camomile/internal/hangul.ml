@@ -61,33 +61,33 @@ let add_decomposition x u =
     XString.add_char x (UChar.chr_of_uint (vbase + (n mod ncount) / tcount));
     let t = tbase + n mod tcount in
     if t = tbase then () else
-    XString.add_char x (UChar.chr_of_uint t)
+      XString.add_char x (UChar.chr_of_uint t)
   end
 
 let compose x' x =
   if XString.length x = 0 then () else
-  let pos = ref 0 in
-  let last = ref (UChar.uint_code (XString.get x 0)) in
-  for i = 1 to XString.length x - 1 do
-    let n = UChar.uint_code (XString.get x i) in
-    let l = !last - lbase in
-    let v = n - vbase in
-    if 0 <= l && l < lcount	&& 0 <= v && v < vcount then
-      last := sbase + (l * vcount + v) * tcount
-    else
-      let s = !last - sbase in
-      let t = n - tbase in
-      if 
-	0 <= s && s < scount && s mod tcount = 0 && 
-	0 <= t && t < tcount
-      then
-	last := !last + t
-      else begin
-	XString.set x' !pos (UChar.chr_of_uint !last);
-	last := n;
-	incr pos
-      end
-  done;
-  XString.set x' !pos (UChar.chr_of_uint !last);
-  XString.shrink x' (!pos + 1)
-    
+    let pos = ref 0 in
+    let last = ref (UChar.uint_code (XString.get x 0)) in
+    for i = 1 to XString.length x - 1 do
+      let n = UChar.uint_code (XString.get x i) in
+      let l = !last - lbase in
+      let v = n - vbase in
+      if 0 <= l && l < lcount	&& 0 <= v && v < vcount then
+        last := sbase + (l * vcount + v) * tcount
+      else
+        let s = !last - sbase in
+        let t = n - tbase in
+        if 
+          0 <= s && s < scount && s mod tcount = 0 && 
+          0 <= t && t < tcount
+        then
+          last := !last + t
+        else begin
+          XString.set x' !pos (UChar.chr_of_uint !last);
+          last := n;
+          incr pos
+        end
+    done;
+    XString.set x' !pos (UChar.chr_of_uint !last);
+    XString.shrink x' (!pos + 1)
+

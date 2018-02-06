@@ -91,8 +91,8 @@ and in_quote s =
     Stream.icons data (remove_comment s)
   | _ ->
     begin match Stream.next s with
-    | data -> Stream.icons data (in_quote s)
-    | exception Stream.Failure -> Stream.sempty
+      | data -> Stream.icons data (in_quote s)
+      | exception Stream.Failure -> Stream.sempty
     end
 
 let rec merge_text st =
@@ -108,16 +108,16 @@ and do_merge s st =
 
 let lexer s =
   let rec parse s =
-      match Stream.next s with
-      | Some '{', _, _ -> Stream.icons Brace_l (parse s)
-      | Some '}', _, _ -> Stream.icons Brace_r (parse s)
-      | Some ':', _, _ -> Stream.icons Colon (parse s)
-      | Some ',', _, _ -> Stream.icons Comma (parse s)
-      | Some '"', _, _ -> quote s
-      | Some ('\r' | '\n' | '\133' | '\t'), _, _
-      | _, (`Zs | `Zl | `Zp), _ -> parse s
-      | e -> text (Stream.icons e s)
-      | exception Stream.Failure -> Stream.sempty
+    match Stream.next s with
+    | Some '{', _, _ -> Stream.icons Brace_l (parse s)
+    | Some '}', _, _ -> Stream.icons Brace_r (parse s)
+    | Some ':', _, _ -> Stream.icons Colon (parse s)
+    | Some ',', _, _ -> Stream.icons Comma (parse s)
+    | Some '"', _, _ -> quote s
+    | Some ('\r' | '\n' | '\133' | '\t'), _, _
+    | _, (`Zs | `Zl | `Zp), _ -> parse s
+    | e -> text (Stream.icons e s)
+    | exception Stream.Failure -> Stream.sempty
   and quote s =
     let buf = Utf8Buffer.create 16 in
     let rec loop st =
@@ -130,14 +130,14 @@ let lexer s =
         loop st
       |	_ ->
         begin match Stream.next st with
-        | Some '"', _, _ ->
-          let s = Utf8Buffer.contents buf in
-          let s' = unescape s in
-          Stream.icons (Text s') (parse st)
-        | _, _, u ->
-          Utf8Buffer.add_char buf u;
-          loop st
-        | exception Stream.Failure -> failwith "A quote is not enclosed."
+          | Some '"', _, _ ->
+            let s = Utf8Buffer.contents buf in
+            let s' = unescape s in
+            Stream.icons (Text s') (parse st)
+          | _, _, u ->
+            Utf8Buffer.add_char buf u;
+            loop st
+          | exception Stream.Failure -> failwith "A quote is not enclosed."
         end in
     loop s
   and text s =

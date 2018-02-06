@@ -86,7 +86,7 @@ val fold_range : (int -> int -> 'a -> 'a) -> t -> 'a -> 'a
 val for_all : (int -> bool) -> t -> bool
 
 val exists : (int -> bool) -> t -> bool
-    
+
 val filter : (int -> bool) -> t -> t
 
 val partition : (int -> bool) -> t -> t * t
