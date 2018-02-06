@@ -36,7 +36,7 @@
 
 type t = string
 type index = int
-  
+
 let look s i =
   let n' =
     let n = Char.code s.[i] in
@@ -85,9 +85,9 @@ let look s i =
 
 let rec search_head s i =
   if i >= String.length s then i else
-  let n = Char.code (String.unsafe_get s i) in
-  if n < 0x80 || n >= 0xc2 then i else
-  search_head s (i + 1)
+    let n = Char.code (String.unsafe_get s i) in
+    if n < 0x80 || n >= 0xc2 then i else
+      search_head s (i + 1)
 
 let next s i = 
   let n = Char.code s.[i] in
@@ -102,9 +102,9 @@ let next s i =
 
 let rec search_head_backward s i =
   if i < 0 then -1 else
-  let n = Char.code s.[i] in
-  if n < 0x80 || n >= 0xc2 then i else
-  search_head_backward s (i - 1)
+    let n = Char.code s.[i] in
+    if n < 0x80 || n >= 0xc2 then i else
+      search_head_backward s (i - 1)
 
 let prev s i = search_head_backward s (i - 1)
 
@@ -118,7 +118,7 @@ let move s i n =
 
 let rec nth_aux s i n =
   if n = 0 then i else
-  nth_aux s (next s i) (n - 1)
+    nth_aux s (next s i) (n - 1)
 
 let nth s n = nth_aux s 0 n
 
@@ -172,25 +172,25 @@ let init len f =
 
 let rec length_aux s c i =
   if i >= String.length s then c else
-  let n = Char.code (String.unsafe_get s i) in
-  let k =
-    if n < 0x80 then 1 else
-    if n < 0xc0 then invalid_arg "UTF8.length" else
-    if n < 0xe0 then 2 else
-    if n < 0xf0 then 3 else
-    if n < 0xf8 then 4 else
-    if n < 0xfc then 5 else
-    if n < 0xfe then 6 else
-    invalid_arg "UTF8.length" in
-  length_aux s (c + 1) (i + k)
+    let n = Char.code (String.unsafe_get s i) in
+    let k =
+      if n < 0x80 then 1 else
+      if n < 0xc0 then invalid_arg "UTF8.length" else
+      if n < 0xe0 then 2 else
+      if n < 0xf0 then 3 else
+      if n < 0xf8 then 4 else
+      if n < 0xfc then 5 else
+      if n < 0xfe then 6 else
+        invalid_arg "UTF8.length" in
+    length_aux s (c + 1) (i + k)
 
 let length s = length_aux s 0 0
 
 let rec iter_aux proc s i =
   if i >= String.length s then () else
-  let u = look s i in
-  proc u;
-  iter_aux proc s (next s i)
+    let u = look s i in
+    proc u;
+    iter_aux proc s (next s i)
 
 let iter proc s = iter_aux proc s 0
 
@@ -202,36 +202,36 @@ let validate s =
   let rec trail c i a =
     if c = 0 then a else
     if i >= String.length s then raise Malformed_code else
-    let n = Char.code (String.unsafe_get s i) in
-    if n < 0x80 || n >= 0xc0 then raise Malformed_code else
-    trail (c - 1) (i + 1) (a lsl 6 lor (n - 0x80)) in
+      let n = Char.code (String.unsafe_get s i) in
+      if n < 0x80 || n >= 0xc0 then raise Malformed_code else
+        trail (c - 1) (i + 1) (a lsl 6 lor (n - 0x80)) in
   let rec main i =
     if i >= String.length s then () else
-    let n = Char.code (String.unsafe_get s i) in
-    if n < 0x80 then main (i + 1) else
-    if n < 0xc2 then raise Malformed_code else
-    if n <= 0xdf then 
-      if trail 1 (i + 1) (n - 0xc0) < 0x80 then raise Malformed_code else 
-      main (i + 2)
-    else if n <= 0xef then 
-      if trail 2 (i + 1) (n - 0xe0) < 0x800 then raise Malformed_code else 
-      main (i + 3)
-    else if n <= 0xf7 then 
-      if trail 3 (i + 1) (n - 0xf0) < 0x10000 then raise Malformed_code else
-      main (i + 4)
-    else if n <= 0xfb then 
-      if trail 4 (i + 1) (n - 0xf8) < 0x200000 then raise Malformed_code else
-      main (i + 5)
-    else if n <= 0xfd then 
-      let n = trail 5 (i + 1) (n - 0xfc) in
-      if n lsr 16 < 0x400 then raise Malformed_code else
-      main (i + 6)
-    else raise Malformed_code in
+      let n = Char.code (String.unsafe_get s i) in
+      if n < 0x80 then main (i + 1) else
+      if n < 0xc2 then raise Malformed_code else
+      if n <= 0xdf then 
+        if trail 1 (i + 1) (n - 0xc0) < 0x80 then raise Malformed_code else 
+          main (i + 2)
+      else if n <= 0xef then 
+        if trail 2 (i + 1) (n - 0xe0) < 0x800 then raise Malformed_code else 
+          main (i + 3)
+      else if n <= 0xf7 then 
+        if trail 3 (i + 1) (n - 0xf0) < 0x10000 then raise Malformed_code else
+          main (i + 4)
+      else if n <= 0xfb then 
+        if trail 4 (i + 1) (n - 0xf8) < 0x200000 then raise Malformed_code else
+          main (i + 5)
+      else if n <= 0xfd then 
+        let n = trail 5 (i + 1) (n - 0xfc) in
+        if n lsr 16 < 0x400 then raise Malformed_code else
+          main (i + 6)
+      else raise Malformed_code in
   main 0
 
 module Buf = 
-  struct
-    include Buffer
-    type buf = t
-    let add_char = add_uchar
-  end
+struct
+  include Buffer
+  type buf = t
+  let add_char = add_uchar
+end

@@ -33,24 +33,24 @@
 (* yori@users.sourceforge.net *)
 
 type t = 
-    {len : int; 
-     mutable bytes : int; 
-     mutable contents : Bytes.t;
-     mutable id : int}
+  {len : int; 
+   mutable bytes : int; 
+   mutable contents : Bytes.t;
+   mutable id : int}
 
 (* get b v i : read b-bytes from the k-th byte of v *)
 (* b <= 4 *) 
 let rec get_raw acc b v k =
   if b = 0 then acc else
-  let acc' = (acc lsl 8) lor (Char.code (Bytes.get v k)) in
-  get_raw acc' (pred b) v (succ k)
+    let acc' = (acc lsl 8) lor (Char.code (Bytes.get v k)) in
+    get_raw acc' (pred b) v (succ k)
 
 let get v i = get_raw 0 v.bytes v.contents (i * v.bytes)
 
 let rec unsafe_get_raw acc b v k =
   if b = 0 then acc else
-  let acc' = (acc lsl 8) lor (Char.code (Bytes.unsafe_get v k)) in
-  unsafe_get_raw acc' (pred b) v (succ k)
+    let acc' = (acc lsl 8) lor (Char.code (Bytes.unsafe_get v k)) in
+    unsafe_get_raw acc' (pred b) v (succ k)
 
 let unsafe_get v i = unsafe_get_raw 0 v.bytes v.contents (i * v.bytes)
 

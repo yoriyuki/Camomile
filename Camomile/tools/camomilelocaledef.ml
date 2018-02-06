@@ -35,8 +35,6 @@
 (* yori@users.sourceforge.net *)
 
 
-open Toolslib
-open AbsCe
 open Camomilelocaledef_lexer
 module CE = CharEncoding.Configure(Camomileconfig)
 
@@ -46,17 +44,17 @@ let enc, readfile, dir =
   let dir = ref Filename.current_dir_name in
   Arg.parse
     ["--enc", Arg.String (fun encname ->
-      enc := CE.of_name encname), "Encoding name";
+         enc := CE.of_name encname), "Encoding name";
      "--file", Arg.String (fun filename ->
-       readfile := open_in_bin filename), "Reading file"]
+         readfile := open_in_bin filename), "Reading file"]
     (fun dirname -> dir := dirname)
     "camomilelocaledef --enc ENCNAME --file INPUTFILE DIRECTORY:\n\
-    Read the localedef INPUTFILE using the encoding ENCNAME \
-and put the compiled data into DIRECTORY. \
-    If ENCNAME is ommited, UTF-8 is used.  \
-    If INPUTFILE is ommited, reading from stdin. \
-    If DIRECTORY is ommited, the current directory is used.";
-    !enc, !readfile, !dir
+     Read the localedef INPUTFILE using the encoding ENCNAME \
+     and put the compiled data into DIRECTORY. \
+     If ENCNAME is ommited, UTF-8 is used.  \
+     If INPUTFILE is ommited, reading from stdin. \
+     If DIRECTORY is ommited, the current directory is used.";
+  !enc, !readfile, !dir
 
 module Utf8NF = UNF.Make(Camomileconfig)(UTF8)
 
@@ -89,12 +87,12 @@ let load_file filename =
   let c = open_in_bin file in
   let buf = Buffer.create 16 in
   try begin while true do
-    Buffer.add_channel buf c 1
-  done; assert false end
+      Buffer.add_channel buf c 1
+    done; assert false end
   with End_of_file ->
     Buffer.contents buf
 
-type data = 
+type data =
     Table of (string, data) Hashtbl.t
   | Array_data of data array
   | String_data of string
@@ -106,111 +104,111 @@ type data =
 let rec parse_intvect l a =
   match l with
     Text num :: Comma :: rest ->
-      parse_intvect rest ((int_of_string num) :: a)
+    parse_intvect rest ((int_of_string num) :: a)
   | Text num :: rest ->
-      Intvect (Array.of_list (List.rev ((int_of_string num) :: a))), rest
-  | _ -> 
-      Intvect (Array.of_list (List.rev a)), l
+    Intvect (Array.of_list (List.rev ((int_of_string num) :: a))), rest
+  | _ ->
+    Intvect (Array.of_list (List.rev a)), l
 
 let rec parse_table l a =
   match parse l with
     Some d, rest -> parse_table rest (d :: a)
-  | None, rest -> 
-      let tbl = Hashtbl.create (List.length a) in
-      let proc ent =
-	match ent with
-	  Tagged (name, data) ->
-	    Hashtbl.add tbl name data
-	| _ -> failwith "A broken table entry."
-      in
-      List.iter proc a;
-      Table tbl, rest
+  | None, rest ->
+    let tbl = Hashtbl.create (List.length a) in
+    let proc ent =
+      match ent with
+        Tagged (name, data) ->
+        Hashtbl.add tbl name data
+      | _ -> failwith "A broken table entry."
+    in
+    List.iter proc a;
+    Table tbl, rest
 
 and parse_array l a =
   match l with
     Brace_l :: rest ->
-      let data, rest = parse_unknown rest in
-      (match rest with
-	Brace_r :: Comma :: rest -> 
-	  parse_array rest (data :: a)
-      |	Brace_r :: rest -> 
-	  parse_array rest (data :: a)
-      |	_ -> failwith "A brace is not enclosed.")
+    let data, rest = parse_unknown rest in
+    (match rest with
+       Brace_r :: Comma :: rest ->
+       parse_array rest (data :: a)
+     |	Brace_r :: rest ->
+       parse_array rest (data :: a)
+     |	_ -> failwith "A brace is not enclosed.")
   | Text text :: Comma :: rest ->
-      parse_array rest ((String_data text) :: a)
+    parse_array rest ((String_data text) :: a)
   | Text text :: rest ->
-      Array_data (Array.of_list (List.rev ((String_data text) :: a))), rest
+    Array_data (Array.of_list (List.rev ((String_data text) :: a))), rest
   | _ ->
-      Array_data (Array.of_list (List.rev a)), l
+    Array_data (Array.of_list (List.rev a)), l
 
 and parse_unknown l =
   match l with
     Text text :: Brace_r :: rest ->
-      String_data text, Brace_r :: rest
+    String_data text, Brace_r :: rest
   | Text _ :: Comma :: _ -> parse_array l []
   | Text _ :: _ -> parse_table l []
   | _ -> parse_array l []
 
 and parse l = match l with
     Text tname :: Colon :: Text "table" :: Brace_l :: rest ->
-      let data, rest = parse_table rest [] in
-      (match rest with
-	Brace_r :: rest ->
-	  Some (Tagged (tname, data)), rest
-      |	_ -> failwith "A brace is not enclosed.")
+    let data, rest = parse_table rest [] in
+    (match rest with
+       Brace_r :: rest ->
+       Some (Tagged (tname, data)), rest
+     |	_ -> failwith "A brace is not enclosed.")
   | Text tname :: Colon :: Text "array" :: Brace_l :: rest ->
-      let data, rest = parse_array rest [] in
-      (match rest with
-	Brace_r :: rest ->
-	  Some (Tagged (tname, data)), rest
-      |	_ -> failwith "A brace is not enclosed.")
+    let data, rest = parse_array rest [] in
+    (match rest with
+       Brace_r :: rest ->
+       Some (Tagged (tname, data)), rest
+     |	_ -> failwith "A brace is not enclosed.")
   | Text tname :: Colon :: Text "string" :: Brace_l ::
-    Text data :: Brace_r :: rest ->  
-      Some (Tagged (tname, String_data data)), rest
-  | Text tname :: Colon :: Text "bin" :: Brace_l :: 
     Text data :: Brace_r :: rest ->
-      let b = string_to_binary data in
-      Some (Tagged (tname, Binary b)), rest
+    Some (Tagged (tname, String_data data)), rest
+  | Text tname :: Colon :: Text "bin" :: Brace_l ::
+    Text data :: Brace_r :: rest ->
+    let b = string_to_binary data in
+    Some (Tagged (tname, Binary b)), rest
   | Text tname :: Colon :: Text "import" :: Brace_l ::
     Text _ :: Brace_r :: rest ->
-      prerr_endline "Warning : file loading is not supported.";
-      Some (Tagged (tname, Binary "")), rest
+    prerr_endline "Warning : file loading is not supported.";
+    Some (Tagged (tname, Binary "")), rest
   | Text tname :: Colon :: Text "int" :: Brace_l ::
     Text num :: Brace_r :: rest ->
-      let n = int_of_string num in
-      Some (Tagged (tname, Int n)), rest
+    let n = int_of_string num in
+    Some (Tagged (tname, Int n)), rest
   | Text tname :: Colon :: Text "intvector" :: Brace_l :: rest ->
-      let data, rest = parse_intvect rest [] in
-      (match rest with
-	Brace_r :: rest ->
-	  Some (Tagged (tname, data)), rest
-      |	_ -> failwith "A brace is not enclosed.")
+    let data, rest = parse_intvect rest [] in
+    (match rest with
+       Brace_r :: rest ->
+       Some (Tagged (tname, data)), rest
+     |	_ -> failwith "A brace is not enclosed.")
   | Text name :: Brace_l :: rest ->
-      let data, rest = parse_unknown rest in
-      (match rest with
-	Brace_r :: rest ->
-	  Some (Tagged (name, data)), rest
-      |	_ -> failwith "A brace is not enclosed.")
+    let data, rest = parse_unknown rest in
+    (match rest with
+       Brace_r :: rest ->
+       Some (Tagged (name, data)), rest
+     |	_ -> failwith "A brace is not enclosed.")
   | _ -> None, l
 
 let col_parse s =
   let s = Utf8NF.nfd s in
   let lexbuf = Lexing.from_string s in
   let ace_info = ColParser.main ColLexer.token lexbuf in
-  cetbl_of ace_info
+  AbsCe.cetbl_of ace_info
 
 let localedef = function Table tbl ->
   let col_info = try
-    Some (match Hashtbl.find tbl "CollationElements" with 
-      Table tbl ->
-	(match Hashtbl.find tbl "Sequence" with 
-	  String_data s -> col_parse s
-	| _ -> assert false)
-    | _ -> assert false)
-  with Not_found -> None
+      Some (match Hashtbl.find tbl "CollationElements" with
+            Table tbl ->
+            (match Hashtbl.find tbl "Sequence" with
+               String_data s -> col_parse s
+             | _ -> assert false)
+          | _ -> assert false)
+    with Not_found -> None
   in
-  {Unidata.col_info = col_info}
-  | _ -> assert false
+  {Toolslib.Unidata.col_info = col_info}
+                       | _ -> assert false
 
 let main () =
   let cs = Stream.of_channel readfile in
@@ -230,7 +228,7 @@ let main () =
     Database.write dir "mar" output_value key locale_info
   in
   (match data with
-    Table tbl -> Hashtbl.iter proc tbl
-  | _ -> failwith "Broken data.")
-    
+     Table tbl -> Hashtbl.iter proc tbl
+   | _ -> failwith "Broken data.")
+
 let _ = main ()

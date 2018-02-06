@@ -1,7 +1,7 @@
 (** Unicode (ISO-UCS) characters.
 
-   This module implements Unicode (actually ISO-UCS) characters.  All
-   31-bit code points are allowed.
+    This module implements Unicode (actually ISO-UCS) characters.  All
+    31-bit code points are allowed.
 *)
 
 (* Copyright (C) 2002, 2003, 2004 Yamagata Yoriyuki. *)
@@ -57,8 +57,8 @@ let chr n =
 
 let chr_of_uint n = 
   if n lsr 31 = 0 then n else 
-  invalid_arg "UChar.char_of_uint"
-  
+    invalid_arg "UChar.char_of_uint"
+
 let eq (u1 : t) (u2 : t) = u1 = u2
 let compare u1 u2 =
   let sgn = (u1 lsr 16) - (u2 lsr 16) in

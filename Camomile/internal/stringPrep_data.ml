@@ -73,19 +73,18 @@ module Make(Config : ConfigInt.Type) : Type =
 struct
 
   module UData = Unidata.Make(Config)
-  open UData
 
-  let map_b1b2 () = read_data "map_b1b2"
-  let map_b1 () = read_data "map_b1"
-  let saslprep_map () = read_data "saslprep_map"
-  let nodeprep_prohibited () = read_data "nodeprep_prohibited"
-  let resourceprep_prohibited () = read_data "resourceprep_prohibited"
-  let nameprep_prohibited () = read_data "nameprep_prohibited"
-  let saslprep_prohibited () = read_data "saslprep_prohibited"
-  let trace_prohibited () = read_data "trace_prohibited"
-  let iscsi_prohibited () = read_data "iscsi_prohibited"
-  let mib_prohibited () = read_data "mib_prohibited"
-  let d1 () = read_data "d1"
-  let d2 () = read_data "d2"
+  let map_b1b2 ()                = UData.read_data "map_b1b2"
+  let map_b1 ()                  = UData.read_data "map_b1"
+  let saslprep_map ()            = UData.read_data "saslprep_map"
+  let nodeprep_prohibited ()     = UData.read_data "nodeprep_prohibited"
+  let resourceprep_prohibited () = UData.read_data "resourceprep_prohibited"
+  let nameprep_prohibited ()     = UData.read_data "nameprep_prohibited"
+  let saslprep_prohibited ()     = UData.read_data "saslprep_prohibited"
+  let trace_prohibited ()        = UData.read_data "trace_prohibited"
+  let iscsi_prohibited ()        = UData.read_data "iscsi_prohibited"
+  let mib_prohibited ()          = UData.read_data "mib_prohibited"
+  let d1 ()                      = UData.read_data "d1"
+  let d2 ()                      = UData.read_data "d2"
 
 end

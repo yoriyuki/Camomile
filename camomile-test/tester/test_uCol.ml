@@ -11,12 +11,12 @@ let rec lex_compare_aux i t1 t2 =
   if i >= UText.length t1 then
     if i >= UText.length t2 then 0 else ~-1
   else if i >= UText.length t2 then 1 else
-  match Pervasives.compare (UText.get t1 i) (UText.get t2 i) with
-    0 -> lex_compare_aux (i + 1) t1 t2
-  | sgn -> sgn
+    match Pervasives.compare (UText.get t1 i) (UText.get t2 i) with
+      0 -> lex_compare_aux (i + 1) t1 t2
+    | sgn -> sgn
 
 let lex_compare t1 t2 = lex_compare_aux 0 t1 t2
-  
+
 let blank = Str.regexp "[ \t]+"
 let line_pat = Str.regexp "\\([^;]+\\);.*$"
 let comment_pat = Str.regexp "^#.*"
@@ -53,118 +53,118 @@ let uca ~desc variable c =
   let prev_key = ref (Ucomp.sort_key ~variable !prev) in
   let prev_line = ref "" in
   try while true do
-    let line = input_line c in
-    if Str.string_match comment_pat line 0 then () else
-    let t = parse_line line in
-    let t_key = Ucomp.sort_key ~variable t in
-    let sgn = compare !prev_key t_key in
-    let sgn1 = Ucomp.compare ~variable !prev t in
-    let sgn2 = Ucomp.compare_with_key ~variable !prev_key t in
-    let sgn3 = ~- (Ucomp.compare_with_key ~variable t_key !prev) in
-    test ~desc ~body:(fun () -> expect_pass ~body:(fun () ->
-      expect_true
-	~msg:(lazy (sprintf 
-		      "the previous line is greater than the current:\n\
-		      value: %i\n\
-		      previous line:%s\n\
-		      %s \n\
-		      key %s\n\
-		      current lins:%s\n\
-		      %s \n\
-		      key %s\n"
-		      sgn 
-		      !prev_line 
-		      (print_text !prev) 
-		      (String.escaped !prev_key)
-		      line 
-		      (print_text t) 
-		      (String.escaped t_key)))
-	(sgn <= 0);
-      if sgn = 0 then
-	expect_true
-	  ~msg:(lazy (sprintf
-			"the previous line and the current are equal but\
-			code point order is not correct.\n\
-			previous line:%s\n\
-			%s \n\
-			key %s\n\
-			current lins:%s\n\
-			%s \n\
-			key %s\n"
-			!prev_line 
-			(print_text !prev) 
-			(String.escaped !prev_key)
-			line 
-			(print_text t) 
-			(String.escaped t_key)))
-	  (lex_compare !prev t <= 0);
-      expect_true
-	~msg:(lazy (sprintf
-		      "comparison by compare is different from \
-		      comparison by keys.\n\
-		      value by compare: %i\n\
-		      value by sort key: %i\n\
-		      previous line:%s\n\
-		      %s \n\
-		      key %s\n\
-		      current lins:%s\n\
-		      %s \n\
-		      key %s\n"
-		      sgn1 
-		      sgn 
-		      !prev_line 
-		      (print_text !prev) 
-		      (String.escaped !prev_key)
-		      line 
-		      (print_text t) 
-		      (String.escaped t_key)))
-	(sgn > 0 && sgn1 > 0 || sgn = 0 && sgn1 = 0 || sgn < 0 && sgn1 < 0);
-      expect_true
-	~msg:(lazy (sprintf
-		      "comparison by compare_with_key prev_key current \
-		      is different from comparison by keys.\n\
-		      value by compare_with_key prev_key current: %i\n\
-		      value by sort key: %i\n\
-		      previous line:%s\n\
-		      %s \n\
-		      key %s\n\
-		      current lins:%s\n\
-		      %s \n\
-		      key %s\n"
-		      sgn2 
-		      sgn 
-		      !prev_line 
-		      (print_text !prev) 
-		      (String.escaped !prev_key)
-		      line 
-		      (print_text t) 
-		      (String.escaped t_key)))
-	(sgn > 0 && sgn2 > 0 || sgn = 0 && sgn2 = 0 || sgn < 0 && sgn2 < 0);
-      expect_true
-	~msg:(lazy (sprintf
-		      "comparison by compare_with_key current_key prev \
-		      is different from comparison by keys.\n\
-		      value by compare_with_key current_key prev: %i\n\
-		      value by sort key: %i\n\
-		      previous line:%s\n\
-		      %s \n\
-		      key %s\n\
-		      current lins:%s\n\
-		      %s \n\
-		      key %s\n"
-		      sgn3 
-		      sgn 
-		      !prev_line 
-		      (print_text !prev) 
-		      (String.escaped !prev_key)
-		      line 
-		      (print_text t) 
-		      (String.escaped t_key)))
-	(sgn > 0 && sgn3 > 0 || sgn = 0 && sgn3 = 0 || sgn < 0 && sgn3 < 0)));
-    prev := t;
-    prev_key := t_key;
-    prev_line := line
-  done with End_of_file -> ()
+      let line = input_line c in
+      if Str.string_match comment_pat line 0 then () else
+        let t = parse_line line in
+        let t_key = Ucomp.sort_key ~variable t in
+        let sgn = compare !prev_key t_key in
+        let sgn1 = Ucomp.compare ~variable !prev t in
+        let sgn2 = Ucomp.compare_with_key ~variable !prev_key t in
+        let sgn3 = ~- (Ucomp.compare_with_key ~variable t_key !prev) in
+        test ~desc ~body:(fun () -> expect_pass ~body:(fun () ->
+            expect_true
+              ~msg:(lazy (sprintf 
+                            "the previous line is greater than the current:\n\
+                             		      value: %i\n\
+                             		      previous line:%s\n\
+                             		      %s \n\
+                             		      key %s\n\
+                             		      current lins:%s\n\
+                             		      %s \n\
+                             		      key %s\n"
+                            sgn 
+                            !prev_line 
+                            (print_text !prev) 
+                            (String.escaped !prev_key)
+                            line 
+                            (print_text t) 
+                            (String.escaped t_key)))
+              (sgn <= 0);
+            if sgn = 0 then
+              expect_true
+                ~msg:(lazy (sprintf
+                              "the previous line and the current are equal but\
+                               			code point order is not correct.\n\
+                               			previous line:%s\n\
+                               			%s \n\
+                               			key %s\n\
+                               			current lins:%s\n\
+                               			%s \n\
+                               			key %s\n"
+                              !prev_line 
+                              (print_text !prev) 
+                              (String.escaped !prev_key)
+                              line 
+                              (print_text t) 
+                              (String.escaped t_key)))
+                (lex_compare !prev t <= 0);
+            expect_true
+              ~msg:(lazy (sprintf
+                            "comparison by compare is different from \
+                             		      comparison by keys.\n\
+                             		      value by compare: %i\n\
+                             		      value by sort key: %i\n\
+                             		      previous line:%s\n\
+                             		      %s \n\
+                             		      key %s\n\
+                             		      current lins:%s\n\
+                             		      %s \n\
+                             		      key %s\n"
+                            sgn1 
+                            sgn 
+                            !prev_line 
+                            (print_text !prev) 
+                            (String.escaped !prev_key)
+                            line 
+                            (print_text t) 
+                            (String.escaped t_key)))
+              (sgn > 0 && sgn1 > 0 || sgn = 0 && sgn1 = 0 || sgn < 0 && sgn1 < 0);
+            expect_true
+              ~msg:(lazy (sprintf
+                            "comparison by compare_with_key prev_key current \
+                             		      is different from comparison by keys.\n\
+                             		      value by compare_with_key prev_key current: %i\n\
+                             		      value by sort key: %i\n\
+                             		      previous line:%s\n\
+                             		      %s \n\
+                             		      key %s\n\
+                             		      current lins:%s\n\
+                             		      %s \n\
+                             		      key %s\n"
+                            sgn2 
+                            sgn 
+                            !prev_line 
+                            (print_text !prev) 
+                            (String.escaped !prev_key)
+                            line 
+                            (print_text t) 
+                            (String.escaped t_key)))
+              (sgn > 0 && sgn2 > 0 || sgn = 0 && sgn2 = 0 || sgn < 0 && sgn2 < 0);
+            expect_true
+              ~msg:(lazy (sprintf
+                            "comparison by compare_with_key current_key prev \
+                             		      is different from comparison by keys.\n\
+                             		      value by compare_with_key current_key prev: %i\n\
+                             		      value by sort key: %i\n\
+                             		      previous line:%s\n\
+                             		      %s \n\
+                             		      key %s\n\
+                             		      current lins:%s\n\
+                             		      %s \n\
+                             		      key %s\n"
+                            sgn3 
+                            sgn 
+                            !prev_line 
+                            (print_text !prev) 
+                            (String.escaped !prev_key)
+                            line 
+                            (print_text t) 
+                            (String.escaped t_key)))
+              (sgn > 0 && sgn3 > 0 || sgn = 0 && sgn3 = 0 || sgn < 0 && sgn3 < 0)));
+        prev := t;
+        prev_key := t_key;
+        prev_line := line
+    done with End_of_file -> ()
 
 let _ = read_file
     (input_filename "unidata/CollationTest_SHIFTED.txt")
@@ -185,63 +185,63 @@ let locale_test ~desc ?variable ~locale c =
   let prev = ref "" in
   let prev_key = ref (UTF8Comp.sort_key ?variable ~locale "") in
   try while true do
-    let line = input_line c in
-    if Str.string_match comment_pat line 0 then () else
-    let key = UTF8Comp.sort_key ?variable ~locale line in
-    let sgn = sgn_of (UTF8Comp.compare ?variable ~locale !prev line) in
-    let sgn1 = sgn_of (Pervasives.compare !prev_key key) in
-    let sgn2 = sgn_of 
-	(UTF8Comp.compare_with_key ?variable ~locale !prev_key line) in
-    let sgn3 = - sgn_of 
-	(UTF8Comp.compare_with_key ?variable ~locale key !prev) in
-    test ~desc ~body:(fun () -> expect_pass ~body:(fun () ->
-      expect_true
-	~msg:(lazy (sprintf 
-		      "the previous key is greater than the current:\n\
-		      value: %i\n\
-		      previous: %s \n\
-		      code : %s \n\
-		      key %s\n\
-		      current: %s \n\
-		      code : %s \n\
-		      key %s\n"
-		      sgn 
-		      !prev 
-		      (print_text_utf8 !prev) 
-		      (String.escaped !prev_key)
-		      line 
-		      (print_text_utf8 line) 
-		      (String.escaped key)))
-	(sgn1 <= 0);
-      expect_true
-	~msg:(lazy (sprintf 
-		      "The comparison results differ\n\
-		      value: %i\n\
-		      previous: %s \n\
-		      code : %s \n\
-		      key %s\n\
-		      current: %s \n\
-		      code : %s \n\
-		      key %s\n\
-		      previous - current comparison : %d\n\
-		      previous key - current key comparison : %d\n\
-		      previous key - current comparison : %d\n\
-		      previous - current key comparison : %d\n"
-		      sgn 
-		      !prev 
-		      (print_text_utf8 !prev) 
-		      (String.escaped !prev_key)
-		      line 
-		      (print_text_utf8 line) 
-		      (String.escaped key)
-		      sgn
-		      sgn1
-		      sgn2
-		      sgn3))
-	(sgn = sgn1 && sgn1 = sgn2 && sgn2 = sgn3)));
-    prev := line;
-    prev_key := key
-  done with End_of_file -> ()
+      let line = input_line c in
+      if Str.string_match comment_pat line 0 then () else
+        let key = UTF8Comp.sort_key ?variable ~locale line in
+        let sgn = sgn_of (UTF8Comp.compare ?variable ~locale !prev line) in
+        let sgn1 = sgn_of (Pervasives.compare !prev_key key) in
+        let sgn2 = sgn_of 
+            (UTF8Comp.compare_with_key ?variable ~locale !prev_key line) in
+        let sgn3 = - sgn_of 
+          (UTF8Comp.compare_with_key ?variable ~locale key !prev) in
+        test ~desc ~body:(fun () -> expect_pass ~body:(fun () ->
+            expect_true
+              ~msg:(lazy (sprintf 
+                            "the previous key is greater than the current:\n\
+                             		      value: %i\n\
+                             		      previous: %s \n\
+                             		      code : %s \n\
+                             		      key %s\n\
+                             		      current: %s \n\
+                             		      code : %s \n\
+                             		      key %s\n"
+                            sgn 
+                            !prev 
+                            (print_text_utf8 !prev) 
+                            (String.escaped !prev_key)
+                            line 
+                            (print_text_utf8 line) 
+                            (String.escaped key)))
+              (sgn1 <= 0);
+            expect_true
+              ~msg:(lazy (sprintf 
+                            "The comparison results differ\n\
+                             		      value: %i\n\
+                             		      previous: %s \n\
+                             		      code : %s \n\
+                             		      key %s\n\
+                             		      current: %s \n\
+                             		      code : %s \n\
+                             		      key %s\n\
+                             		      previous - current comparison : %d\n\
+                             		      previous key - current key comparison : %d\n\
+                             		      previous key - current comparison : %d\n\
+                             		      previous - current key comparison : %d\n"
+                            sgn 
+                            !prev 
+                            (print_text_utf8 !prev) 
+                            (String.escaped !prev_key)
+                            line 
+                            (print_text_utf8 line) 
+                            (String.escaped key)
+                            sgn
+                            sgn1
+                            sgn2
+                            sgn3))
+              (sgn = sgn1 && sgn1 = sgn2 && sgn2 = sgn3)));
+        prev := line;
+        prev_key := key
+    done with End_of_file -> ()
 
 let _ = read_file
     (input_filename "data/fr_CA")
@@ -262,77 +262,77 @@ let test_list ~desc ?variable ~locale list =
   let rec loop prev prev_key = function
       [] -> ()
     | t :: rest ->
-    let key = UTF8Comp.sort_key ?variable ~locale t in
-    let sgn = sgn_of (UTF8Comp.compare ?variable ~locale prev t) in
-    let sgn1 = sgn_of (Pervasives.compare prev_key key) in
-    let sgn2 = sgn_of
-	(UTF8Comp.compare_with_key ?variable ~locale prev_key t) in
-    let sgn3 = - sgn_of
-	(UTF8Comp.compare_with_key ?variable ~locale key prev) in
-    test ~desc ~body:(fun () -> expect_pass ~body:(fun () ->
-      expect_true
-	~msg:(lazy (sprintf 
-		      "the previous key is greater than the current:\n\
-		      value: %i\n\
-		      previous: %s \n\
-		      code : %s \n\
-		      key %s\n\
-		      current: %s \n\
-		      code : %s \n\
-		      key %s\n"
-		      sgn 
-		      prev 
-		      (print_text_utf8 prev) 
-		      (String.escaped prev_key)
-		      t
-		      (print_text_utf8 t) 
-		      (String.escaped key)))
-	(sgn1 < 0);
-      if sgn1 = 0 then
-	expect_true
-	  ~msg:(lazy (sprintf
-			"the previous line and the current are equal but\
-			code point order is not correct.\n\
-			previous line:%s\n\
-			%s \n\
-			key %s\n\
-			current lins:%s\n\
-			%s \n\
-			key %s\n"
-			prev
-			(print_text_utf8 prev) 
-			(String.escaped prev_key)
-			t 
-			(print_text_utf8 t) 
-			(String.escaped key)))
-	  (Pervasives.compare prev t <= 0);
-      expect_true
-	~msg:(lazy (sprintf 
-		      "The comparison results differ\n\
-		      value: %i\n\
-		      previous: %s \n\
-		      code : %s \n\
-		      key %s\n\
-		      current: %s \n\
-		      code : %s \n\
-		      key %s\n
+      let key = UTF8Comp.sort_key ?variable ~locale t in
+      let sgn = sgn_of (UTF8Comp.compare ?variable ~locale prev t) in
+      let sgn1 = sgn_of (Pervasives.compare prev_key key) in
+      let sgn2 = sgn_of
+          (UTF8Comp.compare_with_key ?variable ~locale prev_key t) in
+      let sgn3 = - sgn_of
+        (UTF8Comp.compare_with_key ?variable ~locale key prev) in
+      test ~desc ~body:(fun () -> expect_pass ~body:(fun () ->
+          expect_true
+            ~msg:(lazy (sprintf 
+                          "the previous key is greater than the current:\n\
+                           		      value: %i\n\
+                           		      previous: %s \n\
+                           		      code : %s \n\
+                           		      key %s\n\
+                           		      current: %s \n\
+                           		      code : %s \n\
+                           		      key %s\n"
+                          sgn 
+                          prev 
+                          (print_text_utf8 prev) 
+                          (String.escaped prev_key)
+                          t
+                          (print_text_utf8 t) 
+                          (String.escaped key)))
+            (sgn1 < 0);
+          if sgn1 = 0 then
+            expect_true
+              ~msg:(lazy (sprintf
+                            "the previous line and the current are equal but\
+                             			code point order is not correct.\n\
+                             			previous line:%s\n\
+                             			%s \n\
+                             			key %s\n\
+                             			current lins:%s\n\
+                             			%s \n\
+                             			key %s\n"
+                            prev
+                            (print_text_utf8 prev) 
+                            (String.escaped prev_key)
+                            t 
+                            (print_text_utf8 t) 
+                            (String.escaped key)))
+              (Pervasives.compare prev t <= 0);
+          expect_true
+            ~msg:(lazy (sprintf 
+                          "The comparison results differ\n\
+                           		      value: %i\n\
+                           		      previous: %s \n\
+                           		      code : %s \n\
+                           		      key %s\n\
+                           		      current: %s \n\
+                           		      code : %s \n\
+                           		      key %s\n
 		      previous - current comparison : %d\n
 		      previous key - current key comparison : %d\n
 		      previous key - current comparison : %d\n
 		      previous - current key comparison : %d\n"
-		      sgn 
-		      prev 
-		      (print_text_utf8 prev) 
-		      (String.escaped prev_key)
-		      t
-		      (print_text_utf8 t) 
-		      (String.escaped key)
-		      sgn
-		      sgn1
-		      sgn2
-		      sgn3))
-	(sgn = sgn1 && sgn1 = sgn2 && sgn2 = sgn3)));
-    loop t key rest in
+                          sgn 
+                          prev 
+                          (print_text_utf8 prev) 
+                          (String.escaped prev_key)
+                          t
+                          (print_text_utf8 t) 
+                          (String.escaped key)
+                          sgn
+                          sgn1
+                          sgn2
+                          sgn3))
+            (sgn = sgn1 && sgn1 = sgn2 && sgn2 = sgn3)));
+      loop t key rest in
   loop "" (UTF8Comp.sort_key ?variable ~locale "") list
 
 
@@ -389,7 +389,7 @@ let () =
     ~desc:test_desc_3
     ~locale:"test_1"
     test_list_3
- 
+
 let () =
   test_list
     ~desc:test_desc_4 

@@ -37,10 +37,10 @@
 let rec bits n = if n = 0 then 0 else 1 + bits (n lsr 1)
 
 type t = 
-    {len : int; 
-     mutable bits : int; 
-     mutable contents : Bytes.t;
-     mutable id : int}
+  {len : int; 
+   mutable bits : int; 
+   mutable contents : Bytes.t;
+   mutable id : int}
 
 (* get v i : read the i-th element of v *)
 (* b < 8 *)
@@ -73,10 +73,10 @@ let set_raw vect i n =
   let c0' = c0 lor ((n lsl i1) land 255) in
   Bytes.set v i0 (Char.chr c0');
   if b + i1 <= 8 then () else
-  let masq2 = (1 lsl (b + i1 - 8)) - 1 in
-  let c1 = (Char.code (Bytes.get v (i0 + 1))) land (lnot masq2) in
-  let c1' = c1 lor (n lsr (8 - i1)) in
-  Bytes.set v (i0 + 1) (Char.chr c1')
+    let masq2 = (1 lsl (b + i1 - 8)) - 1 in
+    let c1 = (Char.code (Bytes.get v (i0 + 1))) land (lnot masq2) in
+    let c1' = c1 lor (n lsr (8 - i1)) in
+    Bytes.set v (i0 + 1) (Char.chr c1')
 
 let bits_to_bytes b = b / 8 + 2
 

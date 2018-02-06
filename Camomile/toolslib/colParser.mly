@@ -37,12 +37,10 @@ yori@users.sourceforge.net
 */
 
 %{
-open Toolslib
-open AbsCe
 
 
 let parse_error _ = failwith "Syntax error"
-let acset : aceset_info = Unidata.read_data "acset"
+let acset : AbsCe.aceset_info = Toolslib.Unidata.read_data "acset"
 
     %}
 
@@ -51,33 +49,33 @@ let acset : aceset_info = Unidata.read_data "acset"
   %token PRIMARY SECONDARY TERTIARY EQ RESET EXPAND PREFIX EOF
   %nonassoc RESET
   %left PRIMARY SECONDARY TERTIARY EQ
-  %left EXPAND 
+  %left EXPAND
   %right PREFIX
 
   %start main
   %type <AbsCe.ace_info> main
   %%
-main : 
+main :
   header rules EOF
   {let ceset = acset.lowercase_first_tbl in
-  let ace_info = create_ace_info ceset in
+  let ace_info = AbsCe.create_ace_info ceset in
   let ace_info = $1 ace_info in
-  {ace_info with ceset = $2 ace_info.ceset}} 
+  {ace_info with ceset = $2 ace_info.AbsCe.ceset}}
 | rules EOF
   {let ceset = acset.lowercase_first_tbl in
-  let ace_info = create_ace_info ceset in
-  {ace_info with ceset = $1 ace_info.ceset}} 
+  let ace_info = AbsCe.create_ace_info ceset in
+  {ace_info with ceset = $1 ace_info.ceset}}
 | header EOF
     {let ceset = acset.lowercase_first_tbl in
-    $1 (create_ace_info ceset)}
+    $1 (AbsCe.create_ace_info ceset)}
 | EOF
-    {create_ace_info acset.lowercase_first_tbl};
-  
-  header : 
-    header_option header 
+    {AbsCe.create_ace_info acset.lowercase_first_tbl};
+
+  header :
+    header_option header
     {fun env ->
       $2 ($1 env)}
-| header_option 
+| header_option
     {fun env -> $1 env};
 
   header_option :
@@ -91,10 +89,10 @@ main :
 	  {env with variable_option = `Shift_Trimmed}
       | ["alternate"; "blanked"] ->
 	  {env with variable_option = `Blanked}
-      | ["backwards"; "2"] -> 
+      | ["backwards"; "2"] ->
 	  {env with french = true}
       | ["backwards"; x] ->
-	  failwith 
+	  failwith
 	    ("backward comparison for the level " ^ x ^ " is not supported.")
       | ["normalization"; _] ->
 	  prerr_endline "Warning : normalization option is not supported";
@@ -114,10 +112,10 @@ main :
 	  env
       | ["hiraganaQ"; _] ->
 	  let ceset = env.ceset in
-	  let ce, ceset = add_after `Primary (last_variable ceset) ceset in
-	  let ceset = put `HiraganaQ [ce] ceset in
+	  let ce, ceset = AbsCe.add_after `Primary (AbsCe.last_variable ceset) ceset in
+	  let ceset = AbsCe.put `HiraganaQ [ce] ceset in
 	  {env with ceset = ceset; hiraganaQ = true}
-      | x -> 
+      | x ->
 	  let s = String.concat " " x in
 	  failwith ("unknown option:" ^ s)}
   | UCHAR {
@@ -127,9 +125,9 @@ main :
       else
 	failwith "stray character"};
 
-  rules : 
-    rule rules 
-    {fun env -> 
+  rules :
+    rule rules
+    {fun env ->
       let _, _, env = $1 env in
       $2 env}
 | rule {fun env -> let _, _, env = $1 env in env};
@@ -137,7 +135,7 @@ main :
   rule :
   RESET init {$2}
 | RESET OPTION init {
-  fun ceset ->    
+  fun ceset ->
     match $2 with
       ["before"; depth] ->
 	let prec =
@@ -148,24 +146,24 @@ main :
 	  | _ -> failwith ("Level " ^ depth ^ " is not supported")
 	in
 	let pos, exp, ceset = $3 ceset in
-	(prev prec pos ceset, exp, ceset)
+	(AbsCe.prev prec pos ceset, exp, ceset)
     | _ -> failwith "Unknown option"}
 | rule PRIMARY elem {
   fun ceset ->
     let pos, exp, ceset = $1 ceset in
-    let pos', ceset = add_after `Primary pos ceset in
+    let pos', ceset = AbsCe.add_after `Primary pos ceset in
     let ceset' = $3 [] (pos' :: exp) ceset in
     (pos', exp, ceset')}
 | rule SECONDARY elem {
   fun ceset ->
     let pos, exp, ceset = $1 ceset in
-    let pos', ceset = add_after `Secondary pos ceset in
+    let pos', ceset = AbsCe.add_after `Secondary pos ceset in
     let ceset' = $3 [] (pos' :: exp) ceset in
     (pos', exp, ceset')}
 | rule TERTIARY elem {
   fun ceset ->
     let pos, exp, ceset = $1 ceset in
-    let pos', ceset = add_after `Tertiary pos ceset in
+    let pos', ceset = AbsCe.add_after `Tertiary pos ceset in
     let ceset' = $3 [] (pos' :: exp) ceset in
     (pos', exp, ceset')}
 | rule EQ elem {
@@ -179,56 +177,56 @@ main :
   init :
     ulist {
   fun ceset ->
-    let ceset, es = ces_of ceset $1 in
+    let ceset, es = AbsCe.ces_of ceset $1 in
     (List.hd es, List.tl es, ceset)}
 | OPTION {
   fun ceset ->
     match $1 with
-      [("first" | "last") ; "teritiary"; "ignorable"]	
+      [("first" | "last") ; "teritiary"; "ignorable"]
     | [("first" | "last") ; "secondary"; "ignorable"] ->
-	(complete_ignorable ceset, [], ceset)
+	(AbsCe.complete_ignorable ceset, [], ceset)
     | ["first"; "primary"; "ignorable"] ->
-	let ce = next `Secondary (complete_ignorable ceset) ceset in
+	let ce = AbsCe.next `Secondary (AbsCe.complete_ignorable ceset) ceset in
 	(ce, [], ceset)
     | ["last"; "primary"; "ignorable"] ->
-	let ce = next `Primary (complete_ignorable ceset) ceset in
+	let ce = AbsCe.next `Primary (AbsCe.complete_ignorable ceset) ceset in
 	(ce, [], ceset)
     | ["first"; "variable"] ->
-	let ce = next `Primary (complete_ignorable ceset) ceset in
+	let ce = AbsCe.next `Primary (AbsCe.complete_ignorable ceset) ceset in
 	(ce, [], ceset)
     | ["last"; "variable"] ->
-	(last_variable ceset, [], ceset)
+	(AbsCe.last_variable ceset, [], ceset)
     | ["first"; "regular"] ->
-	let ce = next `Primary (last_variable ceset) ceset in
+	let ce = AbsCe.next `Primary (AbsCe.last_variable ceset) ceset in
 	(ce, [], ceset)
-    | ["last"; "regular"] | ["top"] -> 
-	let ce = prev `Tertiary (first_implicit ceset) ceset in
+    | ["last"; "regular"] | ["top"] ->
+	let ce = AbsCe.prev `Tertiary (AbsCe.first_implicit ceset) ceset in
 	(ce, [], ceset)
     | ["first"; "implicit"] ->
-	(first_implicit ceset, [], ceset)
+	(AbsCe.first_implicit ceset, [], ceset)
     | ["last"; "implicit"] ->
-	let ce = prev `Tertiary (first_trailing ceset) ceset in
+	let ce = AbsCe.prev `Tertiary (AbsCe.first_trailing ceset) ceset in
 	(ce, [], ceset)
     | ["first"; "trailing"] ->
-	(first_trailing ceset, [], ceset)
+	(AbsCe.first_trailing ceset, [], ceset)
     | ["last"; "trailing"] ->
-	(top ceset, [], ceset)
+	(AbsCe.top ceset, [], ceset)
     | _ -> assert false};
 
   elem :
     ulist {fun prefix ces ceset ->
-      put (`Seq (prefix @ $1)) ces ceset}
+      AbsCe.put (`Seq (prefix @ $1)) ces ceset}
 | elem EXPAND ulist {fun prefix ces ceset ->
-    let ceset', exps = ces_of ceset $3 in
+    let ceset', exps = AbsCe.ces_of ceset $3 in
     $1 prefix (ces @ exps) ceset'}
 | ulist PREFIX elem {fun prefix ces ceset ->
-    let ceset', exps = ces_of ceset $1 in
+    let ceset', exps = AbsCe.ces_of ceset $1 in
     $3 (prefix @ $1) (exps @ ces) ceset'}
 | OPTION {fun prefix ces ceset ->
-    match $1 with ["variable"; "top"] -> 
+    match $1 with ["variable"; "top"] ->
       (match prefix, ces with
 	[], [_] ->
-	  put `LastVariable ces ceset
+	  AbsCe.put `LastVariable ces ceset
       | _, _ ->
 	  failwith "Variable top should be neither contraction nor prefixed.")
     | _ -> failwith "Unknown option"};

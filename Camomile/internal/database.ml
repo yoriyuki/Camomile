@@ -38,9 +38,9 @@ let escape s =
   let b = Buffer.create 0 in
   for i = 0 to String.length s - 1 do
     match s.[i] with
-      '0'..'9' | 'a'..'z'|'A'..'Z' | '-' | '_' | '@' as c -> Buffer.add_char b c;
-    | _ as c ->
-	Printf.ksprintf (Buffer.add_string b) "%%%02X" (Char.code c)
+    '0'..'9' | 'a'..'z'|'A'..'Z' | '-' | '_' | '@' as c -> Buffer.add_char b c;
+             | _ as c ->
+               Printf.ksprintf (Buffer.add_string b) "%%%02X" (Char.code c)
   done;
   Buffer.contents b
 

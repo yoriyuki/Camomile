@@ -37,15 +37,15 @@ let write_file s f = bracket open_out s f close_out
 
 let foreach_file dir ?(filter=(fun _ -> true)) f =
   bracket Unix.opendir dir (fun h ->
-    try
-      while true do
-	let basename = Unix.readdir h in
-	match basename with
-	  | "." | ".." -> ()
-	  | _ -> if filter basename then f basename
-      done
-    with End_of_file -> ()
-  ) 
+      try
+        while true do
+          let basename = Unix.readdir h in
+          match basename with
+          | "." | ".." -> ()
+          | _ -> if filter basename then f basename
+        done
+      with End_of_file -> ()
+    ) 
     Unix.closedir
 
 (* test result codes *)
@@ -97,13 +97,13 @@ let do_test ~desc ~rep ~body =
   for _ = 1 to rep do
     let result = 
       if !handle_exception then
-	try
-	  body ()
-	with exn ->
-	  printf "  uncaught exception: %s\n" (Printexc.to_string exn);
-	  Unresolved
+        try
+          body ()
+        with exn ->
+          printf "  uncaught exception: %s\n" (Printexc.to_string exn);
+          Unresolved
       else
-	body ()
+        body ()
     in
     incr (count_var result);
     if not (is_expected result) || !verbose > 2 then begin
@@ -120,24 +120,24 @@ let random_test ~desc ~log ~data ~body =
   let count = ref 0 in
   let result = ref Unresolved in
   repeat_test ~desc ~body:(fun () ->
-    bracket 
-      data
-      !data_size
-      (fun data -> result := body data; !result)
-      (fun data ->
-	match !result with
-	  UPass | Fail _ | Unresolved ->
-	    let logname = 
-	      if !repetition = 1 then 
-		log 
-	      else 
-		log ^ "." ^ (string_of_int !count)
-	    in
-	    let c = open_out_bin (output_filename logname) in
-	    output_value c data;
-	    close_out c
-	| _ -> ()))
-    
+      bracket 
+        data
+        !data_size
+        (fun data -> result := body data; !result)
+        (fun data ->
+           match !result with
+             UPass | Fail _ | Unresolved ->
+             let logname = 
+               if !repetition = 1 then 
+                 log 
+               else 
+                 log ^ "." ^ (string_of_int !count)
+             in
+             let c = open_out_bin (output_filename logname) in
+             output_value c data;
+             close_out c
+           | _ -> ()))
+
 
 (* Expect based testing *)
 
@@ -149,55 +149,55 @@ let expect_equal ?msg ?printer x y =
   if x=y then ()
   else match printer with
     | None ->
-        fail (match msg with
-              | None -> "not equal"
-              | Some msg -> Lazy.force msg)
+      fail (match msg with
+          | None -> "not equal"
+          | Some msg -> Lazy.force msg)
     | Some p ->
-        let test_msg = match msg with None -> "" 
-	| Some msg -> (Lazy.force msg) ^ " " in
-	fail (sprintf "expected %s\n          but got %s\n    in test %s"
-	  (p x) (p y) test_msg)
+      let test_msg = match msg with None -> "" 
+                                  | Some msg -> (Lazy.force msg) ^ " " in
+      fail (sprintf "expected %s\n          but got %s\n    in test %s"
+              (p x) (p y) test_msg)
 
 let expect_equal_app ?msg ?printer f x g y =
   let test_msg = match msg with None -> "" 
-  | Some msg -> (Lazy.force msg) ^ " " in
+                              | Some msg -> (Lazy.force msg) ^ " " in
   try
     let x' = f x in
     (try
-      let y' = g y in
-      expect_equal ?msg ?printer x' y'
-    with 
-    | EFail _ as exn -> raise exn
-    | exn2 ->
-      let exn2 = "exception " ^ (Printexc.to_string exn2) in
-      match printer with
-      | None ->
-          fail (sprintf "unexpected %s\n    in test %s"
+       let y' = g y in
+       expect_equal ?msg ?printer x' y'
+     with 
+     | EFail _ as exn -> raise exn
+     | exn2 ->
+       let exn2 = "exception " ^ (Printexc.to_string exn2) in
+       match printer with
+       | None ->
+         fail (sprintf "unexpected %s\n    in test %s"
                  exn2 test_msg)
-      | Some p ->
-          fail (sprintf
-                "expected %s\n          but got %s\n    in test %s"
-                  (p x') exn2 test_msg))
-  with
-    | EFail _ as exn -> raise exn
-    | exn1 ->
-        let exn1 = "exception " ^ (Printexc.to_string exn1) in
-        (try
-          let y' = g y in
-          match printer with
-          | None ->
-              fail (sprintf
-                 "expected %s\n          but got no exception\n    in test %s"
-	         exn1 test_msg)
-          | Some p ->
-              fail (sprintf
+       | Some p ->
+         fail (sprintf
                  "expected %s\n          but got %s\n    in test %s"
-	         exn1 (p y') test_msg)
-        with 
-          | EFail _ as exn -> raise exn
-          | exn2 ->
-              let exn2 = "exception " ^ (Printexc.to_string exn2) in
-              expect_equal ?msg ~printer:(fun s -> s) exn1 exn2)
+                 (p x') exn2 test_msg))
+  with
+  | EFail _ as exn -> raise exn
+  | exn1 ->
+    let exn1 = "exception " ^ (Printexc.to_string exn1) in
+    (try
+       let y' = g y in
+       match printer with
+       | None ->
+         fail (sprintf
+                 "expected %s\n          but got no exception\n    in test %s"
+                 exn1 test_msg)
+       | Some p ->
+         fail (sprintf
+                 "expected %s\n          but got %s\n    in test %s"
+                 exn1 (p y') test_msg)
+     with 
+     | EFail _ as exn -> raise exn
+     | exn2 ->
+       let exn2 = "exception " ^ (Printexc.to_string exn2) in
+       expect_equal ?msg ~printer:(fun s -> s) exn1 exn2)
 
 let expect_true ?msg test =
   if test then ()
@@ -213,7 +213,7 @@ let expect_fail ~(body : unit -> unit) =
 
 let day =   [| "Sun"; "Mon"; "Tue"; "Wed"; "Thu"; "Fri"; "Sat" |]
 let month = [| "Jan"; "Feb"; "Mar"; "Apr"; "May"; "Jun"; 
-	       "Jul"; "Aug"; "Sep"; "Oct"; "Nov"; "Dec" |]
+               "Jul"; "Aug"; "Sep"; "Oct"; "Nov"; "Dec" |]
 
 let date_time () =
   let t = Unix.time () in
@@ -235,9 +235,9 @@ let user () =
   try
     (Unix.getpwuid (Unix.getuid ())).Unix.pw_name
   with Not_found ->
-    try
-      Unix.getlogin ()
-    with _ -> "unknown"
+  try
+    Unix.getlogin ()
+  with _ -> "unknown"
 
 let header () =
   if !verbose > 1 then
@@ -264,14 +264,14 @@ let summary () =
   if !verbose > 0 then
     begin
       let result count desc =
-	printf "%4d %s\n" count desc
+        printf "%4d %s\n" count desc
       in
       let cond_result count desc =
-	if count > 0 || !verbose > 2 then result count desc
+        if count > 0 || !verbose > 2 then result count desc
       in
       if !verbose > 1 then
-	printf
-	  "\n-------------------------------------------------------------\n";
+        printf
+          "\n-------------------------------------------------------------\n";
       printf "Summary:\n";
       result      !count_pass        "passed";
       cond_result !count_upass       "unexpectedly passed";
@@ -281,15 +281,15 @@ let summary () =
       cond_result !count_untested    "untested";
       cond_result !count_unsupported "unsupported";
       if !verbose > 1 then begin
-	print_char '\n';
-	result      count_review       "testcase(s) to review";
+        print_char '\n';
+        result      count_review       "testcase(s) to review";
       end;
       if !verbose > 1 then begin
-	print_char '\n';
-	Printf.printf "The tests take %f seconds\n" ((Sys.time ()) -. !t0);
+        print_char '\n';
+        Printf.printf "The tests take %f seconds\n" ((Sys.time ()) -. !t0);
       end;
       printf
-	"-------------------------------------------------------------\n\n";
+        "-------------------------------------------------------------\n\n";
       flush stdout;
     end;
   count_review
@@ -323,7 +323,7 @@ let _ = Arg.parse
       Arg.Clear handle_exception,
       "throw the uncaught exception")
 
-   ]
+    ]
     (fun s -> raise (Arg.Bad (sprintf "Unexpected Argument %s" s)))
     ""
 

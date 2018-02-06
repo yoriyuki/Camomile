@@ -35,52 +35,48 @@
 (* You can contact the authour by sending email to *)
 (* yori@sourceforge.net *)
 
-open StringPrep_data
-
 let hashcons_list =
   let tbl = Hashtbl.create 10 in
   let rec f = function
     | [] -> []
     | h::q as l ->
-	try
-	  Hashtbl.find tbl l
-	with
-	  | Not_found ->
-	      let q = f q in
-	      let l = h::q in
-	      Hashtbl.add tbl l l;
-	      l
+      try
+        Hashtbl.find tbl l
+      with
+      | Not_found ->
+        let q = f q in
+        let l = h::q in
+        Hashtbl.add tbl l l;
+        l
   in
   f
 
 let hashcons_mapping =
   let tbl = Hashtbl.create 10 in
-  let f x =
+  fun x ->
     try
       Hashtbl.find tbl x
     with
-      | Not_found ->
-	  match x with
-	    | Diff _ ->
-		Hashtbl.add tbl x x;
-		x
-	    | List l ->
-		let x = List (hashcons_list l) in
-		Hashtbl.add tbl x x;
-		x
-  in
-  f
+    | Not_found ->
+      match x with
+      | StringPrep_data.Diff _ ->
+        Hashtbl.add tbl x x;
+        x
+      | StringPrep_data.List l ->
+        let x = StringPrep_data.List (hashcons_list l) in
+        Hashtbl.add tbl x x;
+        x
 
 let input_dir = ref ""
 let output_dir = ref ""
 
 let () = Arg.parse ["-in",Arg.Set_string input_dir,"input directory";
-		    "-out",Arg.Set_string output_dir,"output directory"]
-  (fun _ -> ()) "Parse stringprep data file";
+                    "-out",Arg.Set_string output_dir,"output directory"]
+    (fun _ -> ()) "Parse stringprep data file";
 
 module MappingHash =
 struct
-  type t = mapping
+  type t = StringPrep_data.mapping
   let hash = Hashtbl.hash
   let equal = (=)
 end
@@ -88,8 +84,8 @@ end
 module MappingMap = UCharTbl.Make ( MappingHash )
 
 let mapping_of_list index = function
-  | [value] -> Diff ((UChar.code value) - (UChar.code index))
-  | l -> List l
+  | [value] -> StringPrep_data.Diff ((UChar.code value) - (UChar.code index))
+  | l -> StringPrep_data.List l
 
 let umap_of_list l =
   let f map (index,l) =
@@ -132,10 +128,10 @@ let parse_set file =
     try
       raise (Ok (input_line c))
     with
-      | End_of_file -> set
-      | Ok s ->
-	  let set = parse_set_line set s in
-	  parse set
+    | End_of_file -> set
+    | Ok s ->
+      let set = parse_set_line set s in
+      parse set
   in
   parse USet.empty
 
@@ -167,10 +163,10 @@ let parse_map file =
     try
       raise (Ok (input_line c))
     with
-      | End_of_file -> l
-      | Ok s ->
-	  let line = parse_map_line s in
-	  parse (line::l)
+    | End_of_file -> l
+    | Ok s ->
+      let line = parse_map_line s in
+      parse (line::l)
   in
   parse []
 

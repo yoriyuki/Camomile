@@ -40,7 +40,7 @@ type key = int
 val empty : 'a t
 
 val is_empty : 'a t -> bool
-    
+
 val add : ?eq:('a -> 'a -> bool) -> int -> 'a -> 'a t -> 'a t
 
 val add_range : ?eq:('a -> 'a -> bool) -> int -> int -> 'a -> 'a t -> 'a t
@@ -68,7 +68,7 @@ val iter_range : (int -> int -> 'a -> unit) -> 'a t -> unit
 val map : ?eq:('b -> 'b -> bool) -> ('a -> 'b) -> 'a t -> 'b t
 
 val mapi : ?eq:('b -> 'b -> bool) -> (int -> 'a -> 'b) -> 'a t -> 'b t
-    
+
 val fold : (int -> 'b -> 'a -> 'a) -> 'b t -> 'a -> 'a
 
 val fold_range : (int -> int -> 'b -> 'a -> 'a) -> 'b t -> 'a -> 'a

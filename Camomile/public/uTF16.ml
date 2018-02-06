@@ -47,15 +47,15 @@ exception Malformed_code
 
 let rec validate_aux (a:t) i =
   if i >= Array1.dim a then () else
-  let n = a.{i} in
-  if n < 0xd800 || n >= 0xe000 && n < 0xfffe then
-    validate_aux a (i + 1)
-  else if n >= 0xd800 && n < 0xdc00 then
-    if i + 1 >= Array1.dim a then raise Malformed_code else
-    let n' = a.{i + 1} in
-    if n' < 0xdc00 || n' >= 0xe000 then raise Malformed_code else
-    validate_aux a (i + 2)
-  else raise Malformed_code
+    let n = a.{i} in
+    if n < 0xd800 || n >= 0xe000 && n < 0xfffe then
+      validate_aux a (i + 1)
+    else if n >= 0xd800 && n < 0xdc00 then
+      if i + 1 >= Array1.dim a then raise Malformed_code else
+        let n' = a.{i + 1} in
+        if n' < 0xdc00 || n' >= 0xe000 then raise Malformed_code else
+          validate_aux a (i + 2)
+    else raise Malformed_code
 
 let validate (a:t) = validate_aux a 0
 
@@ -64,22 +64,22 @@ let look (a:t) i : UChar.t =
   if n0 < 0xd800 || n0 >= 0xe000 then UChar.chr_of_uint n0 else
   if n0 < 0xdc00 then
     let n1 = a.{i + 1} in
-    UChar.chr_of_uint 
+    UChar.chr_of_uint
       (((n0 - 0xd800) lsl 10) + (n1 - 0xdc00) + 0x10000)
   else invalid_arg "UTF16.look"
 
 let rec length_aux (a:t) c i =
   if i >= Array1.dim a then c else
-  let n = a.{i} in
-  if n < 0xd800 || n >= 0xe000 then length_aux a (c + 1) (i + 1)
-  else length_aux a (c + 1) (i + 2)
+    let n = a.{i} in
+    if n < 0xd800 || n >= 0xe000 then length_aux a (c + 1) (i + 1)
+    else length_aux a (c + 1) (i + 2)
 
 let length (a:t) = length_aux a 0 0
 
 let next (a:t) i =
   let n = a.{i} in
   if n < 0xd800 || n >= 0xdc00 then i + 1 else
-  i + 2
+    i + 2
 
 let prev (a:t) i =
   let i' = i - 1 in
@@ -92,10 +92,10 @@ let rec move_forward (a:t) i c =
 let rec move_backward (a:t) i c =
   if c < 0 then move_backward a (prev a i) (c + 1) else i
 
-let move (a:t) i c = 
+let move (a:t) i c =
   if c > 0 then move_forward a i c else
   if c < 0 then move_backward a i c else
-  i
+    i
 
 let first _ = 0
 
@@ -152,10 +152,10 @@ module Buf = struct
 
   let resize buf n =
     if Array1.dim buf.contents >= n then () else
-    let a = Array1.create int16_unsigned c_layout (2 * n) in
-    let a' = Array1.sub a 0 (Array1.dim buf.contents) in
-    Array1.blit buf.contents a';
-    buf.contents <- a
+      let a = Array1.create int16_unsigned c_layout (2 * n) in
+      let a' = Array1.sub a 0 (Array1.dim buf.contents) in
+      Array1.blit buf.contents a';
+      buf.contents <- a
 
   let add_char buf u =
     resize buf (buf.pos + 2);
@@ -184,11 +184,11 @@ let init len f =
 
 let rec compare_aux (a:t) b i =
   if i >= Array1.dim a then 0 else
-  let n1 = a.{i} in
-  let n2 = b.{i} in
-  if n1 = n2 then compare_aux a b (i + 1) else
-  (if n1 < 0xd800 || n1 >= 0xdc00 then n1 else 0x10000 lor n1) -
-    (if n2 < 0xd800 || n2 >= 0xdc00 then n2 else 0x10000 lor n2)
+    let n1 = a.{i} in
+    let n2 = b.{i} in
+    if n1 = n2 then compare_aux a b (i + 1) else
+      (if n1 < 0xd800 || n1 >= 0xdc00 then n1 else 0x10000 lor n1) -
+      (if n2 < 0xd800 || n2 >= 0xdc00 then n2 else 0x10000 lor n2)
 
 let compare (a:t) b =
   let sgn = Array1.dim a - Array1.dim b in

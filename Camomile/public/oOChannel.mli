@@ -34,10 +34,10 @@
 (* yori@users.sourceforge.net *)
 
 (** Generic input channel
-  Have the same interface of Polymorphic input channel of
-  http://www.ocaml-programming.de/rec/IO-Classes.html
-  All channels of Camomile having this interface must confirm
-  the behaviour defined in the recommendation above.
+    Have the same interface of Polymorphic input channel of
+    http://www.ocaml-programming.de/rec/IO-Classes.html
+    All channels of Camomile having this interface must confirm
+    the behaviour defined in the recommendation above.
 *)
 class type ['a] obj_input_channel =
   object
@@ -46,10 +46,10 @@ class type ['a] obj_input_channel =
   end
 
 (** Generic output channel
-  Have the same interface of Polymorphic output channel of
-  http://www.ocaml-programming.de/rec/IO-Classes.html
-  All channels of Camomile having this interface must confirm
-  the behaviour defined in the recommendation above.
+    Have the same interface of Polymorphic output channel of
+    http://www.ocaml-programming.de/rec/IO-Classes.html
+    All channels of Camomile having this interface must confirm
+    the behaviour defined in the recommendation above.
 *)
 class type ['a] obj_output_channel =
   object
@@ -71,11 +71,11 @@ class ['a] channel_of_stream : 'a Stream.t -> ['a] obj_input_channel
 val stream_of_channel : 'a #obj_input_channel -> 'a Stream.t
 
 (** Character(byte) input channel.  Have the same interface of octet
-  input channel of http://www.ocaml-programming.de/rec/IO-Classes.html
-  All channels of Camomile having this interface must confirm the
-  behaviour defined in the recommendation above.  In addition, all
-  channels are assumed to be blocking.  If you supply a non-blocking
-  channel to Camomile API, the outcome is undefined.
+    input channel of http://www.ocaml-programming.de/rec/IO-Classes.html
+    All channels of Camomile having this interface must confirm the
+    behaviour defined in the recommendation above.  In addition, all
+    channels are assumed to be blocking.  If you supply a non-blocking
+    channel to Camomile API, the outcome is undefined.
 *)
 class type char_input_channel =
   object
@@ -84,11 +84,11 @@ class type char_input_channel =
   end
 
 (** Character(byte) output channel.  Have the same interface of octet
-  input channel of http://www.ocaml-programming.de/rec/IO-Classes.html
-  All channels of Camomile having this interface must confirm the
-  behaviour defined in the recommendation above.  In addition, all
-  channels are assumed to be blocking.  If you supply a non-blocking
-  channel to Camomile API, the outcome is undefined.
+    input channel of http://www.ocaml-programming.de/rec/IO-Classes.html
+    All channels of Camomile having this interface must confirm the
+    behaviour defined in the recommendation above.  In addition, all
+    channels are assumed to be blocking.  If you supply a non-blocking
+    channel to Camomile API, the outcome is undefined.
 *)
 class type char_output_channel =
   object
