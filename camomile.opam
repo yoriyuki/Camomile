@@ -14,5 +14,6 @@ depends: [
   "jbuilder" {build & >= "1.0+beta17"}
   "cppo" {build}
   "base-bytes"
+  "uucd" {build}
 ]
 available: [ocaml-version >= "4.02.3"]
