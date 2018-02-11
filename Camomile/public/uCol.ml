@@ -86,6 +86,9 @@ module Make (Config : ConfigInt.Type) (Text : UnicodeString.Type) = struct
   module Unidata = Unidata.Make(Config)
   module UCharInfo = UCharInfo.Make(Config)
 
+  let script_data = UCharInfo.get_data UCharInfo.script_prop
+  let script u = UCharInfo.get_value script_data u
+
   let logical_order_exception_tbl =
     UCharInfo.load_property_tbl `Logical_Order_Exception
 
@@ -483,7 +486,7 @@ module Make (Config : ConfigInt.Type) (Text : UnicodeString.Type) = struct
     let rec loop i =
       if i >= XString.length x then () else
         let u = XString.get x i in
-        (match UCharInfo.script u with `Hiragana when col_info.hiraganaQ ->
+        (match script u with `Hira when col_info.hiraganaQ ->
            addce keybuf hiraganaQ_mark | _ -> ());
         let i' = match Unidata.ce col_info.tbl u with
             [] -> implicit_ce keybuf u; i + 1
@@ -651,8 +654,8 @@ module Make (Config : ConfigInt.Type) (Text : UnicodeString.Type) = struct
            | _ -> `Inc (a, i, lazy (loop i' f [] us)))
       | u :: us ->
         let a =
-          match UCharInfo.script u with
-            `Hiragana when col_info.hiraganaQ ->
+          match script u with
+            `Hira when col_info.hiraganaQ ->
             a @ [hiraganaQ_mark]
           | _ -> a in
         let ces, us, i, f = get_next_ce col_info i f u us in
