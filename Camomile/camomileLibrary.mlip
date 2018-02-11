@@ -132,10 +132,6 @@
     #include "uReStr.mli"
   end
 
-  module StringPrep : sig
-    #include "stringPrep.mli"
-  end
-
 module type Type = sig
 
   module OOChannel : sig
@@ -205,7 +201,7 @@ module type Type = sig
     end
 
   module UCharInfo : UCharInfo.Type
-  
+
   module UNF : sig
     module type Type = UNF.Type
     module Make (Text : UnicodeString.Type) :
@@ -214,12 +210,12 @@ module type Type = sig
 
   module UCol : sig
 (** How variables are handled *)
-    type variable_option = 
-	[ `Blanked 
-      | `Non_ignorable 
+    type variable_option =
+	[ `Blanked
+      | `Non_ignorable
       | `Shifted
       | `Shift_Trimmed ]
-	  
+
 (** Strength of comparison.  For European languages, each strength
     roughly means as
     `Primary : Ignore accents and case
@@ -241,10 +237,6 @@ module type Type = sig
 
   module UReStr : UReStr.Interface
 
-  module StringPrep : sig
-    module type Type = StringPrep.Type
-    module Make (Text : UnicodeString.Type) : (Type with type text = Text.t)
-  end
 end
 
 (** All-in-one, configure once modules*)
@@ -270,6 +262,4 @@ module Make (Config : ConfigInt.Type) : Type with
       module UNF.Make = UNF.Make(Config) and
       module UCol.Make = UCol.Make(Config) and
       module CaseMap.Make = CaseMap.Make(Config) and
-      module UReStr = UReStr.Configure(Config) and
-      module StringPrep.Make = StringPrep.Make(Config)
-      
+      module UReStr = UReStr.Configure(Config)

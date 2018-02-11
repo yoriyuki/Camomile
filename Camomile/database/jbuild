@@ -18,8 +18,8 @@
     (composition_exclusion.mar                  as database/composition_exclusion.mar)
     (composition_exclusion_set.mar              as database/composition_exclusion_set.mar)
     (composition.mar                            as database/composition.mar)
-    (d1.mar                                     as database/d1.mar)
-    (d2.mar                                     as database/d2.mar)
+  ;;  (d1.mar                                     as database/d1.mar)
+  ;;  (d2.mar                                     as database/d2.mar)
     (decomposition.mar                          as database/decomposition.mar)
     (Default_Ignorable_Code_Point.mar           as database/Default_Ignorable_Code_Point.mar)
     (Default_Ignorable_Code_Point_set.mar       as database/Default_Ignorable_Code_Point_set.mar)
@@ -51,20 +51,20 @@
     (ID_Start_set.mar                           as database/ID_Start_set.mar)
     (IDS_Trinary_Operator.mar                   as database/IDS_Trinary_Operator.mar)
     (IDS_Trinary_Operator_set.mar               as database/IDS_Trinary_Operator_set.mar)
-    (iscsi_prohibited.mar                       as database/iscsi_prohibited.mar)
+;;    (iscsi_prohibited.mar                       as database/iscsi_prohibited.mar)
     (Join_Control.mar                           as database/Join_Control.mar)
     (Join_Control_set.mar                       as database/Join_Control_set.mar)
     (Logical_Order_Exception.mar                as database/Logical_Order_Exception.mar)
     (Logical_Order_Exception_set.mar            as database/Logical_Order_Exception_set.mar)
     (Lowercase.mar                              as database/Lowercase.mar)
     (Lowercase_set.mar                          as database/Lowercase_set.mar)
-    (map_b1b2.mar                               as database/map_b1b2.mar)
-    (map_b1.mar                                 as database/map_b1.mar)
+;;    (map_b1b2.mar                               as database/map_b1b2.mar)
+;;    (map_b1.mar                                 as database/map_b1.mar)
     (Math.mar                                   as database/Math.mar)
     (Math_set.mar                               as database/Math_set.mar)
-    (mib_prohibited.mar                         as database/mib_prohibited.mar)
-    (nameprep_prohibited.mar                    as database/nameprep_prohibited.mar)
-    (nodeprep_prohibited.mar                    as database/nodeprep_prohibited.mar)
+;;    (mib_prohibited.mar                         as database/mib_prohibited.mar)
+;;    (nameprep_prohibited.mar                    as database/nameprep_prohibited.mar)
+;;    (nodeprep_prohibited.mar                    as database/nodeprep_prohibited.mar)
     (Noncharacter_Code_Point.mar                as database/Noncharacter_Code_Point.mar)
     (Noncharacter_Code_Point_set.mar            as database/Noncharacter_Code_Point_set.mar)
     (Other_Alphabetic.mar                       as database/Other_Alphabetic.mar)
@@ -83,9 +83,9 @@
     (Quotation_Mark_set.mar                     as database/Quotation_Mark_set.mar)
     (Radical.mar                                as database/Radical.mar)
     (Radical_set.mar                            as database/Radical_set.mar)
-    (resourceprep_prohibited.mar                as database/resourceprep_prohibited.mar)
-    (saslprep_map.mar                           as database/saslprep_map.mar)
-    (saslprep_prohibited.mar                    as database/saslprep_prohibited.mar)
+;;    (resourceprep_prohibited.mar                as database/resourceprep_prohibited.mar)
+;;    (saslprep_map.mar                           as database/saslprep_map.mar)
+;;    (saslprep_prohibited.mar                    as database/saslprep_prohibited.mar)
     (scripts_map.mar                            as database/scripts_map.mar)
     (scripts.mar                                as database/scripts.mar)
     (Soft_Dotted.mar                            as database/Soft_Dotted.mar)
@@ -96,7 +96,7 @@
     (to_lower1.mar                              as database/to_lower1.mar)
     (to_title1.mar                              as database/to_title1.mar)
     (to_upper1.mar                              as database/to_upper1.mar)
-    (trace_prohibited.mar                       as database/trace_prohibited.mar)
+;;    (trace_prohibited.mar                       as database/trace_prohibited.mar)
     (Unified_Ideograph.mar                      as database/Unified_Ideograph.mar)
     (Unified_Ideograph_set.mar                  as database/Unified_Ideograph_set.mar)
     (Uppercase.mar                              as database/Uppercase.mar)
@@ -315,21 +315,21 @@
 
 ;; STRINGPREP_TABLES
 
-(rule
- ((targets (map_b1b2.mar
-            map_b1.mar
-            d1.mar d2.mar
-            saslprep_map.mar
-            nodeprep_prohibited.mar
-            resourceprep_prohibited.mar
-            nameprep_prohibited.mar
-            saslprep_prohibited.mar
-            trace_prohibited.mar
-            iscsi_prohibited.mar
-            mib_prohibited.mar))
-   (deps   ((glob_files ../unidata/stringprep/*)))
-   (action (run ../tools/camomilestringprep.exe -in ../unidata/stringprep -out .))))
-
+;;(rule
+;; ((targets (map_b1b2.mar
+;;            map_b1.mar
+;;            d1.mar d2.mar
+;;            saslprep_map.mar
+;;            nodeprep_prohibited.mar
+;;            resourceprep_prohibited.mar
+;;            nameprep_prohibited.mar
+;;            saslprep_prohibited.mar
+;;            trace_prohibited.mar
+;;            iscsi_prohibited.mar
+;;            mib_prohibited.mar))
+;;   (deps   ((glob_files ../unidata/stringprep/*)))
+;;   (action (run ../tools/camomilestringprep.exe -in ../unidata/stringprep -out .))))
+;;
 ;; other
 
 (alias

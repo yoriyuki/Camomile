@@ -69,5 +69,4 @@ module UCharInfo = UCharInfo.Make(Config) and
 module UNF.Make = UNF.Make(Config) and
 module UCol.Make = UCol.Make(Config) and
 module CaseMap.Make = CaseMap.Make(Config) and
-module UReStr = UReStr.Configure(Config) and
-module StringPrep.Make = StringPrep.Make(Config)
+module UReStr = UReStr.Configure(Config)

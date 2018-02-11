@@ -13,7 +13,7 @@
          public/uTF8.mli public/uTF16.mli public/uCS4.mli
          public/uPervasives.mli public/uRe.mli public/charEncoding.mli
          public/uCharInfo.mli public/uNF.mli public/uCol.mli
-         public/caseMap.mli public/uReStr.mli public/stringPrep.mli))))
+         public/caseMap.mli public/uReStr.mli))))
 
 (rule
  ((targets (camomileLibrary.mli))
@@ -46,7 +46,6 @@
 (rule (copy# internal/hangul.ml            hangul.ml))
 (rule (copy# internal/iMap.ml              iMap.ml))
 (rule (copy# internal/iSet.ml              iSet.ml))
-(rule (copy# internal/stringPrep_data.ml   stringPrep_data.ml))
 (rule (copy# internal/tbl31.ml             tbl31.ml))
 (rule (copy# internal/uReStrLexer.ml       uReStrLexer.ml))
 (rule (copy# internal/uReStrParser.ml      uReStrParser.ml))
@@ -64,7 +63,6 @@
 (rule (copy# internal/hangul.mli           hangul.mli))
 (rule (copy# internal/iMap.mli             iMap.mli))
 (rule (copy# internal/iSet.mli             iSet.mli))
-(rule (copy# internal/stringPrep_data.mli  stringPrep_data.mli))
 (rule (copy# internal/tbl31.mli            tbl31.mli))
 (rule (copy# internal/uReStrParser.mli     uReStrParser.mli))
 (rule (copy# internal/uReStrParserType.mli uReStrParserType.mli))
@@ -75,7 +73,6 @@
 (rule (copy# public/caseMap.ml             caseMap.ml))
 (rule (copy# public/charEncoding.ml        charEncoding.ml))
 (rule (copy# public/oOChannel.ml           oOChannel.ml))
-(rule (copy# public/stringPrep.ml          stringPrep.ml))
 (rule (copy# public/subText.ml             subText.ml))
 (rule (copy# public/uCS4.ml                uCS4.ml))
 (rule (copy# public/uChar.ml               uChar.ml))
@@ -99,7 +96,6 @@
 (rule (copy# public/caseMap.mli            caseMap.mli))
 (rule (copy# public/charEncoding.mli       charEncoding.mli))
 (rule (copy# public/oOChannel.mli          oOChannel.mli))
-(rule (copy# public/stringPrep.mli         stringPrep.mli))
 (rule (copy# public/subText.mli            subText.mli))
 (rule (copy# public/uCS4.mli               uCS4.mli))
 (rule (copy# public/uChar.mli              uChar.mli))

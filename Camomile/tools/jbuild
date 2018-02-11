@@ -8,8 +8,7 @@
           parse_casefolding
           parse_scripts
           parse_allkeys
-          parse_age
-          camomilestringprep))
+          parse_age))
   (flags (-I Camomile :standard))
   (modules (:standard \ camomilelocaledef camomilelocaledef_lexer))
   (libraries (toolslib))))
