@@ -35,6 +35,8 @@
 
 type point
 
+open CamomileLibrary.Private
+
 module IntSet : sig type t = ISet.t end
 module IntMap : Map.S with type key = int
 module Map : Map.S with type key = point

@@ -34,6 +34,7 @@
 (* yoriyuki.y@gmail.com *)
 
 {
+open CamomileLibrary
 open ColParser
 let blank = Str.regexp "[ \t\n]+"
 }

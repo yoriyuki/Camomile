@@ -34,6 +34,8 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
+open CamomileLibrary
+open CamomileLibrary.Private
 let tbl_rw = ref USet.empty
 
 (* remove comments *)

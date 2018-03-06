@@ -37,6 +37,8 @@ type point = int
 
 module Int = struct type t = int let compare = (-) end
 
+open CamomileLibrary.Private
+
 module Set = ISet
 module Map = Map.Make (Int)
 module IntSet = Set

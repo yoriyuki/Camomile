@@ -34,6 +34,9 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
+open CamomileLibrary
+open CamomileLibrary.Private
+
 let folds = ref UMap.empty
 
 let int_of_code code = int_of_string ("0x"^code)

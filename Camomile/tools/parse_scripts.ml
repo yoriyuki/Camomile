@@ -33,6 +33,9 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
+open CamomileLibrary
+open CamomileLibrary.Private
+
 module Unidata = Unidata.Make(Camomileconfig)
 
 let tbl_rw =

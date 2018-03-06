@@ -35,6 +35,7 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
+open CamomileLibrary
 
 (* remove comments *)
 let range_pat =
@@ -85,6 +86,6 @@ let () =
   match Sys.argv with
   | [|_; dir; input_fname|] ->
     let map = parse (open_in input_fname) in
-    Database.write dir "mar" output_value "age"
+    CamomileLibrary.Private.Database.write dir "mar" output_value "age"
       (UCharTbl.Char.of_map undefined_version map)
   | _ -> failwith "invalid command line"

@@ -34,6 +34,8 @@
 (* You can contact the authour by sending email to *)
 (* yori@sourceforge.net *)
 
+open CamomileLibrary.Private
+
 let parse_arg () =
   let dir = ref "." in
   let file = ref None in
