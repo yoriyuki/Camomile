@@ -1,7 +1,8 @@
 (jbuild_version 1)
 
 (executables
- ((names (parse_unidata
+ ((names (camomileunidata
+          parse_unidata
           parse_uniset
           camomilecharmap
           parse_specialcasing

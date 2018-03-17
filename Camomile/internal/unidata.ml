@@ -1,6 +1,6 @@
 (** Unicode data *)
 
-(* Copyright (C) 2002, 2003, 2011 Yamagata Yoriyuki *)
+(* Copyright (C) 2002, 2003, 2011, 2018 Yamagata Yoriyuki *)
 
 (* This library is free software; you can redistribute it and/or *)
 (* modify it under the terms of the GNU Lesser General Public License *)
@@ -36,9 +36,10 @@
 
 
 module type Type = sig
+
   val read_data : ?datadir:string -> string -> 'a
 
-  type general_category_type = 
+  type general_category_type =
     [ `Lu		(* Letter, Uppercase *)
     | `Ll		(* Letter, Lowercase *)
     | `Lt		(* Letter, Titlecase *)
@@ -151,16 +152,16 @@ module type Type = sig
 
   type ce_tbl = (UChar.t list * ce_type list) list UCharTbl.t
 
-  type variable_option =   
-    [ `Blanked 
-    | `Non_ignorable 
+  type variable_option =
+    [ `Blanked
+    | `Non_ignorable
     | `Shifted
     | `Shift_Trimmed ]
 
   type col_info =
     {variable_top : int;
      variable_option : variable_option;
-     french_accent : bool;		
+     french_accent : bool;
      hiraganaQ : bool;
      hiraganaQ_weight : int;
      tbl : ce_tbl}
@@ -169,7 +170,7 @@ module type Type = sig
 
   (* If the returned list contains ([u1; u2; ... ;un], [ce1; ce2; ... ;cem]),
      for the given character u, the sequence u u1 u2 ... un corresponds
-     sequence of collation elements ce1 ce2 ... cem. the list is in 
+     sequence of collation elements ce1 ce2 ... cem. the list is in
      decreasing order respect to n. *)
   val ce : ce_tbl -> UChar.t -> (UChar.t list * ce_type list) list
 
@@ -186,7 +187,7 @@ module Make (Config : ConfigInt.Type) = struct
       | None -> Config.datadir in
     Database.read datadir "mar" input_value name
 
-  type general_category_type = 
+  type general_category_type =
     [ `Lu		(* Letter, Uppercase *)
     | `Ll		(* Letter, Lowercase *)
     | `Lt		(* Letter, Titlecase *)
@@ -222,29 +223,29 @@ module Make (Config : ConfigInt.Type) = struct
   let cat_of_name name =
     match name with
       "Lu" -> `Lu | "Ll" -> `Ll | "Lt" -> `Lt
-    | "Mn" -> `Mn | "Mc" -> `Mc | "Me" -> `Me 
-    | "Nd" -> `Nd | "Nl" -> `Nl | "No" -> `No  
-    | "Zs" -> `Zs | "Zl" -> `Zl | "Zp" -> `Zp 
+    | "Mn" -> `Mn | "Mc" -> `Mc | "Me" -> `Me
+    | "Nd" -> `Nd | "Nl" -> `Nl | "No" -> `No
+    | "Zs" -> `Zs | "Zl" -> `Zl | "Zp" -> `Zp
     | "Cc" -> `Cc | "Cf" -> `Cf | "Cs" -> `Cs | "Co" -> `Co | "Cn" -> `Cn
-    | "Lm" -> `Lm | "Lo" -> `Lo 
-    | "Pc" -> `Pc | "Pd" -> `Pd | "Ps" -> `Ps | "Pe" -> `Pe 
-    | "Pi" -> `Pi | "Pf" -> `Pf | "Po" -> `Po 
+    | "Lm" -> `Lm | "Lo" -> `Lo
+    | "Pc" -> `Pc | "Pd" -> `Pd | "Ps" -> `Ps | "Pe" -> `Pe
+    | "Pi" -> `Pi | "Pf" -> `Pf | "Po" -> `Po
     | "Sm" -> `Sm | "Sc" -> `Sc | "Sk" -> `Sk | "So"-> `So
     | _ -> raise Not_found
 
   let num_of_cat ca =
     match ca with
-      `Lu -> 1 | `Ll -> 2 | `Lt -> 3 
+      `Lu -> 1 | `Ll -> 2 | `Lt -> 3
     | `Mn -> 4 | `Mc -> 5 | `Me -> 6
     | `Nd -> 7 | `Nl -> 8 | `No -> 9
-    | `Zs -> 10 | `Zl -> 11 | `Zp -> 12 
+    | `Zs -> 10 | `Zl -> 11 | `Zp -> 12
     | `Cc -> 13 | `Cf -> 14 | `Cs -> 15 | `Co -> 16 | `Cn -> 0
-    | `Lm -> 17 | `Lo -> 18 
-    | `Pc -> 19 | `Pd -> 20 | `Ps -> 21 | `Pe -> 22 
+    | `Lm -> 17 | `Lo -> 18
+    | `Pc -> 19 | `Pd -> 20 | `Ps -> 21 | `Pe -> 22
     | `Pi -> 23 | `Pf -> 24 | `Po -> 25
     | `Sm -> 26 | `Sc -> 27 | `Sk -> 28 | `So -> 29
 
-  let cat_of_num_tbl : general_category_type array = 
+  let cat_of_num_tbl : general_category_type array =
     [| `Cn ; `Lu ; `Ll ; `Lt ; `Mn ; `Mc ; `Me ; `Nd ; `Nl ; `No
      ; `Zs ; `Zl ; `Zp ; `Cc ; `Cf ; `Cs ; `Co
      ; `Lm ; `Lo ; `Pc ; `Pd ; `Ps ; `Pe ; `Pi ; `Pf ; `Po
@@ -352,7 +353,7 @@ module Make (Config : ConfigInt.Type) = struct
     | "tagalog" -> `Tagalog
     | "hanunoo" -> `Hanunoo
     | "buhid" -> `Buhid
-    | "tagbanwa" -> `Tagbanwa 
+    | "tagbanwa" -> `Tagbanwa
     | _ -> raise Not_found
 
   let num_of_script = function
@@ -406,7 +407,7 @@ module Make (Config : ConfigInt.Type) = struct
     [| `Common; `Inherited; `Latin; `Greek; `Cyrillic; `Armenian; `Hebrew;
        `Arabic; `Syriac; `Thaana; `Devanagari; `Bengali; `Gurmukhi; `Gujarati;
        `Oriya; `Tamil; `Telugu; `Kannada; `Malayalam; `Sinhala; `Thai; `Lao;
-       `Tibetan; `Myanmar; `Georgian; `Hangul; `Ethiopic; `Cherokee; 
+       `Tibetan; `Myanmar; `Georgian; `Hangul; `Ethiopic; `Cherokee;
        `Canadian_Aboriginal; `Ogham; `Runic; `Khmer; `Mongolian; `Hiragana;
        `Katakana; `Bopomofo; `Han; `Yi; `Old_Italic; `Gothic; `Deseret; `Tagalog;
        `Hanunoo; `Buhid; `Tagbanwa |]
@@ -441,16 +442,16 @@ module Make (Config : ConfigInt.Type) = struct
 
   type ce_tbl = (UChar.t list * ce_type list) list UCharTbl.t
 
-  type variable_option =   
-    [ `Blanked 
-    | `Non_ignorable 
+  type variable_option =
+    [ `Blanked
+    | `Non_ignorable
     | `Shifted
     | `Shift_Trimmed ]
 
   type col_info =
     {variable_top : int;
      variable_option : variable_option;
-     french_accent : bool;		
+     french_accent : bool;
      hiraganaQ : bool;
      hiraganaQ_weight : int;
      tbl : ce_tbl}
@@ -473,7 +474,7 @@ module Make (Config : ConfigInt.Type) = struct
     match locale with
       None -> Lazy.force default_col_data
     | Some s ->
-      try 
+      try
         let b = Hashtbl.find col_tbl s in
         match Weak.get b 0 with
           None ->
@@ -481,7 +482,7 @@ module Make (Config : ConfigInt.Type) = struct
           raise Not_found
         | Some x -> x
       with Not_found ->
-      try 
+      try
         let info = Locale.read Config.localedir "mar" read_localedata s in
         let b = Weak.create 1 in
         Weak.set b 0 (Some info);

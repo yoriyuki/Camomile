@@ -1,4 +1,4 @@
-(* Copyright (C) 2002 Yamagata Yoriyuki.*)
+(* Copyright (C) 2002, 2018 Yamagata Yoriyuki.*)
 (*               2010 Pierre Chambart *)
 
 (* This library is free software; you can redistribute it and/or *)
