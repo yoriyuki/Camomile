@@ -15,16 +15,6 @@
          public/uCharInfo.mli public/uNF.mli public/uCol.mli
          public/caseMap.mli public/uReStr.mli))))
 
-(rule
- ((targets (camomileLibrary.mli))
-  (deps    (camomileLibrary.mlip (alias mlis)))
-  (action   (run cppo -I internal -I public -I toolslib -I . -o ${@} ${<}))))
-
-(rule
- ((targets (camomileLibrary.ml))
-  (deps    (camomileLibrary.mlp (alias mlis)))
-  (action   (run cppo -I internal -I public -I toolslib -I . -o ${@} ${<}))))
-
 ;; mli only modules are not properly supported by the compiler yet
 (rule (copy# configInt.mli configInt.ml))
 
