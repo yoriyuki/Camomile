@@ -12,7 +12,7 @@
           parse_age))
   (flags (-I Camomile :standard))
   (modules (:standard \ camomilelocaledef camomilelocaledef_lexer))
-  (libraries (toolslib))))
+  (libraries (toolslib uucd))))
 
 (executable
  ((name camomilelocaledef)
