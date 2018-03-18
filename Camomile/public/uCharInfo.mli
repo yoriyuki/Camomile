@@ -40,7 +40,8 @@ module type Type = sig
   type 'a data
 
   val get_data : 'a prop -> 'a data
-  val get_value : 'a data -> UChar.t -> 'a
+  val get_value : 'a data -> UChar.t -> 'a option
+  val get_boolean : bool data -> UChar.t -> bool
   val get_set : bool prop -> USet.t
   val get_map : 'a prop -> 'a UMap.t
 

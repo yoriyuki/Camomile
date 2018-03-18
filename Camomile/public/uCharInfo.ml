@@ -39,7 +39,8 @@ module type Type = sig
   type 'a data
 
   val get_data : 'a prop -> 'a data
-  val get_value : 'a data -> UChar.t -> 'a
+  val get_value : 'a data -> UChar.t -> 'a option
+  val get_boolean : bool data -> UChar.t -> bool
   val get_set : bool prop -> USet.t
   val get_map : 'a prop -> 'a UMap.t
 
@@ -2248,7 +2249,7 @@ module Make (Config : ConfigInt.Type) : Type = struct
     | Boolean : UCharTbl.Bool.t -> bool data
     | Variant : ('a array * UCharTbl.Bits.t) -> 'a data
     | Byte : UCharTbl.Char.t -> int data
-    | Any : 'a UCharTbl.t -> 'a data
+    | Any : 'a option UCharTbl.t -> 'a data
 
   let name_of = function
       `Age -> "age"
@@ -2464,12 +2465,19 @@ module Make (Config : ConfigInt.Type) : Type = struct
   let get_data :  'a prop -> 'a data  =
     function p -> UData.read_data (name_of p)
 
-  let get_value : type a. a data -> UChar.t -> a = function
-      Boolean tbl -> UCharTbl.Bool.get tbl
-    | Variant (m, tbl) -> (function u -> Array.unsafe_get m (UCharTbl.Bits.get tbl u)
+  let get_value : type a. a data -> UChar.t -> a option = function
+      Boolean tbl -> (function u -> Some(UCharTbl.Bool.get tbl u))
+    | Variant (m, tbl) -> (function u ->
+        let v = UCharTbl.Bits.get tbl u in
+        if v = 0 then None else
+          Some(Array.unsafe_get m (UCharTbl.Bits.get tbl u - 1))
       )
-    | Byte tbl -> (function u -> Char.code (UCharTbl.Char.get tbl u))
+    | Byte tbl -> (function u -> Some (Char.code (UCharTbl.Char.get tbl u)))
     | Any tbl -> UCharTbl.get tbl
+
+  let get_boolean : bool data -> UChar.t -> bool = function
+      Boolean tbl -> UCharTbl.Bool.get tbl
+    | _ -> assert false
 
   let get_set p = UData.read_data ((name_of p) ^ "-set")
   let get_map p = UData.read_data ((name_of p) ^ "-map")
