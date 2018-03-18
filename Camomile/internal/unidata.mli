@@ -34,6 +34,12 @@
 (* You can contact the authour by sending email to *)
 (* yori@users.sourceforge.net *)
 
+type 'a data =
+  | Boolean : UCharTbl.Bool.t -> bool data
+  | Variant : ('a array * UCharTbl.Bits.t) -> 'a data
+  | Byte : UCharTbl.Char.t -> int data
+  | Any : 'a option UCharTbl.t -> 'a data
+
 module type Type = sig
 
   val read_data : ?datadir:string -> string -> 'a
