@@ -2245,11 +2245,7 @@ module Make (Config : ConfigInt.Type) : Type = struct
     | `KZVariant
   ]
 
-  type _ data =
-    | Boolean : UCharTbl.Bool.t -> bool data
-    | Variant : ('a array * UCharTbl.Bits.t) -> 'a data
-    | Byte : UCharTbl.Char.t -> int data
-    | Any : 'a option UCharTbl.t -> 'a data
+  type 'a data = 'a Unidata.data
 
   let name_of = function
       `Age -> "age"
@@ -2466,17 +2462,17 @@ module Make (Config : ConfigInt.Type) : Type = struct
     function p -> UData.read_data (name_of p)
 
   let get_value : type a. a data -> UChar.t -> a option = function
-      Boolean tbl -> (function u -> Some(UCharTbl.Bool.get tbl u))
-    | Variant (m, tbl) -> (function u ->
+      Unidata.Boolean tbl -> (function u -> Some(UCharTbl.Bool.get tbl u))
+    | Unidata.Variant (m, tbl) -> (function u ->
         let v = UCharTbl.Bits.get tbl u in
         if v = 0 then None else
           Some(Array.unsafe_get m (UCharTbl.Bits.get tbl u - 1))
       )
-    | Byte tbl -> (function u -> Some (Char.code (UCharTbl.Char.get tbl u)))
-    | Any tbl -> UCharTbl.get tbl
+    | Unidata.Byte tbl -> (function u -> Some (Char.code (UCharTbl.Char.get tbl u)))
+    | Unidata.Any tbl -> UCharTbl.get tbl
 
   let get_boolean : bool data -> UChar.t -> bool = function
-      Boolean tbl -> UCharTbl.Bool.get tbl
+      Unidata.Boolean tbl -> UCharTbl.Bool.get tbl
     | _ -> assert false
 
   let get_set p = UData.read_data ((name_of p) ^ "-set")
