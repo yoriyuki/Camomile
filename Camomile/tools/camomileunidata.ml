@@ -82,7 +82,7 @@ module GenVariantTbl(P: Property) = struct
       let id_to_prop = Array.of_list (PSet.elements val_set) in
       let prop_to_id =
         let ref_pmap = ref PMap.empty in
-        for i = 0 to Array.length(id_to_prop) do
+        for i = 0 to Array.length(id_to_prop) - 1 do
           ref_pmap := PMap.add id_to_prop.(i) (i+1) !ref_pmap
         done;
         !ref_pmap in
