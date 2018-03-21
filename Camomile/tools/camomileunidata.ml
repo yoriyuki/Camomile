@@ -326,6 +326,14 @@ let () =
   ] in
   List.iter proc_string_property string_props;
 
+  let module P = struct
+    type t = [ `Unassigned | `Version of int * int ]
+  end in
+  let module Tbl = GenTbl(P) in
+  let tbl = Tbl.convert_prop_to_tbl ucd.repertoire
+      Uucd.age in
+  output_data tbl "age";
+
   let module BidiClass = struct
     type t = [ `AL
              | `AN
@@ -354,6 +362,21 @@ let () =
   let module BidiClassTbl = GenVariantTbl(BidiClass) in
   let tbl = BidiClassTbl.convert_prop_to_tbl ucd.repertoire Uucd.bidi_class in
   output_data tbl "bidi_class";
+
+  let module P = struct
+    type t = Uucd.cp option end in
+  let module GTbl = GenTbl(P) in
+  let m = GTbl.convert_prop_to_map ucd.repertoire
+      Uucd.bidi_mirroring_glyph in
+  let m' = UMap.map (function
+        Some Some n -> Some (Some (UChar.of_int n))
+      | Some None -> Some None
+      | None -> None) m in
+  let module P' = struct
+    type t = UChar.t option end in
+  let module Tbl = UCharTbl.Make(GTbl.Option(P')) in
+  let tbl = Tbl.of_map None m' in
+  output_data (Unidata.Any tbl) "bidi_mirroring_glyph";
 
   let module BidiPairedBracket = struct
     type t = [ `Cp of Uucd.cp | `Self ] end in
@@ -1014,6 +1037,14 @@ let () =
   output_data tbl "joining_group";
 
   let module P = struct
+    type t = [ `C | `D | `L | `R | `T | `U ]
+  end in
+  let module Tbl = GenVariantTbl(P) in
+  let tbl = Tbl.convert_prop_to_tbl ucd.repertoire
+      Uucd.joining_type in
+  output_data tbl "joining_type";
+
+  let module P = struct
     type t = [ `AI
              | `AL
              | `B2
@@ -1154,153 +1185,162 @@ let () =
 
   let module P = struct
     type t = [ `Adlm
-       | `Aghb
-       | `Ahom
-       | `Arab
-       | `Armi
-       | `Armn
-       | `Avst
-       | `Bali
-       | `Bamu
-       | `Bass
-       | `Batk
-       | `Beng
-       | `Bhks
-       | `Bopo
-       | `Brah
-       | `Brai
-       | `Bugi
-       | `Buhd
-       | `Cakm
-       | `Cans
-       | `Cari
-       | `Cham
-       | `Cher
-       | `Copt
-       | `Cprt
-       | `Cyrl
-       | `Deva
-       | `Dsrt
-       | `Dupl
-       | `Egyp
-       | `Elba
-       | `Ethi
-       | `Geor
-       | `Glag
-       | `Gonm
-       | `Goth
-       | `Gran
-       | `Grek
-       | `Gujr
-       | `Guru
-       | `Hang
-       | `Hani
-       | `Hano
-       | `Hatr
-       | `Hebr
-       | `Hira
-       | `Hluw
-       | `Hmng
-       | `Hrkt
-       | `Hung
-       | `Ital
-       | `Java
-       | `Kali
-       | `Kana
-       | `Khar
-       | `Khmr
-       | `Khoj
-       | `Knda
-       | `Kthi
-       | `Lana
-       | `Laoo
-       | `Latn
-       | `Lepc
-       | `Limb
-       | `Lina
-       | `Linb
-       | `Lisu
-       | `Lyci
-       | `Lydi
-       | `Mahj
-       | `Mand
-       | `Mani
-       | `Marc
-       | `Mend
-       | `Merc
-       | `Mero
-       | `Mlym
-       | `Modi
-       | `Mong
-       | `Mroo
-       | `Mtei
-       | `Mult
-       | `Mymr
-       | `Narb
-       | `Nbat
-       | `Newa
-       | `Nkoo
-       | `Nshu
-       | `Ogam
-       | `Olck
-       | `Orkh
-       | `Orya
-       | `Osge
-       | `Osma
-       | `Palm
-       | `Pauc
-       | `Perm
-       | `Phag
-       | `Phli
-       | `Phlp
-       | `Phnx
-       | `Plrd
-       | `Prti
-       | `Qaai
-       | `Rjng
-       | `Runr
-       | `Samr
-       | `Sarb
-       | `Saur
-       | `Sgnw
-       | `Shaw
-       | `Shrd
-       | `Sidd
-       | `Sind
-       | `Sinh
-       | `Sora
-       | `Soyo
-       | `Sund
-       | `Sylo
-       | `Syrc
-       | `Tagb
-       | `Takr
-       | `Tale
-       | `Talu
-       | `Taml
-       | `Tang
-       | `Tavt
-       | `Telu
-       | `Tfng
-       | `Tglg
-       | `Thaa
-       | `Thai
-       | `Tibt
-       | `Tirh
-       | `Ugar
-       | `Vaii
-       | `Wara
-       | `Xpeo
-       | `Xsux
-       | `Yiii
-       | `Zanb
-       | `Zinh
-       | `Zyyy
-       | `Zzzz ]  end in
+            | `Aghb
+            | `Ahom
+            | `Arab
+            | `Armi
+            | `Armn
+            | `Avst
+            | `Bali
+            | `Bamu
+            | `Bass
+            | `Batk
+            | `Beng
+            | `Bhks
+            | `Bopo
+            | `Brah
+            | `Brai
+            | `Bugi
+            | `Buhd
+            | `Cakm
+            | `Cans
+            | `Cari
+            | `Cham
+            | `Cher
+            | `Copt
+            | `Cprt
+            | `Cyrl
+            | `Deva
+            | `Dsrt
+            | `Dupl
+            | `Egyp
+            | `Elba
+            | `Ethi
+            | `Geor
+            | `Glag
+            | `Gonm
+            | `Goth
+            | `Gran
+            | `Grek
+            | `Gujr
+            | `Guru
+            | `Hang
+            | `Hani
+            | `Hano
+            | `Hatr
+            | `Hebr
+            | `Hira
+            | `Hluw
+            | `Hmng
+            | `Hrkt
+            | `Hung
+            | `Ital
+            | `Java
+            | `Kali
+            | `Kana
+            | `Khar
+            | `Khmr
+            | `Khoj
+            | `Knda
+            | `Kthi
+            | `Lana
+            | `Laoo
+            | `Latn
+            | `Lepc
+            | `Limb
+            | `Lina
+            | `Linb
+            | `Lisu
+            | `Lyci
+            | `Lydi
+            | `Mahj
+            | `Mand
+            | `Mani
+            | `Marc
+            | `Mend
+            | `Merc
+            | `Mero
+            | `Mlym
+            | `Modi
+            | `Mong
+            | `Mroo
+            | `Mtei
+            | `Mult
+            | `Mymr
+            | `Narb
+            | `Nbat
+            | `Newa
+            | `Nkoo
+            | `Nshu
+            | `Ogam
+            | `Olck
+            | `Orkh
+            | `Orya
+            | `Osge
+            | `Osma
+            | `Palm
+            | `Pauc
+            | `Perm
+            | `Phag
+            | `Phli
+            | `Phlp
+            | `Phnx
+            | `Plrd
+            | `Prti
+            | `Qaai
+            | `Rjng
+            | `Runr
+            | `Samr
+            | `Sarb
+            | `Saur
+            | `Sgnw
+            | `Shaw
+            | `Shrd
+            | `Sidd
+            | `Sind
+            | `Sinh
+            | `Sora
+            | `Soyo
+            | `Sund
+            | `Sylo
+            | `Syrc
+            | `Tagb
+            | `Takr
+            | `Tale
+            | `Talu
+            | `Taml
+            | `Tang
+            | `Tavt
+            | `Telu
+            | `Tfng
+            | `Tglg
+            | `Thaa
+            | `Thai
+            | `Tibt
+            | `Tirh
+            | `Ugar
+            | `Vaii
+            | `Wara
+            | `Xpeo
+            | `Xsux
+            | `Yiii
+            | `Zanb
+            | `Zinh
+            | `Zyyy
+            | `Zzzz ]
+  end in
   let module Tbl = GenVariantTbl(P) in
   let tbl = Tbl.convert_prop_to_tbl ucd.repertoire
       Uucd.script in
   output_data tbl "script";
+
+  let module P = struct
+    type t = P.t list
+  end in
+  let module Tbl = GenTbl(P) in
+  let tbl = Tbl.convert_prop_to_tbl ucd.repertoire
+      Uucd.script_extensions in
+  output_data tbl "script_extensions";
 
   let module P = struct
     type t = [ `AT
