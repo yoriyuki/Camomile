@@ -30,7 +30,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yori@users.sourceforge.net *)
+(* yoriyuki.y@gmail.com *)
 
 (** Module for a Str-like regular expression syntax.
     The difference can be summarised as follows.

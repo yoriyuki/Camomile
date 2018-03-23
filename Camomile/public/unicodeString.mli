@@ -30,7 +30,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yori@users.sourceforge.net *)
+(* yoriyuki.y@gmail.com *)
 
 (** Signature for Unicode strings.  
     {!UText}, {!XString}, {!UTF8}, {!UTF16}, {!UCS4}
