@@ -22,8 +22,8 @@ module Charmap_decode = struct
 
   let extract_blank_separated_words s =
     extract_words s ~is_word_char:(function
-      | ' ' | '\t' -> false
-      | _ -> true)
+        | ' ' | '\t' -> false
+        | _ -> true)
 
   exception Break
 
@@ -37,7 +37,7 @@ module Charmap_decode = struct
 
   let parse_header file =
     let inchan = open_in file in
-    let codeset_name = ref file in
+    let codeset_name = ref (Filename.basename file) in
     let aliases = ref [] in
     let escape_char = ref '/' in
     let comment_char = ref '#' in
@@ -67,42 +67,26 @@ let escape s =
   let b = Buffer.create 0 in
   for i = 0 to String.length s - 1 do
     match s.[i] with
-      '0'..'9' | 'a'..'z'|'A'..'Z' | '-' | '_' | '@' as c -> Buffer.add_char b c;
+    | '0'..'9' | 'a'..'z'|'A'..'Z' | '-' | '_' | '@' as c ->
+      Buffer.add_char b c;
     | _ as c ->
       Printf.ksprintf (Buffer.add_string b) "%%%02X" (Char.code c)
   done;
   Buffer.contents b
 
 let () =
+  let sources = Sys.argv.(1) in
   let charmaps =
-    Sys.readdir "."
+    Sys.readdir sources
     |> Array.to_list
-    |> List.filter ~f:(function
-      | "jbuild.inc"
-      | "jbuild.inc.gen"
-      | "jbuild_gen.ml"
-      | "dups" -> false
-      (* Broken charmaps *)
-      | "JIS_C6220-1969-JP"
-      | "NATS-SEFI-ADD"
-      | "NATS-DANO-ADD"
-      | "JIS_C6229-1984-A"
-      | "JIS_C6229-1984-B-ADD"
-      | "JIS_C6229-1984-HAND"
-      | "JIS_C6229-1984-HAND-ADD"
-      | "JIS_C6229-1984-KANA"
-      | "ISO_10646"
-      | "ISO_8859-1,GL"
-      | "MAC-CENTRALEUROPE"
-      | "TSCII"
-        -> false
-      | _ -> true)
     |> List.map ~f:(fun fn ->
-      let codeset, aliases = Charmap_decode.parse_header fn in
-      let targets =
-        (escape codeset ^ ".mar") :: List.map (fun s -> escape s ^ ".mar") aliases
-      in
-      (fn, targets))
+        let path = Filename.concat sources fn in
+        let codeset, aliases = Charmap_decode.parse_header path in
+        let targets =
+          (escape codeset ^ ".mar")
+          :: List.map ~f:(fun s -> escape s ^ ".mar") aliases
+        in
+        (fn, targets))
   in
   let to_install =
     List.map charmaps ~f:snd
@@ -115,12 +99,12 @@ let () =
   pr " ((section share)";
   pr "  (files (";
   List.iter to_install ~f:(fun fn ->
-    pr "   (%s as charmaps/%s)" fn fn);
+      pr "   (%s as charmaps/%s)" fn fn);
   pr "    ))))";
   List.iter charmaps ~f:(fun (fn, targets) ->
-    pr "";
-    pr "(rule";
-    pr " ((targets (%s))" (String.concat ~sep:" " targets);
-    pr "  (deps    (%s))" fn;
-    pr "  (action  (run ../tools/camomilecharmap.exe -d . ${^}))))");
+      pr "";
+      pr "(rule";
+      pr " ((targets (%s))" (String.concat ~sep:" " targets);
+      pr "  (deps    (%s))" fn;
+      pr "  (action  (run ../tools/camomilecharmap.exe -d . ${^}))))");
   print_endline (Buffer.contents buf)
