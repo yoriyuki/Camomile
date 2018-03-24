@@ -79,6 +79,7 @@ let () =
   let charmaps =
     Sys.readdir sources
     |> Array.to_list
+    |> List.sort ~cmp:String.compare
     |> List.map ~f:(fun fn ->
         let path = Filename.concat sources fn in
         let codeset, aliases = Charmap_decode.parse_header path in
