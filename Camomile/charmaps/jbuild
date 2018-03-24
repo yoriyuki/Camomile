@@ -1,8 +1,12 @@
 (jbuild_version 1)
 
 (rule
- (with-stdout-to jbuild.inc.gen
-  (run ocaml ${path:jbuild_gen.ml})))
+ ((deps ((glob_files sources/*)))
+  (targets (jbuild.inc.gen))
+  (action (with-stdout-to ${@}
+           (run ocaml ${path:jbuild_gen.ml} sources)))))
+
+(copy_files sources/*)
 
 (alias
  ((name jbuild)
