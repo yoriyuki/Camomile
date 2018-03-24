@@ -1,11 +1,13 @@
 Camomile:
 
-This is a beta release of Camomile library package.  Camomile is a
-Unicode library for ocaml.  Camomile provides Unicode character type,
-UTF-8, UTF-16, UTF-32 strings, conversion to/from about 200 encodings,
-collation and locale-sensitive case mappings, and more.
+This is the version 1.0.0 release of Camomile library package.  
+Camomile is a Unicode library for ocaml.  Camomile provides 
+Unicode character type, UTF-8, UTF-16, UTF-32 strings, 
+conversion to/from about 200 encodings, collation and 
+locale-sensitive case mappings, and more.
 
-Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010, 2011, 2013, 2017
+Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010, 2011, 
+2013, 2017, 2018
 Yoriyuki Yamagata
 
 This library is free software; you can redistribute it and/or modify
@@ -38,8 +40,6 @@ COPYING.
 The following files are authored by different persons.  For their
 licenses, see the relevant notice of each file or directory.
 
-camomileDynConfig.ml* : Sylvain Le Gall
-
 internal/stringPrep_data.ml*, public/stringPrep.ml*,
 tools/camomilestringprep.ml parse_age.ml, many changes to Makefile.in
 public/uCharInfo.ml* : Pierre Chambart
@@ -58,8 +58,6 @@ unidata : Unicode Inc. : see unidata/README.  See also unidata/tr10/README.
 To build and install Camomile, you need
 OCaml >= 4.02.3
 jbuilder >= 1.0+beta7
-cppo
-base-bytes
 
 To build the library, on the top directory do
 	$ jbuilder build
