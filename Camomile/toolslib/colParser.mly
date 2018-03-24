@@ -38,13 +38,14 @@ yoriyuki.y@gmail.com
 
 %{
 
+open CamomileLibrary
 
 let parse_error _ = failwith "Syntax error"
 let acset : AbsCe.aceset_info = Toolslib.Unidata.read_data "acset"
 
     %}
 
-  %token <UChar.t> UCHAR
+  %token <CamomileLibrary.UChar.t> UCHAR
   %token <string list> OPTION
   %token PRIMARY SECONDARY TERTIARY EQ RESET EXPAND PREFIX EOF
   %nonassoc RESET

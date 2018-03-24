@@ -34,6 +34,9 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
+open CamomileLibrary
+open CamomileLibrary.Private
+
 module Info = UCharInfo.Make(Camomileconfig)
 
 type elt =

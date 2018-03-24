@@ -34,6 +34,9 @@
 (* yoriyuki.y@gmail.com *)
 
 
+open CamomileLibrary
+open CamomileLibrary.Private
+
 module Unidata = Unidata.Make(Camomileconfig)
 
 (* It seems that the default value of combined class is 0 *)

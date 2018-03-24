@@ -32,11 +32,11 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-(** Signature for Unicode strings.  
+(** Signature for Unicode strings.
     {!UText}, {!XString}, {!UTF8}, {!UTF16}, {!UCS4}
     have matched signatures to UStorage
     and satisfy the semantics described below.  If users want to supply
-    their own Unicode strings, please design the module with the 
+    their own Unicode strings, please design the module with the
     following signature and properties. *)
 
 module type Type = sig
@@ -89,7 +89,7 @@ module type Type = sig
   (** [move t i n] :
       if [n] >= 0, then returns [n]-th character after [i] and
       otherwise returns -[n]-th character before [i].
-      If there is no such character, or [i] does not point 
+      If there is no such character, or [i] does not point
       a valid character, the result is unspecified. *)
   val move : t -> index -> int -> index
 
@@ -116,4 +116,3 @@ module type Type = sig
     val add_buffer : buf -> buf -> unit
   end
 end
-

@@ -8,4 +8,4 @@ type token =
 
 val pp : Format.formatter -> token -> unit
 
-val lexer : UChar.t Stream.t -> token list
+val lexer : CamomileLibrary.UChar.t Stream.t -> token list

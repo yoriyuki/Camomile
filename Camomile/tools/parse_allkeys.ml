@@ -34,6 +34,7 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
+open CamomileLibrary
 
 module Int = struct type t = int let compare = (-) end
 module IntMap = Map.Make (Int)
@@ -172,6 +173,7 @@ let uca_defaults =
   AbsCe.cetbl_of (AbsCe.create_ace_info aceset_info.lowercase_first_tbl)
 
 let  _ =
+  let open CamomileLibrary.Private in
   let write name value = Database.write directory "mar" output_value name value in
   write "allkeys" uca_defaults;
   write "acset" aceset_info

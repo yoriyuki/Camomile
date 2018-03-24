@@ -41,6 +41,8 @@
 #load "camomile.cma"
 *)
 
+open CamomileLibrary.Private
+
 module Unimap = Unimap.Make(Camomileconfig)
 
 let escape_char = ref '\\'

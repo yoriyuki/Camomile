@@ -33,6 +33,8 @@
 (* You can contact the authour by sending email to *)
 (* yori@sourceforge.net *)
 
+open CamomileLibrary
+open CamomileLibrary.Private
 
 module Unidata = Unidata.Make(Camomileconfig)
 module UCharInfo = UCharInfo.Make(Camomileconfig)

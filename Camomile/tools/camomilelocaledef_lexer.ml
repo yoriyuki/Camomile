@@ -1,3 +1,5 @@
+open CamomileLibrary
+
 module Info = UCharInfo.Make(Camomileconfig)
 module Utf8Buffer = UTF8.Buf
 

@@ -4,26 +4,50 @@
 (rule (with-stdout-to installConfig.ml
        (echo "let share_dir = \"/usr/share/camomile\"")))
 
-(alias
- ((name mlis)
-  (deps (configInt.mli public/oOChannel.mli public/uChar.mli
-         public/uSet.mli public/uMap.mli public/uCharTbl.mli
-         public/unicodeString.mli public/uText.mli public/xString.mli
-         public/subText.mli public/uLine.mli public/locale.mli
-         public/uTF8.mli public/uTF16.mli public/uCS4.mli
-         public/uPervasives.mli public/uRe.mli public/charEncoding.mli
-         public/uCharInfo.mli public/uNF.mli public/uCol.mli
-         public/caseMap.mli public/uReStr.mli public/stringPrep.mli))))
-
 ;; mli only modules are not properly supported by the compiler yet
 (rule (copy# configInt.mli configInt.ml))
 
 (library
- ((name camomile)
+ ((name camomileLibrary)
+  (public_name camomile.library)
+  (wrapped true)
+  (libraries (camomileDefaultConfig))
+  (modules
+   (:standard \ camomileDefaultConfig
+    installConfig
+    camomileLibraryDyn
+    camomileLibraryDefault))))
+
+(library
+ ((name camomileDefaultConfig)
+  (public_name camomile.default_config)
+  (wrapped true)
+  (modules (camomileDefaultConfig installConfig))))
+
+(library
+ ((name camomileLibraryDyn)
+  (public_name camomile.dyn)
+  (wrapped false)
+  (libraries (camomileLibraryDefault))
+  (modules (camomileLibraryDyn))))
+
+(library
+ ((name camomileLibraryDefault)
+  (public_name camomile.lib_default)
+  (modules (camomileLibraryDefault))
+  (libraries (camomileDefaultConfig camomileLibrary))))
+
+(library
+ ((name camomile_yuge)
   (public_name camomile)
   (wrapped false)
   (flags (-I Camomile :standard))
-  (libraries (bigarray))))
+  (modules ())
+  (libraries
+   (camomile.library
+    camomile.default_config
+    camomile.dyn
+    camomile.lib_default))))
 
 ;; Temporary workaround as jbuilder doesn't yet support multi directory libs
 

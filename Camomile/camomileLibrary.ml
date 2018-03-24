@@ -1,3 +1,23 @@
+module Private = struct
+  module AvlTree = AvlTree
+  module Bitsvect = Bitsvect
+  module Bytesvect = Bytesvect
+  module Byte_labeled_dag = Byte_labeled_dag
+  module Charmap = Charmap
+  module Database = Database
+  module Hangul = Hangul
+  module IMap = IMap
+  module ISet = ISet
+  module StringPrep_data = StringPrep_data
+  module Tbl31 = Tbl31
+  module UReStrLexer = UReStrLexer
+  module UReStrParser = UReStrParser
+  module UReStrParserType = UReStrParserType
+  module Unidata = Unidata
+  module Unimap = Unimap
+  module XArray = XArray
+end
+
 module ConfigInt = ConfigInt
 module DefaultConfig = CamomileDefaultConfig
 
@@ -29,8 +49,8 @@ module StringPrep = StringPrep
 
 module type Type = sig
   module OOChannel : module type of OOChannel
-  module UChar : module type of UChar
   module USet : module type of USet
+  module UChar : module type of UChar
   module UMap : module type of UMap
   module UCharTbl : module type of UCharTbl
   module UnicodeString : module type of UnicodeString
