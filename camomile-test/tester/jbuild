@@ -13,7 +13,7 @@
     uCS4_test
     uReStr_test
     uTF16_test))
-  (libraries (str camomile blender tester_lib))))
+  (libraries (unix bigarray str camomile blender tester_lib))))
 
 (alias
  ((name runtest)

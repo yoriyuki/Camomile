@@ -60,11 +60,11 @@ data : see data/README
 
 1. Usage
 
-./configure
-make
+At the top directory, 
+ jbuilder runtest --dev
 
 Then, tests are launched automatically.  Running tests takes a while.
 
 2. Contact
 
-You can contact the author by yori@sourceforge.net
+You can contact the author by yoriyuki.y@gmail.com
