@@ -104,7 +104,7 @@ Camomile provides two top-level modules CamomileLibraryDefault and
 which contains modules already configured.  CamomileLibraryDefault is
 configured by default values determined by configure.  Therefore it is
 suitable to use if you are using Camomile locally installed from the
-source.  CamomileLibraryDyn is deprecated and just an aliat to
+source.  CamomileLibraryDyn is deprecated and just an alias to
 CamomileLibraryDefault.
 
 2.3 Individual modules.
