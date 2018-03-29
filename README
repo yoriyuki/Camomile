@@ -1,12 +1,12 @@
 Camomile:
 
-This is the version 1.0.0 release of Camomile library package.  
-Camomile is a Unicode library for ocaml.  Camomile provides 
-Unicode character type, UTF-8, UTF-16, UTF-32 strings, 
-conversion to/from about 200 encodings, collation and 
+This is the version 1.0.0 release of Camomile library package.
+Camomile is a Unicode library for ocaml.  Camomile provides
+Unicode character type, UTF-8, UTF-16, UTF-32 strings,
+conversion to/from about 200 encodings, collation and
 locale-sensitive case mappings, and more.
 
-Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010, 2011, 
+Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010, 2011,
 2013, 2017, 2018
 Yoriyuki Yamagata
 
@@ -104,16 +104,12 @@ Camomile provides two top-level modules CamomileLibraryDefault and
 which contains modules already configured.  CamomileLibraryDefault is
 configured by default values determined by configure.  Therefore it is
 suitable to use if you are using Camomile locally installed from the
-source.  CamomileLibraryDyn is configured at runtime using
-environmental variables.  Therefore it is suitable to use if you plan
-to relocate data files.  Note that data files are just results of
-output_value, and loaded by input_value without *Any Check of Their
-Validity*.  Therefore, you should not use CamomileLibraryDyn if
-a malicious user can change the values of environmental variables.
+source.  CamomileLibraryDyn is deprecated and just an aliat to
+CamomileLibraryDefault.
 
 2.3 Individual modules.
 
-See CamomileLibrary.mli file.  Also see camomileDynConfig.mli.
+See CamomileLibrary.mli file.
 
 3. Development
 See https://github.com/yoriyuki/Camomile
