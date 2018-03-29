@@ -8,7 +8,7 @@
  ((name camomileLibrary)
   (public_name camomile.library)
   (wrapped true)
-  (libraries (camomileDefaultConfig))
+  (libraries (bigarray camomileDefaultConfig))
   (modules
    (:standard \ camomileDefaultConfig
     installConfig
@@ -38,7 +38,7 @@
  ((name camomile_yuge)
   (public_name camomile)
   (wrapped false)
-  (flags (-I Camomile :standard))
+  (flags (:standard))
   (modules ())
   (libraries
    (camomile.library
