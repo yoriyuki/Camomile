@@ -1,11 +1,13 @@
 Camomile:
 
-This is a beta release of Camomile library package.  Camomile is a
-Unicode library for ocaml.  Camomile provides Unicode character type,
-UTF-8, UTF-16, UTF-32 strings, conversion to/from about 200 encodings,
-collation and locale-sensitive case mappings, and more.
+This is the version 1.0.0 release of Camomile library package.
+Camomile is a Unicode library for ocaml.  Camomile provides
+Unicode character type, UTF-8, UTF-16, UTF-32 strings,
+conversion to/from about 200 encodings, collation and
+locale-sensitive case mappings, and more.
 
-Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010, 2011, 2013, 2017
+Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2010, 2011,
+2013, 2017, 2018
 Yoriyuki Yamagata
 
 This library is free software; you can redistribute it and/or modify
@@ -38,8 +40,6 @@ COPYING.
 The following files are authored by different persons.  For their
 licenses, see the relevant notice of each file or directory.
 
-camomileDynConfig.ml* : Sylvain Le Gall
-
 internal/stringPrep_data.ml*, public/stringPrep.ml*,
 tools/camomilestringprep.ml parse_age.ml, many changes to Makefile.in
 public/uCharInfo.ml* : Pierre Chambart
@@ -58,8 +58,6 @@ unidata : Unicode Inc. : see unidata/README.  See also unidata/tr10/README.
 To build and install Camomile, you need
 OCaml >= 4.02.3
 jbuilder >= 1.0+beta7
-cppo
-base-bytes
 
 To build the library, on the top directory do
 	$ jbuilder build
@@ -106,16 +104,12 @@ Camomile provides two top-level modules CamomileLibraryDefault and
 which contains modules already configured.  CamomileLibraryDefault is
 configured by default values determined by configure.  Therefore it is
 suitable to use if you are using Camomile locally installed from the
-source.  CamomileLibraryDyn is configured at runtime using
-environmental variables.  Therefore it is suitable to use if you plan
-to relocate data files.  Note that data files are just results of
-output_value, and loaded by input_value without *Any Check of Their
-Validity*.  Therefore, you should not use CamomileLibraryDyn if
-a malicious user can change the values of environmental variables.
+source.  CamomileLibraryDyn is deprecated and just an alias to
+CamomileLibraryDefault.
 
 2.3 Individual modules.
 
-See CamomileLibrary.mli file.  Also see camomileDynConfig.mli.
+See CamomileLibrary.mli file.
 
 3. Development
 See https://github.com/yoriyuki/Camomile

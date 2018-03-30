@@ -4,14 +4,11 @@
 (rule (with-stdout-to installConfig.ml
        (echo "let share_dir = \"/usr/share/camomile\"")))
 
-;; mli only modules are not properly supported by the compiler yet
-(rule (copy# configInt.mli configInt.ml))
-
 (library
  ((name camomileLibrary)
   (public_name camomile.library)
   (wrapped true)
-  (libraries (camomileDefaultConfig))
+  (libraries (bigarray camomileDefaultConfig))
   (modules
    (:standard \ camomileDefaultConfig
     installConfig
@@ -41,7 +38,7 @@
  ((name camomile_yuge)
   (public_name camomile)
   (wrapped false)
-  (flags (-I Camomile :standard))
+  (flags (:standard))
   (modules ())
   (libraries
    (camomile.library
@@ -80,8 +77,7 @@
 (rule (copy# internal/iSet.mli             iSet.mli))
 (rule (copy# internal/stringPrep_data.mli  stringPrep_data.mli))
 (rule (copy# internal/tbl31.mli            tbl31.mli))
-(rule (copy# internal/uReStrParser.mli     uReStrParser.mli))
-(rule (copy# internal/uReStrParserType.mli uReStrParserType.mli))
+(rule (copy# internal/uReStrParser.mli uReStrParser.mli))
 (rule (copy# internal/unidata.mli          unidata.mli))
 (rule (copy# internal/unimap.mli           unimap.mli))
 (rule (copy# internal/xArray.mli           xArray.mli))
@@ -131,5 +127,4 @@
 (rule (copy# public/uTF16.mli              uTF16.mli))
 (rule (copy# public/uTF8.mli               uTF8.mli))
 (rule (copy# public/uText.mli              uText.mli))
-(rule (copy# public/unicodeString.mli      unicodeString.mli))
 (rule (copy# public/xString.mli            xString.mli))
