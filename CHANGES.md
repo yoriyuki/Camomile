@@ -1,7 +1,11 @@
-1.0.0-rc1 (next)
+1.0.0
 ----------------
 
-0.8.6
+* CamomileLibraryDyn is deprecated
+* Dependancies to cppo and bytes is removed
+* Code cleanup
+
+0.8.7
 -----
 
 * OCaml 4.02.3 is again supported
@@ -69,7 +73,7 @@
 * StringPrep module:  String preparation according to RFC3454,
   contributed by Pierre Chambart.
 
-* Avl-Tree balanced bug fix, pointed out by Stanisław T. Findeisen.
+* Avl-Tree balanced bug fix, pointed out by StanisÅ‚aw T. Findeisen.
 
 0.7.3
 -----
