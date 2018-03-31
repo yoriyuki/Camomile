@@ -19,7 +19,9 @@ Data files are put under /usr/local/share/camomile by default. The default can
 be overridden by running $ ocaml configure.ml --share=XXXX then data files are
 placed under XXXX/camomile.
 
-You can uninstall the library by $ jbuilder uninstall
+You can uninstall the library by
+
+$ jbuilder uninstall
 
 ## Using libraries
 
@@ -34,7 +36,7 @@ useful if you want to dynamically load Camomile, since loading
 CamomileLibraryDefault, CamomileLibraryDyn causes side effects such as loading
 data files which could fail.
 
-2.2 Configuration
+### Configuration
 
 Camomile requires runtime configuration.  Currently, you have to pass the
 location of data files to Camomile.  In the future, more configuration variables
@@ -55,17 +57,19 @@ Therefore it is suitable to use if you are using Camomile locally installed from
 the source.  CamomileLibraryDyn is deprecated and just an alias to
 CamomileLibraryDefault.
 
-2.3 Individual modules.
+### Individual modules.
 
 See CamomileLibrary.mli file.
 
-3. Development See https://github.com/yoriyuki/Camomile
+## Development
 
-4. Author
+See https://github.com/yoriyuki/Camomile
+
+## Author
 
 You can contact the author by yoriyuki.y@gmail.com
 
-5. Acknowledgment
+## Acknowledgment
 
 So many people are contributed to Camomile. See
 https://github.com/yoriyuki/Camomile/graphs/contributors
