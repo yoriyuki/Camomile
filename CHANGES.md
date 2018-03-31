@@ -1,20 +1,29 @@
-From 0.8.5 to 0.8.6
+1.0.0-rc1 (next)
+----------------
+
+0.8.6
+-----
 
 * OCaml 4.02.3 is again supported
 
-From 0.8.5 to 0.8.6
+0.8.6
+-----
 
 * The build system is changed to jbuilder
+
 * OCaml 4.0.6 is supported while the support for OCaml < 4.0.3 is droppped
+
 * Bug fixes
 
-From 0.8.4 to 0.8.5
+0.8.5
+-----
 
 * The pull request https://github.com/yoriyuki/Camomile/pull/1 is merged.
 
 * The traditional tar-ball release.
 
-From 0.8.3 to 0.8.4
+0.8.4
+-----
 
 * Scoping rule of "." in regular expressions is fixed to match the rule
   of Str of stdlib.  (Pointed out by Kawakami Shigenobu.)
@@ -26,12 +35,14 @@ From 0.8.3 to 0.8.4
 
 * Fix bug that ISet.(compare empty empty) = -1 (imported from batteries).
 
-From 0.8.2 to 0.8.3
+0.8.3
+-----
 
 * The bug that casefolding mapes lowercase letters to empty string is
   fixed.
 
-From 0.8.1 to 0.8.2
+0.8.2
+-----
 
 * File names of Data files which is produced and used by camomile are
   now properly escaped, to avoid security risk and more liberal use of
@@ -39,12 +50,14 @@ From 0.8.1 to 0.8.2
 
 * Charmap tables are updated to the recent ones of glibc.
 
-From 0.8.0 to 0.8.1
+0.8.1
+-----
 
 * Bugs affecting UMap.remove and USet.fold_range are fixed.  (Pointed
   out by Chris Kuklewicz.)
 
-From 0.7.3 to 0.8.0
+0.8.0
+-----
 
 * Reorganize the module structure : Make CamomileLibrary.Default to
   the new top-level module CamomileLibraryDefault, so that linking
@@ -58,76 +71,95 @@ From 0.7.3 to 0.8.0
 
 * Avl-Tree balanced bug fix, pointed out by Stanisław T. Findeisen.
 
-From 0.7.2 to 0.7.3
+0.7.3
+-----
 
 * Windows (with Cygwin) is supported.
+
 * Fix ISet, IMap merging bug
   http://sourceforge.net/tracker/?func=detail&aid=2881864&group_id=40603&atid=428416
   is fixed.
+
 * Fix channel flush bug
   https://sourceforge.net/tracker/index.php?func=detail&aid=2809898&group_id=40603&atid=428416
+
 * Several bug fixes of Makefile, including that cpp is not required to
   build any more.
 
-From 0.7.1 to 0.7.2
+0.7.2
+-----
 
 * License Changes : Exception clauses to LGPL similar to OCaml
   standard library are added.
 
-From 0.7.0 to 0.7.1
+0.7.1
+-----
 
 * Rename CamomileLibrary.Main.Camomile to CamomileLibrary.Default.Camomile
 
-From 0.6.5 to 0.7.0
+0.7.0
+-----
 
 * Initialization parameters for Camomile are given by Functor.
 
-From 0.6.4 to 0.6.5
+0.6.5
+-----
 
-* Collation rules without headers were not compiled.  This version fix
-this problem.  Collation of Scandinavia languages are now correctly
-processed.
+* Collation rules without headers were not compiled. This version fix this
+  problem. Collation of Scandinavia languages are now correctly processed.
 
-From 0.6.3 to 0.6.4
+0.6.4
+-----
 
 * Fix link error of the native code library
 
-From 0.6.2 to 0.6.3
+0.6.3
+-----
 
 * Support OCaml 3.09.0
+
 * Remove unpack
 
-From 0.6.1 to 0.6.2
+0.6.2
+-----
 
 * Insert spaces before ] in the installation scripts of Makefile
 
-From 0.6.0 to 0.6.1
+0.6.1
+-----
 
-* Fix the bug that "get" methods of polymorphic input channels have
-the type 'a, which should be unit -> 'a.
+* Fix the bug that "get" methods of polymorphic input channels have the type 'a,
+  which should be unit -> 'a.
 
-* Fix a bug which causes flush methods of octet output channels only
-flush 1024*n bytes at a time.
+* Fix a bug which causes flush methods of octet output channels only flush
+  1024*n bytes at a time.
 
 * Remove a superfluous check from configure.
 
-From 0.5.3 to 0.6.0
+0.6.0
+-----
 
 * Channel classes confirm common I/O class recommendation
 (http://www.ocaml-programming.de/rec/IO-Classes.html) except
 non-blocking I/O, which is not supported.
+
 * Remove all C binding and related functions.
+
 * Remove stdlib replacement introduced in 0.5.*
+
 * UPervasives
   - utf8_*_channel are removed.
   - normalization mode are removed.
+
 * UChar
   - UChar.is_printable is removed.
   - unsafe operations are removed.
   - UChar.int_of_uchar is renamed UChar.int_of
   - UChar.uchar_of_int is renamed UChar.of_int
+
 * Locale
   - Locale.current_locale, Locale.set_locale are removed.
+
 * CharEndocing
   - CharEncoding.enc_name is removed.
   - new classes:
@@ -136,26 +168,39 @@ non-blocking I/O, which is not supported.
 	class CharEncoding.convert_input
 	class CharEncoding.convert_output
 
-From 0.5.0 to 0.5.3
+0.5.3
+-----
 
 * Fix several bugs in the installation procedure.
+
 * COPYING
+
 * UTF16, UCS4 - improved performance
 
-From 0.4.2 to 0.5.0
+0.5.0
+-----
 
 * Stdlib replacement
+
 * Search string by matching collation
+
 * Binding to ISO C Locale.
-  - UChar.is_printable
-  - Locale.current_locale, Locale.set_locale
-  - CharEncoding.enc_name
-* New encodings
-  - iso_c_locale : the encoding specified by the current LC_CTYPE locale.
-  - CP932
+
+* UChar.is_printable
+
+* Locale.current_locale, Locale.set_locale
+
+* CharEncoding.enc_name
+
+* New encoding: iso_c_locale : the encoding specified by the current LC_CTYPE
+  locale.
+
+* New encoding: CP932
+
 * Packed and unpacked libraries.
 
-From 0.4.1 to 0.4.2
+0.4.2
+-----
 
 * Add bigarray to the dependency in META.
 * Fix a bug in input_line function of ULine.
@@ -163,7 +208,8 @@ From 0.4.1 to 0.4.2
 UText.Buf.add_string.
 * Make the collator a bit fast.
 
-From 0.4.0 to 0.4.1
+0.4.1
+-----
 
 * CharEndocing
  - The encodings can be referred by IANA names.
@@ -185,12 +231,14 @@ file in the $DATADIR/charmaps and $DATADIR/mappings without causing
 run time error.  Of course, this makes some encoding dysfunctional.
 Such encodings are treated as non-existent.
 
-From 0.3.1 to 0.4.0
+0.4.0
+-----
 
-* Camomile (previously Base)
- - Renamed to Camomile.
- - USet (Unicode character sets), UCharTbl (fast lookup tables)
- - SubText
+* Renamed to Camomile (previously Base)
+
+* USet (Unicode character sets), UCharTbl (fast lookup tables)
+
+* SubText
 
 * URe, UReStr (Regular Expression) are added.
 
@@ -200,28 +248,29 @@ From 0.3.1 to 0.4.0
 
 * ocamldoc support
 
-From 0.3.0 to 0.3.1
+0.3.1
+-----
 
-* CharEncoding:
- - Bug fixes for ISO-2022-*
- - Interface for automatic detection of encodings.
- - GB18030 support
- - Improvement of internal data structure (using less space)
+* CharEncoding: Bug fixes for ISO-2022-*
 
-* UCol:
- - Incremental comparison
+* CharEncoding: Interface for automatic detection of encodings.
+
+* CharEncoding: GB18030 support
+
+* CharEncoding: Improvement of internal data structure (using less space)
+
+* UCol: Incremental comparison
 
 * Performance improvement of collation rule compiler.
 
 
-From 0.2.X to 0.3.0
+0.3.0
+-----
 
-* Functor design:
-API taking Unicode strings becomes functors over Unicode string
-implementation.  For Unicode strings, UText.t (abstract data
-type, internally integer array) and UTF8.t (normal ocaml string with
-UTF8 encoding) are currently provided, but suppling another
-implementation (like wch) should be easy.  For this, API is almost
-completely revised.
+* Functor design: API taking Unicode strings becomes functors over Unicode
+string implementation. For Unicode strings, UText.t (abstract data type,
+internally integer array) and UTF8.t (normal ocaml string with UTF8 encoding)
+are currently provided, but suppling another implementation (like wch) should be
+easy. For this, API is almost completely revised.
 
 * The locale can be specified for case mapping and string comparison.
