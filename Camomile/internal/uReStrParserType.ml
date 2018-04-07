@@ -11,7 +11,7 @@ type tree =
   | `Seq of tree * tree
   | `Rep of tree
   | `Repn of tree * int * int option
-  | `After of tree   
+  | `After of tree
   | `Before of tree
   | `Epsilon
   | `Group of tree
@@ -21,4 +21,3 @@ type tree =
   | `SetNotation of set_notation
   | `BoS
   | `EoS ]
-

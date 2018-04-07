@@ -31,7 +31,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yori@users.sourceforge.net *)
+(* yoriyuki.y@gmail.com *)
 
 (** Generic input channel
     Have the same interface of Polymorphic input channel of

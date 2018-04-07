@@ -32,8 +32,9 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yori@users.sourceforge.net *)
+(* yoriyuki.y@gmail.com *)
 
+open CamomileLibrary
 
 open Camomilelocaledef_lexer
 module CE = CharEncoding.Configure(Camomileconfig)
@@ -225,7 +226,7 @@ let main () =
   );
   let proc key entry =
     let locale_info = localedef entry in
-    Database.write dir "mar" output_value key locale_info
+    CamomileLibrary.Private.Database.write dir "mar" output_value key locale_info
   in
   (match data with
      Table tbl -> Hashtbl.iter proc tbl

@@ -31,7 +31,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yori@users.sourceforge.net *)
+(* yoriyuki.y@gmail.com *)
 
 (** [read dir suffix reader key] reads information using [reader].
     Data are supposed to reside in the files under [dir] directory

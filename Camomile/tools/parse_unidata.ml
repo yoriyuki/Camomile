@@ -31,8 +31,11 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yori@users.sourceforge.net *)
+(* yoriyuki.y@gmail.com *)
 
+
+open CamomileLibrary
+open CamomileLibrary.Private
 
 module Unidata = Unidata.Make(Camomileconfig)
 

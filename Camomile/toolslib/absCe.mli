@@ -32,7 +32,9 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yori@users.sourceforge.net *)
+(* yoriyuki.y@gmail.com *)
+
+open CamomileLibrary
 
 type elt =
   [ `Seq of UChar.t list

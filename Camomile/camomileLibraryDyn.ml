@@ -30,66 +30,13 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yori@users.sourceforge.net *)
+(* yoriyuki.y@gmail.com *)
 
-module Config = struct
 
-  let camomile_dir_var = 
-    "CAMOMILE_DIR"
+(** This module is a deprecated alias for CamomileLibraryDefault. Configuration
+    using environment variables is no longer supported. *)
 
-  let camomile_dir () =
-    Sys.getenv camomile_dir_var
-
-  let find_dir var dn dflt =
-    try 
-      let f = 
-        List.find 
-          (fun f ->
-             try 
-               let dn = f () in 
-               Sys.is_directory dn 
-             with _ ->
-               false)
-          [
-            (fun () -> Sys.getenv var);
-            (fun () -> Filename.concat (camomile_dir ()) dn);
-            (fun () -> dflt);
-          ]
-      in
-      f ()
-    with Not_found ->
-      failwith 
-        (Printf.sprintf 
-           "Cannot find camomile %s directory, usually located here: '%s'. \
-            Use environment variable %s or %s to locate it precisely."
-           dn dflt
-           camomile_dir_var var)
-
-  module Default = CamomileDefaultConfig
-
-  let datadir = 
-    find_dir 
-      "CAMOMILE_DATADIR" 
-      "database"
-      Default.datadir
-
-  let localedir = 
-    find_dir
-      "CAMOMILE_LOCALEDIR"
-      "locales"
-      Default.localedir
-
-  let charmapdir =
-    find_dir
-      "CAMOMILE_CHARMAPDIR"
-      "charmaps"
-      Default.charmapdir
-
-  let unimapdir =
-    find_dir
-      "CAMOMILE_UNIMAPDIR"
-      "mappings"
-      Default.unimapdir
-end
-
-module Camomile = CamomileLibrary.Make(Config)
+[@@@ocaml.deprecated "Use CamomileLibraryDefault. Configuration using
+environment variables is ignored. This module just now aliases
+CamomileLibraryDefault"]
+include CamomileLibraryDefault

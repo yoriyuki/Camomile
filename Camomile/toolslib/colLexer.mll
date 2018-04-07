@@ -31,9 +31,10 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yori@users.sourceforge.net *)
+(* yoriyuki.y@gmail.com *)
 
 {
+open CamomileLibrary
 open ColParser
 let blank = Str.regexp "[ \t\n]+"
 }

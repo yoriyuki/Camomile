@@ -31,11 +31,13 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yori@users.sourceforge.net *)
+(* yoriyuki.y@gmail.com *)
 
 type point = int
 
 module Int = struct type t = int let compare = (-) end
+
+open CamomileLibrary.Private
 
 module Set = ISet
 module Map = Map.Make (Int)

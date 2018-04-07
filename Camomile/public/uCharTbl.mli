@@ -31,7 +31,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yori@users.sourceforge.net *)
+(* yoriyuki.y@gmail.com *)
 
 
 (** Fast lookup tables.  Accessible by constant time. *)
@@ -51,7 +51,7 @@ module type Type = sig
 end
 
 (** Equality and hash are necessary for table generation. *)
-module Make : 
+module Make :
   functor (H : Hashtbl.HashedType) ->  (Type with type elt = H.t)
 
 (** Tables for boolean values. *)

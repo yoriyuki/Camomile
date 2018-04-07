@@ -31,7 +31,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yori@users.sourceforge.net *)
+(* yoriyuki.y@gmail.com *)
 
 (*
 #directory "../"
@@ -40,6 +40,8 @@
 #load "str.cma"
 #load "camomile.cma"
 *)
+
+open CamomileLibrary.Private
 
 module Unimap = Unimap.Make(Camomileconfig)
 

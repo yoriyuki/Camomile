@@ -35,6 +35,9 @@
 (* You can contact the authour by sending email to *)
 (* yori@sourceforge.net *)
 
+open CamomileLibrary
+open CamomileLibrary.Private
+
 let hashcons_list =
   let tbl = Hashtbl.create 10 in
   let rec f = function

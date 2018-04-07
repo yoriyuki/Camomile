@@ -30,7 +30,7 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yori@users.sourceforge.net *)
+(* yoriyuki.y@gmail.com *)
 
 (** Sub-texts, parts of original (ur-) texts.  
     The signature and semantics matches those of UStorage. *)

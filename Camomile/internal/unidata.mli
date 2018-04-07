@@ -32,12 +32,12 @@
 (* USA *)
 
 (* You can contact the authour by sending email to *)
-(* yori@users.sourceforge.net *)
+(* yoriyuki.y@gmail.com *)
 
 module type Type = sig
   val read_data : ?datadir:string -> string -> 'a
 
-  type general_category_type = 
+  type general_category_type =
     [ `Lu		(* Letter, Uppercase *)
     | `Ll		(* Letter, Lowercase *)
     | `Lt		(* Letter, Titlecase *)
@@ -150,16 +150,16 @@ module type Type = sig
 
   type ce_tbl = (UChar.t list * ce_type list) list UCharTbl.t
 
-  type variable_option =   
-    [ `Blanked 
-    | `Non_ignorable 
+  type variable_option =
+    [ `Blanked
+    | `Non_ignorable
     | `Shifted
     | `Shift_Trimmed ]
 
   type col_info =
     {variable_top : int;
      variable_option : variable_option;
-     french_accent : bool;		
+     french_accent : bool;
      hiraganaQ : bool;
      hiraganaQ_weight : int;
      tbl : ce_tbl}
@@ -168,7 +168,7 @@ module type Type = sig
 
   (* If the returned list contains ([u1; u2; ... ;un], [ce1; ce2; ... ;cem]),
      for the given character u, the sequence u u1 u2 ... un corresponds
-     sequence of collation elements ce1 ce2 ... cem. the list is in 
+     sequence of collation elements ce1 ce2 ... cem. the list is in
      decreasing order respect to n. *)
   val ce : ce_tbl -> UChar.t -> (UChar.t list * ce_type list) list
 

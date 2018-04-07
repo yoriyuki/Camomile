@@ -32,19 +32,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 USA
 
 You can contact the authour by sending email to
-yori@users.sourceforge.net
+yoriyuki.y@gmail.com
 
 */
 
 %{
 
+open CamomileLibrary
 
 let parse_error _ = failwith "Syntax error"
 let acset : AbsCe.aceset_info = Toolslib.Unidata.read_data "acset"
 
     %}
 
-  %token <UChar.t> UCHAR
+  %token <CamomileLibrary.UChar.t> UCHAR
   %token <string list> OPTION
   %token PRIMARY SECONDARY TERTIARY EQ RESET EXPAND PREFIX EOF
   %nonassoc RESET
