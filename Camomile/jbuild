@@ -11,6 +11,7 @@
   (libraries (bigarray camomileDefaultConfig))
   (modules
    (:standard \ camomileDefaultConfig
+    camomile_do_not_use
     installConfig
     camomileLibraryDyn
     camomileLibraryDefault))))
@@ -39,7 +40,7 @@
   (public_name camomile)
   (wrapped false)
   (flags (:standard))
-  (modules ())
+  (modules (camomile_do_not_use))
   (libraries
    (camomile.library
     camomile.default_config
