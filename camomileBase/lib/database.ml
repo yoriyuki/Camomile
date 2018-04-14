@@ -39,8 +39,8 @@ let root = ref None
 
 let set_root dir =
   match !root with
-    None -> root := Some dir
-  | Some _ -> failwith "Cannot set root dir. twice"
+    None -> root := Some dir; dir
+  | Some d -> d
 
 let get_root () =
   match !root with

@@ -33,10 +33,12 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-(** [set_root dir] sets the root directory for Camomile data.  Camomile cannot
-    read outside of the root directory.  the root directory can be set only once.
+(** [set_root dir] sets the root directory for Camomile data and returns the
+  root directory.  Camomile cannot read outside of the root directory.  the root
+  directory can be set only once.  For the second time, it only returns
+  previously set root dir.
 *)
-val set_root : string -> unit
+val set_root : string -> string
 
 (** [get_root] obtains the root directory for Camomile data.  If the root
     directory is not set, it raises Failure.
