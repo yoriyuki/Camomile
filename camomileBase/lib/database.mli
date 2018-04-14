@@ -1,5 +1,5 @@
 (** Database.ml : Unified interfaces of stored data for Camomile *)
-(* Copyright (C) 2011 Yoriyuki Yamagata *)
+(* Copyright (C) 2011, 2018 Yoriyuki Yamagata *)
 
 (* This library is free software; you can redistribute it and/or *)
 (* modify it under the terms of the GNU Lesser General Public License *)
@@ -33,19 +33,28 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
+(** [set_root dir] sets the root directory for Camomile data.  Camomile cannot
+    read outside of the root directory.  the root directory can be set only once.
+*)
+val set_root : string -> unit
+
+(** [get_root] obtains the root directory for Camomile data.  If the root
+    directory is not set, it raises Failure.
+*)
+val get_root : unit -> string
+
 (** [read dir suffix reader key] reads information using [reader].
-    Data are supposed to reside in the files under [dir] directory
+    Data are supposed to be reside in the files under [root/dir] directory
     with suffix [suffix].  [reader] takes [in_channel] as an argument
     and read data from in_channel.  The [key] specifies key associated
     the value.  Any characters can be used in [key], since they are
-    properly escaped.  If there are no data associated to [key], raise
-    Not_found. 
-*) 
-val read : string -> string -> (in_channel -> 'a) -> string -> 'a
+    properly escaped.
+*)
+val read : string -> string -> (in_channel -> ('a, [> `Database of string | `SysError of string ] as 'b) result) -> string -> ('a, 'b) result
 
 (** [writer dir suffix writer key data] write [data] associated the
     [key] into the directory [dir] with [suffix]. You can use
     any characters in [key] since they are propery escaped.*)
-val write : 
-  string -> string -> 
+val write :
+  string -> string ->
   (out_channel -> 'a -> unit) -> string -> 'a -> unit

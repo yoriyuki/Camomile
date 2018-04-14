@@ -33,6 +33,19 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
+open Rresult
+
+let root = ref None
+
+let set_root dir =
+  match !root with
+    None -> root := Some dir
+  | Some _ -> failwith "Cannot set root dir. twice"
+
+let get_root () =
+  match !root with
+    None -> failwith "Please initialize root dir first"
+  | Some dir -> dir
 
 let escape s =
   let b = Buffer.create 0 in
@@ -45,17 +58,27 @@ let escape s =
   Buffer.contents b
 
 let read dir suffix reader key =
+  let realdir = Fpath.add_seg (Fpath.v (get_root ())) dir in
   let fname = escape key in
-  let path = Filename.concat dir (fname ^ "." ^ suffix) in
-  let c = try open_in_bin path with Sys_error _  -> raise Not_found in
-  let v = reader c in
-  close_in c;
-  v
+  let path = Fpath.add_ext suffix (Fpath.append realdir (Fpath.v fname)) in
+  if not (Fpath.is_rooted (Fpath.v (get_root ())) path) then
+    Error (`Database "out of root dir")
+  else
+    let c = try Ok (open_in_bin (Fpath.to_string path)) with
+        Sys_error m  -> Error (`SysError m) in
+    let v = c >>= reader in
+    (match c with
+      Ok c -> close_in c
+     | _ ->());
+    v
 
 let write dir suffix writer key data =
+  let realdir = Fpath.add_seg (Fpath.v (get_root ())) dir in
   let fname = escape key in
-  let path = Filename.concat dir (fname ^ "." ^ suffix) in
-  let c = try open_out_bin path with Sys_error _  -> raise Not_found in
-  writer c data;
-  close_out c;
-
+  let path = Fpath.add_ext suffix (Fpath.append realdir (Fpath.v fname)) in
+  if not (Fpath.is_rooted (Fpath.v (get_root ())) path) then
+    failwith "Out of root dir"
+  else
+    let c = open_out_bin (Fpath.to_string path) in
+    writer c data;
+    close_out c
