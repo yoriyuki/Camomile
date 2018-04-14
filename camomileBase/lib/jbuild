@@ -1,0 +1,8 @@
+(jbuild_version 1)
+
+(library
+ ((name        camomileBase)
+  (public_name camomileBase)
+  (wrapped true)
+  (libraries (bigarray rresult fpath)
+  )))
