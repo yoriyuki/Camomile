@@ -6,7 +6,6 @@ bug-reports: "https://github.com/yoriyuki/Camomile/issues"
 license: "LGPL-2+ with OCaml linking exception"
 dev-repo: "https://github.com/yoriyuki/Camomile.git"
 build: [
-  ["ocaml" "configure.ml" "--share" "%{share}%/camomile"]
   ["jbuilder" "subst" "-n" name] {pinned}
   ["jbuilder" "build" "-p" name "-j" jobs]
 ]
