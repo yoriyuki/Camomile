@@ -35,17 +35,33 @@
 
 open Rresult
 
-let root = ref None
+module type Type = sig
 
-let set_root dir =
-  match !root with
-    None -> root := Some dir; dir
-  | Some d -> d
+  (** [get_root] obtains the root directory for Camomile data.  If the root
+      directory is not set, it raises Failure.
+  *)
+  val get_root : unit -> string
 
-let get_root () =
-  match !root with
-    None -> failwith "Please initialize root dir first"
-  | Some dir -> dir
+  (** [read dir suffix reader key] reads information using [reader].
+      Data are supposed to be reside in the files under [root/dir] directory
+      with suffix [suffix].  [reader] takes [in_channel] as an argument
+      and read data from in_channel.  The [key] specifies key associated
+      the value.  Any characters can be used in [key], since they are
+      properly escaped.
+  *)
+  val read : string -> string -> (in_channel -> ('a, [> `Database of string | `SysError of string ] as 'b) result) -> string -> ('a, 'b) result
+
+  (** [writer dir suffix writer key data] write [data] associated the
+      [key] into the directory [dir] with [suffix]. You can use
+      any characters in [key] since they are propery escaped.*)
+  val write :
+    string -> string ->
+    (out_channel -> 'a -> unit) -> string -> 'a -> unit
+end
+
+module Make (Config:ConfigInt.Type) = struct
+
+let get_root () = Config.root
 
 let escape s =
   let b = Buffer.create 0 in
@@ -82,3 +98,5 @@ let write dir suffix writer key data =
     let c = open_out_bin (Fpath.to_string path) in
     writer c data;
     close_out c
+
+end

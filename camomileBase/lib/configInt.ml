@@ -1,5 +1,5 @@
-(** Database.ml : Unified interfaces of stored data for Camomile *)
-(* Copyright (C) 2011, 2018 Yoriyuki Yamagata *)
+(** configInt.ml : Signature for the configuration module of Camomile *)
+(* Copyright (C) 2018 Yoriyuki Yamagata *)
 
 (* This library is free software; you can redistribute it and/or *)
 (* modify it under the terms of the GNU Lesser General Public License *)
@@ -34,27 +34,5 @@
 (* yoriyuki.y@gmail.com *)
 
 module type Type = sig
-
-  (** [get_root] obtains the root directory for Camomile data.  If the root
-    directory is not set, it raises Failure.
-  *)
-  val get_root : unit -> string
-
-  (** [read dir suffix reader key] reads information using [reader].
-    Data are supposed to be reside in the files under [root/dir] directory
-    with suffix [suffix].  [reader] takes [in_channel] as an argument
-    and read data from in_channel.  The [key] specifies key associated
-    the value.  Any characters can be used in [key], since they are
-    properly escaped.
-  *)
-  val read : string -> string -> (in_channel -> ('a, [> `Database of string | `SysError of string ] as 'b) result) -> string -> ('a, 'b) result
-
-  (** [writer dir suffix writer key data] write [data] associated the
-    [key] into the directory [dir] with [suffix]. You can use
-    any characters in [key] since they are propery escaped.*)
-  val write :
-  string -> string ->
-  (out_channel -> 'a -> unit) -> string -> 'a -> unit
+    val root : string
 end
-
-module Make (Config: ConfigInt.Type) : Type
