@@ -1,0 +1,48 @@
+;; Default config, overridden by the configure.ml script
+(rule (with-stdout-to installConfig.ml
+       (echo "let share_dir = \"/usr/share/camomile\"")))
+
+(library
+ (name camomileLibrary)
+ (public_name camomile.library)
+ (wrapped true)
+ (libraries bigarray camomileDefaultConfig)
+ (modules
+  :standard \ camomileDefaultConfig
+  camomile_do_not_use
+  installConfig
+  camomileLibraryDyn
+  camomileLibraryDefault))
+
+(library
+ (name camomileDefaultConfig)
+ (public_name camomile.default_config)
+ (wrapped true)
+ (modules camomileDefaultConfig installConfig))
+
+(library
+ (name camomileLibraryDyn)
+ (public_name camomile.dyn)
+ (wrapped false)
+ (libraries camomileLibraryDefault)
+ (modules camomileLibraryDyn))
+
+(library
+ (name camomileLibraryDefault)
+ (public_name camomile.lib_default)
+ (modules camomileLibraryDefault)
+ (libraries camomileDefaultConfig camomileLibrary))
+
+(library
+ (name camomile_yuge)
+ (public_name camomile)
+ (wrapped false)
+ (flags :standard)
+ (modules camomile_do_not_use)
+ (libraries
+  camomile.library
+  camomile.default_config
+  camomile.dyn
+  camomile.lib_default))
+
+(include_subdirs unqualified)
