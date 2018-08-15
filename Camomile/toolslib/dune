@@ -1,0 +1,10 @@
+(include_subdirs no)
+
+(library
+ (name toolslib)
+ (wrapped false)
+ (flags -I Camomile :standard)
+ (libraries camomile bigarray str))
+
+(ocamllex  colLexer)
+(ocamlyacc colParser)

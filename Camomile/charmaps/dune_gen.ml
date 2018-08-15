@@ -97,15 +97,15 @@ let () =
   let pr fmt = Printf.bprintf buf (fmt ^^ "\n") in
   pr "";
   pr "(install";
-  pr " ((section share)";
-  pr "  (files (";
+  pr " (section share)";
+  pr " (files";
   List.iter to_install ~f:(fun fn ->
       pr "   (%s as charmaps/%s)" fn fn);
-  pr "    ))))";
+  pr "    ))";
   List.iter charmaps ~f:(fun (fn, targets) ->
       pr "";
       pr "(rule";
-      pr " ((targets (%s))" (String.concat ~sep:" " targets);
-      pr "  (deps    (%s))" fn;
-      pr "  (action  (run ../tools/camomilecharmap.exe -d . ${^}))))");
+      pr " (targets %s)" (String.concat ~sep:" " targets);
+      pr " (deps    %s)" fn;
+      pr " (action  (run ../tools/camomilecharmap.exe -d . %%{deps})))");
   print_endline (Buffer.contents buf)
