@@ -41,7 +41,7 @@ yoriyuki.y@gmail.com
 open CamomileLibrary
 
 let parse_error _ = failwith "Syntax error"
-let acset : AbsCe.aceset_info = Toolslib.Unidata.read_data "acset"
+let acset : AbsCe.aceset_info Lazy.t = lazy (Toolslib.Unidata.read_data "acset")
 
     %}
 
@@ -58,19 +58,19 @@ let acset : AbsCe.aceset_info = Toolslib.Unidata.read_data "acset"
   %%
 main :
   header rules EOF
-  {let ceset = acset.lowercase_first_tbl in
+  {let ceset = (Lazy.force acset).lowercase_first_tbl in
   let ace_info = AbsCe.create_ace_info ceset in
   let ace_info = $1 ace_info in
   {ace_info with ceset = $2 ace_info.AbsCe.ceset}}
 | rules EOF
-  {let ceset = acset.lowercase_first_tbl in
+  {let ceset = (Lazy.force acset).lowercase_first_tbl in
   let ace_info = AbsCe.create_ace_info ceset in
   {ace_info with ceset = $1 ace_info.ceset}}
 | header EOF
-    {let ceset = acset.lowercase_first_tbl in
+    {let ceset = (Lazy.force acset).lowercase_first_tbl in
     $1 (AbsCe.create_ace_info ceset)}
 | EOF
-    {AbsCe.create_ace_info acset.lowercase_first_tbl};
+    {AbsCe.create_ace_info (Lazy.force acset).lowercase_first_tbl};
 
   header :
     header_option header
@@ -103,10 +103,10 @@ main :
 	  env
 
       | [("caseFirst" | "casefirst"); ("off" | "lower")] ->
-	  let ceset = acset.lowercase_first_tbl in
+	  let ceset = (Lazy.force acset).lowercase_first_tbl in
 	  {env with ceset = ceset}
       | [("caseFirst" | "casefirst"); "upper"] ->
-	  let ceset = acset.uppercase_first_tbl in
+	  let ceset = (Lazy.force acset).uppercase_first_tbl in
 	  {env with ceset = ceset}
       | ["strength"; _] ->
 	  prerr_endline "Warning : strength option is not supported";

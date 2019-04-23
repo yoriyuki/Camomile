@@ -229,11 +229,11 @@ module Make (Config : ConfigInt.Type) : Type = struct
 
   (* General category *)
 
-  let general_category_tbl : UCharTbl.Bits.t =
-    read_data "general_category"
+  let general_category_tbl : UCharTbl.Bits.t Lazy.t =
+    lazy (read_data "general_category")
 
   let general_category u =
-    match UCharTbl.Bits.get general_category_tbl u with
+    match UCharTbl.Bits.get (Lazy.force general_category_tbl) u with
       0 ->
       let n = UChar.uint_code u in
       if n >= 0x0f0000 && n <= 0x100000 then `Co else
@@ -404,9 +404,9 @@ module Make (Config : ConfigInt.Type) : Type = struct
 
   (* Scripts *)
 
-  let script_tbl : UCharTbl.Bits.t = read_data "scripts"
+  let script_tbl : UCharTbl.Bits.t Lazy.t = lazy (read_data "scripts")
 
-  let script u = script_of_num (UCharTbl.Bits.get script_tbl u)
+  let script u = script_of_num (UCharTbl.Bits.get (Lazy.force script_tbl) u)
   let load_script_map () = read_data "scripts_map"
 
   type version_type =
@@ -440,9 +440,9 @@ module Make (Config : ConfigInt.Type) : Type = struct
     | `v3_2 -> '\x32'
     | `Nc   -> '\xfe'
 
-  let age_tbl : UCharTbl.Char.t = read_data  "age"
+  let age_tbl : UCharTbl.Char.t Lazy.t = lazy (read_data  "age")
 
-  let age u = version_of_char (UCharTbl.Char.get age_tbl u)
+  let age u = version_of_char (UCharTbl.Char.get (Lazy.force age_tbl) u)
   let older v1 v2 =
     ( version_to_char v1 ) <= ( version_to_char v2 )
 
@@ -510,10 +510,10 @@ module Make (Config : ConfigInt.Type) : Type = struct
 
   (* Combined class *)
 
-  let combined_class_tbl : UCharTbl.Char.t =
-    read_data  "combined_class"
+  let combined_class_tbl : UCharTbl.Char.t Lazy.t =
+    lazy (read_data  "combined_class")
 
-  let combined_class u = Char.code (UCharTbl.Char.get combined_class_tbl u)
+  let combined_class u = Char.code (UCharTbl.Char.get (Lazy.force combined_class_tbl) u)
 
   (* Decomposition *)
 
