@@ -32,10 +32,7 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-
-#load "bigarray.cma";;
-#load "camomile.cma";;
-#load "str.cma";;
+open CamomileLibraryDefault.Camomile
 
 let name_pat = Str.regexp "Name:[ \t]+\\([^ \t]+\\)"
 let alias_pat = Str.regexp "Alias:[ \t]+\\([^ \t]+\\)"
