@@ -1,6 +1,9 @@
 ;; Default config, overridden by the configure.ml script
-(rule (with-stdout-to installConfig.ml
-       (echo "let share_dir = \"/usr/share/camomile\"")))
+(rule
+ (targets installConfig.ml)
+ (mode fallback)
+ (action (with-stdout-to %{targets}
+          (echo "let share_dir = \"/usr/share/camomile\""))))
 
 (library
  (name camomileLibrary)
