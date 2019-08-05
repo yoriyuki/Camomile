@@ -9,6 +9,8 @@ unreleased
 
 - Fix iana executable (#77)
 
+- Generate opam files from dune. (#78)
+
 1.0.1
 -----
 
