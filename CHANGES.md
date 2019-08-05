@@ -1,3 +1,14 @@
+unreleased
+----------
+
+- Use dune's include_subdirs (#72)
+
+- Fix parallel build (#75)
+
+- Add `(mode fallback)` to installConfig.ml (#76)
+
+- Fix iana executable (#77)
+
 1.0.1
 -----
 
