@@ -2,7 +2,7 @@
 (name camomile)
 
 (generate_opam_files true)
-(license "BSD-3-Clause")
+(license "LGPL-2+ with OCaml linking exception")
 (maintainers "yoriyuki.y@gmail.com")
 (authors "Yoriyuki Yamagata")
 (implicit_transitive_deps false)
