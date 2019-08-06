@@ -12,7 +12,7 @@
 (package
  (name camomile)
  (synopsis "A Unicode library")
- (description "
+ (description "\
 Camomile is a Unicode library for OCaml. Camomile provides Unicode character
 type, UTF-8, UTF-16, UTF-32 strings, conversion to/from about 200 encodings,
 collation and locale-sensitive case mappings, and more. The library is currently
