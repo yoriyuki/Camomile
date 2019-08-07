@@ -1,5 +1,5 @@
-unreleased
-----------
+1.0.2 (2019-08-07)
+------------------
 
 - Use dune's include_subdirs (#72)
 
