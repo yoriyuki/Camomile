@@ -7,7 +7,7 @@
 (authors "Yoriyuki Yamagata")
 (implicit_transitive_deps false)
 (source (github yoriyuki/Camomile))
-(documentation "https:/yoriyuki.github.io/Camomile/")
+(documentation "https://yoriyuki.github.io/Camomile/")
 
 (package
  (name camomile)
