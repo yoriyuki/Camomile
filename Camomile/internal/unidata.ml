@@ -299,13 +299,6 @@ module Make (Config : ConfigInt.Type) = struct
     | `Buhid
     | `Tagbanwa ]
 
-  (* little hack to maintain 4.02.3 compat with warnings *)
-  module String = struct
-    [@@@ocaml.warning "-3-32"]
-    let lowercase_ascii = StringLabels.lowercase
-    include String
-  end
-
   let script_of_name name =
     match String.lowercase_ascii name with
     | "common" -> `Common
