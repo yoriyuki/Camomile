@@ -19,4 +19,6 @@ collation and locale-sensitive case mappings, and more. The library is currently
 designed for Unicode Standard 3.2.")
  (depends
   (dune (>= 1.11))
-  (ocaml (>= "4.02.3"))))
+  (ocaml (>= 4.03))
+  camlp-streams
+  stdlib-shims))

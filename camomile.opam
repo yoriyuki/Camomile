@@ -14,7 +14,9 @@ doc: "https://yoriyuki.github.io/Camomile/"
 bug-reports: "https://github.com/yoriyuki/Camomile/issues"
 depends: [
   "dune" {>= "1.11"}
-  "ocaml" {>= "4.02.3"}
+  "ocaml" {>= "4.03"}
+  "camlp-streams"
+  "stdlib-shims"
 ]
 dev-repo: "git+https://github.com/yoriyuki/Camomile.git"
 build: [
