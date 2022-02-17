@@ -9,7 +9,7 @@
  (name camomileLibrary)
  (public_name camomile.library)
  (wrapped true)
- (libraries bigarray camomileDefaultConfig camlp-streams)
+ (libraries bigarray camomileDefaultConfig camlp-streams stdlib-shims)
  (modules
   :standard \ camomileDefaultConfig
   camomile_do_not_use
