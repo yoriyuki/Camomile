@@ -10,7 +10,7 @@ OCaml packages. See [LICENSE.md](LICENSE.md)
 
 ## Installation
 
-To build and install Camomile, you need [OCaml](https://ocaml.org) >= 4.02.3 [dune](https://dune.build) >= 1.0.0
+To build and install Camomile, you need [OCaml](https://ocaml.org) >= 4.03 [dune](https://dune.build) >= 1.11
 
 To build the library, on the top directory do
 ```sh
