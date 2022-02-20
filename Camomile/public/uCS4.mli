@@ -36,7 +36,10 @@
 (* yoriyuki.y@gmail.com *)
 
 type t =
-  (int32, Bigarray.int32_elt, Bigarray.c_layout) Bigarray.Array1.t
+  (int32,
+   Bigarray_compat.int32_elt,
+   Bigarray_compat.c_layout)
+  Bigarray_compat.Array1.t
 
 exception Malformed_code
 

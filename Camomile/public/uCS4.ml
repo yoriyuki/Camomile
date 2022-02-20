@@ -36,7 +36,7 @@
 (* yoriyuki.y@gmail.com *)
 
 
-open Bigarray
+open Bigarray_compat
 
 (* UCS4 encoded string. the type is bigarray of 32-bit integers. *)
 type t = (int32, int32_elt, c_layout) Array1.t

@@ -21,4 +21,5 @@ designed for Unicode Standard 3.2.")
   (dune (>= 1.11))
   (ocaml (>= 4.03))
   camlp-streams
-  stdlib-shims))
+  stdlib-shims
+  bigarray-compat))

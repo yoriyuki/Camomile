@@ -17,6 +17,7 @@ depends: [
   "ocaml" {>= "4.03"}
   "camlp-streams"
   "stdlib-shims"
+  "bigarray-compat"
 ]
 dev-repo: "git+https://github.com/yoriyuki/Camomile.git"
 build: [

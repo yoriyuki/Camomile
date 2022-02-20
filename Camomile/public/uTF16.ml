@@ -34,7 +34,7 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-open Bigarray
+open Bigarray_compat
 
 exception Out_of_range
 

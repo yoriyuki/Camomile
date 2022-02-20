@@ -2,7 +2,7 @@
 open CamomileLibraryTest.Camomile
 open UPervasives
 open Blender
-open Bigarray
+open Bigarray_compat
 
 module UCS4Test = UStorageTest.Make (UCS4)
 

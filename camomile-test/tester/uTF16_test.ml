@@ -2,7 +2,7 @@
 open CamomileLibraryTest.Camomile
 open UPervasives
 open Blender
-open Bigarray
+open Bigarray_compat
 
 module UTF16Conv = CharEncoding.Make (UTF16)
 module UTF16Test = UStorageTest.Make (UTF16)
@@ -18,9 +18,9 @@ let char_gen _ =
 let _ = UTF16Test.test ~desc:"UTF16 test" ~log:"base_utf16" ~char_gen ()
 
 let string_of_int16array a =
-  let s = Bytes.create (2 + 2 * Bigarray.Array1.dim a) in
+  let s = Bytes.create (2 + 2 * Bigarray_compat.Array1.dim a) in
   Bytes.set s 0 (Char.chr 0xfe); Bytes.set s 1 (Char.chr 0xff);
-  for i = 0 to Bigarray.Array1.dim a - 1 do
+  for i = 0 to Bigarray_compat.Array1.dim a - 1 do
     Bytes.set s (2 * i + 2) (Char.chr (a.{i} lsr 8));
     Bytes.set s (2 * i + 3) (Char.chr (a.{i} land 255))
   done;

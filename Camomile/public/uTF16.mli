@@ -37,7 +37,10 @@
     0xfffe, 0xffff.
     Bigarray.cma or Bigarray.cmxa must be linked when this module is used. *)
 type t = 
-  (int, Bigarray.int16_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t
+  (int,
+   Bigarray_compat.int16_unsigned_elt,
+   Bigarray_compat.c_layout)
+  Bigarray_compat.Array1.t
 
 exception Malformed_code
 
