@@ -2,7 +2,7 @@
 
 (executable
  (name gen_mappings)
- (libraries toolslib camomile.library))
+ (libraries toolslib camomile.library str))
 
 (install
  (section share)
