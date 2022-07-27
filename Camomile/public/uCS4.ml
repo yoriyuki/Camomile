@@ -140,5 +140,5 @@ end
 
 let compare (a:t) (b:t) =
   match Array1.dim a - Array1.dim b with
-    0 -> Pervasives.compare a b
+    0 -> Stdlib.compare a b
   | sgn -> sgn

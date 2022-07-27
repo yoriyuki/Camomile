@@ -21,6 +21,7 @@ jobs:
         ocaml-compiler:
           - 4.13.x
           - 4.14.x
+          - ocaml-base-compiler.5.0.0~alpha1
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

@@ -14,7 +14,7 @@
  (name camomileLibrary)
  (public_name camomile.library)
  (wrapped true)
- (libraries bigarray camomileDefaultConfig)
+ (libraries bigarray (re_export camlp-streams) camomileDefaultConfig)
  (modules
   :standard \ camomileDefaultConfig
   camomile_do_not_use

@@ -39,13 +39,6 @@ open CamomileLibrary.Private
 
 module Unidata = Unidata.Make(Camomileconfig)
 
-(* It seems that the default value of combined class is 0 *)
-type combined_class = int
-
-let num_of_combined_class cc = cc
-
-let combined_class_of_num i = i
-
 let null = UChar.chr_of_uint 0
 let max_uchar = UChar.chr_of_uint 0x7fffffff
 

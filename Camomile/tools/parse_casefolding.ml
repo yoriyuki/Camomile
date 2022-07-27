@@ -44,7 +44,6 @@ let uchar_of_code code = UChar.chr_of_uint (int_of_code code)
 
 let us_of_codes codes = List.map uchar_of_code codes
 
-let scolon_pat = Str.regexp ";"
 let blank_pat = Str.regexp "[ \t]+"
 
 let comment_pat = Str.regexp "\\(^#.*\\)\\|\\([ \t]*$\\)"

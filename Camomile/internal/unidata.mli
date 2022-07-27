@@ -176,4 +176,4 @@ module type Type = sig
     {col_info : col_info option}
 end
 
-module Make (Config : ConfigInt.Type) : Type
+module Make (_ : ConfigInt.Type) : Type

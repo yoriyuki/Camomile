@@ -59,7 +59,7 @@ let () =
                    Some (CharEncoding.name_of enc)
                  with Not_found ->
                  try
-                   let s = String.uppercase s in
+                   let s = String.uppercase_ascii s in
                    let enc = CharEncoding.of_name s in
                    Some (CharEncoding.name_of enc)
                  with Not_found ->
@@ -75,8 +75,8 @@ let () =
                        Some (CharEncoding.name_of enc)
                      with Not_found -> 
                      try
-                       let s = String.uppercase alias in
-                       let enc = CharEncoding.of_name alias in
+                       let s = String.uppercase_ascii alias in
+                       let enc = CharEncoding.of_name s in
                        Some (CharEncoding.name_of enc)
                      with Not_found ->
                        None);

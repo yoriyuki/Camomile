@@ -56,4 +56,4 @@ module type Type = sig
   val of_name : string -> t
 end
 
-module Make (Config : ConfigInt.Type) : Type
+module Make (_ : ConfigInt.Type) : Type

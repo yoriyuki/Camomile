@@ -6,11 +6,12 @@ open Blender
 open CamomileLibraryTest.Camomile
 open UPervasives
 
+(*
 let random_pair () = 
   let a0 = Random.int 0x8000000 in
   let b0 = Random.int 0x8000000 in
   (min a0 b0, max a0 b0)
-
+*)
 
 (* Tests for UChar *)
 
@@ -80,6 +81,7 @@ let random_uchars size =
 
 let uset_of_stdset us = StdUSet.fold USet.add us USet.empty
 
+(*
 let test_uset ~desc uset us =
   StdUSet.iter (fun u ->
       let n = int_of_uchar u in
@@ -107,7 +109,9 @@ let test_uset ~desc uset us =
         (StdUSet.mem u) us
         (USet.mem u) uset)
     us
+*)
 
+(*
 let test_range ~desc uset =
   let a, b = random_pair () in
   let uset' = USet.add_range (uchar_of_int a) (uchar_of_int b) uset in 
@@ -129,6 +133,7 @@ let test_range ~desc uset =
         ~msg:(lazy (sprintf "\\u%08x is in %s but souldn't" i desc))
         (USet.mem u uset || a <= i && i <= b))
     uset'
+*)
 
 (* let _ =  *)
 (*   random_test *)
@@ -189,6 +194,7 @@ let _ =
           m))
 
 (* Interval Association List *)
+(*
 let rec assoc k al = 
   match al with
     [] ->  raise Not_found
@@ -209,6 +215,7 @@ let umap_of_assoc al =
       f r (UMap.add_range (UChar.chr k1) (UChar.chr k2) v umap) 
   in
   f al UMap.empty
+*)
 
 (* let _ =  *)
 (*   random_test *)

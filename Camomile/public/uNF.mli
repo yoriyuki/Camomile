@@ -88,5 +88,5 @@ sig
 
 end
 
-module Make  (Config : ConfigInt.Type) (Text : UnicodeString.Type) :
+module Make  (_ : ConfigInt.Type) (Text : UnicodeString.Type) :
   Type with type text = Text.t and type index = Text.index

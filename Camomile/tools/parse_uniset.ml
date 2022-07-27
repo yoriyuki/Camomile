@@ -46,8 +46,6 @@ let num_pat = Str.regexp "[0-9A-Za-z]+"
    let s = read_line () in
    if Str.string_match line_pat s 0 then Str.matched_group 1 s else s *)
 
-let prev_entry = ref 0
-
 let use_line ?re line =
   match re with
   | None -> true

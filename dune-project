@@ -1,5 +1,6 @@
-(lang dune 3.2)
+(lang dune 3.4)
 (name camomile)
+(version 2.0)
 
 (generate_opam_files true)
 (license "LGPL-2+ with OCaml linking exception")
@@ -19,4 +20,5 @@ collation and locale-sensitive case mappings, and more. The library is currently
 designed for Unicode Standard 3.2.")
  (depends
   dune
+  camlp-streams
   (ocaml (>= 4.13))))
