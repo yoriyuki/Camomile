@@ -1,3 +1,8 @@
+(env
+ (dev
+  (flags
+   (:standard -w -3))))
+
 ;; Default config, overridden by the configure.ml script
 (rule
  (targets installConfig.ml)
@@ -43,9 +48,9 @@
  (flags :standard)
  (modules camomile_do_not_use)
  (libraries
-  camomile.library
-  camomile.default_config
-  camomile.dyn
-  camomile.lib_default))
+  (re_export camomile.library)
+  (re_export camomile.default_config)
+  (re_export camomile.dyn)
+  (re_export camomile.lib_default)))
 
 (include_subdirs unqualified)

@@ -1,3 +1,8 @@
+(env
+ (dev
+  (flags
+   (:standard -w -32))))
+
 (include_subdirs no)
 
 (executable (name dune_gen))
@@ -10,8 +15,9 @@
 
 (copy_files sources/*)
 
-(alias
- (name dune)
+(rule
+ (alias dune)
+ (deps dune.inc)
  (action (diff dune.inc dune.inc.gen)))
 
 (alias

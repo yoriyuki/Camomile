@@ -9,8 +9,9 @@
   (with-stdout-to %{targets}
    (run ./dune_gen.exe))))
 
-(alias
- (name dune)
+(rule
+ (alias dune)
+ (deps dune.inc)
  (action (diff dune.inc dune.inc.gen)))
 
 (alias

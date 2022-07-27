@@ -1,4 +1,4 @@
-(lang dune 1.11)
+(lang dune 3.2)
 (name camomile)
 
 (generate_opam_files true)
@@ -18,5 +18,5 @@ type, UTF-8, UTF-16, UTF-32 strings, conversion to/from about 200 encodings,
 collation and locale-sensitive case mappings, and more. The library is currently
 designed for Unicode Standard 3.2.")
  (depends
-  (dune (>= 1.11))
-  (ocaml (>= "4.02.3"))))
+  dune
+  (ocaml (>= 4.13))))

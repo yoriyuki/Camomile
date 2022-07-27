@@ -13,8 +13,9 @@ homepage: "https://github.com/yoriyuki/Camomile"
 doc: "https://yoriyuki.github.io/Camomile/"
 bug-reports: "https://github.com/yoriyuki/Camomile/issues"
 depends: [
-  "dune" {>= "1.11"}
-  "ocaml" {>= "4.02.3"}
+  "dune" {>= "3.2"}
+  "ocaml" {>= "4.13"}
+  "odoc" {with-doc}
 ]
 dev-repo: "git+https://github.com/yoriyuki/Camomile.git"
 build: [
