@@ -58,4 +58,4 @@ sig
   val compare_caseless : text -> text -> int
 end
 
-module Make (Config : ConfigInt.Type) (Text : UnicodeString.Type) :  (Type with type text = Text.t)
+module Make (_ : ConfigInt.Type) (Text : UnicodeString.Type) :  (Type with type text = Text.t)

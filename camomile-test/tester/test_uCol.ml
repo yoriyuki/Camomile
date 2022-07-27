@@ -11,7 +11,7 @@ let rec lex_compare_aux i t1 t2 =
   if i >= UText.length t1 then
     if i >= UText.length t2 then 0 else ~-1
   else if i >= UText.length t2 then 1 else
-    match Pervasives.compare (UText.get t1 i) (UText.get t2 i) with
+    match Stdlib.compare (UText.get t1 i) (UText.get t2 i) with
       0 -> lex_compare_aux (i + 1) t1 t2
     | sgn -> sgn
 
@@ -189,7 +189,7 @@ let locale_test ~desc ?variable ~locale c =
       if Str.string_match comment_pat line 0 then () else
         let key = UTF8Comp.sort_key ?variable ~locale line in
         let sgn = sgn_of (UTF8Comp.compare ?variable ~locale !prev line) in
-        let sgn1 = sgn_of (Pervasives.compare !prev_key key) in
+        let sgn1 = sgn_of (Stdlib.compare !prev_key key) in
         let sgn2 = sgn_of 
             (UTF8Comp.compare_with_key ?variable ~locale !prev_key line) in
         let sgn3 = - sgn_of 
@@ -264,7 +264,7 @@ let test_list ~desc ?variable ~locale list =
     | t :: rest ->
       let key = UTF8Comp.sort_key ?variable ~locale t in
       let sgn = sgn_of (UTF8Comp.compare ?variable ~locale prev t) in
-      let sgn1 = sgn_of (Pervasives.compare prev_key key) in
+      let sgn1 = sgn_of (Stdlib.compare prev_key key) in
       let sgn2 = sgn_of
           (UTF8Comp.compare_with_key ?variable ~locale prev_key t) in
       let sgn3 = - sgn_of
@@ -305,7 +305,7 @@ let test_list ~desc ?variable ~locale list =
                             t 
                             (print_text_utf8 t) 
                             (String.escaped key)))
-              (Pervasives.compare prev t <= 0);
+              (Stdlib.compare prev t <= 0);
           expect_true
             ~msg:(lazy (sprintf 
                           "The comparison results differ\n\

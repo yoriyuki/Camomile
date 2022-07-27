@@ -1,3 +1,8 @@
+(env
+ (dev
+  (flags
+   (:standard -w -3-32))))
+
 (executables
  (names
   testOOChannel
@@ -13,54 +18,54 @@
   uTF16_test)
  (libraries unix str camomile blender tester_lib))
 
-(alias
- (name runtest)
+(rule
+ (alias runtest)
  (deps testOOChannel.exe)
  (action (run %{deps})))
 
-(alias
- (name runtest)
+(rule
+ (alias runtest)
  (action (run ./test_base.exe)))
 
-(alias
- (name runtest)
+(rule
+ (alias runtest)
  (action (run ./test_caseMap.exe)))
 
-(alias
- (name runtest)
+(rule
+ (alias runtest)
  (deps (glob_files ../data/enc/*))
  (action (run ./test_charEncoding.exe)))
 
-(alias
- (name runtest)
+(rule
+ (alias runtest)
  (deps ../unidata/NormalizationTest.txt
        ../unidata/CollationTest_SHIFTED.txt)
  (action (run ./test_normalform.exe)))
 
-(alias
- (name runtest)
+(rule
+ (alias runtest)
  (deps (glob_files ../unidata/*)
        (glob_files ../data/*))
  (action (run ./test_uCol.exe)))
 
-(alias
- (name runtest)
+(rule
+ (alias runtest)
  (deps test_uTF8.exe)
  (action (run ./test_uTF8.exe)))
 
-(alias
- (name runtest)
+(rule
+ (alias runtest)
  (deps  ../data/stringprep)
  (action (run ./test_stringprep.exe)))
 
-(alias
- (name runtest)
+(rule
+ (alias runtest)
  (action (run ./uCS4_test.exe)))
 
-(alias
- (name runtest)
+(rule
+ (alias runtest)
  (action (run ./uReStr_test.exe)))
 
-(alias
- (name runtest)
+(rule
+ (alias runtest)
  (action (run ./uTF16_test.exe)))

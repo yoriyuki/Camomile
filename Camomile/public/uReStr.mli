@@ -94,4 +94,4 @@ module type Interface = sig
     Type with type text = Text.t and type index = Text.index
 end
 
-module Configure (Config : ConfigInt.Type) : Interface
+module Configure (_ : ConfigInt.Type) : Interface

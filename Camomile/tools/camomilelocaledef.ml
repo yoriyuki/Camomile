@@ -59,15 +59,6 @@ let enc, readfile, dir =
 
 module Utf8NF = UNF.Make(Camomileconfig)(UTF8)
 
-let ff = 0x000c				(*form feed*)
-let cr = Char.code '\r'
-let lf = Char.code '\n'
-let nel = 0x0085
-let tab = Char.code '\t'
-
-let sq = Char.code '\\'
-let dq = Char.code '"'
-
 let string_to_binary s =
   let n = String.length s / 2 in
   let b = Bytes.create n in
@@ -76,22 +67,6 @@ let string_to_binary s =
     Bytes.set b i (Char.chr d)
   done;
   Bytes.to_string b
-
-let root = ref ""
-
-let load_file filename =
-  let file =
-    if Filename.is_implicit filename then
-      Filename.concat !root filename else
-      filename
-  in
-  let c = open_in_bin file in
-  let buf = Buffer.create 16 in
-  try begin while true do
-      Buffer.add_channel buf c 1
-    done; assert false end
-  with End_of_file ->
-    Buffer.contents buf
 
 type data =
     Table of (string, data) Hashtbl.t

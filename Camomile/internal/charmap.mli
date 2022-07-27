@@ -55,4 +55,4 @@ module type Interface = sig
   val of_name : string -> t
 end
 
-module Configure(Config : ConfigInt.Type) : Interface
+module Configure(_ : ConfigInt.Type) : Interface

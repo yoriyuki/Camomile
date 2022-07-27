@@ -39,7 +39,6 @@ open CamomileLibrary
 module Int = struct type t = int let compare = (-) end
 module IntMap = Map.Make (Int)
 
-let scolon_pat = Str.regexp ";"
 let blank_pat = Str.regexp "[ \t]+"
 let delim_pat = Str.regexp "[ \t]*\\["
 
@@ -107,17 +106,11 @@ let swap_case = function
   | 0x001D -> 0x001C
   | x -> x
 
-let swap_case_weight = function
-    [w1; w2; w3] -> [w1; w2; swap_case w3]
-  | _ -> assert false
-
 let weights1_tbl =
   let s = AbsCe.EltMap.empty in
   let s = AbsCe.EltMap.add `FirstImplicit [compose_weight 0xfb40 0x8000] s in
   let s = AbsCe.EltMap.add `FirstTrailing [compose_weight 0xfc00 0x8000] s in
   s
-
-let map_triple f (x1, x2, x3) = (f x1, f x2, f x3)
 
 let map2_triple f (x1, x2, x3) (y1, y2, y3) =
   (f x1 y1, f x2 y2, f x3 y3)

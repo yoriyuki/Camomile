@@ -190,11 +190,9 @@ let d2 = parse_set (Filename.concat !input_dir "/d2")
 
 let b1_list = parse_map (Filename.concat !input_dir "/b1")
 let b2_list = parse_map (Filename.concat !input_dir "/b2")
-let b3_list = parse_map (Filename.concat !input_dir "/b3")
 
 let b1 = umap_of_list b1_list
 let b2 = umap_of_list b2_list
-let b3 = umap_of_list b3_list
 
 let nodeprep_prohibited_list =
   [ 0x0022;

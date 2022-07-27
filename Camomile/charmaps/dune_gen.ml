@@ -27,14 +27,6 @@ module Charmap_decode = struct
 
   exception Break
 
-  let begin_with s s' =
-    if String.length s' < String.length s then false else
-      try for i = 0 to (String.length s) - 1 do
-          if s.[i] <> s'.[i] then raise Break
-        done;
-        true
-      with Break -> false
-
   let parse_header file =
     let inchan = open_in file in
     let codeset_name = ref (Filename.basename file) in

@@ -291,4 +291,4 @@ module type Type = sig
 
 end
 
-module Make (Config : ConfigInt.Type) : Type
+module Make (_ : ConfigInt.Type) : Type

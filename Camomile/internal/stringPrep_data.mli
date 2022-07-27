@@ -59,4 +59,4 @@ sig
   val d2 : unit -> UCharTbl.Bool.t
 end
 
-module Make(Config : ConfigInt.Type) : Type
+module Make(_ : ConfigInt.Type) : Type
