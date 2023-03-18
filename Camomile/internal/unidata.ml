@@ -34,41 +34,41 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-
 module type Type = sig
   val read_data : ?datadir:string -> string -> 'a
 
   type general_category_type =
-    [ `Lu		(* Letter, Uppercase *)
-    | `Ll		(* Letter, Lowercase *)
-    | `Lt		(* Letter, Titlecase *)
-    | `Mn		(* Mark, Non-Spacing *)
-    | `Mc		(* Mark, Spacing Combining *)
-    | `Me		(* Mark, Enclosing *)
-    | `Nd		(* Number, Decimal Digit *)
-    | `Nl		(* Number, Letter *)
-    | `No		(* Number, Other *)
-    | `Zs		(* Separator, Space *)
-    | `Zl		(* Separator, Line *)
-    | `Zp		(* Separator, Paragraph *)
-    | `Cc		(* Other, Control *)
-    | `Cf		(* Other, Format *)
-    | `Cs		(* Other, Surrogate *)
-    | `Co		(* Other, Private Use *)
-    | `Cn		(* Other, Not Assigned *)
-    | `Lm		(* Letter, Modifier *)
-    | `Lo		(* Letter, Other *)
-    | `Pc		(* Punctuation, Connector *)
-    | `Pd		(* Punctuation, Dash *)
-    | `Ps		(* Punctuation, Open *)
-    | `Pe		(* Punctuation, Close *)
-    | `Pi		(* Punctuation, Initial quote  *)
-    | `Pf		(* Punctuation, Final quote  *)
-    | `Po		(* Punctuation, Other *)
-    | `Sm		(* Symbol, Math *)
-    | `Sc		(* Symbol, Currency *)
-    | `Sk		(* Symbol, Modifier *)
-    | `So ]	(* Symbol, Other *)
+    [ `Lu (* Letter, Uppercase *)
+    | `Ll (* Letter, Lowercase *)
+    | `Lt (* Letter, Titlecase *)
+    | `Mn (* Mark, Non-Spacing *)
+    | `Mc (* Mark, Spacing Combining *)
+    | `Me (* Mark, Enclosing *)
+    | `Nd (* Number, Decimal Digit *)
+    | `Nl (* Number, Letter *)
+    | `No (* Number, Other *)
+    | `Zs (* Separator, Space *)
+    | `Zl (* Separator, Line *)
+    | `Zp (* Separator, Paragraph *)
+    | `Cc (* Other, Control *)
+    | `Cf (* Other, Format *)
+    | `Cs (* Other, Surrogate *)
+    | `Co (* Other, Private Use *)
+    | `Cn (* Other, Not Assigned *)
+    | `Lm (* Letter, Modifier *)
+    | `Lo (* Letter, Other *)
+    | `Pc (* Punctuation, Connector *)
+    | `Pd (* Punctuation, Dash *)
+    | `Ps (* Punctuation, Open *)
+    | `Pe (* Punctuation, Close *)
+    | `Pi (* Punctuation, Initial quote  *)
+    | `Pf (* Punctuation, Final quote  *)
+    | `Po (* Punctuation, Other *)
+    | `Sm (* Symbol, Math *)
+    | `Sc (* Symbol, Currency *)
+    | `Sk (* Symbol, Modifier *)
+    | `So ]
+  (* Symbol, Other *)
 
   val cat_of_name : string -> general_category_type
   val num_of_cat : general_category_type -> int
@@ -126,22 +126,36 @@ module type Type = sig
   val num_of_script : script_type -> int
 
   type decomposition_type =
-    [ `Canon | `Font | `NoBreak | `Initial | `Medial | `Final |
-      `Isolated | `Circle | `Super | `Sub | `Vertical | `Wide | `Narrow |
-      `Small | `Square | `Fraction | `Compat ]
+    [ `Canon
+    | `Font
+    | `NoBreak
+    | `Initial
+    | `Medial
+    | `Final
+    | `Isolated
+    | `Circle
+    | `Super
+    | `Sub
+    | `Vertical
+    | `Wide
+    | `Narrow
+    | `Small
+    | `Square
+    | `Fraction
+    | `Compat ]
 
   type decomposition_info =
     (* Already in the canonical form *)
     [ `Canonform
-    (* `Composite (dtype, text) :
-     * means the given character is decomposed into text by dtype
-     * decomposition. *)
-    | `HangulSyllable
+    | (* `Composite (dtype, text) :
+       * means the given character is decomposed into text by dtype
+       * decomposition. *)
+      `HangulSyllable
     | `Composite of decomposition_type * UChar.t list ]
 
   (* Collation *)
 
-  type ce_type = int		(*collation element*)
+  type ce_type = int (*collation element*)
 
   val primary : ce_type -> int
   val secondary : ce_type -> int
@@ -152,18 +166,16 @@ module type Type = sig
   type ce_tbl = (UChar.t list * ce_type list) list UCharTbl.t
 
   type variable_option =
-    [ `Blanked
-    | `Non_ignorable
-    | `Shifted
-    | `Shift_Trimmed ]
+    [ `Blanked | `Non_ignorable | `Shifted | `Shift_Trimmed ]
 
-  type col_info =
-    {variable_top : int;
-     variable_option : variable_option;
-     french_accent : bool;
-     hiraganaQ : bool;
-     hiraganaQ_weight : int;
-     tbl : ce_tbl}
+  type col_info = {
+    variable_top : int;
+    variable_option : variable_option;
+    french_accent : bool;
+    hiraganaQ : bool;
+    hiraganaQ_weight : int;
+    tbl : ce_tbl;
+  }
 
   val get_col_info : ?locale:string -> unit -> col_info
 
@@ -173,82 +185,147 @@ module type Type = sig
      decreasing order respect to n. *)
   val ce : ce_tbl -> UChar.t -> (UChar.t list * ce_type list) list
 
-  type localedata =
-    {col_info : col_info option}
+  type localedata = { col_info : col_info option }
 end
 
 module Make (Config : ConfigInt.Type) = struct
-
   let read_data ?datadir name =
-    let datadir =
-      match datadir with
-        Some d -> d
-      | None -> Config.datadir in
+    let datadir = match datadir with Some d -> d | None -> Config.datadir in
     Database.read datadir "mar" input_value name
 
   type general_category_type =
-    [ `Lu		(* Letter, Uppercase *)
-    | `Ll		(* Letter, Lowercase *)
-    | `Lt		(* Letter, Titlecase *)
-    | `Mn		(* Mark, Non-Spacing *)
-    | `Mc		(* Mark, Spacing Combining *)
-    | `Me		(* Mark, Enclosing *)
-    | `Nd		(* Number, Decimal Digit *)
-    | `Nl		(* Number, Letter *)
-    | `No		(* Number, Other *)
-    | `Zs		(* Separator, Space *)
-    | `Zl		(* Separator, Line *)
-    | `Zp		(* Separator, Paragraph *)
-    | `Cc		(* Other, Control *)
-    | `Cf		(* Other, Format *)
-    | `Cs		(* Other, Surrogate *)
-    | `Co		(* Other, Private Use *)
-    | `Cn		(* Other, Not Assigned *)
-    | `Lm		(* Letter, Modifier *)
-    | `Lo		(* Letter, Other *)
-    | `Pc		(* Punctuation, Connector *)
-    | `Pd		(* Punctuation, Dash *)
-    | `Ps		(* Punctuation, Open *)
-    | `Pe		(* Punctuation, Close *)
-    | `Pi		(* Punctuation, Initial quote  *)
-    | `Pf		(* Punctuation, Final quote  *)
-    | `Po		(* Punctuation, Other *)
-    | `Sm		(* Symbol, Math *)
-    | `Sc		(* Symbol, Currency *)
-    | `Sk		(* Symbol, Modifier *)
-    | `So ]	(* Symbol, Other *)
-
+    [ `Lu (* Letter, Uppercase *)
+    | `Ll (* Letter, Lowercase *)
+    | `Lt (* Letter, Titlecase *)
+    | `Mn (* Mark, Non-Spacing *)
+    | `Mc (* Mark, Spacing Combining *)
+    | `Me (* Mark, Enclosing *)
+    | `Nd (* Number, Decimal Digit *)
+    | `Nl (* Number, Letter *)
+    | `No (* Number, Other *)
+    | `Zs (* Separator, Space *)
+    | `Zl (* Separator, Line *)
+    | `Zp (* Separator, Paragraph *)
+    | `Cc (* Other, Control *)
+    | `Cf (* Other, Format *)
+    | `Cs (* Other, Surrogate *)
+    | `Co (* Other, Private Use *)
+    | `Cn (* Other, Not Assigned *)
+    | `Lm (* Letter, Modifier *)
+    | `Lo (* Letter, Other *)
+    | `Pc (* Punctuation, Connector *)
+    | `Pd (* Punctuation, Dash *)
+    | `Ps (* Punctuation, Open *)
+    | `Pe (* Punctuation, Close *)
+    | `Pi (* Punctuation, Initial quote  *)
+    | `Pf (* Punctuation, Final quote  *)
+    | `Po (* Punctuation, Other *)
+    | `Sm (* Symbol, Math *)
+    | `Sc (* Symbol, Currency *)
+    | `Sk (* Symbol, Modifier *)
+    | `So ]
+  (* Symbol, Other *)
 
   let cat_of_name name =
     match name with
-      "Lu" -> `Lu | "Ll" -> `Ll | "Lt" -> `Lt
-    | "Mn" -> `Mn | "Mc" -> `Mc | "Me" -> `Me
-    | "Nd" -> `Nd | "Nl" -> `Nl | "No" -> `No
-    | "Zs" -> `Zs | "Zl" -> `Zl | "Zp" -> `Zp
-    | "Cc" -> `Cc | "Cf" -> `Cf | "Cs" -> `Cs | "Co" -> `Co | "Cn" -> `Cn
-    | "Lm" -> `Lm | "Lo" -> `Lo
-    | "Pc" -> `Pc | "Pd" -> `Pd | "Ps" -> `Ps | "Pe" -> `Pe
-    | "Pi" -> `Pi | "Pf" -> `Pf | "Po" -> `Po
-    | "Sm" -> `Sm | "Sc" -> `Sc | "Sk" -> `Sk | "So"-> `So
-    | _ -> raise Not_found
+      | "Lu" -> `Lu
+      | "Ll" -> `Ll
+      | "Lt" -> `Lt
+      | "Mn" -> `Mn
+      | "Mc" -> `Mc
+      | "Me" -> `Me
+      | "Nd" -> `Nd
+      | "Nl" -> `Nl
+      | "No" -> `No
+      | "Zs" -> `Zs
+      | "Zl" -> `Zl
+      | "Zp" -> `Zp
+      | "Cc" -> `Cc
+      | "Cf" -> `Cf
+      | "Cs" -> `Cs
+      | "Co" -> `Co
+      | "Cn" -> `Cn
+      | "Lm" -> `Lm
+      | "Lo" -> `Lo
+      | "Pc" -> `Pc
+      | "Pd" -> `Pd
+      | "Ps" -> `Ps
+      | "Pe" -> `Pe
+      | "Pi" -> `Pi
+      | "Pf" -> `Pf
+      | "Po" -> `Po
+      | "Sm" -> `Sm
+      | "Sc" -> `Sc
+      | "Sk" -> `Sk
+      | "So" -> `So
+      | _ -> raise Not_found
 
   let num_of_cat ca =
     match ca with
-      `Lu -> 1 | `Ll -> 2 | `Lt -> 3
-    | `Mn -> 4 | `Mc -> 5 | `Me -> 6
-    | `Nd -> 7 | `Nl -> 8 | `No -> 9
-    | `Zs -> 10 | `Zl -> 11 | `Zp -> 12
-    | `Cc -> 13 | `Cf -> 14 | `Cs -> 15 | `Co -> 16 | `Cn -> 0
-    | `Lm -> 17 | `Lo -> 18
-    | `Pc -> 19 | `Pd -> 20 | `Ps -> 21 | `Pe -> 22
-    | `Pi -> 23 | `Pf -> 24 | `Po -> 25
-    | `Sm -> 26 | `Sc -> 27 | `Sk -> 28 | `So -> 29
+      | `Lu -> 1
+      | `Ll -> 2
+      | `Lt -> 3
+      | `Mn -> 4
+      | `Mc -> 5
+      | `Me -> 6
+      | `Nd -> 7
+      | `Nl -> 8
+      | `No -> 9
+      | `Zs -> 10
+      | `Zl -> 11
+      | `Zp -> 12
+      | `Cc -> 13
+      | `Cf -> 14
+      | `Cs -> 15
+      | `Co -> 16
+      | `Cn -> 0
+      | `Lm -> 17
+      | `Lo -> 18
+      | `Pc -> 19
+      | `Pd -> 20
+      | `Ps -> 21
+      | `Pe -> 22
+      | `Pi -> 23
+      | `Pf -> 24
+      | `Po -> 25
+      | `Sm -> 26
+      | `Sc -> 27
+      | `Sk -> 28
+      | `So -> 29
 
   let cat_of_num_tbl : general_category_type array =
-    [| `Cn ; `Lu ; `Ll ; `Lt ; `Mn ; `Mc ; `Me ; `Nd ; `Nl ; `No
-     ; `Zs ; `Zl ; `Zp ; `Cc ; `Cf ; `Cs ; `Co
-     ; `Lm ; `Lo ; `Pc ; `Pd ; `Ps ; `Pe ; `Pi ; `Pf ; `Po
-     ; `Sm ; `Sc ; `Sk ; `So |]
+    [|
+      `Cn;
+      `Lu;
+      `Ll;
+      `Lt;
+      `Mn;
+      `Mc;
+      `Me;
+      `Nd;
+      `Nl;
+      `No;
+      `Zs;
+      `Zl;
+      `Zp;
+      `Cc;
+      `Cf;
+      `Cs;
+      `Co;
+      `Lm;
+      `Lo;
+      `Pc;
+      `Pd;
+      `Ps;
+      `Pe;
+      `Pi;
+      `Pf;
+      `Po;
+      `Sm;
+      `Sc;
+      `Sk;
+      `So;
+    |]
 
   let cat_of_num i = cat_of_num_tbl.(i)
 
@@ -301,55 +378,55 @@ module Make (Config : ConfigInt.Type) = struct
 
   let script_of_name name =
     match String.lowercase_ascii name with
-    | "common" -> `Common
-    | "inherited" -> `Inherited
-    | "latin" -> `Latin
-    | "greek" -> `Greek
-    | "cyrillic" -> `Cyrillic
-    | "armenian" -> `Armenian
-    | "hebrew" -> `Hebrew
-    | "arabic" -> `Arabic
-    | "syriac" -> `Syriac
-    | "thaana" -> `Thaana
-    | "devanagari" -> `Devanagari
-    | "bengali" -> `Bengali
-    | "gurmukhi" -> `Gurmukhi
-    | "gujarati" -> `Gujarati
-    | "oriya" -> `Oriya
-    | "tamil" -> `Tamil
-    | "telugu" -> `Telugu
-    | "kannada" -> `Kannada
-    | "malayalam" -> `Malayalam
-    | "sinhala" -> `Sinhala
-    | "thai" -> `Thai
-    | "lao" -> `Lao
-    | "tibetan" -> `Tibetan
-    | "myanmar" -> `Myanmar
-    | "georgian" -> `Georgian
-    | "hangul" -> `Hangul
-    | "ethiopic" -> `Ethiopic
-    | "cherokee" -> `Cherokee
-    | "canadian_aboriginal" -> `Canadian_Aboriginal
-    | "ogham" -> `Ogham
-    | "runic" -> `Runic
-    | "khmer" -> `Khmer
-    | "mongolian" -> `Mongolian
-    | "hiragana" -> `Hiragana
-    | "katakana" -> `Katakana
-    | "bopomofo" -> `Bopomofo
-    | "han" -> `Han
-    | "yi" -> `Yi
-    | "old_italic" -> `Old_Italic
-    | "gothic" -> `Gothic
-    | "deseret" -> `Deseret
-    | "tagalog" -> `Tagalog
-    | "hanunoo" -> `Hanunoo
-    | "buhid" -> `Buhid
-    | "tagbanwa" -> `Tagbanwa
-    | _ -> raise Not_found
+      | "common" -> `Common
+      | "inherited" -> `Inherited
+      | "latin" -> `Latin
+      | "greek" -> `Greek
+      | "cyrillic" -> `Cyrillic
+      | "armenian" -> `Armenian
+      | "hebrew" -> `Hebrew
+      | "arabic" -> `Arabic
+      | "syriac" -> `Syriac
+      | "thaana" -> `Thaana
+      | "devanagari" -> `Devanagari
+      | "bengali" -> `Bengali
+      | "gurmukhi" -> `Gurmukhi
+      | "gujarati" -> `Gujarati
+      | "oriya" -> `Oriya
+      | "tamil" -> `Tamil
+      | "telugu" -> `Telugu
+      | "kannada" -> `Kannada
+      | "malayalam" -> `Malayalam
+      | "sinhala" -> `Sinhala
+      | "thai" -> `Thai
+      | "lao" -> `Lao
+      | "tibetan" -> `Tibetan
+      | "myanmar" -> `Myanmar
+      | "georgian" -> `Georgian
+      | "hangul" -> `Hangul
+      | "ethiopic" -> `Ethiopic
+      | "cherokee" -> `Cherokee
+      | "canadian_aboriginal" -> `Canadian_Aboriginal
+      | "ogham" -> `Ogham
+      | "runic" -> `Runic
+      | "khmer" -> `Khmer
+      | "mongolian" -> `Mongolian
+      | "hiragana" -> `Hiragana
+      | "katakana" -> `Katakana
+      | "bopomofo" -> `Bopomofo
+      | "han" -> `Han
+      | "yi" -> `Yi
+      | "old_italic" -> `Old_Italic
+      | "gothic" -> `Gothic
+      | "deseret" -> `Deseret
+      | "tagalog" -> `Tagalog
+      | "hanunoo" -> `Hanunoo
+      | "buhid" -> `Buhid
+      | "tagbanwa" -> `Tagbanwa
+      | _ -> raise Not_found
 
   let num_of_script = function
-      `Common -> 0
+    | `Common -> 0
     | `Inherited -> 1
     | `Latin -> 2
     | `Greek -> 3
@@ -396,28 +473,82 @@ module Make (Config : ConfigInt.Type) = struct
     | `Tagbanwa -> 44
 
   let script_tbl =
-    [| `Common; `Inherited; `Latin; `Greek; `Cyrillic; `Armenian; `Hebrew;
-       `Arabic; `Syriac; `Thaana; `Devanagari; `Bengali; `Gurmukhi; `Gujarati;
-       `Oriya; `Tamil; `Telugu; `Kannada; `Malayalam; `Sinhala; `Thai; `Lao;
-       `Tibetan; `Myanmar; `Georgian; `Hangul; `Ethiopic; `Cherokee;
-       `Canadian_Aboriginal; `Ogham; `Runic; `Khmer; `Mongolian; `Hiragana;
-       `Katakana; `Bopomofo; `Han; `Yi; `Old_Italic; `Gothic; `Deseret; `Tagalog;
-       `Hanunoo; `Buhid; `Tagbanwa |]
+    [|
+      `Common;
+      `Inherited;
+      `Latin;
+      `Greek;
+      `Cyrillic;
+      `Armenian;
+      `Hebrew;
+      `Arabic;
+      `Syriac;
+      `Thaana;
+      `Devanagari;
+      `Bengali;
+      `Gurmukhi;
+      `Gujarati;
+      `Oriya;
+      `Tamil;
+      `Telugu;
+      `Kannada;
+      `Malayalam;
+      `Sinhala;
+      `Thai;
+      `Lao;
+      `Tibetan;
+      `Myanmar;
+      `Georgian;
+      `Hangul;
+      `Ethiopic;
+      `Cherokee;
+      `Canadian_Aboriginal;
+      `Ogham;
+      `Runic;
+      `Khmer;
+      `Mongolian;
+      `Hiragana;
+      `Katakana;
+      `Bopomofo;
+      `Han;
+      `Yi;
+      `Old_Italic;
+      `Gothic;
+      `Deseret;
+      `Tagalog;
+      `Hanunoo;
+      `Buhid;
+      `Tagbanwa;
+    |]
 
   let script_of_num i = script_tbl.(i)
 
   type decomposition_type =
-    [ `Canon | `Font | `NoBreak | `Initial | `Medial | `Final |
-      `Isolated | `Circle | `Super | `Sub | `Vertical | `Wide | `Narrow |
-      `Small | `Square | `Fraction | `Compat ]
+    [ `Canon
+    | `Font
+    | `NoBreak
+    | `Initial
+    | `Medial
+    | `Final
+    | `Isolated
+    | `Circle
+    | `Super
+    | `Sub
+    | `Vertical
+    | `Wide
+    | `Narrow
+    | `Small
+    | `Square
+    | `Fraction
+    | `Compat ]
 
   type decomposition_info =
     (* Already in the canonical form *)
     [ `Canonform
-    (* `Composite (dtype, text) :
-     * means the given character is decomposed into text by dtype
-     * decomposition. *)
-    | `HangulSyllable
+    | (* `Composite (dtype, text) :
+       * means the given character is decomposed into text by dtype
+       * decomposition. *)
+      `HangulSyllable
     | `Composite of decomposition_type * UChar.t list ]
 
   type ce_type = int
@@ -425,7 +556,6 @@ module Make (Config : ConfigInt.Type) = struct
   let primary_mask = 0xffff lsl 15
   let secondary_mask = 0xff lsl 7
   let tertiary_mask = 0x7f
-
   let primary ce = (ce land primary_mask) lsr 15
   let secondary ce = (ce land secondary_mask) lsr 7
   let tertiary ce = ce land tertiary_mask
@@ -435,53 +565,46 @@ module Make (Config : ConfigInt.Type) = struct
   type ce_tbl = (UChar.t list * ce_type list) list UCharTbl.t
 
   type variable_option =
-    [ `Blanked
-    | `Non_ignorable
-    | `Shifted
-    | `Shift_Trimmed ]
+    [ `Blanked | `Non_ignorable | `Shifted | `Shift_Trimmed ]
 
-  type col_info =
-    {variable_top : int;
-     variable_option : variable_option;
-     french_accent : bool;
-     hiraganaQ : bool;
-     hiraganaQ_weight : int;
-     tbl : ce_tbl}
+  type col_info = {
+    variable_top : int;
+    variable_option : variable_option;
+    french_accent : bool;
+    hiraganaQ : bool;
+    hiraganaQ_weight : int;
+    tbl : ce_tbl;
+  }
 
-  let default_col_data =
-    lazy (read_data "allkeys" : col_info)
+  let default_col_data = lazy (read_data "allkeys" : col_info)
 
-  type localedata =
-    {col_info : col_info option}
+  type localedata = { col_info : col_info option }
 
   let read_localedata c =
     let data : localedata = input_value c in
-    match data.col_info with
-      None -> raise Not_found
-    | Some x -> x
+    match data.col_info with None -> raise Not_found | Some x -> x
 
   let col_tbl = Hashtbl.create 0
 
   let get_col_info ?locale () =
     match locale with
-      None -> Lazy.force default_col_data
-    | Some s ->
-      try
-        let b = Hashtbl.find col_tbl s in
-        match Weak.get b 0 with
-          None ->
-          Hashtbl.remove col_tbl s;
-          raise Not_found
-        | Some x -> x
-      with Not_found ->
-      try
-        let info = Locale.read Config.localedir "mar" read_localedata s in
-        let b = Weak.create 1 in
-        Weak.set b 0 (Some info);
-        Hashtbl.add col_tbl s b;
-        info
-      with
-        Not_found -> Lazy.force default_col_data
+      | None -> Lazy.force default_col_data
+      | Some s -> (
+          try
+            let b = Hashtbl.find col_tbl s in
+            match Weak.get b 0 with
+              | None ->
+                  Hashtbl.remove col_tbl s;
+                  raise Not_found
+              | Some x -> x
+          with Not_found -> (
+            try
+              let info = Locale.read Config.localedir "mar" read_localedata s in
+              let b = Weak.create 1 in
+              Weak.set b 0 (Some info);
+              Hashtbl.add col_tbl s b;
+              info
+            with Not_found -> Lazy.force default_col_data))
 
   let ce tbl u = UCharTbl.get tbl u
 end

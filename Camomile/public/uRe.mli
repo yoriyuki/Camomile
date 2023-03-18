@@ -35,12 +35,12 @@
 (* yoriyuki.y@gmail.com *)
 
 (** Abstract syntax trees of regular expressions. *)
-type regexp  =
+type regexp =
   [ `Alt of regexp * regexp
   | `Seq of regexp * regexp
   | `Rep of regexp
   | `Repn of regexp * int * int option
-  | `After of regexp   
+  | `After of regexp
   | `Before of regexp
   | `Epsilon
   | `Group of regexp
@@ -61,7 +61,7 @@ module type Type = sig
   type index
   type compiled_regexp
 
-  module SubText : 
+  module SubText :
     SubText.Type with type ur_text = text and type ur_index = index
 
   (** Compile regular expressions. *)
@@ -73,8 +73,12 @@ module type Type = sig
       string of [n]-th group in the [n]-element.  
       The matched string of the whole [r] is stored in the [0]-th element.  
       If matching fails, [None] is returned. *)
-  val regexp_match : ?sem:match_semantics ->
-    compiled_regexp -> text -> index -> SubText.t option array option
+  val regexp_match :
+    ?sem:match_semantics ->
+    compiled_regexp ->
+    text ->
+    index ->
+    SubText.t option array option
 
   (** [string_match r t i] tests whether [r] can match a substring
       of [t] beginning from [i]. *)
@@ -83,8 +87,12 @@ module type Type = sig
   (** [search_forward ?sem r t i] searches a substring of [t]
       matching [r] from [i].  The returned value is similar to 
       {!URe.Type.regexp_match}. *)
-  val search_forward : ?sem:match_semantics ->
-    compiled_regexp -> text -> index -> SubText.t option array option
+  val search_forward :
+    ?sem:match_semantics ->
+    compiled_regexp ->
+    text ->
+    index ->
+    SubText.t option array option
 end
 
 module Make : functor (Text : UnicodeString.Type) ->

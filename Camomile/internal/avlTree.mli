@@ -36,11 +36,8 @@
 type +'a tree
 
 val empty : 'a tree
-
 val is_empty : 'a tree -> bool
-
 val make_tree : 'a tree -> 'a -> 'a tree -> 'a tree
-
 val height : 'a tree -> int
 
 (* If tree is empty, then raise Not_found *)
@@ -52,9 +49,6 @@ val root : 'a tree -> 'a
 val singleton_tree : 'a -> 'a tree
 val split_leftmost : 'a tree -> 'a * 'a tree
 val split_rightmost : 'a tree -> 'a * 'a tree
-
 val concat : 'a tree -> 'a tree -> 'a tree
-
 val iter : ('a -> unit) -> 'a tree -> unit
-
 val fold : ('a -> 'b -> 'b) -> 'a tree -> 'b -> 'b

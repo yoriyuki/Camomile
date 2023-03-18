@@ -23,6 +23,7 @@ module DefaultConfig = CamomileDefaultConfig
 
 (** Individual modules *)
 module OOChannel = OOChannel
+
 module UChar = UChar
 module USet = USet
 module UMap = UMap
@@ -44,8 +45,9 @@ module UNF = UNF
 module UCol = UCol
 module CaseMap = CaseMap
 module UReStr = UReStr
-module StringPrep = StringPrep
+
 (** All-in-one, configure once at beginning module*)
+module StringPrep = StringPrep
 
 module type Type = sig
   module OOChannel : module type of OOChannel
@@ -69,6 +71,7 @@ module type Type = sig
 
   module UNF : sig
     module type Type = UNF.Type
+
     module Make (Text : UnicodeString.Type) :
       Type with type text = Text.t and type index = Text.index
   end
@@ -76,10 +79,7 @@ module type Type = sig
   module UCol : sig
     (** How variables are handled *)
     type variable_option =
-      [ `Blanked
-      | `Non_ignorable
-      | `Shifted
-      | `Shift_Trimmed ]
+      [ `Blanked | `Non_ignorable | `Shifted | `Shift_Trimmed ]
 
     (** Strength of comparison.  For European languages, each strength
         roughly means as
@@ -91,25 +91,27 @@ module type Type = sig
     type precision = [ `Primary | `Secondary | `Tertiary | `Quaternary ]
 
     module type Type = UCol.Type
+
     module Make (Text : UnicodeString.Type) :
       Type with type text = Text.t and type index = Text.index
   end
 
   module CaseMap : sig
     module type Type = CaseMap.Type
-    module Make  (Text : UnicodeString.Type) : (Type with type text = Text.t)
+
+    module Make (Text : UnicodeString.Type) : Type with type text = Text.t
   end
 
   module UReStr : UReStr.Interface
 
   module StringPrep : sig
     module type Type = StringPrep.Type
-    module Make  (Text : UnicodeString.Type) : (Type with type text = Text.t)
-  end
 
+    module Make (Text : UnicodeString.Type) : Type with type text = Text.t
+  end
 end
 
-module Make(Config : ConfigInt.Type) = struct
+module Make (Config : ConfigInt.Type) = struct
   module OOChannel = OOChannel
   module UChar = UChar
   module USet = USet
@@ -121,39 +123,42 @@ module Make(Config : ConfigInt.Type) = struct
   module SubText = SubText
   module ULine = ULine
   module Locale = Locale
-  module CharEncoding = CharEncoding.Configure(Config)
+  module CharEncoding = CharEncoding.Configure (Config)
   module UTF8 = UTF8
   module UTF16 = UTF16
   module UCS4 = UCS4
   module UPervasives = UPervasives
   module URe = URe
-  module UCharInfo =  UCharInfo.Make(Config)
+  module UCharInfo = UCharInfo.Make (Config)
 
   module UNF = struct
     module type Type = UNF.Type
-    module Make = UNF.Make(Config)
+
+    module Make = UNF.Make (Config)
   end
 
   module UCol = struct
     type variable_option =
-      [ `Blanked
-      | `Non_ignorable
-      | `Shifted
-      | `Shift_Trimmed ]
+      [ `Blanked | `Non_ignorable | `Shifted | `Shift_Trimmed ]
+
     type precision = [ `Primary | `Secondary | `Tertiary | `Quaternary ]
+
     module type Type = UCol.Type
-    module Make = UCol.Make(Config)
+
+    module Make = UCol.Make (Config)
   end
 
   module CaseMap = struct
     module type Type = CaseMap.Type
-    module Make = CaseMap.Make(Config)
+
+    module Make = CaseMap.Make (Config)
   end
 
-  module UReStr = UReStr.Configure(Config)
+  module UReStr = UReStr.Configure (Config)
 
   module StringPrep = struct
     module type Type = StringPrep.Type
-    module Make = StringPrep.Make(Config)
+
+    module Make = StringPrep.Make (Config)
   end
 end

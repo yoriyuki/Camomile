@@ -6,5 +6,6 @@
  (flags -I Camomile :standard)
  (libraries camomile camomile.library bigarray str))
 
-(ocamllex  colLexer)
+(ocamllex colLexer)
+
 (ocamlyacc colParser)

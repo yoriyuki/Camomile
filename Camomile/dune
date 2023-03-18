@@ -4,19 +4,27 @@
    (:standard -w -3))))
 
 ;; Default config, overridden by the configure.ml script
+
 (rule
  (targets installConfig.ml)
  (mode fallback)
- (action (with-stdout-to %{targets}
-          (echo "let share_dir = \"/usr/share/camomile\""))))
+ (action
+  (with-stdout-to
+   %{targets}
+   (echo "let share_dir = \"/usr/share/camomile\""))))
 
 (library
  (name camomileLibrary)
  (public_name camomile.library)
  (wrapped true)
- (libraries bigarray (re_export camlp-streams) camomileDefaultConfig)
+ (libraries
+  bigarray
+  (re_export camlp-streams)
+  camomileDefaultConfig)
  (modules
-  :standard \ camomileDefaultConfig
+  :standard
+  \
+  camomileDefaultConfig
   camomile_do_not_use
   installConfig
   camomileLibraryDyn

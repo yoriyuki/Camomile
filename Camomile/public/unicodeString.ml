@@ -74,7 +74,6 @@ module type Type = sig
 
   (* [out_of_range t i] tests whether [i] is inside of [t]. *)
   val out_of_range : t -> index -> bool
-
   val iter : (UChar.t -> unit) -> t -> unit
 
   (* Code point comparison *)

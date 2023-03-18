@@ -42,16 +42,16 @@
 type mutability = [ `Mutable | `Immutable ]
 
 type 'a text
-type utext = [`Immutable] text
-type ustring = [`Mutable] text
+type utext = [ `Immutable ] text
+type ustring = [ `Mutable ] text
 type t = utext
 
 val utext_of_ustring : ustring -> utext
 val ustring_of_utext : utext -> ustring
-val get :  'a text -> int -> UChar.t
+val get : 'a text -> int -> UChar.t
 
 (** [set s i u] sets the [i]-th character in [s] to [u]. *)
-val set :  ustring -> int -> UChar.t -> unit
+val set : ustring -> int -> UChar.t -> unit
 
 type index
 
@@ -64,7 +64,6 @@ val compare_index : 'a text -> index -> index -> int
 val next : 'a text -> index -> index
 val prev : 'a text -> index -> index
 val move : 'a text -> index -> int -> index
-
 val length : 'a text -> int
 
 (** Conversion from Latin-1 strings. *)
@@ -76,6 +75,7 @@ val init_ustring : int -> (int -> UChar.t) -> ustring
 (** The semantics of these function are similar to 
     the equivalents of string. *)
 val make : int -> UChar.t -> ustring
+
 val copy : ustring -> ustring
 val sub : 'a text -> int -> int -> 'a text
 val fill : ustring -> int -> int -> UChar.t -> unit

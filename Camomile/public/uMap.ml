@@ -1,4 +1,4 @@
-(** Maps over Unicode characters. *) 
+(** Maps over Unicode characters. *)
 
 (* Copyright (C) 2002, 2003 Yamagata Yoriyuki. *)
 
@@ -34,12 +34,10 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-
 include IMap
 
 let umap_of_imap m = m
 let imap_of_umap m = m
-
 let add ?eq u v m = IMap.add ?eq (UChar.uint_code u) v m
 
 let add_range ?eq u1 u2 v m =
@@ -53,10 +51,8 @@ let remove_range u1 u2 m =
 
 let from u m = IMap.from (UChar.uint_code u) m
 let after u m = IMap.after (UChar.uint_code u) m
-
 let until u m = IMap.until (UChar.uint_code u) m
 let before u m = IMap.before (UChar.uint_code u) m
-
 let mem u m = IMap.mem (UChar.uint_code u) m
 
 let iter f m =
@@ -64,8 +60,7 @@ let iter f m =
   IMap.iter f' m
 
 let iter_range f m =
-  let f' n1 n2 = 
-    f (UChar.chr_of_uint n1) (UChar.chr_of_uint n2) in
+  let f' n1 n2 = f (UChar.chr_of_uint n1) (UChar.chr_of_uint n2) in
   IMap.iter_range f' m
 
 let fold f m a =
@@ -73,8 +68,7 @@ let fold f m a =
   IMap.fold f' m a
 
 let fold_range f m a =
-  let f' n1 n2 v a = 
-    f (UChar.chr_of_uint n1) (UChar.chr_of_uint n2) v a in
+  let f' n1 n2 v a = f (UChar.chr_of_uint n1) (UChar.chr_of_uint n2) v a in
   IMap.fold_range f' m a
 
 let mapi ?eq f m =
@@ -82,7 +76,5 @@ let mapi ?eq f m =
   IMap.mapi ?eq f' m
 
 let set_to_map s = IMap.set_to_map (USet.iset_of_uset s)
-
 let domain m = USet.uset_of_iset (IMap.domain m)
-
 let map_to_set p m = USet.uset_of_iset (IMap.map_to_set p m)

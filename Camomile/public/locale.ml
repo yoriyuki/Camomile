@@ -32,23 +32,20 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-
 type t = string
 
 let rec parse_locale_aux i s =
-  let i' =
-    try String.index_from s i '_'
-    with Not_found -> String.length s
-  in
-  String.sub s i (i' - i) ::
-  if i' >= String.length s then [] else
-  if i' = String.length s - 1 then [""] else
-    parse_locale_aux (i' + 1) s
+  let i' = try String.index_from s i '_' with Not_found -> String.length s in
+  String.sub s i (i' - i)
+  ::
+  (if i' >= String.length s then []
+   else if i' = String.length s - 1 then [""]
+   else parse_locale_aux (i' + 1) s)
 
 let parse_locale = parse_locale_aux 0
 
 let rec cut_last = function
-    [] -> assert false
+  | [] -> assert false
   | [_] -> []
   | x :: rest -> x :: cut_last rest
 
@@ -56,22 +53,21 @@ let read root suffix reader locale =
   let locale_path = parse_locale locale in
   let rec search locale_path =
     let basename =
-      if locale_path = [] then "root" else
-        String.concat "_" locale_path
+      if locale_path = [] then "root" else String.concat "_" locale_path
     in
-    try Database.read root suffix reader basename with
-      Not_found ->
-      if locale_path = [] then raise Not_found else
-        search (cut_last locale_path)
+    try Database.read root suffix reader basename
+    with Not_found ->
+      if locale_path = [] then raise Not_found
+      else search (cut_last locale_path)
   in
   search locale_path
 
 let rec list_contain l1 l2 =
-  match l1, l2 with
-    [], _ -> true
-  | _, [] -> false
-  | x1 :: rest1, x2 :: rest2 ->
-    if x1 = x2 then list_contain rest1 rest2 else false
+  match (l1, l2) with
+    | [], _ -> true
+    | _, [] -> false
+    | x1 :: rest1, x2 :: rest2 ->
+        if x1 = x2 then list_contain rest1 rest2 else false
 
 let contain loc1 loc2 =
   let l1 = parse_locale loc1 in

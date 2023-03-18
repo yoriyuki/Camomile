@@ -36,8 +36,7 @@
     The characters must be 21-bits code points, and not surrogate points,
     0xfffe, 0xffff.
     Bigarray.cma or Bigarray.cmxa must be linked when this module is used. *)
-type t = 
-  (int, Bigarray.int16_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t
+type t = (int, Bigarray.int16_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t
 
 exception Malformed_code
 
@@ -121,7 +120,6 @@ val prev : t -> index -> index
    - If n >= 0, returns [n]-th Unicode character after [i].
    - If n < 0, returns [-n]-th Unicode character before [i].
    0 If there is no such character, the result is unspecified.
-
 *)
 val move : t -> index -> int -> index
 
@@ -138,7 +136,7 @@ val compare : t -> t -> int
 module Buf : sig
   type buf
 
-  (** create n : creates the buffer with the initial size [n]. *)   
+  (** create n : creates the buffer with the initial size [n]. *)
   val create : int -> buf
 
   (** The rest of functions is similar to the ones of Buffer in stdlib. *)

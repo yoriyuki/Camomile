@@ -35,7 +35,6 @@
 (* yoriyuki.y@gmail.com *)
 
 module type Type = sig
-
   (** Character Information *)
 
   (** Type of Unicode general character categories.
@@ -71,43 +70,43 @@ module type Type = sig
       - [`Sk] : Symbol, Modifier
       - [`So] : Symbol, Other  *)
   type general_category_type =
-    [ `Lu		(** Letter, Uppercase *)
-    | `Ll		(** Letter, Lowercase *)
-    | `Lt		(** Letter, Titlecase *)
-    | `Mn		(** Mark, Non-Spacing *)
-    | `Mc		(** Mark, Spacing Combining *)
-    | `Me		(** Mark, Enclosing *)
-    | `Nd		(** Number, Decimal Digit *)
-    | `Nl		(** Number, Letter *)
-    | `No		(** Number, Other *)
-    | `Zs		(** Separator, Space *)
-    | `Zl		(** Separator, Line *)
-    | `Zp		(** Separator, Paragraph *)
-    | `Cc		(** Other, Control *)
-    | `Cf		(** Other, Format *)
-    | `Cs		(** Other, Surrogate *)
-    | `Co		(** Other, Private Use *)
-    | `Cn		(** Other, Not Assigned *)
-    | `Lm		(** Letter, Modifier *)
-    | `Lo		(** Letter, Other *)
-    | `Pc		(** Punctuation, Connector *)
-    | `Pd		(** Punctuation, Dash *)
-    | `Ps		(** Punctuation, Open *)
-    | `Pe		(** Punctuation, Close *)
-    | `Pi		(** Punctuation, Initial quote  *)
-    | `Pf		(** Punctuation, Final quote  *)
-    | `Po		(** Punctuation, Other *)
-    | `Sm		(** Symbol, Math *)
-    | `Sc		(** Symbol, Currency *)
-    | `Sk		(** Symbol, Modifier *)
-    | `So	        (** Symbol, Other *) ]
+    [ `Lu  (** Letter, Uppercase *)
+    | `Ll  (** Letter, Lowercase *)
+    | `Lt  (** Letter, Titlecase *)
+    | `Mn  (** Mark, Non-Spacing *)
+    | `Mc  (** Mark, Spacing Combining *)
+    | `Me  (** Mark, Enclosing *)
+    | `Nd  (** Number, Decimal Digit *)
+    | `Nl  (** Number, Letter *)
+    | `No  (** Number, Other *)
+    | `Zs  (** Separator, Space *)
+    | `Zl  (** Separator, Line *)
+    | `Zp  (** Separator, Paragraph *)
+    | `Cc  (** Other, Control *)
+    | `Cf  (** Other, Format *)
+    | `Cs  (** Other, Surrogate *)
+    | `Co  (** Other, Private Use *)
+    | `Cn  (** Other, Not Assigned *)
+    | `Lm  (** Letter, Modifier *)
+    | `Lo  (** Letter, Other *)
+    | `Pc  (** Punctuation, Connector *)
+    | `Pd  (** Punctuation, Dash *)
+    | `Ps  (** Punctuation, Open *)
+    | `Pe  (** Punctuation, Close *)
+    | `Pi  (** Punctuation, Initial quote  *)
+    | `Pf  (** Punctuation, Final quote  *)
+    | `Po  (** Punctuation, Other *)
+    | `Sm  (** Symbol, Math *)
+    | `Sc  (** Symbol, Currency *)
+    | `Sk  (** Symbol, Modifier *)
+    | `So  (** Symbol, Other *) ]
 
   val general_category : UChar.t -> general_category_type
   val load_general_category_map : unit -> general_category_type UMap.t
 
   (** Type of character properties *)
   type character_property_type =
-    [ `Math (**Derived Core Properties*)
+    [ `Math  (**Derived Core Properties*)
     | `Alphabetic
     | `Lowercase
     | `Uppercase
@@ -118,8 +117,7 @@ module type Type = sig
     | `Default_Ignorable_Code_Point
     | `Grapheme_Extend
     | `Grapheme_Base
-
-    | `Bidi_Control (**Extended Properties*)
+    | `Bidi_Control  (**Extended Properties*)
     | `White_Space
     | `Hyphen
     | `Quotation_Mark
@@ -214,7 +212,7 @@ module type Type = sig
 
   (** age *)
   type version_type =
-    [ `Nc		(** undefined code point *)
+    [ `Nc  (** undefined code point *)
     | `v1_0
     | `v1_1
     | `v2_0
@@ -244,11 +242,12 @@ module type Type = sig
     | `BeforeDot
     | `Not of casemap_condition ]
 
-  type special_casing_property =
-    {lower : UChar.t list;
-     title : UChar.t list;
-     upper : UChar.t list;
-     condition : casemap_condition list;}
+  type special_casing_property = {
+    lower : UChar.t list;
+    title : UChar.t list;
+    upper : UChar.t list;
+    condition : casemap_condition list;
+  }
 
   val load_conditional_casing_tbl :
     unit -> special_casing_property list UCharTbl.t
@@ -264,13 +263,27 @@ module type Type = sig
 
   (** Types of decomposition. *)
   type decomposition_type =
-    [ `Canon | `Font | `NoBreak | `Initial | `Medial | `Final |
-      `Isolated | `Circle | `Super | `Sub | `Vertical | `Wide | `Narrow |
-      `Small | `Square | `Fraction | `Compat ]
+    [ `Canon
+    | `Font
+    | `NoBreak
+    | `Initial
+    | `Medial
+    | `Final
+    | `Isolated
+    | `Circle
+    | `Super
+    | `Sub
+    | `Vertical
+    | `Wide
+    | `Narrow
+    | `Small
+    | `Square
+    | `Fraction
+    | `Compat ]
 
   type decomposition_info =
-    [ `Canonform (** Already in the canonical form *)
-    | `HangulSyllable (** Hangul is treated algotighmically.*)
+    [ `Canonform  (** Already in the canonical form *)
+    | `HangulSyllable  (** Hangul is treated algotighmically.*)
     | `Composite of decomposition_type * UChar.t list
       (** [`Composite (dtype, text)] means the given character is decomposed into
           text by dtype decomposition. *)
@@ -288,7 +301,6 @@ module type Type = sig
 
   (** Whether the given composed character is used in NFC or NFKC *)
   val load_composition_exclusion_tbl : unit -> UCharTbl.Bool.t
-
 end
 
 module Make (_ : ConfigInt.Type) : Type

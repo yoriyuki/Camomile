@@ -1,4 +1,4 @@
-(** The program which prepairs data for StringPrep. *) 
+(** The program which prepairs data for StringPrep. *)
 
 (* Copyright (C) 2010 Pierre Chambart  *)
 (*               2011 Yoriyuki Yamagata *)
@@ -42,134 +42,120 @@ let hashcons_list =
   let tbl = Hashtbl.create 10 in
   let rec f = function
     | [] -> []
-    | h::q as l ->
-      try
-        Hashtbl.find tbl l
-      with
-      | Not_found ->
-        let q = f q in
-        let l = h::q in
-        Hashtbl.add tbl l l;
-        l
+    | h :: q as l -> (
+        try Hashtbl.find tbl l
+        with Not_found ->
+          let q = f q in
+          let l = h :: q in
+          Hashtbl.add tbl l l;
+          l)
   in
   f
 
 let hashcons_mapping =
   let tbl = Hashtbl.create 10 in
   fun x ->
-    try
-      Hashtbl.find tbl x
-    with
-    | Not_found ->
+    try Hashtbl.find tbl x
+    with Not_found -> (
       match x with
-      | StringPrep_data.Diff _ ->
-        Hashtbl.add tbl x x;
-        x
-      | StringPrep_data.List l ->
-        let x = StringPrep_data.List (hashcons_list l) in
-        Hashtbl.add tbl x x;
-        x
+        | StringPrep_data.Diff _ ->
+            Hashtbl.add tbl x x;
+            x
+        | StringPrep_data.List l ->
+            let x = StringPrep_data.List (hashcons_list l) in
+            Hashtbl.add tbl x x;
+            x)
 
 let input_dir = ref ""
 let output_dir = ref ""
 
-let () = Arg.parse ["-in",Arg.Set_string input_dir,"input directory";
-                    "-out",Arg.Set_string output_dir,"output directory"]
-    (fun _ -> ()) "Parse stringprep data file";
+let () =
+  Arg.parse
+    [
+      ("-in", Arg.Set_string input_dir, "input directory");
+      ("-out", Arg.Set_string output_dir, "output directory");
+    ]
+    (fun _ -> ())
+    "Parse stringprep data file"
 
-module MappingHash =
-struct
+module MappingHash = struct
   type t = StringPrep_data.mapping
+
   let hash = Hashtbl.hash
-  let equal = (=)
+  let equal = ( = )
 end
 
-module MappingMap = UCharTbl.Make ( MappingHash )
+module MappingMap = UCharTbl.Make (MappingHash)
 
 let mapping_of_list index = function
-  | [value] -> StringPrep_data.Diff ((UChar.code value) - (UChar.code index))
+  | [value] -> StringPrep_data.Diff (UChar.code value - UChar.code index)
   | l -> StringPrep_data.List l
 
 let umap_of_list l =
-  let f map (index,l) =
+  let f map (index, l) =
     let mapping = hashcons_mapping (mapping_of_list index l) in
-    UMap.add ( index) mapping map
+    UMap.add index mapping map
   in
   List.fold_left f UMap.empty l
 
 let uset_of_list l =
-  let f s (x,y) = USet.add_range (UChar.of_int x) (UChar.of_int y) s in
+  let f s (x, y) = USet.add_range (UChar.of_int x) (UChar.of_int y) s in
   List.fold_left f USet.empty l
 
-let umap_union m1 m2 =
-  UMap.fold_range UMap.add_range m1 m2
-
-let char_of_string s =
-  UChar.chr_of_uint (int_of_string ("0x"^s))
-
-let pat_range =
-  Str.regexp "[ ]*\\([0-9A-Fa-f]+\\)-\\([0-9A-Fa-f]+\\)"
-let pat_single =
-  Str.regexp "[ ]*\\([0-9A-Fa-f]+\\)"
+let umap_union m1 m2 = UMap.fold_range UMap.add_range m1 m2
+let char_of_string s = UChar.chr_of_uint (int_of_string ("0x" ^ s))
+let pat_range = Str.regexp "[ ]*\\([0-9A-Fa-f]+\\)-\\([0-9A-Fa-f]+\\)"
+let pat_single = Str.regexp "[ ]*\\([0-9A-Fa-f]+\\)"
 
 let parse_set_line set s =
-  if Str.string_match pat_range s 0
-  then
+  if Str.string_match pat_range s 0 then (
     let u1 = char_of_string (Str.matched_group 1 s) in
     let u2 = char_of_string (Str.matched_group 2 s) in
-    USet.add_range u1 u2 set
-  else
+    USet.add_range u1 u2 set)
+  else (
     let _ = Str.string_match pat_single s 0 in
     let u = char_of_string (Str.matched_group 1 s) in
-    USet.add u set
+    USet.add u set)
 
 exception Ok of string
 
 let parse_set file =
   let c = open_in file in
   let rec parse set =
-    try
-      raise (Ok (input_line c))
-    with
-    | End_of_file -> set
-    | Ok s ->
-      let set = parse_set_line set s in
-      parse set
+    try raise (Ok (input_line c)) with
+      | End_of_file -> set
+      | Ok s ->
+          let set = parse_set_line set s in
+          parse set
   in
   parse USet.empty
 
-let pat_name =
-  Str.regexp "[ ]*\\([0-9A-Fa-f]+\\);"
-let pat_end =
-  Str.regexp "[ ]*;"
-let pat_letter =
-  Str.regexp " \\([0-9A-Fa-f]+\\)"
+let pat_name = Str.regexp "[ ]*\\([0-9A-Fa-f]+\\);"
+let pat_end = Str.regexp "[ ]*;"
+let pat_letter = Str.regexp " \\([0-9A-Fa-f]+\\)"
 
 let parse_map_line s =
   let _ = Str.string_match pat_name s 0 in
   let name = char_of_string (Str.matched_group 1 s) in
   let pos = Str.match_end () in
   let rec f pos l =
-    if Str.string_match pat_end s pos
-    then List.rev l
-    else
+    if Str.string_match pat_end s pos then List.rev l
+    else (
       let _ = Str.string_match pat_letter s pos in
       let c = char_of_string (Str.matched_group 1 s) in
       let pos = Str.match_end () in
-      f pos (c::l)
+      f pos (c :: l))
   in
-  name,f pos []
+  (name, f pos [])
 
 let parse_map file =
   let c = open_in file in
   let rec parse l =
-    try
-      raise (Ok (input_line c))
-    with
-    | End_of_file -> l
-    | Ok s ->
-      let line = parse_map_line s in
-      parse (line::l)
+    try raise (Ok (input_line c)) with
+      | End_of_file -> l
+      | Ok s ->
+          let line = parse_map_line s in
+          parse (line :: l)
   in
   parse []
 
@@ -187,38 +173,32 @@ let c8 = parse_set (Filename.concat !input_dir "/c8")
 let c9 = parse_set (Filename.concat !input_dir "/c9")
 let d1 = parse_set (Filename.concat !input_dir "/d1")
 let d2 = parse_set (Filename.concat !input_dir "/d2")
-
 let b1_list = parse_map (Filename.concat !input_dir "/b1")
 let b2_list = parse_map (Filename.concat !input_dir "/b2")
-
 let b1 = umap_of_list b1_list
 let b2 = umap_of_list b2_list
 
 let nodeprep_prohibited_list =
-  [ 0x0022;
-    0x0026;
-    0x0027;
-    0x002F;
-    0x003A;
-    0x003C;
-    0x003E;
-    0x0040; ]
-let nodeprep_prohibited_set = uset_of_list ( List.map ( fun x -> x,x ) nodeprep_prohibited_list )
+  [0x0022; 0x0026; 0x0027; 0x002F; 0x003A; 0x003C; 0x003E; 0x0040]
 
-let saslprep_map =
-  let f c map =
-    UMap.add c (mapping_of_list c [ UChar.of_int 0x0020 ]) map
-  in
-  USet.fold f c12 UMap.empty
+let nodeprep_prohibited_set =
+  uset_of_list (List.map (fun x -> (x, x)) nodeprep_prohibited_list)
+
 (** Non-ASCII space characters mapped to 0x0020 ( RFC 4013 ) *)
+let saslprep_map =
+  let f c map = UMap.add c (mapping_of_list c [UChar.of_int 0x0020]) map in
+  USet.fold f c12 UMap.empty
 
 let iscsi_prohibited_list =
-  [ 0x3002,0x3002;
-    0x0000,0x002C;
-    0x002F,0x002F;
-    0x003B,0x0040;
-    0x005B,0x0060;
-    0x007B,0x007F; ]
+  [
+    (0x3002, 0x3002);
+    (0x0000, 0x002C);
+    (0x002F, 0x002F);
+    (0x003B, 0x0040);
+    (0x005B, 0x0060);
+    (0x007B, 0x007F);
+  ]
+
 let iscsi_prohibited_set = uset_of_list iscsi_prohibited_list
 
 let make_map l =
@@ -229,20 +209,35 @@ let make_set l =
   let set = List.fold_left USet.union USet.empty l in
   UCharTbl.Bool.of_set set
 
-let map_b1b2 = make_map [b1;b2]
+let map_b1b2 = make_map [b1; b2]
 let map_b1 = make_map [b1]
-let saslprep_map = make_map [b1;saslprep_map]
-let nodeprep_prohibited = make_set [a1;c11;c12;c21;c22;c3;c4;c5;c6;c7;c8;c9;nodeprep_prohibited_set]
-let resourceprep_prohibited = make_set [a1;c12;c21;c22;c3;c4;c5;c6;c7;c8;c9]
-let nameprep_prohibited = make_set [a1;c12;c22;c3;c4;c5;c6;c7;c8;c9]
-let saslprep_prohibited = make_set [a1;c12;c21;c22;c3;c4;c5;c6;c7;c8;c9]
-let trace_prohibited = make_set [c21;c22;c3;c4;c5;c6;c8;c9]
-let iscsi_prohibited = make_set [a1;c11;c12;c21;c22;c3;c4;c5;c6;c7;c8;c9;iscsi_prohibited_set]
-let mib_prohibited = make_set [a1;c21;c22;c3;c4;c5;c6;c7;c8;c9]
+let saslprep_map = make_map [b1; saslprep_map]
+
+let nodeprep_prohibited =
+  make_set
+    [
+      a1; c11; c12; c21; c22; c3; c4; c5; c6; c7; c8; c9; nodeprep_prohibited_set;
+    ]
+
+let resourceprep_prohibited =
+  make_set [a1; c12; c21; c22; c3; c4; c5; c6; c7; c8; c9]
+
+let nameprep_prohibited = make_set [a1; c12; c22; c3; c4; c5; c6; c7; c8; c9]
+
+let saslprep_prohibited =
+  make_set [a1; c12; c21; c22; c3; c4; c5; c6; c7; c8; c9]
+
+let trace_prohibited = make_set [c21; c22; c3; c4; c5; c6; c8; c9]
+
+let iscsi_prohibited =
+  make_set
+    [a1; c11; c12; c21; c22; c3; c4; c5; c6; c7; c8; c9; iscsi_prohibited_set]
+
+let mib_prohibited = make_set [a1; c21; c22; c3; c4; c5; c6; c7; c8; c9]
 let d1_table = make_set [d1]
 let d2_table = make_set [d2]
-
-let write name value = Database.write !output_dir "mar" output_value name value;;
+let write name value = Database.write !output_dir "mar" output_value name value
+;;
 
 write "map_b1b2" map_b1b2;
 write "map_b1" map_b1;
@@ -255,5 +250,4 @@ write "trace_prohibited" trace_prohibited;
 write "iscsi_prohibited" iscsi_prohibited;
 write "mib_prohibited" mib_prohibited;
 write "d1" d1_table;
-write "d2" d2_table;
-
+write "d2" d2_table

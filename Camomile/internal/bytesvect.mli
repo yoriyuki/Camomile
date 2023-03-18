@@ -33,8 +33,8 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-
 type t
+
 val get : t -> int -> int
 val unsafe_get : t -> int -> int
 val set : t -> int -> int -> unit
@@ -42,6 +42,5 @@ val make : int -> int -> t
 val copy : t -> t
 val iteri : (int -> int -> unit) -> t -> unit
 val length : t -> int
-
 val set_id : t -> int -> unit
 val id : t -> int

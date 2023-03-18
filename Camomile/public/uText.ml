@@ -35,12 +35,12 @@
 (* yoriyuki.y@gmail.com *)
 
 include Array
-type mutability = [ `Mutable | `Immutable ]
 
+type mutability = [ `Mutable | `Immutable ]
 type 'a text = UChar.t array
-type utext = [`Imutable] text
+type utext = [ `Imutable ] text
 type t = utext
-type ustring = [`Mutable] text
+type ustring = [ `Mutable ] text
 
 let utext_of_ustring = Array.copy
 let ustring_of_utext = Array.copy
@@ -56,25 +56,21 @@ let next _ i = i + 1
 let prev _ i = i - 1
 let move _ i n = i + n
 let compare_index _ (i : int) (j : int) = i - j
-
 let make len init = Array.make len init
-
 let init_ustring = init
-
 let of_string s = init (String.length s) (fun i -> UChar.of_char s.[i])
 
 let rec compare_aux i t1 t2 =
-  if i >= length t1 then
-    if i >= length t2 then 0 else ~-1
-  else if i >= length t2 then 1 else
+  if i >= length t1 then if i >= length t2 then 0 else ~-1
+  else if i >= length t2 then 1
+  else (
     match UChar.compare (get t1 i) (get t2 i) with
-      0 -> compare_aux (i + 1) t1 t2
-    | sgn -> sgn
+      | 0 -> compare_aux (i + 1) t1 t2
+      | sgn -> sgn)
 
 let compare t1 t2 = compare_aux 0 t1 t2
 
-module Buf =
-struct
+module Buf = struct
   include XArray
 
   type buf = UChar.t xarray

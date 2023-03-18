@@ -45,6 +45,7 @@ val length : xstring -> int
 val init : int -> (int -> UChar.t) -> xstring
 
 type index
+
 val look : xstring -> index -> UChar.t
 val nth : xstring -> int -> index
 val first : xstring -> index
@@ -54,7 +55,6 @@ val next : xstring -> index -> index
 val prev : xstring -> index -> index
 val move : xstring -> index -> int -> index
 val compare_index : xstring -> index -> index -> int
-
 val make : ?bufsize:int -> int -> UChar.t -> xstring
 val clear : xstring -> unit
 val reset : xstring -> unit
@@ -67,12 +67,12 @@ val shrink : xstring -> int -> unit
 val append : xstring -> xstring -> xstring
 val utext_of : xstring -> UText.t
 val ustring_of : xstring -> UText.ustring
-
 val iter : (UChar.t -> unit) -> xstring -> unit
 val compare : t -> t -> int
 
 module Buf : sig
   type buf
+
   val create : int -> buf
   val contents : buf -> t
   val length : buf -> int

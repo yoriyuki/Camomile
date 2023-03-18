@@ -40,115 +40,122 @@ let parse_arg () =
   let dir = ref "." in
   let file = ref None in
   let helptext =
-    "camomilecharmap[.byte, .opt] -d outputpath file:
-      reads charmap from file and places output to outputpath."
+    "camomilecharmap[.byte, .opt] -d outputpath file:\n\
+    \      reads charmap from file and places output to outputpath."
   in
   Arg.parse
-    [("-d",
-      Arg.String ((:=) dir),
-      "[directory]\toutputpath")]
+    [("-d", Arg.String (( := ) dir), "[directory]\toutputpath")]
     (fun s ->
-       if !file <> None then failwith "Too many arguments" else
-         file := Some s)
+      if !file <> None then failwith "Too many arguments" else file := Some s)
     helptext;
   (!file, !dir)
 
 let escape_char = ref '/'
 let comment_char = ref '#'
-
 let blank_pat = Str.regexp "[ \t]+"
 let empty_line = Str.regexp "[ \t]*$"
 let alias_pat = Str.regexp ".[ \t]*alias[ \t]+\\(.*\\)$"
 
-let entry_pat = Str.regexp
-    "\\(.IRREVERSIBLE.\\)?<U\\([0-9A-F]*\\)>[ \t]+\\([^ \t]*\\)"
+let entry_pat =
+  Str.regexp "\\(.IRREVERSIBLE.\\)?<U\\([0-9A-F]*\\)>[ \t]+\\([^ \t]*\\)"
 
-let range_pat = Str.regexp
-    "\\(.IRREVERSIBLE.\\)?<U\\([0-9A-F]*\\)>\\.\\.<U\\([0-9A-F]*\\)>[ \t]+\\([^ \t]*\\)"
+let range_pat =
+  Str.regexp
+    "\\(.IRREVERSIBLE.\\)?<U\\([0-9A-F]*\\)>\\.\\.<U\\([0-9A-F]*\\)>[ \
+     \t]+\\([^ \t]*\\)"
 
 exception Break
 
 let begin_with s s' =
-  if String.length s' < String.length s then false else
-    try for i = 0 to (String.length s) - 1 do
+  if String.length s' < String.length s then false
+  else (
+    try
+      for i = 0 to String.length s - 1 do
         if s.[i] <> s'.[i] then raise Break
       done;
       true
-    with Break -> false
+    with Break -> false)
 
 let parse_header file inchan =
   let codeset_name = ref file in
   let aliases = ref [] in
   let unread_line = ref None in
-  try while true do
+  try
+    while true do
       let s = input_line inchan in
       if begin_with "<code_set_name>" s then begin
         codeset_name := Some (List.nth (Str.split blank_pat s) 1)
-      end else if begin_with "<comment_char>" s then
+      end
+      else if begin_with "<comment_char>" s then
         comment_char := (List.nth (Str.split blank_pat s) 1).[0]
       else if begin_with "<escape_char>" s then
         escape_char := (List.nth (Str.split blank_pat s) 1).[0]
       else if begin_with "<mb_cur_min>" s then ()
       else if begin_with "<mb_cur_max>" s then ()
-      else if Str.string_match alias_pat s 0 then
+      else if Str.string_match alias_pat s 0 then (
         let a = Str.split blank_pat (Str.matched_group 1 s) in
-        aliases := a @ !aliases
+        aliases := a @ !aliases)
       else if begin_with "CHARMAP" s then raise Break
       else if Str.string_match empty_line s 0 || s.[0] = !comment_char then ()
-      else begin unread_line := Some s; raise Break end
-    done; assert false with Break ->
-  match !codeset_name with
-    None -> failwith "Codeset name is not defined"
-  | Some s -> s, !aliases, unread_line
+      else begin
+        unread_line := Some s;
+        raise Break
+      end
+    done;
+    assert false
+  with Break -> (
+    match !codeset_name with
+      | None -> failwith "Codeset name is not defined"
+      | Some s -> (s, !aliases, unread_line))
 
 let zero = Char.code '0'
 
 let rec int_of_hex s i j =
   let n = Char.code s.[i] in
   let n =
-    if n >= 48 && n <= 57 then n - 48 else
-    if n >= 65 && n <= 70 then n - 55 else
-    if n >= 97 && n <= 102 then n - 87 else
-      invalid_arg "int_of_hex" in
-  if i >= j then n else
-    n lsl 4 lor (int_of_hex s (i + 1) j)
+    if n >= 48 && n <= 57 then n - 48
+    else if n >= 65 && n <= 70 then n - 55
+    else if n >= 97 && n <= 102 then n - 87
+    else invalid_arg "int_of_hex"
+  in
+  if i >= j then n else (n lsl 4) lor int_of_hex s (i + 1) j
 
 let int_of_oct s i j =
   let n = Char.code s.[i] - zero in
-  if n < 0 || n > 7 then invalid_arg "int_of_oct" else
-  if i >= j then n else
-    n lsl 3 lor (int_of_hex s (i + 1) j)
+  if n < 0 || n > 7 then invalid_arg "int_of_oct"
+  else if i >= j then n
+  else (n lsl 3) lor int_of_hex s (i + 1) j
 
 let int_of_dec s i j =
-  let n = Char.code s.[i]- zero in
-  if n < 0 || n > 9 then invalid_arg "int_of_oct" else
-  if i >= j then n else
-    n * 10 + (int_of_hex s (i + 1) j)
+  let n = Char.code s.[i] - zero in
+  if n < 0 || n > 9 then invalid_arg "int_of_oct"
+  else if i >= j then n
+  else (n * 10) + int_of_hex s (i + 1) j
 
 let get_enc s esc =
   let b = Buffer.create 1 in
   let rec loop i j =
     let n =
       match s.[i + 1] with
-      'x' -> int_of_hex s (i + 2) (j - 1)
-      | 'd' -> int_of_dec s (i + 2) (j - 1)
-      | _ -> int_of_oct s (i + 1) (j - 1) in
+        | 'x' -> int_of_hex s (i + 2) (j - 1)
+        | 'd' -> int_of_dec s (i + 2) (j - 1)
+        | _ -> int_of_oct s (i + 1) (j - 1)
+    in
     Buffer.add_char b (Char.chr n);
     let i = j in
-    if i >= String.length s then () else
+    if i >= String.length s then ()
+    else (
       let j =
-        try String.index_from s (i + 1) esc with
-          Not_found -> String.length s in
-      loop i j in
-  if s.[0] <> esc then invalid_arg ("get_enc: " ^ s) else
-    loop
-      0
-      (try String.index_from s 1 esc with Not_found ->
-         String.length s);
+        try String.index_from s (i + 1) esc with Not_found -> String.length s
+      in
+      loop i j)
+  in
+  if s.[0] <> esc then invalid_arg ("get_enc: " ^ s)
+  else
+    loop 0 (try String.index_from s 1 esc with Not_found -> String.length s);
   Buffer.contents b
 
-let int_of_name name = (int_of_string ("0x"^name))
-
+let int_of_name name = int_of_string ("0x" ^ name)
 let irreversible = Bytes.of_string ".IRREVERSIBLE."
 
 let is_irreversible s =
@@ -159,18 +166,22 @@ let is_irreversible s =
 let parse_body unread_line inchan =
   let enc2u = ref [] in
   let u2enc = ref IMap.empty in
-  try while true do
+  try
+    while true do
       let s =
         match !unread_line with
-          None -> input_line inchan
-        | Some s -> unread_line := None; s in
-      if Str.string_match entry_pat s 0 then
+          | None -> input_line inchan
+          | Some s ->
+              unread_line := None;
+              s
+      in
+      if Str.string_match entry_pat s 0 then (
         let n = int_of_name (Str.matched_group 2 s) in
         let enc = get_enc (Str.matched_group 3 s) !escape_char in
         enc2u := (enc, n) :: !enc2u;
         if not (is_irreversible s || IMap.mem n !u2enc) then
-          u2enc := IMap.add n enc !u2enc;
-      else if Str.string_match range_pat s 0 then
+          u2enc := IMap.add n enc !u2enc)
+      else if Str.string_match range_pat s 0 then (
         let n1 = int_of_name (Str.matched_group 2 s) in
         let n2 = int_of_name (Str.matched_group 3 s) in
         if n1 > n2 then failwith ("Broken range: " ^ s);
@@ -179,26 +190,25 @@ let parse_body unread_line inchan =
         for n = n1 to n2 do
           enc2u := (enc, n) :: !enc2u;
           if not (irreversible || IMap.mem n !u2enc) then
-            u2enc := IMap.add n enc !u2enc;
-        done
+            u2enc := IMap.add n enc !u2enc
+        done)
       else if Str.string_match empty_line s 0 || s.[0] = !comment_char then ()
-      else if begin_with "END CHARMAP" s then raise Break else
-        failwith ("Broken entry: " ^ s)
-    done; assert false with Break ->
-    !enc2u, !u2enc
+      else if begin_with "END CHARMAP" s then raise Break
+      else failwith ("Broken entry: " ^ s)
+    done;
+    assert false
+  with Break -> (!enc2u, !u2enc)
 
 module StringTbl = Tbl31.Make (struct
-    type t = string
-    let equal = (=)
-    let hash = Hashtbl.hash
-  end)
+  type t = string
+
+  let equal = ( = )
+  let hash = Hashtbl.hash
+end)
 
 let main () =
   let file, dir = parse_arg () in
-  let inchan =
-    match file with
-      None -> stdin
-    | Some file -> open_in file in
+  let inchan = match file with None -> stdin | Some file -> open_in file in
   let codeset_name, aliases, unread_line = parse_header file inchan in
   let enc2u, u2enc = parse_body unread_line inchan in
   let ucs_to_enc = StringTbl.of_map "" u2enc in
@@ -207,20 +217,20 @@ let main () =
     let rec scan i =
       let s = Tbl31.get ucs_to_enc i in
       (*    Printf.eprintf "%d - %s\n" i (String.escaped s); *)
-      match s with
-        "" -> i
-      | _ ->
-        if i > 255 then 0xffff else scan (i + 1)
-    in scan 0 in
+      match s with "" -> i | _ -> if i > 255 then 0xffff else scan (i + 1)
+    in
+    scan 0
+  in
   let enc_to_ucs = Toolslib.Charmap.make_enc_to_ucs no_char enc2u in
-  let data = Toolslib.Charmap.CMap
-      { Toolslib.Charmap
-        .name = codeset_name
-      ; ucs_to_enc = ucs_to_enc
-      ; enc_to_ucs = enc_to_ucs } in
+  let data =
+    Toolslib.Charmap.CMap
+      { Toolslib.Charmap.name = codeset_name; ucs_to_enc; enc_to_ucs }
+  in
   Database.write dir "mar" output_value codeset_name data;
-  List.iter (fun a ->
-      Database.write dir "mar" output_value a (Toolslib.Charmap.Alias codeset_name)
-    ) aliases
+  List.iter
+    (fun a ->
+      Database.write dir "mar" output_value a
+        (Toolslib.Charmap.Alias codeset_name))
+    aliases
 
 let () = main ()

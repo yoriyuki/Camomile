@@ -33,28 +33,23 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
+type mapping = Diff of int | List of UChar.t list
 
-type mapping =
-  | Diff of int
-  | List of UChar.t list
-
-module MappingHash =
-struct
+module MappingHash = struct
   type t = mapping
+
   let hash = Hashtbl.hash
-  let equal = (=)
+  let equal = ( = )
 end
 
-module MappingMap = UCharTbl.Make ( MappingHash )
+module MappingMap = UCharTbl.Make (MappingHash)
 
 let mapping_to_list index = function
-  | Diff (0) -> [index]
-  | Diff (diff) -> [UChar.of_int ((UChar.code index) + diff)]
+  | Diff 0 -> [index]
+  | Diff diff -> [UChar.of_int (UChar.code index + diff)]
   | List l -> l
 
-
-module type Type =
-sig
+module type Type = sig
   val map_b1b2 : unit -> MappingMap.t
   val map_b1 : unit -> MappingMap.t
   val saslprep_map : unit -> MappingMap.t
@@ -69,22 +64,19 @@ sig
   val d2 : unit -> UCharTbl.Bool.t
 end
 
-module Make(Config : ConfigInt.Type) : Type =
-struct
+module Make (Config : ConfigInt.Type) : Type = struct
+  module UData = Unidata.Make (Config)
 
-  module UData = Unidata.Make(Config)
-
-  let map_b1b2 ()                = UData.read_data "map_b1b2"
-  let map_b1 ()                  = UData.read_data "map_b1"
-  let saslprep_map ()            = UData.read_data "saslprep_map"
-  let nodeprep_prohibited ()     = UData.read_data "nodeprep_prohibited"
+  let map_b1b2 () = UData.read_data "map_b1b2"
+  let map_b1 () = UData.read_data "map_b1"
+  let saslprep_map () = UData.read_data "saslprep_map"
+  let nodeprep_prohibited () = UData.read_data "nodeprep_prohibited"
   let resourceprep_prohibited () = UData.read_data "resourceprep_prohibited"
-  let nameprep_prohibited ()     = UData.read_data "nameprep_prohibited"
-  let saslprep_prohibited ()     = UData.read_data "saslprep_prohibited"
-  let trace_prohibited ()        = UData.read_data "trace_prohibited"
-  let iscsi_prohibited ()        = UData.read_data "iscsi_prohibited"
-  let mib_prohibited ()          = UData.read_data "mib_prohibited"
-  let d1 ()                      = UData.read_data "d1"
-  let d2 ()                      = UData.read_data "d2"
-
+  let nameprep_prohibited () = UData.read_data "nameprep_prohibited"
+  let saslprep_prohibited () = UData.read_data "saslprep_prohibited"
+  let trace_prohibited () = UData.read_data "trace_prohibited"
+  let iscsi_prohibited () = UData.read_data "iscsi_prohibited"
+  let mib_prohibited () = UData.read_data "mib_prohibited"
+  let d1 () = UData.read_data "d1"
+  let d2 () = UData.read_data "d2"
 end

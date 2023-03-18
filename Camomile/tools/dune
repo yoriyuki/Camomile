@@ -6,15 +6,16 @@
 (include_subdirs no)
 
 (executables
- (names parse_unidata
-        parse_uniset
-        camomilecharmap
-        parse_specialcasing
-        parse_casefolding
-        parse_scripts
-        parse_allkeys
-        parse_age
-        camomilestringprep)
+ (names
+  parse_unidata
+  parse_uniset
+  camomilecharmap
+  parse_specialcasing
+  parse_casefolding
+  parse_scripts
+  parse_allkeys
+  parse_age
+  camomilestringprep)
  (flags -I Camomile :standard)
  (modules :standard \ camomilelocaledef camomilelocaledef_lexer iana)
  (libraries str toolslib camomile camomile.library))

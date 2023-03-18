@@ -32,11 +32,12 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-
 (** This module is a deprecated alias for CamomileLibraryDefault. Configuration
     using environment variables is no longer supported. *)
 
-[@@@ocaml.deprecated "Use CamomileLibraryDefault. Configuration using
-environment variables is ignored. This module just now aliases
-CamomileLibraryDefault"]
+[@@@ocaml.deprecated
+"Use CamomileLibraryDefault. Configuration using\n\
+ environment variables is ignored. This module just now aliases\n\
+ CamomileLibraryDefault"]
+
 include CamomileLibraryDefault

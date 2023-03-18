@@ -36,9 +36,11 @@ module type Interface = sig
   (** Module for character encodings. *)
   open OOChannel
 
-  exception Malformed_code (**Failure of decoding*)
+  (**Failure of decoding*)
+  exception Malformed_code
 
-  exception Out_of_range (**Failure of encoding*)
+  (**Failure of encoding*)
+  exception Out_of_range
 
   (** Type for encodings. *)
   type t
@@ -88,13 +90,12 @@ module type Interface = sig
 
   (** [recode_string ~in_enc ~out_enc s] 
       converts the string [s] from [in_enc] to [out_enc]. *)
-  val recode_string :
-    in_enc:t -> out_enc:t -> string -> string
+  val recode_string : in_enc:t -> out_enc:t -> string -> string
 
   (** [new uchar_input_channel_of enc c_in] creates the new intput
       channel which convert characters to Unicode using encoding
       [enc]. *)
-  class uchar_input_channel_of : 
+  class uchar_input_channel_of :
     t -> char_input_channel -> [UChar.t] obj_input_channel
 
   (** [new uchar_ouput_channel_of enc c_out] creates the new output
@@ -117,7 +118,7 @@ module type Interface = sig
   (** [new convert_input in_enc out_enc c_in] create the new input
       channel using encoding [out_enc] from the input channel using
       encoding [in_enc] *)
-  class convert_input : 
+  class convert_input :
     in_enc:t -> out_enc:t -> char_input_channel -> char_input_channel
 
   (** [new convert_ouput in_enc out_enc c_in] create the new output
@@ -145,8 +146,7 @@ module type Interface = sig
       [uchars] to the byte stream by the encoding [enc] *)
   val char_stream_of : t -> UChar.t Stream.t -> char Stream.t
 
-  module type Type =
-  sig
+  module type Type = sig
     type text
 
     (** [decode enc s] converts the string [s] encoded 
@@ -158,7 +158,7 @@ module type Interface = sig
     val encode : t -> text -> string
   end
 
-  module Make (Text : UnicodeString.Type) : (Type with type text = Text.t)
+  module Make (Text : UnicodeString.Type) : Type with type text = Text.t
 end
 
 module Configure (_ : ConfigInt.Type) : Interface

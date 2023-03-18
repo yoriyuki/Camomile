@@ -1,4 +1,4 @@
-(** Abstract total order *) 
+(** Abstract total order *)
 (* Copyright (C) 2002 Yamagata Yoriyuki *)
 
 (* This library is free software; you can redistribute it and/or *)
@@ -37,11 +37,15 @@ type point
 
 open CamomileLibrary.Private
 
-module IntSet : sig type t = ISet.t end
+module IntSet : sig
+  type t = ISet.t
+end
+
 module IntMap : Map.S with type key = int
 module Map : Map.S with type key = point
 
 type t
+
 val compare : point -> point -> t -> int
 val top : t -> point
 val bottom : t -> point

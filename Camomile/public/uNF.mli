@@ -34,8 +34,7 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-module type Type =
-sig
+module type Type = sig
   type text
 
   open OOChannel
@@ -52,10 +51,10 @@ sig
   val nfc : text -> text
   val nfkc : text -> text
 
-  module NFCBuf :  sig
+  module NFCBuf : sig
     type buf
-    val create : int -> buf
 
+    val create : int -> buf
     val contents : buf -> text
     val clear : buf -> unit
     val reset : buf -> unit
@@ -77,16 +76,13 @@ sig
 
   type index
 
-  val nfd_inc : 
-    text -> index -> 
-    ([`Inc of UChar.t list * index * 'a lazy_t ] as 'a)
+  val nfd_inc :
+    text -> index -> ([ `Inc of UChar.t list * index * 'a lazy_t ] as 'a)
 
   val canon_compare : text -> text -> int
-
   val nfd_decompose : UChar.t -> UChar.t list
   val nfkd_decompose : UChar.t -> UChar.t list
-
 end
 
-module Make  (_ : ConfigInt.Type) (Text : UnicodeString.Type) :
+module Make (_ : ConfigInt.Type) (Text : UnicodeString.Type) :
   Type with type text = Text.t and type index = Text.index

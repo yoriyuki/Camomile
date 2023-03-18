@@ -33,7 +33,6 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-
 class type ['a] obj_input_channel =
   object
     method get : unit -> 'a
@@ -47,17 +46,18 @@ class type ['a] obj_output_channel =
     method close_out : unit -> unit
   end
 
-class ['a] channel_of_stream s  =
+class ['a] channel_of_stream s =
   object
     val s = s
-    method get () :'a = 
+
+    method get () : 'a =
       try Stream.next s with Stream.Failure -> raise End_of_file
+
     method close_in () = ()
   end
 
 let stream_of_channel inchan =
-  Stream.from (fun _ ->
-      try Some (inchan#get()) with End_of_file -> None)
+  Stream.from (fun _ -> try Some (inchan#get ()) with End_of_file -> None)
 
 class type char_input_channel =
   object
@@ -75,12 +75,16 @@ class type char_output_channel =
 class char_input_channel_of (oc : char #obj_input_channel) =
   object
     method close_in () = oc#close_in ()
+
     method input b pos len =
       let p = ref pos in
-      (try while !p < pos + len do
-           Bytes.set b !p (oc#get());
-           incr p;
-         done; () with End_of_file -> ());
+      (try
+         while !p < pos + len do
+           Bytes.set b !p (oc#get ());
+           incr p
+         done;
+         ()
+       with End_of_file -> ());
       let len = !p - pos in
       if len <= 0 then raise End_of_file else len
   end
@@ -95,10 +99,12 @@ class char_obj_input_channel_of (ic : char_input_channel) =
         len := ic#input b 0 1024;
         pos := 0;
         self#get ()
-      end else
+      end
+      else (
         let c = Bytes.get b !pos in
         incr pos;
-        c
+        c)
+
     method close_in () = ic#close_in ()
   end
 
@@ -106,8 +112,11 @@ class char_output_channel_of (oc : char #obj_output_channel) =
   object
     method flush = oc#flush
     method close_out = oc#close_out
+
     method output b p len =
-      for i = p to p+len-1 do oc#put (Bytes.get b i) done;
+      for i = p to p + len - 1 do
+        oc#put (Bytes.get b i)
+      done;
       len
   end
 
@@ -118,29 +127,32 @@ class char_obj_output_channel_of (out : char_output_channel) =
     method put c =
       Bytes.set b !pos c;
       incr pos;
-      if !pos >= 1024 then 
+      if !pos >= 1024 then (
         let n = out#output b 0 1024 in
         Bytes.blit b n b 0 (1024 - n);
-        pos := 1024 - n
-    method flush () =    
+        pos := 1024 - n)
+
+    method flush () =
       let n = out#output b 0 !pos in
       if n < !pos then begin
         Bytes.blit b n b 0 (!pos - n);
-        pos := !pos -n;
-        failwith 
-          "OOChannel.char_output_channel_of#flush: \
-           Cannot flush the entire buffer";
-      end else
-        pos := 0
-    method close_out () = 
+        pos := !pos - n;
+        failwith
+          "OOChannel.char_output_channel_of#flush: Cannot flush the entire \
+           buffer"
+      end
+      else pos := 0
+
+    method close_out () =
       out#flush ();
-      out#close_out () 
+      out#close_out ()
   end
 
 class of_in_channel p_in =
   object
     method close_in () = close_in p_in
-    method input b p len = 
+
+    method input b p len =
       let len = input p_in b p len in
       if len = 0 then raise End_of_file else len
   end
@@ -148,6 +160,10 @@ class of_in_channel p_in =
 class of_out_channel p_out =
   object
     method close_out () = close_out p_out
-    method output b p len = output p_out b p len; len
+
+    method output b p len =
+      output p_out b p len;
+      len
+
     method flush () = flush p_out
   end

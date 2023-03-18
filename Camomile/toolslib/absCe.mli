@@ -47,7 +47,6 @@ type elt =
   | `FirstTrailing ]
 
 type ce
-
 type ceset
 
 module EltMap : Map.S with type key = elt
@@ -63,14 +62,14 @@ val prev : UCol.precision -> ce -> ceset -> ce
 val add_after : UCol.precision -> ce -> ceset -> ce * ceset
 val add_before : UCol.precision -> ce -> ceset -> ce * ceset
 val put : elt -> ce list -> ceset -> ceset
-
 val import : int list EltMap.t * int list EltMap.t * int list EltMap.t -> ceset
 
-type ace_info =
-  {ceset : ceset;
-   variable_option : UCol.variable_option;
-   french : bool;
-   hiraganaQ : bool}
+type ace_info = {
+  ceset : ceset;
+  variable_option : UCol.variable_option;
+  french : bool;
+  hiraganaQ : bool;
+}
 
 val create_ace_info :
   ?variable_option:UCol.variable_option ->
@@ -81,6 +80,4 @@ val create_ace_info :
 
 val cetbl_of : ace_info -> Toolslib.Unidata.col_info
 
-type aceset_info =
-  {lowercase_first_tbl : ceset;
-   uppercase_first_tbl : ceset}
+type aceset_info = { lowercase_first_tbl : ceset; uppercase_first_tbl : ceset }

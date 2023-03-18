@@ -35,8 +35,7 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-type t =
-  (int32, Bigarray.int32_elt, Bigarray.c_layout) Bigarray.Array1.t
+type t = (int32, Bigarray.int32_elt, Bigarray.c_layout) Bigarray.Array1.t
 
 exception Malformed_code
 
@@ -134,9 +133,7 @@ module Buf : sig
   val contents : buf -> t
   val clear : buf -> unit
   val reset : buf -> unit
-
   val add_char : buf -> UChar.t -> unit
-
   val add_string : buf -> t -> unit
   val add_buffer : buf -> buf -> unit
 end

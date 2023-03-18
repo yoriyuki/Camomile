@@ -36,6 +36,7 @@
 
 open CamomileLibrary
 open CamomileLibrary.Private
+
 let tbl_rw = ref USet.empty
 
 (* remove comments *)
@@ -47,40 +48,39 @@ let num_pat = Str.regexp "[0-9A-Za-z]+"
    if Str.string_match line_pat s 0 then Str.matched_group 1 s else s *)
 
 let use_line ?re line =
-  match re with
-  | None -> true
-  | Some re -> Str.string_match re line 0
+  match re with None -> true | Some re -> Str.string_match re line 0
 
 let read_data ?re ic =
-  try while true do
+  try
+    while true do
       let s = input_line ic in
-      if not (use_line ?re s) then
-        ()
-      else if Str.string_match range_pat s 0 then
-        let u1 = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_group 1 s))) in
-        let u2 = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_group 2 s))) in
-        tbl_rw := USet.add_range u1 u2 !tbl_rw
-      else if Str.string_match num_pat s 0 then
-        let u = UChar.chr_of_uint (int_of_string ("0x"^(Str.matched_string s))) in
-        tbl_rw := USet.add u !tbl_rw
+      if not (use_line ?re s) then ()
+      else if Str.string_match range_pat s 0 then (
+        let u1 =
+          UChar.chr_of_uint (int_of_string ("0x" ^ Str.matched_group 1 s))
+        in
+        let u2 =
+          UChar.chr_of_uint (int_of_string ("0x" ^ Str.matched_group 2 s))
+        in
+        tbl_rw := USet.add_range u1 u2 !tbl_rw)
+      else if Str.string_match num_pat s 0 then (
+        let u =
+          UChar.chr_of_uint (int_of_string ("0x" ^ Str.matched_string s))
+        in
+        tbl_rw := USet.add u !tbl_rw)
       else ()
-    done with End_of_file -> close_in ic
+    done
+  with End_of_file -> close_in ic
 
 let main () =
   let dir, name, filter, input_fname =
     match Sys.argv with
-    | [|_; "-filter"; dir; name; input_fname|] ->
-      (dir, name, true, input_fname)
-    | [|_; dir; name; input_fname|] ->
-      (dir, name, false, input_fname)
-    | _ -> failwith "invalid command line"
+      | [| _; "-filter"; dir; name; input_fname |] ->
+          (dir, name, true, input_fname)
+      | [| _; dir; name; input_fname |] -> (dir, name, false, input_fname)
+      | _ -> failwith "invalid command line"
   in
-  let re =
-    if filter then
-      Some (Str.regexp (".*" ^ Str.quote name))
-    else
-      None
-  in
+  let re = if filter then Some (Str.regexp (".*" ^ Str.quote name)) else None in
   read_data (open_in input_fname) ?re;
   let write name value = Database.write dir "mar" output_value name value in
   write (name ^ "_set") !tbl_rw;

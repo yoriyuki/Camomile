@@ -53,7 +53,6 @@ class type ['a] obj_input_channel =
 *)
 class type ['a] obj_output_channel =
   object
-
     (** If [close_out] cannot output all buffered objects, flush raises
         [Failure] *)
     method close_out : unit -> unit
@@ -98,19 +97,17 @@ class type char_output_channel =
   end
 
 (** Convert a polymorphic input channel to a character input channel *)
-class char_input_channel_of : char #obj_input_channel ->
-  char_input_channel
+class char_input_channel_of : char #obj_input_channel -> char_input_channel
 
 (** Convert a character input channel to a polymorphic input channel*)
-class char_obj_input_channel_of : char_input_channel ->
-  [char] obj_input_channel
+class char_obj_input_channel_of : char_input_channel -> [char] obj_input_channel
 
 (** Convert a polymorphic output channel to a character output channel *)
 class char_output_channel_of : char #obj_output_channel -> char_output_channel
 
 (** Convert a character output channel to a polymorphic output channel *)
-class char_obj_output_channel_of : char_output_channel ->
-  [char] obj_output_channel
+class char_obj_output_channel_of :
+  char_output_channel -> [char] obj_output_channel
 
 (** Convert an OCaml input channel to an OO-based character input channel *)
 class of_in_channel : Stdlib.in_channel -> char_input_channel

@@ -36,6 +36,7 @@
 (* yoriyuki.y@gmail.com *)
 
 type t
+
 val empty : t
 val is_empty : t -> bool
 val mem : UChar.t -> t -> bool

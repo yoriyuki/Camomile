@@ -34,32 +34,30 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-
 module type Type = sig
   type t
 
   val get : t -> int -> UChar.t
-
   val init : int -> (int -> UChar.t) -> t
   val length : t -> int
 
   type index
+
   val look : t -> index -> UChar.t
   val nth : t -> int -> index
   val first : t -> index
   val last : t -> index
-
   val next : t -> index -> index
   val prev : t -> index -> index
   val move : t -> index -> int -> index
   val out_of_range : t -> index -> bool
   val compare_index : t -> index -> index -> int
-
   val iter : (UChar.t -> unit) -> t -> unit
   val compare : t -> t -> int
 
   module Buf : sig
     type buf
+
     val create : int -> buf
     val contents : buf -> t
     val clear : buf -> unit
@@ -79,33 +77,24 @@ module type Type = sig
 end
 
 module Make (Text : UnicodeString.Type) = struct
-
   type t = Text.t * Text.index * Text.index
   type index = Text.index
 
   let out_of_range (t, i0, j) i =
-    if Text.compare_index t i0 i > 0 then true else
-    if Text.compare_index t i j >= 0 then true else
-      Text.out_of_range t i
+    if Text.compare_index t i0 i > 0 then true
+    else if Text.compare_index t i j >= 0 then true
+    else Text.out_of_range t i
 
   let look ((t, _, _) as s) i =
-    if out_of_range s i then failwith "SubText.look" else
-      Text.look t i
+    if out_of_range s i then failwith "SubText.look" else Text.look t i
 
   let next (t, _, _) i = Text.next t i
-
   let prev (t, _, _) i = Text.prev t i
-
   let move (t, _, _) i n = Text.move t i n
-
   let nth ((_, i, _) as s) n = move s i n
-
   let first (_, i, _) = i
-
   let last (t, _, i) = Text.prev t i
-
   let compare_index (t, _, _) i j = Text.compare_index t i j
-
   let get s n = look s (nth s n)
 
   let init len f =
@@ -114,27 +103,29 @@ module Make (Text : UnicodeString.Type) = struct
 
   let length (t, i, j) =
     let rec loop i n =
-      if Text.compare_index t i j >= 0 then n else
-        loop (Text.next t i) (n + 1) in
+      if Text.compare_index t i j >= 0 then n else loop (Text.next t i) (n + 1)
+    in
     loop i 0
 
   let iter proc (t, i, j) =
     let rec loop i =
-      if Text.compare_index t i j >= 0 then () else begin
+      if Text.compare_index t i j >= 0 then ()
+      else begin
         proc (Text.look t i);
         loop (Text.next t i)
-      end in
+      end
+    in
     loop i
 
   let compare (t1, i1, j1) (t2, i2, j2) =
     let rec loop i1 i2 =
       if Text.compare_index t1 i1 j1 >= 0 then
         if Text.compare_index t2 i2 j2 >= 0 then 0 else ~-1
-      else if Text.compare_index t2 i2 j2 >= 0 then 1 else
+      else if Text.compare_index t2 i2 j2 >= 0 then 1
+      else (
         let sgn = UChar.compare (Text.look t1 i1) (Text.look t2 i2) in
-        if sgn = 0 then
-          loop (Text.next t1  i1) (Text.next t2 i2)
-        else sgn in
+        if sgn = 0 then loop (Text.next t1 i1) (Text.next t2 i2) else sgn)
+    in
     loop i1 i2
 
   module Buf = struct
@@ -158,6 +149,5 @@ module Make (Text : UnicodeString.Type) = struct
     Text.Buf.contents buf
 
   let context s = s
-
   let ur_index_of _ i = i
 end

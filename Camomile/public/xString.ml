@@ -44,6 +44,7 @@ module type XStringSig = sig
   val length : xstring -> int
 
   type index
+
   val look : xstring -> index -> UChar.t
   val nth : xstring -> int -> index
   val first : xstring -> index
@@ -53,7 +54,6 @@ module type XStringSig = sig
   val prev : xstring -> index -> index
   val move : xstring -> index -> int -> index
   val compare_index : xstring -> index -> index -> int
-
   val make : ?bufsize:int -> int -> UChar.t -> xstring
   val clear : xstring -> unit
   val reset : xstring -> unit
@@ -66,22 +66,22 @@ module type XStringSig = sig
   val append : xstring -> xstring -> xstring
   val utext_of : xstring -> UText.t
   val ustring_of : xstring -> UText.ustring
-
   val iter : (UChar.t -> unit) -> xstring -> unit
   val compare : xstring -> xstring -> int
 end
 
 module XStringAux : XStringSig = struct
   include XArray
+
   type xstring = UChar.t XArray.t
 
   let rec compare_aux i t1 t2 =
-    if i >= length t1 then
-      if i >= length t2 then 0 else ~-1
-    else if i >= length t2 then 1 else
+    if i >= length t1 then if i >= length t2 then 0 else ~-1
+    else if i >= length t2 then 1
+    else (
       match UChar.compare (XArray.get t1 i) (XArray.get t2 i) with
-        0 -> compare_aux (i + 1) t1 t2
-      | sgn -> sgn
+        | 0 -> compare_aux (i + 1) t1 t2
+        | sgn -> sgn)
 
   let compare t1 t2 = compare_aux 0 t1 t2
   let add_xstring = add_xarray
@@ -92,14 +92,16 @@ module XStringAux : XStringSig = struct
 end
 
 include XStringAux
+
 type t = xstring
 
 let init len f = XArray.init len (UChar.chr_of_uint 0) f
 
-module Buf =
-struct
+module Buf = struct
   include XStringAux
+
   type buf = xstring
+
   let create bufsize = make ~bufsize 0 (UChar.chr_of_uint 0)
   let contents x = x
   let add_string = add_xstring

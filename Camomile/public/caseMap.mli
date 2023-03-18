@@ -32,14 +32,12 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-
 (** Case mappings as defined in Unicode Technical Report #21 *)
 
 (** For locale, see {!Locale}.
     If locale is omitted, default mapping is used. *)
 
-module type Type =
-sig
+module type Type = sig
   type text
 
   val lowercase : ?locale:string -> text -> text
@@ -58,4 +56,5 @@ sig
   val compare_caseless : text -> text -> int
 end
 
-module Make (_ : ConfigInt.Type) (Text : UnicodeString.Type) :  (Type with type text = Text.t)
+module Make (_ : ConfigInt.Type) (Text : UnicodeString.Type) :
+  Type with type text = Text.t

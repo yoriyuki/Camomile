@@ -33,5 +33,4 @@
 (* yoriyuki.y@gmail.com *)
 
 module Config = CamomileDefaultConfig
-
-module Camomile = CamomileLibrary.Make(Config)
+module Camomile = CamomileLibrary.Make (Config)

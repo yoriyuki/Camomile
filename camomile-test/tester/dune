@@ -21,51 +21,63 @@
 (rule
  (alias runtest)
  (deps testOOChannel.exe)
- (action (run %{deps})))
+ (action
+  (run %{deps})))
 
 (rule
  (alias runtest)
- (action (run ./test_base.exe)))
+ (action
+  (run ./test_base.exe)))
 
 (rule
  (alias runtest)
- (action (run ./test_caseMap.exe)))
+ (action
+  (run ./test_caseMap.exe)))
 
 (rule
  (alias runtest)
- (deps (glob_files ../data/enc/*))
- (action (run ./test_charEncoding.exe)))
+ (deps
+  (glob_files ../data/enc/*))
+ (action
+  (run ./test_charEncoding.exe)))
 
 (rule
  (alias runtest)
- (deps ../unidata/NormalizationTest.txt
-       ../unidata/CollationTest_SHIFTED.txt)
- (action (run ./test_normalform.exe)))
+ (deps ../unidata/NormalizationTest.txt ../unidata/CollationTest_SHIFTED.txt)
+ (action
+  (run ./test_normalform.exe)))
 
 (rule
  (alias runtest)
- (deps (glob_files ../unidata/*)
-       (glob_files ../data/*))
- (action (run ./test_uCol.exe)))
+ (deps
+  (glob_files ../unidata/*)
+  (glob_files ../data/*))
+ (action
+  (run ./test_uCol.exe)))
 
 (rule
  (alias runtest)
  (deps test_uTF8.exe)
- (action (run ./test_uTF8.exe)))
+ (action
+  (run ./test_uTF8.exe)))
 
 (rule
  (alias runtest)
- (deps  ../data/stringprep)
- (action (run ./test_stringprep.exe)))
+ (deps ../data/stringprep)
+ (action
+  (run ./test_stringprep.exe)))
 
 (rule
  (alias runtest)
- (action (run ./uCS4_test.exe)))
+ (action
+  (run ./uCS4_test.exe)))
 
 (rule
  (alias runtest)
- (action (run ./uReStr_test.exe)))
+ (action
+  (run ./uReStr_test.exe)))
 
 (rule
  (alias runtest)
- (action (run ./uTF16_test.exe)))
+ (action
+  (run ./uTF16_test.exe)))

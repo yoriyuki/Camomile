@@ -40,6 +40,7 @@ module type Interface = sig
   val no_char_of : enc_to_ucs -> int
 
   type probe_state
+
   val start_probe : enc_to_ucs -> probe_state
   val look_probe : probe_state -> int -> int
   val next_probe : probe_state -> int -> probe_state option
@@ -48,11 +49,11 @@ module type Interface = sig
     name : string;
     ucs_to_enc : string Tbl31.t;
     enc_to_ucs : enc_to_ucs;
-  } 
+  }
 
   type data = Alias of string | CMap of t
 
   val of_name : string -> t
 end
 
-module Configure(_ : ConfigInt.Type) : Interface
+module Configure (_ : ConfigInt.Type) : Interface

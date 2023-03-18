@@ -38,27 +38,26 @@ module type Type = sig
   type t
 
   val get : t -> int -> UChar.t
-
   val init : int -> (int -> UChar.t) -> t
   val length : t -> int
 
   type index
+
   val look : t -> index -> UChar.t
   val nth : t -> int -> index
   val first : t -> index
   val last : t -> index
-
   val next : t -> index -> index
   val prev : t -> index -> index
   val move : t -> index -> int -> index
   val out_of_range : t -> index -> bool
   val compare_index : t -> index -> index -> int
-
   val iter : (UChar.t -> unit) -> t -> unit
   val compare : t -> t -> int
 
   module Buf : sig
     type buf
+
     val create : int -> buf
     val contents : buf -> t
     val clear : buf -> unit
@@ -66,7 +65,7 @@ module type Type = sig
     val add_char : buf -> UChar.t -> unit
     val add_string : buf -> t -> unit
     val add_buffer : buf -> buf -> unit
-  end      
+  end
 
   (** The type of original texts. *)
   type ur_text
@@ -91,5 +90,5 @@ module type Type = sig
   val ur_index_of : t -> index -> ur_index
 end
 
-module Make : functor (Text : UnicodeString.Type) -> 
-  (Type with type ur_text = Text.t and type ur_index = Text.index)
+module Make : functor (Text : UnicodeString.Type) ->
+  Type with type ur_text = Text.t and type ur_index = Text.index

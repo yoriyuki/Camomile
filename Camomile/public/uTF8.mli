@@ -34,7 +34,6 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-
 (** UTF-8 encoded Unicode strings. The type is normal string. *)
 type t = string
 
@@ -128,13 +127,14 @@ val compare : t -> t -> int
 
 (** Buffer module for UTF-8 strings *)
 module Buf : sig
-  (** Buffers for UTF-8 strings. *) 
+  (** Buffers for UTF-8 strings. *)
   type buf
 
-  (** [create n] creates the buffer with the initial size [n]-bytes. *)   
+  (** [create n] creates the buffer with the initial size [n]-bytes. *)
   val create : int -> buf
 
   (* The rest of functions is similar to the ones of Buffer in stdlib. *)
+
   (** [contents buf] returns the contents of the buffer. *)
   val contents : buf -> t
 
@@ -154,4 +154,5 @@ module Buf : sig
   (** [add_buffer b1 b2] adds the contents of [b2] to [b1].
       The contents of [b2] is not changed. *)
   val add_buffer : buf -> buf -> unit
-end with type buf = Buffer.t
+end
+with type buf = Buffer.t

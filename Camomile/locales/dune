@@ -1,21 +1,26 @@
 (include_subdirs no)
 
-(executable (name dune_gen))
+(executable
+ (name dune_gen))
 
 (rule
- (deps (glob_files *.txt))
+ (deps
+  (glob_files *.txt))
  (targets dune.inc.gen)
  (action
-  (with-stdout-to %{targets}
+  (with-stdout-to
+   %{targets}
    (run ./dune_gen.exe))))
 
 (rule
  (alias dune)
  (deps dune.inc)
- (action (diff dune.inc dune.inc.gen)))
+ (action
+  (diff dune.inc dune.inc.gen)))
 
 (alias
  (name runtest)
- (deps (alias dune)))
+ (deps
+  (alias dune)))
 
 (include dune.inc)

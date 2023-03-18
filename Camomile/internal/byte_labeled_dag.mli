@@ -34,6 +34,7 @@
 (* yoriyuki.y@gmail.com *)
 
 type bytes
+
 val make_bytes : int -> (string * int) list -> bytes
 val look_leaf_bytes : bytes -> int -> int
 val look_branch_bytes : bytes -> int -> bytes option

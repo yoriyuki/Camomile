@@ -38,7 +38,7 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-(** Unicode characters. All 31bit code points are allowed.*) 
+(** Unicode characters. All 31bit code points are allowed.*)
 type t
 
 exception Out_of_range

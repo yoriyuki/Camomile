@@ -35,6 +35,7 @@
 
 (** XArray will be replaced by Dynarray in future. *)
 type 'a xarray
+
 type 'a t = 'a xarray
 
 (* init ~bufsize len default f :
@@ -50,7 +51,6 @@ val init : ?bufsize:int -> int -> 'a -> (int -> 'a) -> 'a xarray
  * size of the internal buffer is [bufsize]. *)
 val make : ?bufsize:int -> int -> 'a -> 'a xarray
 val length : 'a xarray -> int
-
 val get : 'a xarray -> int -> 'a
 
 (* set x i e :
@@ -60,6 +60,7 @@ val get : 'a xarray -> int -> 'a
 val set : 'a xarray -> int -> 'a -> unit
 
 type index
+
 val nth : 'a xarray -> int -> index
 val first : 'a xarray -> index
 val last : 'a xarray -> index
@@ -88,7 +89,6 @@ val add_array : 'a xarray -> 'a array -> unit
 val add_xarray : 'a xarray -> 'a xarray -> unit
 val append : 'a xarray -> 'a xarray -> 'a xarray
 val iter : ('a -> unit) -> 'a xarray -> unit
-
 val array_of : 'a xarray -> 'a array
 
 (* shrink x len : reduce the length of [x] to [len].  

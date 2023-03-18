@@ -40,9 +40,7 @@ type uchar = UChar.t
 
 val int_of_uchar : uchar -> int
 val uchar_of_int : int -> uchar
-
 val escaped_uchar : uchar -> string
 val escaped_utf8 : string -> string
-
 val printer_utf8 : Format.formatter -> string -> unit
 val printer_uchar : Format.formatter -> uchar -> unit

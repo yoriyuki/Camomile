@@ -41,32 +41,37 @@ val get : 'a tbl -> int -> 'a
 module type Type = sig
   type elt
   type t = elt tbl
+
   val get : elt tbl -> int -> elt
   val of_map : elt -> elt IMap.t -> t
 end
 
-module Make : functor (H : Hashtbl.HashedType) -> (Type with type elt = H.t)
+module Make : functor (H : Hashtbl.HashedType) -> Type with type elt = H.t
 
 module Bool : sig
   type t
+
   val of_set : ISet.t -> t
   val get : t -> int -> bool
 end
 
 module Bits : sig
   type t
+
   val of_map : int -> int IMap.t -> t
   val get : t -> int -> int
 end
 
 module Bytes : sig
   type t
+
   val of_map : int -> int IMap.t -> t
   val get : t -> int -> int
 end
 
 module Char : sig
   type t
+
   val of_map : char -> char IMap.t -> t
   val get : t -> int -> char
 end

@@ -32,8 +32,9 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-(** Maps over Unicode characters. *) 
+(** Maps over Unicode characters. *)
 type 'a t
+
 val empty : 'a t
 val is_empty : 'a t -> bool
 
@@ -46,8 +47,8 @@ val add : ?eq:('a -> 'a -> bool) -> UChar.t -> 'a -> 'a t -> 'a t
     except it maps characters in the range [u1]-[u2] 
     to some value [v'] which satisfies [eq v v']. 
     If [eq] is not supplied, structural equality is used. *)
-val add_range : ?eq:('a -> 'a -> bool) -> 
-  UChar.t -> UChar.t -> 'a -> 'a t -> 'a t
+val add_range :
+  ?eq:('a -> 'a -> bool) -> UChar.t -> UChar.t -> 'a -> 'a t -> 'a t
 
 val find : UChar.t -> 'a t -> 'a
 val remove : UChar.t -> 'a t -> 'a t
@@ -87,7 +88,6 @@ val iter_range : (UChar.t -> UChar.t -> 'a -> unit) -> 'a t -> unit
 
 val map : ?eq:('b -> 'b -> bool) -> ('a -> 'b) -> 'a t -> 'b t
 val mapi : ?eq:('b -> 'b -> bool) -> (UChar.t -> 'a -> 'b) -> 'a t -> 'b t
-
 val fold : (UChar.t -> 'b -> 'a -> 'a) -> 'b t -> 'a -> 'a
 
 (** [fold_range f m x] is equivalent to

@@ -38,45 +38,43 @@ open CamomileLibrary
 open CamomileLibrary.Private
 
 let folds = ref UMap.empty
-
-let int_of_code code = int_of_string ("0x"^code)
+let int_of_code code = int_of_string ("0x" ^ code)
 let uchar_of_code code = UChar.chr_of_uint (int_of_code code)
-
 let us_of_codes codes = List.map uchar_of_code codes
-
 let blank_pat = Str.regexp "[ \t]+"
-
 let comment_pat = Str.regexp "\\(^#.*\\)\\|\\([ \t]*$\\)"
-let entry_pat =
-  Str.regexp "\\([^;]*\\); \\([^;]*\\); \\([^;]*\\);.*"
+let entry_pat = Str.regexp "\\([^;]*\\); \\([^;]*\\); \\([^;]*\\);.*"
 
 let loaddata ic =
   let count = ref 0 in
-  try while true do
+  try
+    while true do
       let line = input_line ic in
       incr count;
-      if Str.string_match comment_pat line 0 then () else
-      if Str.string_match entry_pat line 0 then
+      if Str.string_match comment_pat line 0 then ()
+      else if Str.string_match entry_pat line 0 then (
         let u = uchar_of_code (Str.matched_group 1 line) in
         let status = Str.matched_group 2 line in
         let mapping = Str.matched_group 3 line in
-        if status = "C" || status = "F" then
+        if status = "C" || status = "F" then (
           let mapping = us_of_codes (Str.split blank_pat mapping) in
-          folds := UMap.add u mapping !folds
-        else ()
+          folds := UMap.add u mapping !folds)
+        else ())
       else failwith (Printf.sprintf "Malformed entry in the line %d" !count)
-    done with End_of_file -> close_in ic
+    done
+  with End_of_file -> close_in ic
 
 module Tbl = UCharTbl.Make (struct
-    type t = UChar.t list
-    let equal = (=)
-    let hash = Hashtbl.hash
-  end)
+  type t = UChar.t list
 
-let  _ =
+  let equal = ( = )
+  let hash = Hashtbl.hash
+end)
+
+let _ =
   match Sys.argv with
-  | [|_; dir; input_fname|] ->
-    loaddata (open_in input_fname);
-    let tbl = Tbl.of_map [] !folds in
-    Database.write dir "mar" output_value "case_folding" tbl
-  | _ -> failwith "invalid command line"
+    | [| _; dir; input_fname |] ->
+        loaddata (open_in input_fname);
+        let tbl = Tbl.of_map [] !folds in
+        Database.write dir "mar" output_value "case_folding" tbl
+    | _ -> failwith "invalid command line"
