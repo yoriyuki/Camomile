@@ -17,7 +17,7 @@
         camomilestringprep)
  (flags -I Camomile :standard)
  (modules :standard \ camomilelocaledef camomilelocaledef_lexer iana)
- (libraries toolslib camomile camomile.library))
+ (libraries str toolslib camomile camomile.library))
 
 (executable
  (name iana)
@@ -26,6 +26,6 @@
 
 (executable
  (name camomilelocaledef)
- (libraries toolslib camomile.library)
+ (libraries str toolslib camomile.library)
  (flags -I Camomile :standard)
  (modules camomilelocaledef camomilelocaledef_lexer))

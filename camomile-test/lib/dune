@@ -1,3 +1,4 @@
 (library
  (name blender)
+ (libraries unix)
  (wrapped false))
