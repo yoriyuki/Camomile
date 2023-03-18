@@ -3,7 +3,7 @@
 (version 2.0)
 
 (generate_opam_files true)
-(license "LGPL-2+ with OCaml linking exception")
+(license "LGPL-2.0-or-later WITH OCaml-LGPL-linking-exception")
 (maintainers "yoriyuki.y@gmail.com")
 (authors "Yoriyuki Yamagata")
 (implicit_transitive_deps false)
