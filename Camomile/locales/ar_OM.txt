@@ -7,7 +7,7 @@
 
 ar_OM {
     Version{"1.0"}
-    CurrencyElements { 
+    CurrencyElements {
         "\u0631.\u0639.\u200F",
         "OMR",
         ".",

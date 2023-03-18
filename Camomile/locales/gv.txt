@@ -66,8 +66,8 @@ gv {
 //        "\u221e",
 //        "\ufffd",
 //    }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
 
     // /**************** Info Below is needed ****************/

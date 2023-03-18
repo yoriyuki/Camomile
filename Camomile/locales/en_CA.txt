@@ -8,7 +8,7 @@
 en_CA {
     Version { "1.0" }
 //    Duplicated in parent
-//    Countries { 
+//    Countries {
 //        US { "United States" }
 //        GB { "United Kingdom" }
 //        CA { "Canada" }
@@ -21,7 +21,7 @@ en_CA {
         "CAD",
         ".",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "h:mm:ss a z",
         "h:mm:ss a z",
         "h:mm:ss a",
@@ -39,7 +39,7 @@ en_CA {
         "#E0",
     }
 //    Duplicated in parent
-//    Languages { 
+//    Languages {
 //        en { "English" }
 //    }
     LocaleID:int { 0x1009 }

@@ -9,12 +9,12 @@ el_GR {
     Version { "1.0" }
 //    LocaleString { "el_GR" }
 
-    CurrencyElements { 
+    CurrencyElements {
         "\u20AC",
         "EUR",
         ",",
     }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "#,##0.00\u00a4;-\u00a4#,##0.00",
         "#,##0%",

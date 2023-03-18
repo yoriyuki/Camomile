@@ -72,11 +72,11 @@ let quoted_charset c =
 
 let set_of_string s =
   let r = ref USet.empty in
-  String.iter (fun c -> 
+  String.iter (fun c ->
     r := USet.add (UChar.of_char c) !r)
     s;
   !r
-  
+
 %}
 
 %token <UChar.t> UCHAR
@@ -119,7 +119,7 @@ let set_of_string s =
 %type <UReStrParserType.tree> start
 %%
 
-start : 
+start :
   regexp END {$1}
 | END {`Epsilon};
 

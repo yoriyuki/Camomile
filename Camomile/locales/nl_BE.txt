@@ -7,7 +7,7 @@
 
 nl_BE {
     Version{ "1.1" }
-    CurrencyElements { 
+    CurrencyElements {
         "\u20AC",
         "EUR",
         ",",
@@ -16,7 +16,7 @@ nl_BE {
         2,
         1,
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH.mm' u. 'z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -29,14 +29,14 @@ nl_BE {
     }
     LocaleID:int { 0x0813 }
 //    LocaleString { "nl_BE" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "#,##0.00 \u00A4;-#,##0.00 \u00A4",
         "#,##0%",
         "#E0",
     }
 //    ShortCountry { "BEL" }
-//    zoneStrings { 
+//    zoneStrings {
 //        {
 //            "Africa/Casablanca",
 //            "GMT",

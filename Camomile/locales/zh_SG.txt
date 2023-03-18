@@ -11,13 +11,13 @@
 zh_SG {
     Version { "1.1" }
 
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4#,##0.00;-\u00A4#,##0.00",
         "#,##0%",
         "#E0",
     }
-    CurrencyElements { 
+    CurrencyElements {
         // most commonly used currency sign
 //            "$",
         "S$",   // #1 symbol
@@ -25,12 +25,12 @@ zh_SG {
         ".",    // #3 decimal sep
 //            ","
     }
-//    AmPmMarkers { 
+//    AmPmMarkers {
 //        "\u4E0A\u5348", // am
 //        "\u4E0B\u5348" // pm
 //    }
     DateTimePatterns {
-        // most commonly used formal time format 
+        // most commonly used formal time format
         "a hh:mm:ss",
         "a hh:mm:ss",
         "a hh:mm",
@@ -47,7 +47,7 @@ zh_SG {
 
 //    ShortCountry { "SIN" } // copied from zh_EN.txt
 
-    zoneStrings { 
+    zoneStrings {
         {
             "SST",
             "Singapore Standard Time",
@@ -98,7 +98,7 @@ zh_SG {
     Countries
     {
         //AL { "\u963f\u5c14\u5df4\u5c3c\u4e9a" }
-        //AE { "阿拉伯联合 "} #do not do this yet, missing a part.   United Arab Emirates 
+        //AE { "阿拉伯联合 "} #do not do this yet, missing a part.   United Arab Emirates
         //AR { "阿根廷" }         // Argentina
         //AT { "奥地利" }         // Austria
         AU { "澳洲" }           // Australia

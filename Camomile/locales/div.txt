@@ -88,9 +88,9 @@ div {
         "THAA"
     }
     ExemplarCharacters { "[:Thaa:]" }
-    CollationElements {	    
+    CollationElements {
         Version { "1.0" }
-        Sequence { 
+        Sequence {
              "[normalization on]"
         }
     }

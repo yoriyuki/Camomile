@@ -7,7 +7,7 @@
 
 ar_YE {
     Version{ "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
             "\u0631.\u064A.\u200F",
             "YER",
             ".",

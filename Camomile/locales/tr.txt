@@ -9,23 +9,23 @@ tr {
     Version{ "1.2" }
     // According to Nurdan Mete from IBM Turkey, the following would be the correct
     // sorting order for Turkish
-    CollationElements { 
+    CollationElements {
         Version { "2" }
-        Sequence { "& C < c\u0327 <<< C\u0327" 
+        Sequence { "& C < c\u0327 <<< C\u0327"
                    "& G < g\u0306 <<< G\u0306"
-                   "& H < \u0131 <<< I < i <<< \u0130" 
+                   "& H < \u0131 <<< I < i <<< \u0130"
                    "& O < o\u0308 <<< O\u0308"
-                   "& S < s\u0327 <<< S\u0327" 
+                   "& S < s\u0327 <<< S\u0327"
                    "& U < u\u0308 <<< U\u0308" }
     }
-    Countries { 
+    Countries {
         TR { "T\u00FCrkiye" }
     }
-    DateTimeElements:intvector { 
+    DateTimeElements:intvector {
         2,
         1,
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH:mm:ss z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -36,7 +36,7 @@ tr {
         "dd.MM.yyyy",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "Paz",
         "Pzt",
         "Sal",
@@ -45,7 +45,7 @@ tr {
         "Cum",
         "Cmt",
     }
-    DayNames { 
+    DayNames {
         "Pazar",
         "Pazartesi",
         "Sal\u0131",
@@ -54,12 +54,12 @@ tr {
         "Cuma",
         "Cumartesi",
     }
-    Languages { 
+    Languages {
         tr { "T\u00FCrk\u00E7e" }
     }
     LocaleID:int { 0x1f }
 //    LocaleString { "tr" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "Oca",
         "\u015Eub",
         "Mar",
@@ -73,7 +73,7 @@ tr {
         "Kas",
         "Ara",
     }
-    MonthNames { 
+    MonthNames {
         "Ocak",
         "\u015Eubat",
         "Mart",
@@ -87,7 +87,7 @@ tr {
         "Kas\u0131m",
         "Aral\u0131k",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         ".",
         ";",
@@ -102,7 +102,7 @@ tr {
     }
 //    ShortLanguage { "tur" }
     localPatternChars { "GanjkHmsSEDFwWxhKzAe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",
@@ -111,8 +111,8 @@ tr {
             "GMT",
         }
     }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-z \u00e2 \u00ee \u00fb \u00f6 \u00fc \u0131 \u00e7 \u015f \u011f]" }
 }

@@ -81,11 +81,11 @@ pt {
         UY { "Uruguai" }
         ZA { "\u00c1frica do Sul" }
     }
-    DateTimeElements:intvector { 
+    DateTimeElements:intvector {
         2,
         1,
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH'H'mm'm' z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -96,7 +96,7 @@ pt {
         "dd-MM-yyyy",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "Dom",
         "Seg",
         "Ter",
@@ -105,7 +105,7 @@ pt {
         "Sex",
         "S\u00E1b",
     }
-    DayNames { 
+    DayNames {
         "Domingo",
         "Segunda-feira",
         "Ter\u00E7a-feira",
@@ -114,7 +114,7 @@ pt {
         "Sexta-feira",
         "S\u00E1bado",
     }
-    Languages { 
+    Languages {
         ar { "\u00c1rabe" }
         az { "Azerbaij\u00e3o" }
         ba { "Basco" }
@@ -171,7 +171,7 @@ pt {
     }
     LocaleID:int { 0x16 }
 //    LocaleString { "pt" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "Jan",
         "Fev",
         "Mar",
@@ -185,7 +185,7 @@ pt {
         "Nov",
         "Dez",
     }
-    MonthNames { 
+    MonthNames {
         "Janeiro",
         "Fevereiro",
         "Mar\u00E7o",
@@ -199,7 +199,7 @@ pt {
         "Novembro",
         "Dezembro",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         ".",
         ";",
@@ -213,7 +213,7 @@ pt {
         "\uFFFD",
     }
 //    ShortLanguage { "por" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",
@@ -223,7 +223,7 @@ pt {
         }
     }
 //    LocaleScript{
-//        "Latn",  // ISO 15924 Name 
+//        "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-z \u00e3 \u00f5 \u00e7 \u00e1 \u00e9 \u00ed \u00f3 \u00fa \u00e0 \u00e2 \u00ea \u00f4 \u00fc \u00f2]" }
 }

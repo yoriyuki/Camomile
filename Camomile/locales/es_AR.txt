@@ -7,12 +7,12 @@
 
 es_AR {
     Version { "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "$",
         "ARS",
         ",",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH'h'''mm z",
         "H:mm:ss z",
         "HH:mm:ss",

@@ -84,7 +84,7 @@ rule token = parse
 | '&' {AND}
 | '|'  {OR}
 | ':' {COLON}
-| "\\u" hex_char hex_char hex_char hex_char 
+| "\\u" hex_char hex_char hex_char hex_char
 | "\\U" hex_char hex_char hex_char hex_char hex_char hex_char hex_char hex_char
     {let s = Lexing.lexeme lexbuf in
     let s = "0x" ^ (String.sub s 2 (String.length s - 2)) in

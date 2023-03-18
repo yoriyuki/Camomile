@@ -8,7 +8,7 @@
 es_ES {
     Version { "1.0" }
 //    LocaleString { "es_ES" }
-    CurrencyElements { 
+    CurrencyElements {
         "\u20AC",
         "EUR",
         ",",
@@ -26,7 +26,7 @@ es_ES {
         "\u221E",
         "\uFFFD",
     }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "#,##0.00 \u00A4;-#,##0.00 \u00A4",
         "#,##0%",

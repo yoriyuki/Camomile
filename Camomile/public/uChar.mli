@@ -55,7 +55,7 @@ val of_char : char -> t
     raise Out_of_range *)
 val code : t -> int
 
-(** [code n] returns the Unicode character with the code number [n]. 
+(** [code n] returns the Unicode character with the code number [n].
     If n >= 2^32 or n < 0, raises [invalid_arg] *)
 val chr : int -> t
 
@@ -73,8 +73,8 @@ val chr_of_uint : int -> t
 (** Equality by code point comparison *)
 val eq : t -> t -> bool
 
-(** [compare u1 u2] returns, 
-    a value > 0 if [u1] has a larger Unicode code number than [u2], 
+(** [compare u1 u2] returns,
+    a value > 0 if [u1] has a larger Unicode code number than [u2],
     0 if [u1] and [u2] are the same Unicode character,
     a value < 0 if [u1] has a smaller Unicode code number than [u2]. *)
 val compare : t -> t -> int

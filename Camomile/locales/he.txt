@@ -7,17 +7,17 @@
 
 he {
     Version{"1.1"}
-    CollationElements { 
+    CollationElements {
         Version { "2.0" }
         Sequence { "[normalization on]& Z < \u05D0 < \u05D1 < \u05D2 < \u05D3 < \u05D4 < \u05D5 < "
         "\u05F0 < \u05F1 < \u05D6 < \u05D7 < \u05D8 < \u05D9 < \u05F2 < \u05DA , \u05DB "
         "< \u05DC < \u05DD , \u05DE < \u05DF , \u05E0 < \u05E1 < \u05E2 < \u05E3 , \u05E4"
         " < \u05E5 , \u05E6 < \u05E7 < \u05E8 < \u05E9 < \u05EA" }
     }
-    Countries { 
+    Countries {
         IL { "\u05D9\u05E9\u05E8\u05D0\u05DC" }
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH:mm:ss z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -28,7 +28,7 @@ he {
         "dd/MM/yy",
         "{0} {1}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "\u05D0",
         "\u05D1",
         "\u05D2",
@@ -37,7 +37,7 @@ he {
         "\u05D5",
         "\u05E9",
     }
-    DayNames { 
+    DayNames {
         "\u05D9\u05D5\u05DD \u05E8\u05D0\u05E9\u05D5\u05DF",
         "\u05D9\u05D5\u05DD \u05E9\u05E0\u05D9",
         "\u05D9\u05D5\u05DD \u05E9\u05DC\u05D9\u05E9\u05D9",
@@ -46,17 +46,17 @@ he {
         "\u05D9\u05D5\u05DD \u05E9\u05D9\u05E9\u05D9",
         "\u05E9\u05D1\u05EA",
     }
-    Eras { 
+    Eras {
         "\u05DC\u05E1\u05D4\u0022\u05E0",
         "\u05DC\u05E4\u05E1\u05D4\u0022\u05E0",
     }
-    Languages { 
+    Languages {
         he { "\u05E2\u05D1\u05E8\u05D9\u05EA" }
         //iw { "\u05E2\u05D1\u05E8\u05D9\u05EA" } //Use he instead
     }
     LocaleID:int { 0x0d }
 //    LocaleString { "he" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "\u05D9\u05E0\u05D5",
         "\u05E4\u05D1\u05E8",
         "\u05DE\u05E8\u05E5",
@@ -70,7 +70,7 @@ he {
         "\u05E0\u05D5\u05D1",
         "\u05D3\u05E6\u05DE",
     }
-    MonthNames { 
+    MonthNames {
         "\u05D9\u05E0\u05D5\u05D0\u05E8",
         "\u05E4\u05D1\u05E8\u05D5\u05D0\u05E8",
         "\u05DE\u05E8\u05E5",
@@ -86,7 +86,7 @@ he {
     }
 //    ShortLanguage { "heb" }
     localPatternChars { "GanjkHmsSEDFwWxhKzAe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",
@@ -95,8 +95,8 @@ he {
             "GMT",
         }
     }
-    LocaleScript:array { 
-        "Hebr"    // ISO 15924 Name 
+    LocaleScript:array {
+        "Hebr"    // ISO 15924 Name
     }
     ExemplarCharacters{"[:Hebr:]"}
     //------------------------------------------------------------
@@ -130,6 +130,6 @@ he {
         "200: << \u05de\u05d0\u05d4[ >>];\n"
         "1000: \u05d0\u05dc\u05e3[ >>];\n"
         "2000: << \u05d0\u05dc\u05e3[ >>];\n"
-        "1,000,000: =#,##0= (incomplete data);" 
+        "1,000,000: =#,##0= (incomplete data);"
     }
 }

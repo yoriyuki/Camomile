@@ -8,7 +8,7 @@
 en_GB {
     Version { "1.0" }
 //    Duplicated in parent
-//    Countries { 
+//    Countries {
 //        US { "United States" }
 //        GB { "United Kingdom" }
 //        CA { "Canada" }
@@ -16,7 +16,7 @@ en_GB {
 //        AU { "Australia" }
 //        NZ { "New Zealand" }
 //    }
-    CurrencyElements { 
+    CurrencyElements {
         "\u00A3",
         "GBP",
         ".",
@@ -25,7 +25,7 @@ en_GB {
         2,
         1,
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH:mm:ss z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -37,13 +37,13 @@ en_GB {
         "{1} {0}",
     }
 //    Duplicated in parent
-//    Languages { 
+//    Languages {
 //        en { "English" }
 //    }
     LocaleID:int { 0x0809 }
 //    LocaleString { "en_GB" }
 //    ShortCountry { "GBR" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Europe/London",
             "Greenwich Mean Time",
@@ -116,6 +116,6 @@ en_GB {
         "    1000: , <%default< thousand, >%default>;\n"
         "    1,000,000: , =%default=;"
         "%%lenient-parse:\n"
-        "    & ' ' , ',' ;\n" 
+        "    & ' ' , ',' ;\n"
     }
 }

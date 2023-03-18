@@ -7,7 +7,7 @@
 
 en {
     Version { "1.0" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4#,##0.00;-\u00A4#,##0.00",
         "#,##0%",
@@ -18,7 +18,7 @@ en {
     // This is the English form of this resource.
     TransliteratorNamePattern { "{0,choice,0#|1#{1}|2#{1} to {2}}" }
 
-    zoneStrings { 
+    zoneStrings {
         {
             "PST",
             "Pacific Standard Time",
@@ -253,8 +253,8 @@ en {
         }
     }
     LocaleID:int { 0x09 }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
 
     //------------------------------------------------------------
@@ -462,6 +462,6 @@ en {
         // the lenient-parse rules allow several different characters to be used
         // as delimiters between hours, minutes, and seconds
         "%%lenient-parse:\n"
-        "    & ':' = '.' = ' ' = '-';\n" 
+        "    & ':' = '.' = ' ' = '-';\n"
     }
 }

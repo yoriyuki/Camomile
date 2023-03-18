@@ -7,15 +7,15 @@
 
 nl {
     Version { "1.0" }
-    Countries { 
+    Countries {
         NL { "Nederland" }
         BE { "Belgi\u00EB" }
     }
-    DateTimeElements:intvector { 
+    DateTimeElements:intvector {
         2,
         4,
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "H:mm:ss' uur' z",
         "H:mm:ss z",
         "H:mm:ss",
@@ -26,7 +26,7 @@ nl {
         "d-M-yy",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "zo",
         "ma",
         "di",
@@ -35,7 +35,7 @@ nl {
         "vr",
         "za",
     }
-    DayNames { 
+    DayNames {
         "zondag",
         "maandag",
         "dinsdag",
@@ -44,12 +44,12 @@ nl {
         "vrijdag",
         "zaterdag",
     }
-    Languages { 
+    Languages {
         nl { "Nederlands" }
     }
     LocaleID:int { 0x13 }
 //    LocaleString { "nl" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "jan",
         "feb",
         "mrt",
@@ -63,7 +63,7 @@ nl {
         "nov",
         "dec",
     }
-    MonthNames { 
+    MonthNames {
         "januari",
         "februari",
         "maart",
@@ -77,7 +77,7 @@ nl {
         "november",
         "december",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         ".",
         ";",
@@ -91,7 +91,7 @@ nl {
         "\uFFFD",
     }
 //    ShortLanguage { "nld" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",
@@ -100,8 +100,8 @@ nl {
             "GMT",
         }
     }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-z \u00e1 \u00e9 \u00ed \u00f3 \u00fa \u00e4 \u00eb \u00ef \u00f6 \u00fc \u0133]" }
 

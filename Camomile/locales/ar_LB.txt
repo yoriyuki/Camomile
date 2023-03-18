@@ -7,12 +7,12 @@
 
 ar_LB {
     Version{ "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "\u0644.\u0644.\u200F",
         "LBP",
         ".",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "\u0627\u0644\u0623\u062D\u062F",
         "\u0627\u0644\u0627\u062B\u0646\u064A\u0646",
         "\u0627\u0644\u062B\u0644\u0627\u062B\u0627\u0621",
@@ -22,7 +22,7 @@ ar_LB {
         "\u0627\u0644\u0633\u0628\u062A",
     }
 //    LocaleString { "ar_LB" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "\u0643\u0627\u0646\u0648\u0646 \u0627\u0644\u062B\u0627\u0646\u064A",
         "\u0634\u0628\u0627\u0637",
         "\u0622\u0630\u0627\u0631",
@@ -36,7 +36,7 @@ ar_LB {
         "\u062A\u0634\u0631\u064A\u0646 \u0627\u0644\u062B\u0627\u0646\u064A",
         "\u0643\u0627\u0646\u0648\u0646 \u0627\u0644\u0623\u0648\u0644",
     }
-    MonthNames { 
+    MonthNames {
         "\u0643\u0627\u0646\u0648\u0646 \u0627\u0644\u062B\u0627\u0646\u064A",
         "\u0634\u0628\u0627\u0637",
         "\u0622\u0630\u0627\u0631",

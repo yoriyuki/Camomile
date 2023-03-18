@@ -7,7 +7,7 @@
 
 is_IS {
     Version{ "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "kr.",
         "ISK",
         ",",

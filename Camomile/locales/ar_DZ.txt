@@ -7,7 +7,7 @@
 
 ar_DZ {
     Version{"1.0"}
-    CurrencyElements { 
+    CurrencyElements {
         "\u062F.\u062C.\u200F",
         "DZD",
         ".",

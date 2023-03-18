@@ -7,7 +7,7 @@
 
 ms{
     Version{ "x1.1" }
-    DayAbbreviations { 
+    DayAbbreviations {
         "Aha",
         "Isn",
         "Sei",
@@ -16,7 +16,7 @@ ms{
         "Jum",
         "Sab",
     }
-    DayNames { 
+    DayNames {
         "Ahad",
         "Isnin",
         "Selasa",
@@ -25,7 +25,7 @@ ms{
         "Jumaat",
         "Sabtu",
     }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "Jan",
         "Feb",
         "Mac",
@@ -39,7 +39,7 @@ ms{
         "Nov",
         "Dis",
     }
-    MonthNames { 
+    MonthNames {
         "Januari",
         "Februari",
         "Mac",
@@ -55,7 +55,7 @@ ms{
     }
     LocaleID:int { 0x3e }
 //    LocaleString{ "ms" }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
 }

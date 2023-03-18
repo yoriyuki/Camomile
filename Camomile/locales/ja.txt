@@ -7,7 +7,7 @@
 
 ja {
     Version { "1.2" }
-    AmPmMarkers { 
+    AmPmMarkers {
         "\u5348\u524D",
         "\u5348\u5F8C",
     }
@@ -1312,7 +1312,7 @@ ja {
         }
     }
 
-    Countries { 
+    Countries {
         AF { "\u30a2\u30d5\u30ac\u30cb\u30b9\u30bf\u30f3" }
         AL { "\u30a2\u30eb\u30d0\u30cb\u30a2" }
         DZ { "\u30a2\u30eb\u30b8\u30a7\u30ea\u30a2" }
@@ -1513,7 +1513,7 @@ ja {
         ZM { "\u30b6\u30f3\u30d3\u30a2" }
         ZW { "\u30b8\u30f3\u30d0\u30d6\u30a8" }
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "H'\u6642'mm'\u5206'ss'\u79D2'z",
         "H:mm:ss:z",
         "H:mm:ss",
@@ -1524,7 +1524,7 @@ ja {
         "yy/MM/dd",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "\u65E5",
         "\u6708",
         "\u706B",
@@ -1533,7 +1533,7 @@ ja {
         "\u91D1",
         "\u571F",
     }
-    DayNames { 
+    DayNames {
         "\u65E5\u66DC\u65E5",
         "\u6708\u66DC\u65E5",
         "\u706B\u66DC\u65E5",
@@ -1542,11 +1542,11 @@ ja {
         "\u91D1\u66DC\u65E5",
         "\u571F\u66DC\u65E5",
     }
-    Eras { 
+    Eras {
         "\u7D00\u5143\u524D",
         "\u897F\u66A6",
     }
-    Languages { 
+    Languages {
         ab { "\u30a2\u30d6\u30cf\u30ba\u8a9e" }
         aa { "\u30a2\u30d5\u30a1\u30fc\u30eb\u8a9e" }
         af { "\u30a2\u30d5\u30ea\u30ab\u30fc\u30f3\u30b9\u8a9e" }
@@ -1689,7 +1689,7 @@ ja {
     }
     LocaleID:int { 0x11 }
 //    LocaleString { "ja" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "1",
         "2",
         "3",
@@ -1703,7 +1703,7 @@ ja {
         "11",
         "12",
     }
-    MonthNames { 
+    MonthNames {
         "1\u6708",
         "2\u6708",
         "3\u6708",
@@ -1732,7 +1732,7 @@ ja {
 //    }
 //    ShortLanguage { "jpn" }
     localPatternChars { "GanjkHmsSEDFwWxhKzAe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Asia/Tokyo",
             "\u65E5\u672C\u6A19\u6E96\u6642",
@@ -1743,7 +1743,7 @@ ja {
     }
     LocaleScript{ "Kana","Hira", "Hani" }
 
-    ExemplarCharacters{ 
+    ExemplarCharacters{
                      "[\u3041-\u307C \u308F-\u3092 "                                            	     		     "\u30A1-\u30DC \u30F7-\u30FA \u30FC "
                      "\u4E14-\u4E19 \u4ED4-\u4ED9 \u5021-\u5026 "
                      "\u5BC2-\u5BC7 \u6291-\u6298 \u62C5-\u62CA "
@@ -1793,6 +1793,6 @@ ja {
         "    10,000: <<\u4e07[>>];\n"
         "    100,000,000: <<\u5104[>>];\n"
         "    1,000,000,000,000: <<\u5146[>>];\n"
-        "    10,000,000,000,000,000: =#,##0=;" 
+        "    10,000,000,000,000,000: =#,##0=;"
     }
 }

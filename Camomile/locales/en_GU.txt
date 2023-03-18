@@ -7,13 +7,13 @@
 
 en_GU {
     Version{ "x0.1" }
-    CurrencyElements { 
+    CurrencyElements {
         "$",
         "USD",
         ".",
     }
 //    LocaleString { "en_GU" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4#,##0.00;(\u00A4#,##0.00)",
         "#,##0%",

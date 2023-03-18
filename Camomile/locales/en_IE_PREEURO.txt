@@ -7,7 +7,7 @@
 
 en_IE_PREEURO {
     Version { "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "IR\u00A3",
         "IEP",
         ".",

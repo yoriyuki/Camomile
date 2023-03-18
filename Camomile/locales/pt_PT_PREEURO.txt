@@ -7,7 +7,7 @@
 
 pt_PT_PREEURO {
     Version { "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "Esc.",
         "PTE",
         "$",

@@ -7,7 +7,7 @@
 
 hr {
     Version{"1.2"}
-    CollationElements { 
+    CollationElements {
         Version { "2.0" }
         Sequence {
             "& C < \u010D <<< \u010C < \u0107 <<< \u0106"
@@ -17,10 +17,10 @@ hr {
             "& S < \u0161 <<< \u0160"
             "& Z < \u017E <<< \u017D"			}
     }
-    Countries { 
+    Countries {
         HR { "Hrvatska" }
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH:mm:ss z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -31,7 +31,7 @@ hr {
         "yyyy.MM.dd",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "ned",
         "pon",
         "uto",
@@ -40,7 +40,7 @@ hr {
         "pet",
         "sub",
     }
-    DayNames { 
+    DayNames {
         "nedjelja",
         "ponedjeljak",
         "utorak",
@@ -49,12 +49,12 @@ hr {
         "petak",
         "subota",
     }
-    Languages { 
+    Languages {
         hr { "hrvatski" }
     }
     LocaleID:int { 0x1a }
 //    LocaleString { "hr" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "sij",
         "vel",
         "o\u017Eu",
@@ -68,7 +68,7 @@ hr {
         "stu",
         "pro",
     }
-    MonthNames { 
+    MonthNames {
         "sije\u010Danj",
         "velja\u010Da",
         "o\u017Eujak",
@@ -82,7 +82,7 @@ hr {
         "studeni",
         "prosinac",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         ".",
         ";",
@@ -97,7 +97,7 @@ hr {
     }
 //    ShortLanguage { "hrv" }
     localPatternChars { "GanjkHmsSEDFwWxhKzAe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",
@@ -108,6 +108,6 @@ hr {
     }
     ExemplarCharacters { "[a-p r-v z \u0111 \u0107 \u010d \u017e \u0161 {lj} {nj} {d\u017e}]" }
 //    LocaleScript:array {
-//        "Latn"  // ISO 15924 Name 
+//        "Latn"  // ISO 15924 Name
 //    }
 }

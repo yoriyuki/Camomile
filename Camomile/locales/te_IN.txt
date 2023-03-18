@@ -47,4 +47,3 @@ te_IN {
     //}
     LocaleID:int { 0x44a }
 }
-

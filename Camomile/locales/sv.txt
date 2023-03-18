@@ -13,7 +13,7 @@ sv {
         "a , AA< a\u0308 , A\u0308 < o\u0308 , O\u0308 ; u\u030B , U\u030B < o\u030B , O"
         "\u030B ; \u00F8 , \u00D8 & V ; w , W& Y, u\u0308 , U\u0308" }
     }
-    Countries { 
+    Countries {
         AE { "F\u00f6renade Arabemiraten" }
         AL { "Albanien" }
         AS { "Asien" }
@@ -75,11 +75,11 @@ sv {
         YE { "Jemen" }
         ZA { "Sydafrika" }
     }
-    DateTimeElements:intvector { 
+    DateTimeElements:intvector {
         2,
         4,
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "'kl 'H:mm z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -90,7 +90,7 @@ sv {
         "yyyy-MM-dd",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "s\u00F6",
         "m\u00E5",
         "ti",
@@ -99,7 +99,7 @@ sv {
         "fr",
         "l\u00F6",
     }
-    DayNames { 
+    DayNames {
         "s\u00F6ndag",
         "m\u00E5ndag",
         "tisdag",
@@ -108,7 +108,7 @@ sv {
         "fredag",
         "l\u00F6rdag",
     }
-    Languages { 
+    Languages {
         ar { "arabiska" }
         ba { "baskiska" }
         be { "vitryska" }
@@ -150,7 +150,7 @@ sv {
     }
     LocaleID:int { 0x1d }
 //    LocaleString { "sv" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "jan",
         "feb",
         "mar",
@@ -164,7 +164,7 @@ sv {
         "nov",
         "dec",
     }
-    MonthNames { 
+    MonthNames {
         "januari",
         "februari",
         "mars",
@@ -178,7 +178,7 @@ sv {
         "november",
         "december",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         "\u00A0",
         ";",
@@ -191,12 +191,12 @@ sv {
         "\u221E",
         "\uFFFD",
     }
-    Eras { 
+    Eras {
         "f.Kr.",
         "e.Kr.",
     }
 //    ShortLanguage { "swe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Europe/Stockholm",
             "Central European Time",
@@ -206,11 +206,11 @@ sv {
             "Stockholm",
         }
     }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-z \u00e4 \u00f6 \u00e5 \u00e1 \u00e9 \u00eb \u00fc]" }
-    
+
     //------------------------------------------------------------
     // Rule Based Number Format Support
     //------------------------------------------------------------
@@ -277,8 +277,8 @@ sv {
             "2,000,000,000,000,000: << triljoner[ >>];\n"
             "1,000,000,000,000,000,000: en triljard[ >>];\n"
             "2,000,000,000,000,000,000: << triljarder[ >>];\n"
-            "1,000,000,000,000,000,000,000: =#,##0=;\n" 
-/* 
+            "1,000,000,000,000,000,000,000: =#,##0=;\n"
+/*
  * Current implementation can't handle these magnitudes)
             "1,000,000,000,000,000,000,000: en kvartiljon[ >>];\n"
             "2,000,000,000,000,000,000,000: << kvartiljoner[ >>];\n"

@@ -7,13 +7,13 @@
 
 zh_CN {
     Version{ "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "\uFFE5",
         "CNY",
         ".",
     }
 //    LocaleString { "zh_CN" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4#,##0.00;-\u00A4#,##0.00",
         "#,##0%",
@@ -27,7 +27,7 @@ zh_CN {
     }
     LocaleID:int { 0x0804 }
 
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH'\u65F6'mm'\u5206'ss'\u79D2' z",
         "ahh'\u65F6'mm'\u5206'ss'\u79D2'",
         "H:mm:ss",
@@ -39,4 +39,3 @@ zh_CN {
         "{1} {0}",
     }
 }
-

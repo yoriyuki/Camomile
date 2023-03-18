@@ -80,9 +80,9 @@ gu {
     }
     LocaleScript:array { "Gujr" }
     ExemplarCharacters { "[:Gujr:]" }
-    CollationElements {	    
+    CollationElements {
         Version { "1.0" }
-        Sequence { 
+        Sequence {
             "[normalization on]"
         }
     }

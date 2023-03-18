@@ -7,7 +7,7 @@
 // * Tigrigna language locale.
 // * Contributed by Daniel Yacob <yacob@geez.org>, Ge'ez Frontier Foundation
 
-ti{ 
+ti{
     Version{ "x0.2" }
     DayAbbreviations {
         "\u1230\u1295\u1260\u1275",
@@ -59,14 +59,13 @@ ti{
         "\u12D3/\u12D3",
         "\u12D3/\u121D"
     }
-    Languages { 
+    Languages {
         ti { "\u1275\u130D\u122D\u129B" }
     }
-    Countries { 
+    Countries {
         ER { "\u12A4\u122D\u1275\u122B" }
         ET { "\u12A2\u1275\u12EE\u1335\u12EB" }
     }
     LocaleScript{ "Ethi", }
     ExemplarCharacters{"[:Ethi:]"}
 }
-

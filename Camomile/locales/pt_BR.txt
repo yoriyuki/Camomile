@@ -7,12 +7,12 @@
 
 pt_BR {
     Version{ "1.1" }
-    CurrencyElements { 
+    CurrencyElements {
         "R$",
         "BRL",
         ",",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH'h'mm'min'ss's' z",
         "H'h'm'min's's' z",
         "HH:mm:ss",
@@ -25,7 +25,7 @@ pt_BR {
     }
     LocaleID:int { 0x0416 }
 //    LocaleString { "pt_BR" }
-//    NumberPatterns { 
+//    NumberPatterns {
 //        "#,##0.###;-#,##0.###",
 //        "\u00A4 #,##0.00;-\u00A4 #,##0.00",
 //        "#,##0%",

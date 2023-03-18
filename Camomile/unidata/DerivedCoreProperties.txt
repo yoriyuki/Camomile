@@ -3233,19 +3233,19 @@ FFDA..FFDC    ; XID_Continue # Lo   [3] HALFWIDTH HANGUL LETTER EU..HALFWIDTH HA
 200C..200F    ; Default_Ignorable_Code_Point # Cf   [4] ZERO WIDTH NON-JOINER..RIGHT-TO-LEFT MARK
 202A..202E    ; Default_Ignorable_Code_Point # Cf   [5] LEFT-TO-RIGHT EMBEDDING..RIGHT-TO-LEFT OVERRIDE
 2060..2063    ; Default_Ignorable_Code_Point # Cf   [4] WORD JOINER..INVISIBLE SEPARATOR
-2064..2069    ; Default_Ignorable_Code_Point # Cn   [6] 
+2064..2069    ; Default_Ignorable_Code_Point # Cn   [6]
 206A..206F    ; Default_Ignorable_Code_Point # Cf   [6] INHIBIT SYMMETRIC SWAPPING..NOMINAL DIGIT SHAPES
-D800..DFFF    ; Default_Ignorable_Code_Point # Cs [2048] 
+D800..DFFF    ; Default_Ignorable_Code_Point # Cs [2048]
 FE00..FE0F    ; Default_Ignorable_Code_Point # Mn  [16] VARIATION SELECTOR-1..VARIATION SELECTOR-16
 FEFF          ; Default_Ignorable_Code_Point # Cf       ZERO WIDTH NO-BREAK SPACE
-FFF0..FFF8    ; Default_Ignorable_Code_Point # Cn   [9] 
+FFF0..FFF8    ; Default_Ignorable_Code_Point # Cn   [9]
 FFF9..FFFB    ; Default_Ignorable_Code_Point # Cf   [3] INTERLINEAR ANNOTATION ANCHOR..INTERLINEAR ANNOTATION TERMINATOR
 1D173..1D17A  ; Default_Ignorable_Code_Point # Cf   [8] MUSICAL SYMBOL BEGIN BEAM..MUSICAL SYMBOL END PHRASE
-E0000         ; Default_Ignorable_Code_Point # Cn       
+E0000         ; Default_Ignorable_Code_Point # Cn
 E0001         ; Default_Ignorable_Code_Point # Cf       LANGUAGE TAG
-E0002..E001F  ; Default_Ignorable_Code_Point # Cn  [30] 
+E0002..E001F  ; Default_Ignorable_Code_Point # Cn  [30]
 E0020..E007F  ; Default_Ignorable_Code_Point # Cf  [96] TAG SPACE..CANCEL TAG
-E0080..E0FFF  ; Default_Ignorable_Code_Point # Cn [3968] 
+E0080..E0FFF  ; Default_Ignorable_Code_Point # Cn [3968]
 
 # Total code points: 6271
 
@@ -4216,4 +4216,3 @@ FFFC..FFFD    ; Grapheme_Base # So   [2] OBJECT REPLACEMENT CHARACTER..REPLACEME
 2F800..2FA1D  ; Grapheme_Base # Lo [542] CJK COMPATIBILITY IDEOGRAPH-2F800..CJK COMPATIBILITY IDEOGRAPH-2FA1D
 
 # Total code points: 94368
-

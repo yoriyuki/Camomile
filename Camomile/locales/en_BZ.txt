@@ -15,11 +15,11 @@ en_BZ{
         "."
     }
 
-    DateTimeElements:intvector { 
+    DateTimeElements:intvector {
         2,
         1,
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH:mm:ss z",
         "HH:mm:ss z",
         "HH:mm:ss",

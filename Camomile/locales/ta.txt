@@ -252,8 +252,7 @@ ta {
     }
     LocaleID:int { 0x49 }
     LocaleScript:array {
-        "Taml"   // ISO 15924 Name 
+        "Taml"   // ISO 15924 Name
     }
     ExemplarCharacters{"[:Taml:]"}
 }
-

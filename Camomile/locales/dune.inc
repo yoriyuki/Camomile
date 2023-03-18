@@ -1968,4 +1968,3 @@
  (targets zh__PINYIN.mar)
  (deps    (:x zh__PINYIN.txt) (alias database))
  (action  (chdir .. (run tools/camomilelocaledef.exe --file %{x} locales))))
-

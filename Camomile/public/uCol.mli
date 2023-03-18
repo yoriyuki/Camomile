@@ -55,7 +55,7 @@ module type Type = sig
   (** For locale, see {!Locale}.
       	      If [locale] is omitted, the standard UCA order is used.
       	      If [prec] is omitted, the maximum possible strength is used.
-      	      If [variable] is omitted, the default of the locale 
+      	      If [variable] is omitted, the default of the locale
       	      (usually [`Shifted]) is used.
       	      The meaning of the returned value is similar to Stdlib.compare *)
   val compare :
@@ -66,10 +66,10 @@ module type Type = sig
     text ->
     int
 
-  (** Binary comparison of sort_key gives the same result as [compare]. 
+  (** Binary comparison of sort_key gives the same result as [compare].
       		  i.e.
       		  [compare t1 t2 = Stdlib.compare (sort_key t1) (sort_key t2)]
-      		  If the same texts are repeatedly compared, 
+      		  If the same texts are repeatedly compared,
       		  pre-computation of sort_key gives better performance. *)
   val sort_key :
     ?locale:string ->

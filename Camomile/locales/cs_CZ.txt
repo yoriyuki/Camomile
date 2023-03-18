@@ -7,13 +7,13 @@
 
 cs_CZ {
     Version{ "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "K\u010D",
         "CZK",
         ",",
     }
 //    LocaleString { "cs_CZ" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.##;-#,##0.##",
         "#,##0.## \u00A4;-#,##0.## \u00A4",
         "#,##0%",

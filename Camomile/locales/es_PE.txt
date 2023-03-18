@@ -7,12 +7,12 @@
 
 es_PE {
     Version { "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "S/",
         "PEN",
         ".",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "hh:mm:ss a z",
         "hh:mm:ss a z",
         "hh:mm:ss a",
@@ -25,7 +25,7 @@ es_PE {
     }
     LocaleID:int { 0x280a }
 //    LocaleString { "es_PE" }
-//    NumberElements { 
+//    NumberElements {
 //        ".",
 //        ",",
 //        ";",
@@ -38,7 +38,7 @@ es_PE {
 //        "\u221E",
 //        "\uFFFD",
 //    }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4#,##0.00;\u00A4-#,##0.00",
         "#,##0%",

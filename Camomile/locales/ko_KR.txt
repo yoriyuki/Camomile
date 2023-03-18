@@ -7,13 +7,13 @@
 
 ko_KR {
     Version { "1.2" }
-    CurrencyElements { 
+    CurrencyElements {
         "\u20A9",
         "KRW",
         ".",
     }
 //    LocaleString { "ko_KR" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4#,##0.00;-\u00A4#,##0.00",
         "#,##0%",

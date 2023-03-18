@@ -8,7 +8,7 @@
 mk {
      Version { "1.1"}
 // Macedonian sorting order is completely in accordance with the UCA, so there is no need for separate set of collation elements
-//    CollationElements { 
+//    CollationElements {
 //        Version { "1.0" }
 //        Override { "FALSE" }
 //        Sequence { "& Z"
@@ -20,7 +20,7 @@ mk {
 //        "< \u043F , \u041F < \u0440 , \u0420 < \u0441 , \u0421"
 //        "< \u0442 , \u0422 < \u045C , \u040C < \u0443 , \u0423 < \u0444 , \u0424< \u0445 , \u0425"
 //        "< \u0446 , \u0426 < \u0447 , \u0427 < \u045F , \u040F < \u0448 , \u0428" }
-//        
+//
 ////        "& 9 < \u0482 & Z < \u0430 , \u0410< \u0431 , \u0411< \u0432"
 ////        " , \u0412< \u0433 , \u0413; \u0491 , \u0490; \u0495 , \u0494; \u0453 , \u0403; "
 ////        "\u0493 , \u0492< \u0434 , \u0414< \u0452 , \u0402< \u0435 , \u0415; \u04BD , \u04BC"
@@ -43,10 +43,10 @@ mk {
 ////        " , \u047A< \u047D , \u047C< \u047F , \u047E< \u0481 , \u0480" }
 //    }
 
-    Countries { 
+    Countries {
         MK { "\u041C\u0430\u043A\u0435\u0434\u043E\u043D\u0438\u0458\u0430" }
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH:mm:ss z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -57,7 +57,7 @@ mk {
         "d.M.yy",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "\u043D\u0435\u0434.",
         "\u043F\u043E\u043D.",
         "\u0432\u0442.",
@@ -66,7 +66,7 @@ mk {
         "\u043F\u0435\u0442.",
         "\u0441\u0430\u0431.",
     }
-    DayNames { 
+    DayNames {
         "\u043D\u0435\u0434\u0435\u043B\u0430",
         "\u043F\u043E\u043D\u0435\u0434\u0435\u043B\u043D\u0438\u043A",
         "\u0432\u0442\u043E\u0440\u043D\u0438\u043A",
@@ -75,16 +75,16 @@ mk {
         "\u043F\u0435\u0442\u043E\u043A",
         "\u0441\u0430\u0431\u043E\u0442\u0430",
     }
-    Eras { 
+    Eras {
         "\u043F\u0440.\u043D.\u0435.",
         "\u0430\u0435.",
     }
-    Languages { 
+    Languages {
         mk { "\u043C\u0430\u043A\u0435\u0434\u043E\u043D\u0441\u043A\u0438" }
     }
     LocaleID:int { 0x2f }
 //    LocaleString { "mk" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "\u0458\u0430\u043D.",
         "\u0444\u0435\u0432.",
         "\u043C\u0430\u0440.",
@@ -98,7 +98,7 @@ mk {
         "\u043D\u043E\u0435\u043C.",
         "\u0434\u0435\u043A\u0435\u043C.",
     }
-    MonthNames { 
+    MonthNames {
         "\u0458\u0430\u043D\u0443\u0430\u0440\u0438",
         "\u0444\u0435\u0432\u0440\u0443\u0430\u0440\u0438",
         "\u043C\u0430\u0440\u0442",
@@ -112,7 +112,7 @@ mk {
         "\u043D\u043E\u0435\u043C\u0432\u0440\u0438",
         "\u0434\u0435\u043A\u0435\u043C\u0432\u0440\u0438",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         ".",
         ";",
@@ -127,7 +127,7 @@ mk {
     }
 //    ShortLanguage { "mkd" }
     localPatternChars { "GuMtkHmsSEDFwWahKzUe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",
@@ -136,8 +136,8 @@ mk {
             "GMT",
         }
     }
-    LocaleScript{   
-        "Cyrl",     // ISO 15924 Name 
+    LocaleScript{
+        "Cyrl",     // ISO 15924 Name
     }
     ExemplarCharacters { "[\u0430-\u0438 \u043a-\u0448 \u0450 \u0453 \u0455 \u0458 \u0459 \u045a \u045c \u045d \u045f]" }
 }

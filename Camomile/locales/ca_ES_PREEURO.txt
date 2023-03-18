@@ -7,13 +7,13 @@
 
 ca_ES_PREEURO {
     Version{ "1.0" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;#,##0.###",
         "\u00A4 #,##0;-\u00A4 #,##0",
         "#,##0%",
         "#E0",
     }
-    CurrencyElements { 
+    CurrencyElements {
         "Pts",
         "ESP",
         ",",

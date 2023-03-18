@@ -90,9 +90,9 @@ kn {
 //    }
     LocaleScript:array { "Knda" }
     ExemplarCharacters { "[:Knda:]" }
-    CollationElements {	    
+    CollationElements {
         Version { "1.0" }
-        Sequence { 
+        Sequence {
             "[normalization on]"
         }
     }

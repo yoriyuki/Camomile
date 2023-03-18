@@ -7,7 +7,7 @@
 
 kw{
     Version { "1.0" }
-    DayAbbreviations { 
+    DayAbbreviations {
         "Sul",
         "Lun",
         "Mth",
@@ -16,7 +16,7 @@ kw{
         "Gwe",
         "Sad",
     }
-    DayNames { 
+    DayNames {
         "De Sul",
         "De Lun",
         "De Merth",
@@ -25,7 +25,7 @@ kw{
         "De Gwener",
         "De Sadorn",
     }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "Gen",
         "Whe",
         "Mer",
@@ -39,7 +39,7 @@ kw{
         "Du",
         "Kev",
     }
-    MonthNames { 
+    MonthNames {
         "Mys Genver",
         "Mys Whevrel",
         "Mys Merth",
@@ -53,7 +53,7 @@ kw{
         "Mys Du",
         "Mys Kevardhu",
     }
-//    NumberElements { 
+//    NumberElements {
 //        ".",
 //        ",",
 //        ";",
@@ -66,8 +66,8 @@ kw{
 //        "\u221e",
 //        "\ufffd",
 //    }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
     // /**************** Info Below is needed ****************/
     // CollationElements{}

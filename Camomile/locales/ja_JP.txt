@@ -7,13 +7,13 @@
 
 ja_JP {
     Version{ "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "\uFFE5",
         "JPY",
         ".",
     }
 //    LocaleString { "ja_JP" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4#,##0;-\u00A4#,##0",
         "#,##0%",

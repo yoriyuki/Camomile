@@ -7,13 +7,13 @@
 
 ro_RO {
     Version{ "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "lei",
         "ROL",
         ",",
     }
 //    LocaleString { "ro_RO" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "#,##0.00 \u00A4;-#,##0.00 \u00A4",
         "#,##0%",

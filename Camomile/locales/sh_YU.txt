@@ -7,7 +7,7 @@
 
 sh_YU {
     Version { "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "Din",
         "YUN",
         ",",

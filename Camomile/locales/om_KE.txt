@@ -28,7 +28,7 @@ om_KE {
         "KES",
         ".",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "h:mm:ss a",
         "h:mm:ss a",
         "h:mm:ss a",

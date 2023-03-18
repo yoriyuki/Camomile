@@ -7,7 +7,7 @@ open CamomileLibraryTest.Camomile
 open UPervasives
 
 (*
-let random_pair () = 
+let random_pair () =
   let a0 = Random.int 0x8000000 in
   let b0 = Random.int 0x8000000 in
   (min a0 b0, max a0 b0)
@@ -86,7 +86,7 @@ let test_uset ~desc uset us =
         (USet.mem u uset);
       let u = uchar_of_int (n + 1) in
       expect_equal_app
-        ~msg:(lazy (sprintf 
+        ~msg:(lazy (sprintf
                       "u in us1 is %b but u in uset1 is %b for u = \\u%08x in %s"
                       (StdUSet.mem u us)
                       (USet.mem u uset)
@@ -96,7 +96,7 @@ let test_uset ~desc uset us =
         (USet.mem u) uset;
       let u = uchar_of_int (n - 1) in
       expect_equal_app
-        ~msg:(lazy (sprintf 
+        ~msg:(lazy (sprintf
                       "u in us1 is %b but u in uset1 is %b for u = \\u%08x in %s"
                       (StdUSet.mem u us)
                       (USet.mem u uset)
@@ -110,14 +110,14 @@ let test_uset ~desc uset us =
 (*
 let test_range ~desc uset =
   let a, b = random_pair () in
-  let uset' = USet.add_range (uchar_of_int a) (uchar_of_int b) uset in 
+  let uset' = USet.add_range (uchar_of_int a) (uchar_of_int b) uset in
   for i = a to b do
     expect_true
       ~msg:(lazy (sprintf "\\u%08x is missing in %s" i desc))
       (USet.mem (uchar_of_int i) uset')
   done;
-  USet.iter 
-    (fun u -> 
+  USet.iter
+    (fun u ->
        let i = int_of_uchar u in
        expect_true
          ~msg:(lazy (sprintf "\\u%08x is missing in %s" i desc))
@@ -184,7 +184,7 @@ let _ =
 
 (* Interval Association List *)
 (*
-let rec assoc k al = 
+let rec assoc k al =
   match al with
     [] ->  raise Not_found
   | (k1, k2, v) :: r -> if k1 <= k && k <= k2 then v else assoc k r
@@ -195,13 +195,13 @@ let rec random_assoc size =
     let a, b = random_pair () in
     (a, b, Random.int 16) :: random_assoc (size - 1)
 
-let umap_of_assoc al = 
+let umap_of_assoc al =
   let al = List.rev al in
   let rec f al umap =
     match al with
       [] -> umap
     | (k1, k2, v) :: r ->
-      f r (UMap.add_range (UChar.chr k1) (UChar.chr k2) v umap) 
+      f r (UMap.add_range (UChar.chr k1) (UChar.chr k2) v umap)
   in
   f al UMap.empty
 *)

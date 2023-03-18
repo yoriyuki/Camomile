@@ -5,14 +5,14 @@
 // *
 // ***************************************************************************
 //
-// $Revision: 1.1 $ 
-// $Tag: 
+// $Revision: 1.1 $
+// $Tag:
 // Singapore English locale: Data By Syn Wee Quek
 
 en_SG {
 
     Version { "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         // most commonly used currency sign
         "S$",   // #1 symbol
         "SGD",  // #2 int'l symbol
@@ -33,7 +33,7 @@ en_SG {
 
 //    ShortCountry { "SIN" } // copied to zh_SG.txt
 
-    zoneStrings { 
+    zoneStrings {
         {
             "SST",
             "Singapore Standard Time",

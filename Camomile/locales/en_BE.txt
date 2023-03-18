@@ -7,7 +7,7 @@
 
 en_BE {
     Version { "1.1" }
-    CollationElements { 
+    CollationElements {
 	    Version { "1.0.1" }
 		Sequence { "[backwards 2]" }
 	}
@@ -41,13 +41,13 @@ en_BE {
         "\uFFFD",
     }
 //    ShortCountry { "BEL" }
-    CurrencyElements { 
+    CurrencyElements {
         "\u20AC",
         "EUR",
         ",",
     }
 
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "#,##0.00 \u00A4;-#,##0.00 \u00A4",
         "#,##0%",

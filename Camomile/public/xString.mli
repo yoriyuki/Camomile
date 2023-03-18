@@ -1,5 +1,5 @@
-(** eXtensible Unicode string.  
-    The semantics matches the description of UStorage. 
+(** eXtensible Unicode string.
+    The semantics matches the description of UStorage.
     The detail may be going to change.*)
 
 (* Copyright 2002, 2003 Yamagata Yoriyuki. distributed with LGPL *)

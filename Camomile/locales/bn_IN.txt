@@ -8,12 +8,12 @@
 
 bn_IN {
     Version{ "1.1" }
-    CurrencyElements { 
+    CurrencyElements {
         "\u099F\u09BE\u0995\u09BE",
         "INR",
         ".",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "h:mm:ss a z",
         "h:mm:ss a z",
         "h:mm:ss a",
@@ -24,7 +24,7 @@ bn_IN {
         "d-M-yy",
         "{1} {0}"
     }
-//    NumberElements { 
+//    NumberElements {
 //        ".",
 //        ",",
 //        ";",
@@ -37,7 +37,7 @@ bn_IN {
 //        "\u221E",
 //        "\uFFFD",
 //    }
-    NumberPatterns { 
+    NumberPatterns {
         "##,##,##0.###;-##,##,##0.###",
         "\u00A4##,##,##0.00;-\u00A4##,##,##0.00",
         "##,##,##0%",

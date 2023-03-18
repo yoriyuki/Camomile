@@ -10,8 +10,8 @@
 // Feedback to : schererm@us.ibm.com
 
 eo {
-    Version { "2.0" } 
-    Countries { 
+    Version { "2.0" }
+    Countries {
         AT { "A\u016dstrujo" }
         BE { "Belgujo" }
         CA { "Kanado" }
@@ -30,7 +30,7 @@ eo {
         TR { "Turkujo" }
         US { "Usono" }
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "H'-a horo kaj 'm z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -41,15 +41,15 @@ eo {
         "yy-MM-dd",
         "{1} {0}",
     }
-    DateTimeElements:intvector { 
+    DateTimeElements:intvector {
         2,
         4,
     }
-    AmPmMarkers { 
+    AmPmMarkers {
         "atm",
         "ptm",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "di",
         "lu",
         "ma",
@@ -58,7 +58,7 @@ eo {
         "ve",
         "sa",
     }
-    DayNames { 
+    DayNames {
         "diman\u0109o",
         "lundo",
         "mardo",
@@ -67,11 +67,11 @@ eo {
         "vendredo",
         "sabato",
     }
-    Eras { 
+    Eras {
         "aK",
         "pK",
     }
-    Languages { 
+    Languages {
         da { "dana" }
         de { "germana" }
         el { "greka" }
@@ -89,7 +89,7 @@ eo {
     }
     //LocaleID { "07e0" }
 //    LocaleString { "eo" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "jan",
         "feb",
         "mar",
@@ -103,7 +103,7 @@ eo {
         "nov",
         "dec",
     }
-    MonthNames { 
+    MonthNames {
         "januaro",
         "februaro",
         "marto",
@@ -117,7 +117,7 @@ eo {
         "novembro",
         "decembro",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         "\u00a0",
         ";",
@@ -132,8 +132,8 @@ eo {
     }
 //    ShortLanguage { "epo" }
     localPatternChars { "GjMtkHmslTDUSnahKzJd" }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-z \u016d \u0109 \u011d \u0125 \u0135 \u015d]" }
     //------------------------------------------------------------

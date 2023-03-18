@@ -7,25 +7,25 @@
 
 pl {
     Version{ "1.0" }
-    CollationElements { 
+    CollationElements {
 	    Version { "2" }
-		Sequence { "&A < a\u0328 <<< A\u0328" 
-                   "&C < c\u0301 <<< C\u0301" 
-                   "&E < e\u0328 <<< E\u0328" 
+		Sequence { "&A < a\u0328 <<< A\u0328"
+                   "&C < c\u0301 <<< C\u0301"
+                   "&E < e\u0328 <<< E\u0328"
                    "&L < \u0142 <<< \u0141"
                    "&N < n\u0301 <<< N\u0301"
                    "&O < o\u0301 <<< O\u0301"
-                   "&S < s\u0301 <<< S\u0301" 
+                   "&S < s\u0301 <<< S\u0301"
                    "&Z < z\u0301 <<< Z\u0301 < z\u0307 <<< Z\u0307" }
 	}
-    Countries { 
+    Countries {
         PL { "Polska" }
     }
-    DateTimeElements:intvector { 
+    DateTimeElements:intvector {
         2,
         1,
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH:mm:ss z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -36,7 +36,7 @@ pl {
         "yy-MM-dd",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "N",
         "Pn",
         "Wt",
@@ -45,7 +45,7 @@ pl {
         "Pt",
         "So",
     }
-    DayNames { 
+    DayNames {
         "niedziela",
         "poniedzia\u0142ek",
         "wtorek",
@@ -54,16 +54,16 @@ pl {
         "pi\u0105tek",
         "sobota",
     }
-    Eras { 
+    Eras {
         "p.n.e.",
         "n.e.",
     }
-    Languages { 
+    Languages {
         pl { "polski" }
     }
     LocaleID:int { 0x15 }
 //    LocaleString { "pl" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "sty",
         "lut",
         "mar",
@@ -77,7 +77,7 @@ pl {
         "lis",
         "gru",
     }
-    MonthNames { 
+    MonthNames {
         "stycze\u0144",
         "luty",
         "marzec",
@@ -91,7 +91,7 @@ pl {
         "listopad",
         "grudzie\u0144",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         "\u00A0",
         ";",
@@ -105,7 +105,7 @@ pl {
         "\uFFFD",
     }
 //    ShortLanguage { "pol" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",
@@ -114,8 +114,8 @@ pl {
             "GMT",
         }
     }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-z \u00f3 \u0105 \u0119 \u0107 \u0144 \u015b \u017a \u0142 \u017c]" }
 }

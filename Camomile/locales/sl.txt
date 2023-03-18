@@ -7,7 +7,7 @@
 
 sl {
     Version{"1.1"}
-    CollationElements { 
+    CollationElements {
         Version { "1.0" }
         Sequence { "& C < c\u030C , C\u030C & S < s\u030C , S\u030C & Z < z\u030C , Z\u030C" }
 //      Sequence { "& C < c\u030C , C\u030C < c\u0301 , C\u0301 & D < \u01F3"
@@ -15,10 +15,10 @@ sl {
 //        "\u0141 & N < nj , nJ , Nj , NJ & S < s\u030C , S\u030C < s\u0301, S\u0301 & Z <"
 //        " z\u030C , Z\u030C < z\u0301 , Z\u0301 < z\u0307 , Z\u0307 " }
     }
-    Countries { 
+    Countries {
         SI { "Slovenija" }
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "H:mm:ss z",
         "H:mm:ss z",
         "H:mm:ss",
@@ -29,7 +29,7 @@ sl {
         "yy.M.d",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "ned",
         "pon",
         "tor",
@@ -38,7 +38,7 @@ sl {
         "pet",
         "sob",
     }
-    DayNames { 
+    DayNames {
         "nedelja",
         "ponedeljek",
         "torek",
@@ -47,16 +47,16 @@ sl {
         "petek",
         "sobota",
     }
-    Eras { 
+    Eras {
         "pr.n.\u0161.",
         "po Kr.",
     }
-    Languages { 
+    Languages {
         sl { "Sloven\u0161\u010Dina" }
     }
     LocaleID:int { 0x24 }
 //    LocaleString { "sl" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "jan",
         "feb",
         "mar",
@@ -70,7 +70,7 @@ sl {
         "nov",
         "dec",
     }
-    MonthNames { 
+    MonthNames {
         "januar",
         "februar",
         "marec",
@@ -84,7 +84,7 @@ sl {
         "november",
         "december",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         ".",
         ";",
@@ -99,7 +99,7 @@ sl {
     }
 //    ShortLanguage { "slv" }
     localPatternChars { "GanjkHmsSEDFwWxhKzAe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",
@@ -108,8 +108,8 @@ sl {
             "GMT",
         }
     }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-p r-v z \u010d \u0161 \u017e]" }
 }

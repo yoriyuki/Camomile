@@ -7,7 +7,7 @@
 
 sh {
     Version { "1.2" }
-    CollationElements { 
+    CollationElements {
         Version { "2.0" }
         Sequence {
             "& C < \u010D <<< \u010C < \u0107 <<< \u0106"
@@ -18,7 +18,7 @@ sh {
             "& Z < \u017E <<< \u017D"
             }
     }
-    Countries { 
+    Countries {
         AF { "Avganistan" }
         AL { "Albanija" }
         DZ { "Al\u017Eir" }
@@ -207,7 +207,7 @@ sh {
         ZM { "Zambija" }
         ZW { "Zimbabve" }
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH.mm.ss z",
         "HH.mm.ss z",
         "HH.mm.ss",
@@ -218,7 +218,7 @@ sh {
         "d.M.yy.",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "ned",
         "pon",
         "uto",
@@ -227,7 +227,7 @@ sh {
         "pet",
         "sub",
     }
-    DayNames { 
+    DayNames {
         "nedelja",
         "ponedeljak",
         "utorak",
@@ -236,11 +236,11 @@ sh {
         "petak",
         "subota",
     }
-    Eras { 
+    Eras {
         "p. n. e.",
         "n. e.",
     }
-    Languages { 
+    Languages {
         af { "Afrikanerski" }
         sq { "Albanski" }
         ar { "Arapski" }
@@ -306,7 +306,7 @@ sh {
     }
     LocaleID:int { 0x081a }
 //    LocaleString { "sh" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "jan",
         "feb",
         "mar",
@@ -320,7 +320,7 @@ sh {
         "nov",
         "dec",
     }
-    MonthNames { 
+    MonthNames {
         "januar",
         "februar",
         "mart",
@@ -334,7 +334,7 @@ sh {
         "novembar",
         "decembar",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         ".",
         ";",
@@ -349,7 +349,7 @@ sh {
     }
 //    ShortLanguage { "srp" }
     localPatternChars { "GanjkHmsSEDFwWxhKzAe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Europe/Belgrade",
             "Centralno Evropsko Vreme",
@@ -358,8 +358,8 @@ sh {
             "CET",
         }
     }
-//    LocaleScript{ 
-//                "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//                "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-p r-v z \u0111 \u0107 \u010d \u017e \u0161 {lj} {nj} {d\u017e}]" }
 }

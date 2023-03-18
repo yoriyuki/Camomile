@@ -8,13 +8,13 @@
 fa_IR {
     Version { "1.2" }
 
-    CurrencyElements { 
+    CurrencyElements {
         "\ufeff\u0631\u064a\u0627\u0644",
         "IRR",
         "\u066b",
     }
     // This may be in the wrong order with incomplete data.
-    DateTimePatterns { 
+    DateTimePatterns {
         "ss:mm:h a",
         "ss:mm:HH",
         "ss:mm:HH",
@@ -25,7 +25,7 @@ fa_IR {
         "yyyy/MM/dd",
         "{1} {0}",
     }
-    NumberElements { 
+    NumberElements {
         "\u066b",
         "\u066c",
         ";",

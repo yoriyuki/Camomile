@@ -55,10 +55,10 @@ module type Interface = sig
     val compile : regexp -> compiled_regexp
 
     (** [regexp_match ?sem r t i] tries matching [r] and substrings
-        of [t] beginning from [i].  If match successes,  [Some g] is 
-        returned where [g] is the array containing the matched 
-        string of [n]-th group in the [n]-element.  
-        The matched string of the whole [r] is stored in the [0]-th element.  
+        of [t] beginning from [i].  If match successes,  [Some g] is
+        returned where [g] is the array containing the matched
+        string of [n]-th group in the [n]-element.
+        The matched string of the whole [r] is stored in the [0]-th element.
         If matching fails, [None] is returned. *)
     val regexp_match :
       ?sem:URe.match_semantics ->
@@ -72,7 +72,7 @@ module type Interface = sig
     val string_match : compiled_regexp -> text -> index -> bool
 
     (** [search_forward ?sem r t i] searches a substring of [t]
-        matching [r] from [i].  The returned value is similar to 
+        matching [r] from [i].  The returned value is similar to
         {!URe.Type.regexp_match}. *)
     val search_forward :
       ?sem:URe.match_semantics ->

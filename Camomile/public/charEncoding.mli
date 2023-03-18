@@ -55,7 +55,7 @@ module type Interface = sig
       under the name [name] *)
   val new_enc : string -> t -> unit
 
-  (** [alias alias name] : Define [alias] as an alias of 
+  (** [alias alias name] : Define [alias] as an alias of
       the encoding with the name [name]. *)
   val alias : string -> string -> unit
 
@@ -65,10 +65,10 @@ module type Interface = sig
       the encodings defined by charmap.
       See charmaps directory in the source directory for the available encodings.
       In addition to the encodings via the charmap files, camomile supports
-      ISO-2022-CN, ISO-2022-JP, ISO-2022-JP-2, ISO-2022-KR, jauto (Auto 
+      ISO-2022-CN, ISO-2022-JP, ISO-2022-JP-2, ISO-2022-KR, jauto (Auto
       detection of Japanese encodings), UTF-8, UTF-16, UTF-16BE, UTF-16LE.
       UTF-32, UTF-32BE, UTF-32LE, UCS-4(Big endian order).
-      The encoding also can be referred by "IANA/<IANA name>", if the encoding 
+      The encoding also can be referred by "IANA/<IANA name>", if the encoding
       is supported. *)
   val of_name : string -> t
 
@@ -88,7 +88,7 @@ module type Interface = sig
   val utf32le : t
   val ucs4 : t
 
-  (** [recode_string ~in_enc ~out_enc s] 
+  (** [recode_string ~in_enc ~out_enc s]
       converts the string [s] from [in_enc] to [out_enc]. *)
   val recode_string : in_enc:t -> out_enc:t -> string -> string
 
@@ -127,29 +127,29 @@ module type Interface = sig
   class convert_output :
     in_enc:t -> out_enc:t -> char_output_channel -> char_output_channel
 
-  (** [new out_channel enc outchan] creates the output channel object 
+  (** [new out_channel enc outchan] creates the output channel object
       {!OOChannel.obj_output_channel} which
       receives Unicode characters and outputs them to [outchan] using
       the encoding [enc]. *)
   class out_channel : t -> Stdlib.out_channel -> [UChar.t] obj_output_channel
 
-  (** [new in_channel enc inchan] creates the intput channel object 
+  (** [new in_channel enc inchan] creates the intput channel object
       {!OOChannel.obj_input_channel} which
       reads bytes from [inchan] and converts them to Unicode characters. *)
   class in_channel : t -> Stdlib.in_channel -> [UChar.t] obj_input_channel
 
-  (** [ustream_of enc chars] converts the byte stream [chars] 
+  (** [ustream_of enc chars] converts the byte stream [chars]
       to the Unicode character stream by the encoding [enc]. *)
   val ustream_of : t -> char Stream.t -> UChar.t Stream.t
 
-  (** [char_stream_of enc uchars] converts the Unicode character stream 
+  (** [char_stream_of enc uchars] converts the Unicode character stream
       [uchars] to the byte stream by the encoding [enc] *)
   val char_stream_of : t -> UChar.t Stream.t -> char Stream.t
 
   module type Type = sig
     type text
 
-    (** [decode enc s] converts the string [s] encoded 
+    (** [decode enc s] converts the string [s] encoded
         by the encoding [enc] to the Unicode text. *)
     val decode : t -> string -> text
 

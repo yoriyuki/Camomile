@@ -7,12 +7,12 @@
 
 ru_UA {
     Version { "1.1" }
-    CurrencyElements { 
+    CurrencyElements {
         "\u0433\u0440\u043D.",
         "UAK",
         ",",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH:mm:ss z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -36,7 +36,7 @@ ru_UA {
         "\u221E",
         "\uFFFD",
     }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "#,##0.00 \u00a4;-#,##0.00 \u00a4",
         "#,##0%",

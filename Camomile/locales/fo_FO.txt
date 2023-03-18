@@ -9,12 +9,12 @@ fo_FO {
     Version { "1.0" }
 
     /* Discarding duplicate data for tag: AmPmMarkers */
-    CurrencyElements { 
+    CurrencyElements {
         "kr",
         "DKK",
         ",",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "h:mm:ss a",
         "h:mm:ss a",
         "h:mm:ss a",
@@ -25,7 +25,7 @@ fo_FO {
         "dd/MM/yy",
         "{1} {0}",
     }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00a4#,##0.00;\u00a4 -#,##0.00",
         "#,##0%",

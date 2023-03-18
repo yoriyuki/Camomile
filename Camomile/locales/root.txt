@@ -32,7 +32,7 @@ root {
     "%%UCARULES" { "UCARules.txt"} // UCARules
 
     // Here are empty collation rules just for the consistency. UCA is used instead... 01/16/2001 by weiv
-    CollationElements { 
+    CollationElements {
         Version { "x0.0" }
         Sequence { "" }
     }
@@ -364,7 +364,7 @@ root {
     // END BreakIterator support
     //------------------------------------------------------------
 
-    AmPmMarkers { 
+    AmPmMarkers {
         "AM",
         "PM",
     }
@@ -637,16 +637,16 @@ root {
         ZM { "Zambia" }
         ZW { "Zimbabwe" }
     }
-    CurrencyElements { 
+    CurrencyElements {
         "\u00A4",
         "XXX",
         "",
     }
-    DateTimeElements:intvector { 
+    DateTimeElements:intvector {
         1,
         1,
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "h:mm:ss a z",
         "h:mm:ss a z",
         "h:mm:ss a",
@@ -657,7 +657,7 @@ root {
         "M/d/yy", // Changing this will break binary compatibility.
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "Sun",
         "Mon",
         "Tue",
@@ -666,7 +666,7 @@ root {
         "Fri",
         "Sat",
     }
-    DayNames { 
+    DayNames {
         "Sunday",
         "Monday",
         "Tuesday",
@@ -675,13 +675,13 @@ root {
         "Friday",
         "Saturday",
     }
-    Eras { 
+    Eras {
         "BC",
         "AD",
     }
     // If there is a two letter abbreviation (ISO-639-1) for a three letter
     // abbreviation (ISO-639-2), the two letter abbreviation must be used.
-    // Source: http://lcweb.loc.gov/standards/iso639-2/englangn.html 
+    // Source: http://lcweb.loc.gov/standards/iso639-2/englangn.html
     Languages {
         root{"Root"}    // The only exception to ISO-639
 
@@ -1125,7 +1125,7 @@ root {
     }
     LocaleID:int { 0x0000 }
 //    LocaleString { "en" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "Jan",
         "Feb",
         "Mar",
@@ -1139,7 +1139,7 @@ root {
         "Nov",
         "Dec",
     }
-    MonthNames { 
+    MonthNames {
         "January",
         "February",
         "March",
@@ -1153,7 +1153,7 @@ root {
         "November",
         "December",
     }
-    NumberElements { 
+    NumberElements {
         ".",
         ",",
         ";",
@@ -1166,7 +1166,7 @@ root {
         "\u221E",
         "\uFFFD",
     }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4 #,##0.00;-\u00A4 #,##0.00",
         "#,##0%",
@@ -1175,7 +1175,7 @@ root {
 //    ShortCountry { "" }
 //    ShortLanguage { "eng" }
     localPatternChars { "GyMdkHmsSEDFwWahKzYe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "PST",
             "Pacific Standard Time",
@@ -1275,7 +1275,7 @@ root {
         "=#,##0=;\n"
     }
     ExemplarCharacters{"[a-z]"}
-    Scripts { 
+    Scripts {
         ARAB { "Arabic" }
         ARMN { "Armenian" }
         BENG { "Bengali" }
@@ -1320,4 +1320,3 @@ root {
         ZYYY { "Common" }
    }
 }
-

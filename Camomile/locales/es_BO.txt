@@ -7,12 +7,12 @@
 
 es_BO {
     Version { "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "$b",
         "BOB",
         ",",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "hh:mm:ss a z",
         "hh:mm:ss a z",
         "hh:mm:ss a",
@@ -25,7 +25,7 @@ es_BO {
     }
     LocaleID:int { 0x400a }
 //    LocaleString { "es_BO" }
-    NumberElements { 
+    NumberElements {
         ",",
         ".",
         ";",

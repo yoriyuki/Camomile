@@ -7,7 +7,7 @@
 
 fo {
     Version { "1.0" }
-    DayAbbreviations { 
+    DayAbbreviations {
         "sun",
         "mán",
         "týs",
@@ -16,7 +16,7 @@ fo {
         "frí",
         "ley",
     }
-    DayNames { 
+    DayNames {
         "sunnudagur",
         "mánadagur",
         "týsdagur",
@@ -25,7 +25,7 @@ fo {
         "fríggjadagur",
         "leygardagur",
     }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "jan",
         "feb",
         "mar",
@@ -39,7 +39,7 @@ fo {
         "nov",
         "des",
     }
-    MonthNames { 
+    MonthNames {
         "januar",
         "februar",
         "mars",
@@ -53,7 +53,7 @@ fo {
         "november",
         "desember",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         ".",
         ";",
@@ -67,8 +67,8 @@ fo {
         "�",
     }
     LocaleID:int { 0x38 }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-z \u00e1 \u00e6 \u00ed \u00f0 \u00f3 \u00f8 \u00fa \u00fd]" }
 }

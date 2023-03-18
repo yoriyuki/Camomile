@@ -8,11 +8,11 @@
 af {
     Version { "2.0" }
 
-    AmPmMarkers { 
+    AmPmMarkers {
         "VM",
         "NM",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "So",
         "Ma",
         "Di",
@@ -21,7 +21,7 @@ af {
         "Vr",
         "Sa",
     }
-    DayNames { 
+    DayNames {
         "Sondag",
         "Maandag",
         "Dinsdag",
@@ -30,7 +30,7 @@ af {
         "Vrydag",
         "Saterdag",
     }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "Jan",
         "Feb",
         "Mar",
@@ -44,7 +44,7 @@ af {
         "Nov",
         "Des",
     }
-    MonthNames { 
+    MonthNames {
         "Januarie",
         "Februarie",
         "Maart",
@@ -74,8 +74,8 @@ af {
 //    }
     LocaleID:int { 0x36 }
     ExemplarCharacters { "[a-z \u00e1 \u00e9 \u00e8 \u00e2 \u00ea \u00ee \u00f4 \u00fb \u00eb \u00ef \u00f6]" }
-//    LocaleScript{ 
-//                "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//                "Latn",  // ISO 15924 Name
 //    }
 //    LocaleString{ "af" }
 

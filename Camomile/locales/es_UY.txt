@@ -12,7 +12,7 @@ es_UY {
         "UYU",
         ",",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "hh:mm:ss a z",
         "hh:mm:ss a z",
         "hh:mm:ss a",
@@ -38,7 +38,7 @@ es_UY {
         "\u221E",
         "\uFFFD",
     }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4 #,##0.00;(\u00A4#,##0.00)",
         "#,##0%",

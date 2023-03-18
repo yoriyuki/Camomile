@@ -7,7 +7,7 @@
 
 zh_HK {
     Version{ "1.0" }
-    CollationElements { 
+    CollationElements {
         Version { "1.0" }
         Sequence { "&[top]<\u5159<\u515B<\u515E<\u515D<\u5161<\u5163<\u55E7<\u74E9<\u7CCE<\u4E00<\u4E59"
         "<\u4E01<\u4E03<\u4E43<\u4E5D<\u4E86<\u4E8C<\u4EBA<\u513F<\u5165<\u516B<\u51E0<\u5200"
@@ -1099,12 +1099,12 @@ zh_HK {
         "<\u7229<\u864B<\u8B9F<\u9483<\u9C79<\u9EB7<\u7675<\u9A6B<\u9C7A<\u9E1D<\u7069<\u706A"
         "<\u9EA4<\u9F7E<\u9F49<\u9F98" }
     }
-    CurrencyElements { 
+    CurrencyElements {
         "HK$",
         "HKD",
         ".",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "ahh'\u6642'mm'\u5206'ss'\u79D2' z",
         "ahh'\u6642'mm'\u5206'ss'\u79D2'",
         "ahh:mm:ss",
@@ -1115,7 +1115,7 @@ zh_HK {
         "yy'\u5E74'M'\u6708'd'\u65E5'",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "\u65E5",
         "\u4E00",
         "\u4E8C",
@@ -1126,7 +1126,7 @@ zh_HK {
     }
     LocaleID:int { 0x0c04 }
 //    LocaleString { "zh_HK" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "1\u6708",
         "2\u6708",
         "3\u6708",
@@ -1140,14 +1140,14 @@ zh_HK {
         "11\u6708",
         "12\u6708",
     }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4#,##0.00;(\u00A4#,##0.00)",
         "#,##0%",
         "#E0",
     }
 //    ShortCountry { "HKG" }
-    zoneStrings { 
+    zoneStrings {
         {
             "CTT",
             "Hong Kong Standard Time",

@@ -7,17 +7,17 @@
 
 et {
     Version{ "1.0" }
-    CollationElements { 
+    CollationElements {
         Version { "1.0" }
         Sequence { "@& S < s\u030C, S\u030C < z , Z < z\u030C , Z\u030C & V"
             " ; w , W < o\u0303 , O\u0303< a\u0308 , A\u0308 < o\u0308 , O\u0308 ; w\u0302 ,"
             " W\u0302< u\u0308 , U\u0308& Y < \u01B6 , \u01B5"
         }
     }
-    Countries { 
+    Countries {
         EE { "Eesti" }
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "H:mm:ss z",
         "H:mm:ss z",
         "H:mm:ss",
@@ -28,7 +28,7 @@ et {
         "dd.MM.yy",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "P",
         "E",
         "T",
@@ -37,7 +37,7 @@ et {
         "R",
         "L",
     }
-    DayNames { 
+    DayNames {
         "p\u00FChap\u00E4ev",
         "esmasp\u00E4ev",
         "teisip\u00E4ev",
@@ -46,16 +46,16 @@ et {
         "reede",
         "laup\u00E4ev",
     }
-    Eras { 
+    Eras {
         "e.m.a.",
         "m.a.j.",
     }
-    Languages { 
+    Languages {
         et { "Eesti" }
     }
     LocaleID:int { 0x25 }
 //    LocaleString { "et" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "jaan",
         "veebr",
         "m\u00E4rts",
@@ -69,7 +69,7 @@ et {
         "nov",
         "dets",
     }
-    MonthNames { 
+    MonthNames {
         "jaanuar",
         "veebruar",
         "m\u00E4rts",
@@ -83,7 +83,7 @@ et {
         "november",
         "detsember",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         "\u00A0",
         ";",
@@ -98,7 +98,7 @@ et {
     }
 //    ShortLanguage { "est" }
     localPatternChars { "GanjkHmsSEDFwWxhKzAe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",
@@ -107,8 +107,8 @@ et {
             "GMT",
         }
     }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-z \u00f5 \u00e4 \u00f6 \u00fc \u0161 \u017e]" }
 }

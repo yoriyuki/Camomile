@@ -7,16 +7,16 @@
 
 de_BE {
     Version{ "1.0" }
-//    AmPmMarkers { 
+//    AmPmMarkers {
 //        "vorm",
 //        "nachm",
 //    }
-    CurrencyElements { 
+    CurrencyElements {
         "\u20AC",
         "EUR",
         ",",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH 'h' mm 'min' ss 's' z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -31,7 +31,7 @@ de_BE {
         2,
         1,
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "Son",
         "Mon",
         "Die",
@@ -40,7 +40,7 @@ de_BE {
         "Fre",
         "Sam",
     }
-//    DayNames { 
+//    DayNames {
 //        "Sonntag",
 //        "Montag",
 //        "Dienstag",
@@ -50,7 +50,7 @@ de_BE {
 //        "Samstag",
 //    }
 //    Measurement { "Metric" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "Jan",
         "Feb",
         "M\u00E4r",
@@ -64,7 +64,7 @@ de_BE {
         "Nov",
         "Dez",
     }
-//    MonthNames { 
+//    MonthNames {
 //        "Januar",
 //        "Februar",
 //        "M\u00E4rz",
@@ -91,13 +91,13 @@ de_BE {
 //        "\u221E",
 //        "\uFFFD",
 //    }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "#,##0.00 \u00A4;-#,##0.00 \u00A4",
         "#,##0%",
         "#E0",
     }
-//    PaperSize { 
+//    PaperSize {
 //        Hieght { "297" }
 //        Width { "210" }
 //        Units { "mm" }

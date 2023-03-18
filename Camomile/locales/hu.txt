@@ -7,11 +7,11 @@
 
 hu {
     Version{ "1.1" }
-    AmPmMarkers { 
+    AmPmMarkers {
         "DE",
         "DU",
     }
-    CollationElements { 
+    CollationElements {
         Version { "1.0" }
         Sequence { "& C < cs , cS , Cs , CS & D < \u0111, \u0110 "
         "& G < gy, gY, Gy, GY & L < ly, lY, Ly, LY"
@@ -19,10 +19,10 @@ hu {
         "& S < sz , sZ , Sz , SZ & U < u\u0308 , U\u0308 < u\u030B , U\u030B"
         "& Z < zs , zS , Zs , ZS" }
     }
-    Countries { 
+    Countries {
         HU { "Magyarorsz\u00E1g" }
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "H:mm:ss z",
         "H:mm:ss z",
         "H:mm:ss",
@@ -33,7 +33,7 @@ hu {
         "yyyy.MM.dd.",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "V",
         "H",
         "K",
@@ -42,7 +42,7 @@ hu {
         "P",
         "Szo",
     }
-    DayNames { 
+    DayNames {
         "vas\u00E1rnap",
         "h\u00E9tf\u0151",
         "kedd",
@@ -51,16 +51,16 @@ hu {
         "p\u00E9ntek",
         "szombat",
     }
-    Eras { 
+    Eras {
         "i.e.",
         "i.u.",
     }
-    Languages { 
+    Languages {
         hu { "magyar" }
     }
     LocaleID:int { 0x0e }
 //    LocaleString { "hu" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "jan.",
         "febr.",
         "m\u00E1rc.",
@@ -74,7 +74,7 @@ hu {
         "nov.",
         "dec.",
     }
-    MonthNames { 
+    MonthNames {
         "janu\u00E1r",
         "febru\u00E1r",
         "m\u00E1rcius",
@@ -88,7 +88,7 @@ hu {
         "november",
         "december",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         "\u00A0",
         ";",
@@ -103,7 +103,7 @@ hu {
     }
 //    ShortLanguage { "hun" }
     localPatternChars { "GanjkHmsSEDFwWxhKzAe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",
@@ -113,7 +113,7 @@ hu {
         }
     }
 //    LocaleScript{
-//        "Latn",  // ISO 15924 Name 
+//        "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-z \u00e1 \u00e9 \u00ed \u00f3 \u00fa \u00f6 \u00fc \u0151 \u0171]" }
 }

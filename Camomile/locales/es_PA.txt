@@ -7,12 +7,12 @@
 
 es_PA {
     Version { "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "B/",
         "PAB",
         ".",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "hh:mm:ss a z",
         "hh:mm:ss a z",
         "hh:mm:ss a",
@@ -25,7 +25,7 @@ es_PA {
     }
     LocaleID:int { 0x180a }
 //    LocaleString { "es_PA" }
-//    NumberElements { 
+//    NumberElements {
 //        ".",
 //        ",",
 //        ";",

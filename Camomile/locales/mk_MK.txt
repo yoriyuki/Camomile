@@ -7,13 +7,13 @@
 
 mk_MK {
     Version{ "1.1" }
-    CurrencyElements { 
+    CurrencyElements {
         "Den",
         "MKD",
         ",",
     }
 //    LocaleString { "mk_MK" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;(#,##0.###)",
         "\u00A4 #,##0.00;-\u00A4 #,##0.00",
         "#,##0%",

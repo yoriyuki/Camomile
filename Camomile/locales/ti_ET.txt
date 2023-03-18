@@ -20,7 +20,7 @@ ti_ET {
         "ETB",
         ".",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "h:mm:ss a",
         "h:mm:ss a",
         "h:mm:ss a",

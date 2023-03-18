@@ -7,15 +7,15 @@
 
 it {
     Version{ "1.0" }
-    Countries { 
+    Countries {
         IT { "Italia" }
         CH { "Svizzera" }
     }
-    DateTimeElements:intvector { 
+    DateTimeElements:intvector {
         2,
         4,
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH:mm:ss z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -26,13 +26,13 @@ it {
         "dd/MM/yy",
         "{1} {0}",
     }
-    
-    AmPmMarkers { 
+
+    AmPmMarkers {
         "m.",
         "p.",
     }
-    
-    DayAbbreviations { 
+
+    DayAbbreviations {
         "dom",
         "lun",
         "mar",
@@ -41,7 +41,7 @@ it {
         "ven",
         "sab",
     }
-    DayNames { 
+    DayNames {
         "domenica",
         "luned\u00EC",
         "marted\u00EC",
@@ -50,16 +50,16 @@ it {
         "venerd\u00EC",
         "sabato",
     }
-    Eras { 
+    Eras {
         "aC",
         "dC",
     }
-    Languages { 
+    Languages {
         it { "italiano" }
     }
     LocaleID:int { 0x10 }
 //    LocaleString { "it" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "gen",
         "feb",
         "mar",
@@ -73,7 +73,7 @@ it {
         "nov",
         "dic",
     }
-    MonthNames { 
+    MonthNames {
         "gennaio",
         "febbraio",
         "marzo",
@@ -87,7 +87,7 @@ it {
         "novembre",
         "dicembre",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         ".",
         ";",
@@ -101,7 +101,7 @@ it {
         "\uFFFD",
     }
 //    ShortLanguage { "ita" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Europe/Rome",
             "CET",
@@ -111,8 +111,8 @@ it {
             "Rome",
         }
     }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-z \u00e9 \u00f3 \u00e0 \u00e8 \u00ec \u00f2 \u00ed \u00fa \u00f9 \u00ef]" }
 
@@ -215,6 +215,6 @@ it {
         "    200: <%%with-o<cento; <%%with-o<cent[>%%with-o>];\n"
         "    1000: omille; omill[>%%with-i>];\n"
         "    2000: <%%with-o<mila; <%%with-o<mil[>%%with-a>];\n"
-        "    100,000: =%main=;\n" 
+        "    100,000: =%main=;\n"
     }
 }

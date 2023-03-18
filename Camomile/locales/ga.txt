@@ -8,7 +8,7 @@
 ga{
    Version { "1.0.1" }
 
-   DayAbbreviations { 
+   DayAbbreviations {
         "Domh",
         "Luan",
         "Máirt",
@@ -17,7 +17,7 @@ ga{
         "Aoine",
         "Sath",
     }
-    DayNames { 
+    DayNames {
         "Dé Domhnaigh",
         "Dé Luain",
         "Dé Máirt",
@@ -26,7 +26,7 @@ ga{
         "Dé hAoine",
         "Dé Sathairn",
     }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "Ean",
         "Feabh",
         "Márta",
@@ -40,7 +40,7 @@ ga{
         "Samh",
         "Noll",
     }
-    MonthNames { 
+    MonthNames {
         "Eanáir",
         "Feabhra",
         "Márta",
@@ -54,7 +54,7 @@ ga{
         "Mí na Samhna",
         "Mí na Nollag",
     }
-//    NumberElements { 
+//    NumberElements {
 //        ".",
 //        ",",
 //        ";",
@@ -67,8 +67,8 @@ ga{
 //        "∞",
 //        "�",
 //    }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-z \u00e1 \u00e9 \u00ed \u00f3 \u00fa]" }
 }

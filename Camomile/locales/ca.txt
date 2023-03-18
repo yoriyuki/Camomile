@@ -7,16 +7,16 @@
 
 ca {
     Version { "1.0" }
-    CollationElements { 
+    CollationElements {
         Version { "1.0" }
         Sequence { "[backwards 2]"
         "&C < ch <<< Ch <<< CH"
         "&L < ll <<< l\u00b7l <<< Ll <<< L\u00b7l <<< LL <<< L\u00b7L" }
     }
-    Countries { 
+    Countries {
         ES { "Espanya" }
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH:mm:ss z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -27,7 +27,7 @@ ca {
         "dd/MM/yy",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "dg.",
         "dl.",
         "dt.",
@@ -36,7 +36,7 @@ ca {
         "dv.",
         "ds.",
     }
-    DayNames { 
+    DayNames {
         "diumenge",
         "dilluns",
         "dimarts",
@@ -45,12 +45,12 @@ ca {
         "divendres",
         "dissabte",
     }
-    Languages { 
+    Languages {
         ca { "catal\u00E0" }
     }
     LocaleID:int { 0x03 }
 //    LocaleString { "ca" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "gen.",
         "feb.",
         "mar\u00E7",
@@ -64,7 +64,7 @@ ca {
         "nov.",
         "des.",
     }
-    MonthNames { 
+    MonthNames {
         "gener",
         "febrer",
         "mar\u00E7",
@@ -78,7 +78,7 @@ ca {
         "novembre",
         "desembre",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         ".",
         ";",
@@ -93,7 +93,7 @@ ca {
     }
 //    ShortLanguage { "cat" }
     localPatternChars { "GuMtkHmsSEDFwWahKzUe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",
@@ -102,8 +102,8 @@ ca {
             "GMT",
         }
     }
-//    LocaleScript{ 
-//                "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//                "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-z \u00e9 \u00ed \u00f3 \u00fa \u00e0 \u00e8 \u00f2 \u00ef \u00fc \u0140 \u00e7 \u00f1]" }
 

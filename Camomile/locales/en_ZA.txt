@@ -8,19 +8,19 @@
 en_ZA {
     Version { "1.0" }
 //    Duplicated in parent
-//    Countries { 
+//    Countries {
 //        US { "United States" }
 //        GB { "United Kingdom" }
 //        CA { "Canada" }
 //        IE { "Ireland" }
 //        ZA { "South Africa" }
 //    }
-    CurrencyElements { 
+    CurrencyElements {
         "R",
         "ZAR",
         ".",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "h:mm:ss a",
         "h:mm:ss a",
         "h:mm:ss a",
@@ -32,12 +32,12 @@ en_ZA {
         "{1} {0}",
     }
 //    Duplicated in parent
-//    Languages { 
+//    Languages {
 //        en { "English" }
 //    }
     LocaleID:int { 0x1c09 }
 //    LocaleString { "en_ZA" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4#,##0.00;-\u00A4#,##0.00",
         "#,##0%",

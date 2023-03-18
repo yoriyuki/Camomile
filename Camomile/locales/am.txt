@@ -64,10 +64,10 @@ am {
         "\u12D3/\u12D3",
         "\u12D3/\u121D"
     }
-    Languages { 
+    Languages {
         am { "\u12A0\u121B\u122D\u129B" }
     }
-    Countries { 
+    Countries {
         ET { "\u12A2\u1275\u12EE\u1335\u12EB" }
     }
 }

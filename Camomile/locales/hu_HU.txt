@@ -7,13 +7,13 @@
 
 hu_HU {
     Version{ "1.1" }
-    CurrencyElements { 
+    CurrencyElements {
         "Ft",
         "HUF",
         ",",
     }
 //    LocaleString { "hu_HU" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4#,##0.00;-\u00A4#,##0.00",
         "#,##0%",

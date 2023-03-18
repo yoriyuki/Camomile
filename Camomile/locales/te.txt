@@ -75,8 +75,8 @@ te {
         Version { "1.0" }
         Sequence { "[normalization on]" }
     }
-    LocaleScript{ 
-        "Telu",  // ISO 15924 Name 
+    LocaleScript{
+        "Telu",  // ISO 15924 Name
     }
     ExemplarCharacters{"[:Telu:]"}
     // /**************** Info Below is needed ****************/

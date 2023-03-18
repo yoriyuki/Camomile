@@ -173,4 +173,3 @@ FB4E    #  HEBREW LETTER PE WITH RAFE
 # 0F81                 TIBETAN VOWEL SIGN REVERSED II
 
 # Total code points: 4
-

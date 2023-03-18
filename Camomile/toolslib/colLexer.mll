@@ -39,8 +39,8 @@ open ColParser
 let blank = Str.regexp "[ \t\n]+"
 }
 
-let utf8_char = 
-  ['\000'-'\127'] 
+let utf8_char =
+  ['\000'-'\127']
 | ['\194'-'\223']['\128'-'\191']
 | ['\224'-'\239']['\128'-'\191']['\128'-'\191']
 | ['\240'-'\247']['\128'-'\191']['\128'-'\191']['\128'-'\191']
@@ -73,5 +73,3 @@ rule token = parse
   let u = UTF8.look s 0 in
 (*  Printf.printf "UCHAR2 \\u%04x\n" (int_of_uchar u);*)
   UCHAR u}
-
-

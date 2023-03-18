@@ -12,7 +12,7 @@ kn_IN {
 
     CurrencyElements {
         "\u0930\u0941",
-        "INR",  
+        "INR",
         "."
     }
     DateTimePatterns {

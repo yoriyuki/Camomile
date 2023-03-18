@@ -7,12 +7,12 @@
 
 es_SV {
     Version { "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "\u20A1",
         "SVC",
         ".",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "hh:mm:ss a z",
         "hh:mm:ss a z",
         "hh:mm:ss a",
@@ -24,7 +24,7 @@ es_SV {
         "{1} {0}",
     }
 //    LocaleString { "es_SV" }
-//    NumberElements { 
+//    NumberElements {
 //        ".",
 //        ",",
 //        ";",

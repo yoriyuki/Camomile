@@ -7,12 +7,12 @@
 
 ms_MY {
     Version{ "x1.1" }
-    CurrencyElements { 
+    CurrencyElements {
         "R",
         "MYR",
         ".",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "h:mm:ss a z",
         "h:mm:ss a z",
         "h:mm:ss a",
@@ -37,7 +37,7 @@ ms_MY {
 //        "\u221E",
 //        "\uFFFD",
 //    }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4#,##0.00;(\u00A4#,##0.00)",
         "#,##0%",

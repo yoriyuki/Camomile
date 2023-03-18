@@ -54,7 +54,7 @@ val length : 'a xarray -> int
 val get : 'a xarray -> int -> 'a
 
 (* set x i e :
- * set the [i]-th element of [x] to [e].  
+ * set the [i]-th element of [x] to [e].
  * The length of [x] is automatically extended to [i], and
  * intermediate elements are set to the default value of [x] *)
 val set : 'a xarray -> int -> 'a -> unit
@@ -91,6 +91,6 @@ val append : 'a xarray -> 'a xarray -> 'a xarray
 val iter : ('a -> unit) -> 'a xarray -> unit
 val array_of : 'a xarray -> 'a array
 
-(* shrink x len : reduce the length of [x] to [len].  
+(* shrink x len : reduce the length of [x] to [len].
  * If there is an element beyond [len], such elements are discarded. *)
 val shrink : 'a xarray -> int -> unit

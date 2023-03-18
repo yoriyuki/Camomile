@@ -7,13 +7,13 @@
 
 tr_TR {
     Version{ "1.1" }
-    CurrencyElements { 
+    CurrencyElements {
         "TL",
         "TRL",
         ",",
     }
 //    LocaleString { "tr_TR" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "#,##0 \u00A4;-#,##0 \u00A4",
         "#,##0%",

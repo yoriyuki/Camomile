@@ -64,19 +64,19 @@ val compare : t -> t -> int
 val equal : t -> t -> bool
 val subset : t -> t -> bool
 
-(** [from u s] returns the set of elements of [s] 
+(** [from u s] returns the set of elements of [s]
     whose code points are equal or greater than [u]. *)
 val from : UChar.t -> t -> t
 
-(** [after u s] returns the set of elements of [s] 
+(** [after u s] returns the set of elements of [s]
     whose code points are greater than [u]. *)
 val after : UChar.t -> t -> t
 
-(** [until u s] returns the set of elements of [s] 
+(** [until u s] returns the set of elements of [s]
     whose code points are equal or smaller than [u]. *)
 val until : UChar.t -> t -> t
 
-(** [until u s] returns the set of elements of [s] 
+(** [until u s] returns the set of elements of [s]
     whose code points are smaller than [u]. *)
 val before : UChar.t -> t -> t
 
@@ -89,7 +89,7 @@ val iter_range : (UChar.t -> UChar.t -> unit) -> t -> unit
 
 val fold : (UChar.t -> 'a -> 'a) -> t -> 'a -> 'a
 
-(** [fold_range f s x] is equivalent to 
+(** [fold_range f s x] is equivalent to
     [f u_i u_(i+1) (... (f u_3 u_4 (f u_1 u_2 x)))] if [s] is consisted of
     the intervals [u1]-[u2], [u3]-[u4], ..., [u_i]-[u_(i + 1)]
     in increasing order.  The intervals given to [proc]
@@ -103,16 +103,16 @@ val partition : (UChar.t -> bool) -> t -> t * t
 val cardinal : t -> int
 val elements : t -> UChar.t list
 
-(** The list of the intervals contained in the set.  
-    The returned intervals are always separated 
+(** The list of the intervals contained in the set.
+    The returned intervals are always separated
     by the character not in [s]. *)
 val ranges : t -> (UChar.t * UChar.t) list
 
 val min_elt : t -> UChar.t
 val max_elt : t -> UChar.t
 
-(** Returns a element roughly in the middle of the set. 
-    It is not guaranteed to return the same element for 
+(** Returns a element roughly in the middle of the set.
+    It is not guaranteed to return the same element for
     the sets with the same elements *)
 val choose : t -> UChar.t
 

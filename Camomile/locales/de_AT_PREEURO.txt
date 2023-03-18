@@ -7,7 +7,7 @@
 
 de_AT_PREEURO {
     Version { "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "\u00F6S",
         "ATS",
         ",",

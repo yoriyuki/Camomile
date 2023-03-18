@@ -20,7 +20,7 @@ am_ET {
         "ETB",
         ".",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "hh:mm:ss a",
         "hh:mm:ss a",
         "h:mm:ss a",

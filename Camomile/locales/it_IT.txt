@@ -7,13 +7,13 @@
 
 it_IT {
     Version{ "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "\u20AC",
         "EUR",
         ",",
     }
 //    LocaleString { "it_IT" }
-//    NumberPatterns { 
+//    NumberPatterns {
 //        "#,##0.###;-#,##0.###",
 //        "\u00A4 #,##0.00;-\u00A4 #,##0.00",
 //        "#,##0%",

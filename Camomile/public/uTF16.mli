@@ -57,7 +57,7 @@ exception Out_of_range
 
 (** [init len f]
     returns a new string which contains [len] Unicode characters.
-    The i-th Unicode character is initialized by [f i] 
+    The i-th Unicode character is initialized by [f i]
     if the character is not representable, raise [Out_of_range]. *)
 val init : int -> (int -> UChar.t) -> t
 
@@ -69,7 +69,7 @@ val length : t -> int
     The location of the first character is [0] *)
 type index = int
 
-(** [nth s n] returns the position of the [n]-th Unicode character. 
+(** [nth s n] returns the position of the [n]-th Unicode character.
     The call requires O(n)-time *)
 val nth : t -> int -> index
 
@@ -89,29 +89,29 @@ val out_of_range : t -> index -> bool
 (** [compare_aux s i1 i2] returns
     - If [i1] is the position located before [i2], a value < 0,
     - If [i1] and [i2] points the same location, 0,
-    - If [i1] is the position located after [i2], a value > 0. 
+    - If [i1] is the position located after [i2], a value > 0.
 
 *)
 val compare_index : t -> index -> index -> int
 
 (** [next s i]
     returns the position of the head of the Unicode character
-    located immediately after [i]. 
+    located immediately after [i].
     - If [i] is a valid position, the function always success.
     - If [i] is a valid position and there is no Unicode character after [i],
-    the position outside [s] is returned.  
-    - If [i] is not a valid position, the behaviour is undefined. 
+    the position outside [s] is returned.
+    - If [i] is not a valid position, the behaviour is undefined.
 
 *)
 val next : t -> index -> index
 
 (** [prev s i]
     returns the position of the head of the Unicode character
-    located immediately before [i]. 
+    located immediately before [i].
     - If [i] is a valid position, the function always success.
     - If [i] is a valid position and there is no Unicode character before [i],
-    the position outside [s] is returned.  
-    - If [i] is not a valid position, the behaviour is undefined. 
+    the position outside [s] is returned.
+    - If [i] is not a valid position, the behaviour is undefined.
 
 *)
 val prev : t -> index -> index
@@ -124,8 +124,8 @@ val prev : t -> index -> index
 val move : t -> index -> int -> index
 
 (** [iter f s]
-    Apply [f] to all Unicode characters in [s].  
-    The order of application is same to the order 
+    Apply [f] to all Unicode characters in [s].
+    The order of application is same to the order
     in the Unicode characters in [s]. *)
 val iter : (UChar.t -> unit) -> t -> unit
 

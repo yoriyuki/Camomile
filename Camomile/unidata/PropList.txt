@@ -516,24 +516,24 @@ FF70          ; Extender # Lm       HALFWIDTH KATAKANA-HIRAGANA PROLONGED SOUND 
 
 # ================================================
 
-FDD0..FDEF    ; Noncharacter_Code_Point # Cn  [32] 
-FFFE..FFFF    ; Noncharacter_Code_Point # Cn   [2] 
-1FFFE..1FFFF  ; Noncharacter_Code_Point # Cn   [2] 
-2FFFE..2FFFF  ; Noncharacter_Code_Point # Cn   [2] 
-3FFFE..3FFFF  ; Noncharacter_Code_Point # Cn   [2] 
-4FFFE..4FFFF  ; Noncharacter_Code_Point # Cn   [2] 
-5FFFE..5FFFF  ; Noncharacter_Code_Point # Cn   [2] 
-6FFFE..6FFFF  ; Noncharacter_Code_Point # Cn   [2] 
-7FFFE..7FFFF  ; Noncharacter_Code_Point # Cn   [2] 
-8FFFE..8FFFF  ; Noncharacter_Code_Point # Cn   [2] 
-9FFFE..9FFFF  ; Noncharacter_Code_Point # Cn   [2] 
-AFFFE..AFFFF  ; Noncharacter_Code_Point # Cn   [2] 
-BFFFE..BFFFF  ; Noncharacter_Code_Point # Cn   [2] 
-CFFFE..CFFFF  ; Noncharacter_Code_Point # Cn   [2] 
-DFFFE..DFFFF  ; Noncharacter_Code_Point # Cn   [2] 
-EFFFE..EFFFF  ; Noncharacter_Code_Point # Cn   [2] 
-FFFFE..FFFFF  ; Noncharacter_Code_Point # Cn   [2] 
-10FFFE..10FFFF; Noncharacter_Code_Point # Cn   [2] 
+FDD0..FDEF    ; Noncharacter_Code_Point # Cn  [32]
+FFFE..FFFF    ; Noncharacter_Code_Point # Cn   [2]
+1FFFE..1FFFF  ; Noncharacter_Code_Point # Cn   [2]
+2FFFE..2FFFF  ; Noncharacter_Code_Point # Cn   [2]
+3FFFE..3FFFF  ; Noncharacter_Code_Point # Cn   [2]
+4FFFE..4FFFF  ; Noncharacter_Code_Point # Cn   [2]
+5FFFE..5FFFF  ; Noncharacter_Code_Point # Cn   [2]
+6FFFE..6FFFF  ; Noncharacter_Code_Point # Cn   [2]
+7FFFE..7FFFF  ; Noncharacter_Code_Point # Cn   [2]
+8FFFE..8FFFF  ; Noncharacter_Code_Point # Cn   [2]
+9FFFE..9FFFF  ; Noncharacter_Code_Point # Cn   [2]
+AFFFE..AFFFF  ; Noncharacter_Code_Point # Cn   [2]
+BFFFE..BFFFF  ; Noncharacter_Code_Point # Cn   [2]
+CFFFE..CFFFF  ; Noncharacter_Code_Point # Cn   [2]
+DFFFE..DFFFF  ; Noncharacter_Code_Point # Cn   [2]
+EFFFE..EFFFF  ; Noncharacter_Code_Point # Cn   [2]
+FFFFE..FFFFF  ; Noncharacter_Code_Point # Cn   [2]
+10FFFE..10FFFF; Noncharacter_Code_Point # Cn   [2]
 
 # Total code points: 66
 
@@ -601,16 +601,16 @@ FA27..FA29    ; Unified_Ideograph # Lo   [3] CJK COMPATIBILITY IDEOGRAPH-FA27..C
 
 180B..180D    ; Other_Default_Ignorable_Code_Point # Mn   [3] MONGOLIAN FREE VARIATION SELECTOR ONE..MONGOLIAN FREE VARIATION SELECTOR THREE
 2060..2063    ; Other_Default_Ignorable_Code_Point # Cf   [4] WORD JOINER..INVISIBLE SEPARATOR
-2064..2069    ; Other_Default_Ignorable_Code_Point # Cn   [6] 
+2064..2069    ; Other_Default_Ignorable_Code_Point # Cn   [6]
 206A..206F    ; Other_Default_Ignorable_Code_Point # Cf   [6] INHIBIT SYMMETRIC SWAPPING..NOMINAL DIGIT SHAPES
 FE00..FE0F    ; Other_Default_Ignorable_Code_Point # Mn  [16] VARIATION SELECTOR-1..VARIATION SELECTOR-16
-FFF0..FFF8    ; Other_Default_Ignorable_Code_Point # Cn   [9] 
+FFF0..FFF8    ; Other_Default_Ignorable_Code_Point # Cn   [9]
 FFF9..FFFB    ; Other_Default_Ignorable_Code_Point # Cf   [3] INTERLINEAR ANNOTATION ANCHOR..INTERLINEAR ANNOTATION TERMINATOR
-E0000         ; Other_Default_Ignorable_Code_Point # Cn       
+E0000         ; Other_Default_Ignorable_Code_Point # Cn
 E0001         ; Other_Default_Ignorable_Code_Point # Cf       LANGUAGE TAG
-E0002..E001F  ; Other_Default_Ignorable_Code_Point # Cn  [30] 
+E0002..E001F  ; Other_Default_Ignorable_Code_Point # Cn  [30]
 E0020..E007F  ; Other_Default_Ignorable_Code_Point # Cf  [96] TAG SPACE..CANCEL TAG
-E0080..E0FFF  ; Other_Default_Ignorable_Code_Point # Cn [3968] 
+E0080..E0FFF  ; Other_Default_Ignorable_Code_Point # Cn [3968]
 
 # Total code points: 4143
 
@@ -639,4 +639,3 @@ E0080..E0FFF  ; Other_Default_Ignorable_Code_Point # Cn [3968]
 0EC0..0EC4    ; Logical_Order_Exception # Lo   [5] LAO VOWEL SIGN E..LAO VOWEL SIGN AI
 
 # Total code points: 10
-

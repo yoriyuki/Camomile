@@ -7,11 +7,11 @@
 
 zh {
     Version{ "1.2" }
-    AmPmMarkers { 
+    AmPmMarkers {
         "\u4E0A\u5348",
         "\u4E0B\u5348",
     }
-    CollationElements { 
+    CollationElements {
         Version { "1.0" }
         Sequence{"&\u0304<<\u0301<<\u030C<<\u0300<<\u0308"
         "&[top]"
@@ -970,7 +970,7 @@ zh {
         ZM { "\u8d5e\u6bd4\u4e9a" }
         ZW { "\u6d25\u5df4\u5e03\u97e6" }
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "\u661F\u671F\u65E5",
         "\u661F\u671F\u4E00",
         "\u661F\u671F\u4E8C",
@@ -979,7 +979,7 @@ zh {
         "\u661F\u671F\u4E94",
         "\u661F\u671F\u516D",
     }
-    DayNames { 
+    DayNames {
         "\u661F\u671F\u65E5",
         "\u661F\u671F\u4E00",
         "\u661F\u671F\u4E8C",
@@ -988,11 +988,11 @@ zh {
         "\u661F\u671F\u4E94",
         "\u661F\u671F\u516D",
     }
-    Eras { 
+    Eras {
         "\u516C\u5143\u524D",
         "\u516C\u5143",
     }
-    Languages { 
+    Languages {
         ab { "\u963f\u5e03\u54c8\u897f\u4e9a\u6587" }
         aa { "\u963f\u6cd5\u6587" }
         af { "\u5357\u975e\u8377\u5170\u6587" }
@@ -1135,7 +1135,7 @@ zh {
     }
     LocaleID:int { 0x04 }
 //    LocaleString { "zh" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "\u4E00\u6708",
         "\u4E8C\u6708",
         "\u4E09\u6708",
@@ -1149,7 +1149,7 @@ zh {
         "\u5341\u4E00\u6708",
         "\u5341\u4E8C\u6708",
     }
-    MonthNames { 
+    MonthNames {
         "\u4E00\u6708",
         "\u4E8C\u6708",
         "\u4E09\u6708",
@@ -1165,7 +1165,7 @@ zh {
     }
 //    ShortLanguage { "zho" }
     localPatternChars { "GanjkHmsSEDFwWxhKzAe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",

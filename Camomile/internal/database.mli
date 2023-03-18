@@ -39,7 +39,7 @@
     and read data from in_channel.  The [key] specifies key associated
     the value.  Any characters can be used in [key], since they are
     properly escaped.  If there are no data associated to [key], raise
-    Not_found. 
+    Not_found.
 *)
 val read : string -> string -> (in_channel -> 'a) -> string -> 'a
 

@@ -38,14 +38,14 @@ type 'a t
 val empty : 'a t
 val is_empty : 'a t -> bool
 
-(** [add ?eq u v m] returns the new map which is same to [m] 
-    except it maps [u] to some value [v'] which satisfies [eq v v']. 
+(** [add ?eq u v m] returns the new map which is same to [m]
+    except it maps [u] to some value [v'] which satisfies [eq v v'].
     If [eq] is not supplied, structural equality is used. *)
 val add : ?eq:('a -> 'a -> bool) -> UChar.t -> 'a -> 'a t -> 'a t
 
-(** [add ?eq u1 u2 v m] returns the new map which is same to [m] 
-    except it maps characters in the range [u1]-[u2] 
-    to some value [v'] which satisfies [eq v v']. 
+(** [add ?eq u1 u2 v m] returns the new map which is same to [m]
+    except it maps characters in the range [u1]-[u2]
+    to some value [v'] which satisfies [eq v v'].
     If [eq] is not supplied, structural equality is used. *)
 val add_range :
   ?eq:('a -> 'a -> bool) -> UChar.t -> UChar.t -> 'a -> 'a t -> 'a t
@@ -75,14 +75,14 @@ val before : UChar.t -> 'a t -> 'a t
 val mem : UChar.t -> 'a t -> bool
 val iter : (UChar.t -> 'a -> unit) -> 'a t -> unit
 
-(** [iter proc m] : For each contingent region [u1]-[u2] 
+(** [iter proc m] : For each contingent region [u1]-[u2]
     that is mapped to a constant [v], [proc u1 u2 v] is called.
     The order of call is determined by increasing order on [u1]. *)
 val iter_range : (UChar.t -> UChar.t -> 'a -> unit) -> 'a t -> unit
 
-(** [map ?eq f m] and [mapi ?eq f m] :  Similar to [map] and [mapi] 
-    in stdlib Map, but if the map [m'] is returned,  it is only guaranteed 
-    that [eq (find u m') (f (find u m ))] is true for [map] and 
+(** [map ?eq f m] and [mapi ?eq f m] :  Similar to [map] and [mapi]
+    in stdlib Map, but if the map [m'] is returned,  it is only guaranteed
+    that [eq (find u m') (f (find u m ))] is true for [map] and
     [eq (find u m') (f u (find u m ))] is true for [mapi].  If [eq] is
     not specified, structural equality is used. *)
 
@@ -92,9 +92,9 @@ val fold : (UChar.t -> 'b -> 'a -> 'a) -> 'b t -> 'a -> 'a
 
 (** [fold_range f m x] is equivalent to
     [f u_(2n) u_(2n+1) v_n (... (f u_1 u_2 v_1 x))] where all characters in
-    the range [u_(2k)]-[u_(2k+1)] are mapped to [v_k] and 
-    [u_1] < [u_3] < ... in code point order.  
-    For each range [u_(2k)]-[u_(2k+1)] is separated by a character 
+    the range [u_(2k)]-[u_(2k+1)] are mapped to [v_k] and
+    [u_1] < [u_3] < ... in code point order.
+    For each range [u_(2k)]-[u_(2k+1)] is separated by a character
     which is not mapped to [v_k]. *)
 val fold_range : (UChar.t -> UChar.t -> 'b -> 'a -> 'a) -> 'b t -> 'a -> 'a
 

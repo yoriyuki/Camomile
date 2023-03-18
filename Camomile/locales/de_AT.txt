@@ -7,16 +7,16 @@
 
 de_AT {
     Version{"1.0"}
-    CurrencyElements { 
+    CurrencyElements {
         "\u20AC",
         "EUR",
         ",",
     }
-    DateTimeElements:intvector { 
+    DateTimeElements:intvector {
         2,
         1,
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH:mm' Uhr 'z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -29,7 +29,7 @@ de_AT {
     }
     LocaleID:int { 0x0c07 }
 //    LocaleString { "de_AT" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "J\u00E4n",
         "Feb",
         "M\u00E4r",
@@ -43,7 +43,7 @@ de_AT {
         "Nov",
         "Dez",
     }
-    MonthNames { 
+    MonthNames {
         "J\u00E4nner",
         "Februar",
         "M\u00E4rz",
@@ -59,7 +59,7 @@ de_AT {
     }
     /* Discarding duplicate data for tag: NumberPatterns */
 //    ShortCountry { "AUT" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",

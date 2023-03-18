@@ -10,7 +10,7 @@
 
 sw_KE {
     Version { "1.1" }
-    CurrencyElements { 
+    CurrencyElements {
         "KSh",
         "KES",
         ".",

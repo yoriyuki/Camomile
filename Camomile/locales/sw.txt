@@ -15,7 +15,7 @@ sw {
 //        KE { "Kenya" }
 //        TZ { "Tanzania" }
 //    }
-    DateTimeElements:intvector { 
+    DateTimeElements:intvector {
         2,
         1,
     }
@@ -28,7 +28,7 @@ sw {
         "Iju",
         "Jmo",
     }
-    DayNames { 
+    DayNames {
         "Jumapili",
         "Jumatatu",
         "Jumanne",
@@ -37,16 +37,16 @@ sw {
         "Ijumaa",
         "Jumamosi",
     }
-    Eras { 
+    Eras {
         "KK",
         "BK",
     }
-    Languages { 
+    Languages {
         sw  { "Kiswahili" }
     }
     LocaleID:int { 0x0041 }
 //    LocaleString { "sw" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "Jan",
         "Feb",
         "Mar",
@@ -60,7 +60,7 @@ sw {
         "Nov",
         "Des",
     }
-    MonthNames { 
+    MonthNames {
         "Januari",
         "Februari",
         "Machi",
@@ -75,7 +75,7 @@ sw {
         "Desemba",
     }
 //    ShortLanguage { "swa" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Nairobi",
             "Saa za Africa Mashariki",  // East African Time
@@ -85,8 +85,8 @@ sw {
             "Nairobi",
         }
     }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
 
 // /**************** Info Below is needed ****************/

@@ -10,7 +10,7 @@
 // *    Mohamed Diriye Abdullahi <diriyeam@magellan.umontreal.ca>
 // *    Department of Linguistics and Translation, Universite de Montreal, Montreal
 
-so{ 
+so{
     Version{ "x0.2" }
     DayAbbreviations {
         "Axa",
@@ -58,14 +58,14 @@ so{
         "Bisha Kow iyo Tobnaad",
         "Bisha Laba iyo Tobnaad",
     }
-    Eras { 
+    Eras {
             "Ciise ka hor",
             "Ciise ka dib"
     }
-    Languages { 
+    Languages {
         so { "Soomaali" }
     }
-    Countries { 
+    Countries {
         DJ { "Jabuuti" }
         ET { "Itoobiya" }
         KE { "Kiiniya" }
@@ -75,7 +75,7 @@ so{
         "sn",
         "gn",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "h:mm:ss a",
         "h:mm:ss a",
         "h:mm:ss a",

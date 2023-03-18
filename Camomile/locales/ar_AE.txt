@@ -7,7 +7,7 @@
 
 ar_AE {
     Version{"1.0"}
-    CurrencyElements { 
+    CurrencyElements {
         "\u062F.\u0625.\u200F",
         "AED",
         ".",

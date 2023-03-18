@@ -39,4 +39,4 @@ jobs:
 
       - name: Run tests
         run: |
-          opam exec dune runtest || echo "::warning::Skipped failing tests" 
+          opam exec dune runtest || echo "::warning::Skipped failing tests"

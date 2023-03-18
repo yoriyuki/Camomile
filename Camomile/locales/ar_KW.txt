@@ -7,7 +7,7 @@
 
 ar_KW {
     Version{ "1.1" }
-    CurrencyElements { 
+    CurrencyElements {
         "\u062F.\u0643.\u200F",
         "KWD",
         ".",
@@ -15,7 +15,7 @@ ar_KW {
 //    LocaleString { "ar_KW" }
 //    ShortCountry { "KWT" }
     LocaleID:int { 0x3401 }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;#,##0.###-",
         "\u00A4 #,##0.000;\u00A4 #,##0.000-",
         "#,##0%",

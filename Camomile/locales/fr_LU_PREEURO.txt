@@ -7,7 +7,7 @@
 
 fr_LU_PREEURO {
     Version { "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "F",
         "LUF",
         ",",

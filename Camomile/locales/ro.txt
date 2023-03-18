@@ -13,10 +13,10 @@ ro {
         " , I\u0302 & S < s\u0327 , S\u0327 & \u00DE < t\u0327 , T\u0327& Z < z\u0307 , "
         "Z\u0307" }
 	}
-    Countries { 
+    Countries {
         RO { "Rom\u00E2nia" }
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH:mm:ss z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -27,7 +27,7 @@ ro {
         "dd.MM.yyyy",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "D",
         "L",
         "Ma",
@@ -36,7 +36,7 @@ ro {
         "V",
         "S",
     }
-    DayNames { 
+    DayNames {
         "duminic\u0103",
         "luni",
         "mar\u0163i",
@@ -45,16 +45,16 @@ ro {
         "vineri",
         "s\u00EEmb\u0103t\u0103",
     }
-    Eras { 
+    Eras {
         "d.C.",
         "\u00EE.d.C.",
     }
-    Languages { 
+    Languages {
         ro { "rom\u00E2n\u0103" }
     }
     LocaleID:int { 0x18 }
 //    LocaleString { "ro" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "Ian",
         "Feb",
         "Mar",
@@ -68,7 +68,7 @@ ro {
         "Nov",
         "Dec",
     }
-    MonthNames { 
+    MonthNames {
         "ianuarie",
         "februarie",
         "martie",
@@ -82,7 +82,7 @@ ro {
         "noiembrie",
         "decembrie",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         ".",
         ";",
@@ -97,7 +97,7 @@ ro {
     }
 //    ShortLanguage { "ron" }
     localPatternChars { "GanjkHmsSEDFwWxhKzAe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",
@@ -106,8 +106,8 @@ ro {
             "GMT",
         }
     }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
     ExemplarCharacters { "[a-z \u00e2 \u00ee \u0103 \u015f \u0163]" }
 }

@@ -8,7 +8,7 @@
 
 ar_IN {
     Version{ "1.2" }
-    CurrencyElements { 
+    CurrencyElements {
         "\u20A8",
         "INR",
         ".",
@@ -25,7 +25,7 @@ ar_IN {
         "{1} {0}"
     }
     //    Duplicated in parent
-//    NumberElements { 
+//    NumberElements {
 //        ".",
 //        ",",
 //        ";",
@@ -38,7 +38,7 @@ ar_IN {
 //        "\u221E",
 //        "\uFFFD",
 //    }
-    NumberPatterns { 
+    NumberPatterns {
         "##,##,##0.###;-##,##,##0.###",
         "\u00A4##,##,##0.00;-\u00A4##,##,##0.00",
         "##,##,##0%",

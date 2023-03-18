@@ -7,13 +7,13 @@
 
 be_BY {
     Version{ "1.1" }
-    CurrencyElements { 
+    CurrencyElements {
         "\u0420\u0443\u0431",
         "BYB",
         ",",
     }
 //    LocaleString { "be_BY" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4#,##0;-\u00A4#,##0",
         "#,##0%",

@@ -4,7 +4,7 @@
 // *   Corporation and others.  All Rights Reserved.
 // *
 // ***************************************************************************
- 
+
 fr_MC{
     Version{ "x0.2" }
     LocaleID:int { 0x180C }
@@ -17,7 +17,7 @@ fr_MC{
         2,
         1,
     }
-    NumberElements { 
+    NumberElements {
         ",",
         "\u00A0",  // &nbsp;
         ";",

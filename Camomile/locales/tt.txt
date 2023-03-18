@@ -76,11 +76,10 @@ tt{
     LocaleScript:array { "Cyrl" }
 
     ExemplarCharacters { "[\u0430-\u044f \u0451 \u0456 \u0463 \u0473 \u0475]" }
-    CollationElements {	    
+    CollationElements {
         Version { "1.0" }
-        Sequence { 
+        Sequence {
             "[normalization on]"
         }
     }
 }
-

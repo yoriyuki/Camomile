@@ -7,7 +7,7 @@
 
 ar_SA {
     Version{"1.0"}
-    CurrencyElements { 
+    CurrencyElements {
         "\u0631.\u0633.\u200F",
         "SAR",
         ".",

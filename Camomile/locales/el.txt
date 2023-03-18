@@ -7,15 +7,15 @@
 
 el {
     Version { "1.1" }
-    AmPmMarkers { 
+    AmPmMarkers {
         "\u03C0\u03BC",
         "\u03BC\u03BC",
     }
-    CollationElements { 
+    CollationElements {
         Version { "2.0" }
         Sequence { "[normalization on]" }
     }
-    Countries { 
+    Countries {
         AL { "\u0391\u03bb\u03b2\u03b1\u03bd\u03af\u03b1" }
         AS { "\u0391\u03c3\u03af\u03b1 (\u0391\u03b3\u03b3\u03bb\u03b9\u03ba\u03ac)" }
         AT { "\u0391\u03c5\u03c3\u03c4\u03c1\u03af\u03b1" }
@@ -65,11 +65,11 @@ el {
         US { "\u0397\u03bd\u03c9\u03bc\u03ad\u03bd\u03b5\u03c2 \u03a0\u03bf\u03bb\u03b9\u03c4\u03b5\u03af\u03b5\u03c2 \u0391\u03bc\u03b5\u03c1\u03b9\u03ba\u03ae\u03c2" }
         ZA { "\u039d\u03cc\u03c4\u03b9\u03bf\u03c2 \u0391\u03c6\u03c1\u03b9\u03ba\u03ae" }
     }
-    DateTimeElements:intvector { 
+    DateTimeElements:intvector {
         2,
         1,
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "h:mm:ss a z",
         "h:mm:ss a z",
         "h:mm:ss a",
@@ -80,7 +80,7 @@ el {
         "d/M/yyyy",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "\u039A\u03C5\u03C1",
         "\u0394\u03B5\u03C5",
         "\u03A4\u03C1\u03B9",
@@ -89,7 +89,7 @@ el {
         "\u03A0\u03B1\u03C1",
         "\u03A3\u03B1\u03B2",
     }
-    DayNames { 
+    DayNames {
         "\u039A\u03C5\u03C1\u03B9\u03B1\u03BA\u03AE",
         "\u0394\u03B5\u03C5\u03C4\u03AD\u03C1\u03B1",
         "\u03A4\u03C1\u03AF\u03C4\u03B7",
@@ -99,7 +99,7 @@ el {
         "\u03A3\u03AC\u03B2\u03B2\u03B1\u03C4\u03BF",
     }
     /* These languages should be all lower case, but it doesn't seem to be lowercase */
-    Languages { 
+    Languages {
         ar { "\u0391\u03c1\u03b1\u03b2\u03b9\u03ba\u03ac" }
         bg { "\u0392\u03bf\u03c5\u03bb\u03b3\u03b1\u03c1\u03b9\u03ba\u03ac" }
         ca { "\u039a\u03b1\u03c4\u03b1\u03bb\u03b1\u03bd\u03b9\u03ba\u03ac" }
@@ -130,7 +130,7 @@ el {
     }
     LocaleID:int { 0x08 }
 //    LocaleString { "el" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "\u0399\u03B1\u03BD",
         "\u03A6\u03B5\u03B2",
         "\u039C\u03B1\u03C1",
@@ -144,7 +144,7 @@ el {
         "\u039D\u03BF\u03B5",
         "\u0394\u03B5\u03BA",
     }
-    MonthNames { 
+    MonthNames {
         "\u0399\u03B1\u03BD\u03BF\u03C5\u03AC\u03C1\u03B9\u03BF\u03C2",
         "\u03A6\u03B5\u03B2\u03C1\u03BF\u03C5\u03AC\u03C1\u03B9\u03BF\u03C2",
         "\u039C\u03AC\u03C1\u03C4\u03B9\u03BF\u03C2",
@@ -158,7 +158,7 @@ el {
         "\u039D\u03BF\u03AD\u03BC\u03B2\u03C1\u03B9\u03BF\u03C2",
         "\u0394\u03B5\u03BA\u03AD\u03BC\u03B2\u03C1\u03B9\u03BF\u03C2",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         ".",
         ";",
@@ -173,7 +173,7 @@ el {
     }
 //    ShortLanguage { "ell" }
     localPatternChars { "GanjkHmsSEDFwWxhKzAe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",
@@ -182,8 +182,8 @@ el {
             "GMT",
         }
     }
-    LocaleScript:array { 
-        "Grek"  // ISO 15924 Name 
+    LocaleScript:array {
+        "Grek"  // ISO 15924 Name
     }
     ExemplarCharacters{"[\u03ac-\u03ce]"}
 

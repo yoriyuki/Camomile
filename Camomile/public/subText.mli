@@ -32,7 +32,7 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-(** Sub-texts, parts of original (ur-) texts.  
+(** Sub-texts, parts of original (ur-) texts.
     The signature and semantics matches those of UStorage. *)
 module type Type = sig
   type t

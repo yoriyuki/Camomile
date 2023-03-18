@@ -7,7 +7,7 @@
 
 ar_EG {
     Version{"1.0"}
-    CurrencyElements { 
+    CurrencyElements {
         "\u062C.\u0645.\u200F",
         "EGP",
         ".",

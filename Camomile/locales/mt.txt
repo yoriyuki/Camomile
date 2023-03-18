@@ -6,9 +6,9 @@
 // Search for 'Sources' below for source abbreviations
 
 // Hi. This file is now in utf-8. Thank you very much.
-// Quick rundown on Maltese Unicode: 
-// --------------------------------- 
-// ċ = U+010B   Ċ = U+010A  'ch'    
+// Quick rundown on Maltese Unicode:
+// ---------------------------------
+// ċ = U+010B   Ċ = U+010A  'ch'
 // ġ = U+0121   Ġ = U+0120  soft G
 // ħ = U+0127   Ħ = U+0126  voiced H [or 2nd letter of 'silent' għ]
 // ż = U+017c   Ż = U+017B  'dz'
@@ -18,7 +18,7 @@
 //  but, U+0307 is the DOT ABOVE needed for ż, ċ, and ġ (in collation rules)
 
 mt {
-    Version { "0.10.5" } // 2002-01-15 
+    Version { "0.10.5" } // 2002-01-15
 //    ShortLanguage { mlt }
 
 //  "%%PHONEBOOK" { "Bħal lista tat-telefon" }
@@ -93,7 +93,7 @@ mt {
         cad	{ "Kaddo" }	// Caddo
         cai	{ "Amerika Ċentrali (Oħra)" }	// Central American Indian (Other)
         car	{ "Karib" }	// Carib
-        cau	{ "Kawkasu (Oħra)" }	// Caucasian (Other) 
+        cau	{ "Kawkasu (Oħra)" }	// Caucasian (Other)
         ce	{ "Ċeċen" }	// Chechen
         ceb	{ "Sibwano" }	// Cebuano
         cel	{ "Keltiku (Oħra)" }	// Celtic (Other)
@@ -206,7 +206,7 @@ mt {
         //ilo	{ "Iloko" }	// Iloko
         inc	{ "Indjan (Oħra)" }	// Indic (Other)
         ine	{ "Indo-Ewropew" }	// Indo-European
-        ira	{ "Iranjan" }	// Iranian 
+        ira	{ "Iranjan" }	// Iranian
         iro	{ "Lingwi Irogwjani" }	// Iroguoian Languages
         is	{ "Iżlandiż" }	// Icelandic
         it	{ "Taljan" }	// Italian
@@ -661,7 +661,7 @@ mt {
         US { "Stati Uniti" } 	// United States
         UY { "Urugwaj" } 	// Uruguay
         UZ { "Użbekistan" } 	// Uzbekistan
-        VA { "Vatikan" } 	// Vatican   
+        VA { "Vatikan" } 	// Vatican
         VE { "Venezwela" } 	// Venezuela
         //VG { "British Virgin Islands" } 	// British Virgin Islands
         //VI { "U.S. Virgin Islands" } 	// U.S. Virgin Islands
@@ -720,11 +720,11 @@ mt {
          "WK"   // Wara Kristu      Ghaqda Biblika Maltija]
     }
 
-    DayAbbreviations { 
+    DayAbbreviations {
         "Ħad",
         "Tne",
         "Tli",
-        "Erb", 
+        "Erb",
         "Ħam",
         "Ġim",
         "Sib"
@@ -764,43 +764,43 @@ mt {
 //        "1"
 //    }
 
-//   Note, that 'c' doesn't exist in Maltese. But I put it here following ċ 
+//   Note, that 'c' doesn't exist in Maltese. But I put it here following ċ
 //   for compatibility with foreign words.
 
-// Joseph Felici Pace and "Regolament" says: 
+// Joseph Felici Pace and "Regolament" says:
 // a b ċ [c] d e f ġ g għ h ħ i ie j k l m n o p q r s t u v w x [y] ż z
 
-// Note that IE is **NOT** sorted as ittra waħda. 
+// Note that IE is **NOT** sorted as ittra waħda.
 // So says the Akkademja tal-Malta
 
    CollationElements
    {
         Version { "1.0" }
         Sequence { "& B < ċ , Ċ" // ċ  Ċ
-                   "    < c,C"      
+                   "    < c,C"
                    "& F < ġ, Ġ "              // ġ  Ġ
                    "    < g,G"
                    "    < għ , gĦ , Għ , GĦ "
-                   "& H < ħ  , Ħ "           
+                   "& H < ħ  , Ħ "
                    "& Y < ż, Ż"               // ż Ż
                    "    < z,Z" }
    }
 
 // Time zone
-//CET: 
+//CET:
     zoneStrings {
         {
-            "CET", 
-            "Ħin ta' L-Ewropa Ċentrali", 
-            "CET", 
+            "CET",
+            "Ħin ta' L-Ewropa Ċentrali",
+            "CET",
             "Ħin tas-Sajf fl-Ewropa Ċentrali",
             "CEST"
         }
     }
 
     LocaleID:int { 0x3A }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
 
     ExemplarCharacters { "[[a-z \u00e0 \u00ec \u00f9 \u00e8 \u00f2 ċ ġ ħ {għ} ż]-[cy]]" }
@@ -986,7 +986,7 @@ mt {
             // the lenient-parse rules allow several different characters to be used
             // as delimiters between hours, minutes, and seconds
             "%%lenient-parse:\n"
-            "    & ':' = '.' = ' ' = '-';\n" 
+            "    & ':' = '.' = ' ' = '-';\n"
     }
 
 
@@ -996,10 +996,10 @@ mt {
 // -- BIBLIOGRAPHY --
 //
 // Maltese alphabet: grazzi, to Mr. Karmenu Attard
-// 
+//
 //  'colour image's dictionary order (Malta, 1998) -- [CI]
 //   a b ċ [c] d e f ġ g għ h ħ i ie j k l m n o p q r s t u v w x y z ż
-//   Only Colour Image's dictionary has 'ie' as a separate letter. 
+//   Only Colour Image's dictionary has 'ie' as a separate letter.
 //    (that i have seen so far)
 //
 // Kapt Pawlu Bugeja's dizzunarju
@@ -1012,7 +1012,7 @@ mt {
 //
 // J. Aquilina in his 'Teach Yourself:Maltese' book                    -- [Ty]
 //     (London: Hodder Headline, 1965 and Chicago, NTC Publishing 1995)
-// uses the very different 'ġ g h ħ ... n għ o .. x ż z' ordering, 
+// uses the very different 'ġ g h ħ ... n għ o .. x ż z' ordering,
 // placing għ between n and o. (I have heard this is to be similar to the
 //  Arabic ordering)
 //

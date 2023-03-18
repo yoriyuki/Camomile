@@ -52,7 +52,7 @@ val validate : t -> unit
     The call requires O(n)-time. *)
 val get : t -> int -> UChar.t
 
-(** [init len f] 
+(** [init len f]
     returns a new string which contains [len] Unicode characters.
     The i-th Unicode character is initialized by [f i] *)
 val init : int -> (int -> UChar.t) -> t
@@ -64,7 +64,7 @@ val length : t -> int
     The location of the first character is [0] *)
 type index = int
 
-(** [nth s n] returns the position of the [n]-th Unicode character. 
+(** [nth s n] returns the position of the [n]-th Unicode character.
     The call requires O(n)-time *)
 val nth : t -> int -> index
 
@@ -83,26 +83,26 @@ val look : t -> index -> UChar.t
 val out_of_range : t -> index -> bool
 
 (** [compare_index s i1 i2] returns
-    a value < 0 if [i1] is the position located before [i2], 
+    a value < 0 if [i1] is the position located before [i2],
     0 if [i1] and [i2] points the same location,
     a value > 0 if [i1] is the position located after [i2]. *)
 val compare_index : t -> index -> index -> int
 
 (** [next s i]
     returns the position of the head of the Unicode character
-    located immediately after [i]. 
+    located immediately after [i].
     If [i] is inside of [s], the function always successes.
     If [i] is inside of [s] and there is no Unicode character after [i],
-    the position outside [s] is returned.  
+    the position outside [s] is returned.
     If [i] is not inside of [s], the behaviour is unspecified. *)
 val next : t -> index -> index
 
 (** [prev s i]
     returns the position of the head of the Unicode character
-    located immediately before [i]. 
+    located immediately before [i].
     If [i] is inside of [s], the function always successes.
     If [i] is inside of [s] and there is no Unicode character before [i],
-    the position outside [s] is returned.  
+    the position outside [s] is returned.
     If [i] is not inside of [s], the behaviour is unspecified. *)
 val prev : t -> index -> index
 
@@ -113,8 +113,8 @@ val prev : t -> index -> index
 val move : t -> index -> int -> index
 
 (** [iter f s]
-    applies [f] to all Unicode characters in [s].  
-    The order of application is same to the order 
+    applies [f] to all Unicode characters in [s].
+    The order of application is same to the order
     of the Unicode characters in [s]. *)
 val iter : (UChar.t -> unit) -> t -> unit
 
@@ -138,7 +138,7 @@ module Buf : sig
   (** [contents buf] returns the contents of the buffer. *)
   val contents : buf -> t
 
-  (** Empty the buffer, 
+  (** Empty the buffer,
       but retains the internal storage which was holding the contents *)
   val clear : buf -> unit
 

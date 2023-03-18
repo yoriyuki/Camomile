@@ -7,12 +7,12 @@
 
 es_NI {
     Version { "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "C$",
         "NIO",
         ".",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "hh:mm:ss a z",
         "hh:mm:ss a z",
         "hh:mm:ss a",

@@ -7,12 +7,12 @@
 
 es_GT {
     Version { "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "Q",
         "GTQ",
         ".",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "hh:mm:ss a z",
         "hh:mm:ss a z",
         "hh:mm:ss a",
@@ -25,7 +25,7 @@ es_GT {
     }
     LocaleID:int { 0x100a }
 //    LocaleString { "es_GT" }
-//    NumberElements { 
+//    NumberElements {
 //        ".",
 //        ",",
 //        ";",

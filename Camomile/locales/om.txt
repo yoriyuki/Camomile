@@ -64,14 +64,14 @@ om{
         "Sadaasa",
         "Muddee",
     }
-    Eras { 
+    Eras {
         "KD",  // KD = Kiristoos Dura = Before Christ
         "KB",  // KB = Kiristoos Booda = After Christ
     }
-    Languages { 
+    Languages {
         om { "Oromoo" }
     }
-    Countries { 
+    Countries {
         ET { "Itoophiyaa" }
         KE { "Keeniyaa" }
     }

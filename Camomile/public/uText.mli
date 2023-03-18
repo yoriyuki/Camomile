@@ -34,7 +34,7 @@
 (* You can contact the authour by sending email to *)
 (* yoriyuki.y@gmail.com *)
 
-(** An implementation of Unicode string.  
+(** An implementation of Unicode string.
     Internally, it uses integer array.
     The semantics matches the description of UStorage. *)
 
@@ -72,7 +72,7 @@ val of_string : string -> utext
 val init : int -> (int -> UChar.t) -> utext
 val init_ustring : int -> (int -> UChar.t) -> ustring
 
-(** The semantics of these function are similar to 
+(** The semantics of these function are similar to
     the equivalents of string. *)
 val make : int -> UChar.t -> ustring
 

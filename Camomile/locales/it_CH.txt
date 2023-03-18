@@ -7,12 +7,12 @@
 
 it_CH {
     Version{ "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "SFr.",
         "CHF",
         ".",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH.mm' h' z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -25,7 +25,7 @@ it_CH {
     }
     LocaleID:int { 0x0810 }
 //    LocaleString { "it_CH" }
-    NumberElements { 
+    NumberElements {
         ".",
         "'",
         ";",
@@ -38,14 +38,14 @@ it_CH {
         "\u221E",
         "\uFFFD",
     }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4 #,##0.00;\u00A4-#,##0.00",
         "#,##0%",
         "#E0",
     }
 //    ShortCountry { "CHE" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Europe/Zurich",
             "CET",

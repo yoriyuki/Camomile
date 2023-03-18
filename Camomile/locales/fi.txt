@@ -7,14 +7,14 @@
 
 fi {
     Version { "1.0" }
-    CollationElements { 
+    CollationElements {
         Version { "1.0" }
         Sequence { "& V ; w , W & Z < a\u030A , A\u030A< a\u0308 , A\u0308 "
             "< o\u0308 , O\u0308< o\u030B , O\u030B ; \u00F8 , \u00D8&  Y ; u\u030B, U\u030B"
             " ; u\u0308 , U\u0308"
         }
     }
-    Countries { 
+    Countries {
         AE { "Yhdistyneet Arabiemiraatit" }
         AT { "It\u00e4valta" }
         BA { "Bosnia" }
@@ -71,11 +71,11 @@ fi {
         YE { "Jemen" }
         ZA { "Etel\u00e4-Afrikka" }
     }
-    DateTimeElements:intvector { 
+    DateTimeElements:intvector {
         2,
         4,
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH:mm:ss z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -86,7 +86,7 @@ fi {
         "d.M.yyyy",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "su",
         "ma",
         "ti",
@@ -95,7 +95,7 @@ fi {
         "pe",
         "la",
     }
-    DayNames { 
+    DayNames {
         "sunnuntai",
         "maanantai",
         "tiistai",
@@ -104,7 +104,7 @@ fi {
         "perjantai",
         "lauantai",
     }
-    Languages { 
+    Languages {
         ar { "arabia" }
         az { "azerbaizani" }
         ba { "baski" }
@@ -165,7 +165,7 @@ fi {
     }
     LocaleID:int { 0x0b }
 //    LocaleString { "fi" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "tammi",
         "helmi",
         "maalis",
@@ -179,7 +179,7 @@ fi {
         "marras",
         "joulu",
     }
-    MonthNames { 
+    MonthNames {
         "tammikuu",
         "helmikuu",
         "maaliskuu",
@@ -193,7 +193,7 @@ fi {
         "marraskuu",
         "joulukuu",
     }
-    NumberElements { 
+    NumberElements {
         ",",
         "\u00A0",
         ";",
@@ -208,7 +208,7 @@ fi {
     }
 //    ShortLanguage { "fin" }
     localPatternChars { "GanjkHmsSEDFwWxhKzAe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "Africa/Casablanca",
             "GMT",
@@ -218,7 +218,7 @@ fi {
         }
     }
     ExemplarCharacters { "[a-z \u00e4 \u00f6]" }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
 }

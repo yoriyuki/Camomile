@@ -8,7 +8,7 @@
 // srl@monkey.sbay.org
 
 mt_MT {
-      
+
     Version { "1.0" }
 
 //    ShortCountry { MLT }

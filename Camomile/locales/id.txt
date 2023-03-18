@@ -73,8 +73,8 @@ id {
         "#E0",
     }
     LocaleID:int { 0x21 }
-//    LocaleScript{ 
-//        "Latn",  // ISO 15924 Name 
+//    LocaleScript{
+//        "Latn",  // ISO 15924 Name
 //    }
     // /**************** Info Below is needed ****************/
     // CollationElements{}

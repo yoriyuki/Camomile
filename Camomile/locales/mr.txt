@@ -239,14 +239,12 @@ mr {
     LocaleID:int { 0x4e }
     CollationElements {
         Version { "1.0" }
-        Sequence { 
+        Sequence {
             "[normalization on]"
         }
     }
-    LocaleScript:array { 
-        "Deva"        // ISO 15924 Name 
+    LocaleScript:array {
+        "Deva"        // ISO 15924 Name
     }
     ExemplarCharacters{"[[:Deva:]-[\u0958-\u095f]]"}
 }
-
-

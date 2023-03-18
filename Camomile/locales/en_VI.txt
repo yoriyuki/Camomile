@@ -7,13 +7,13 @@
 
 en_VI {
     Version{ "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "$",
         "USD",
         ".",
     }
 //    LocaleString { "en_VI" }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4#,##0.00;(\u00A4#,##0.00)",
         "#,##0%",

@@ -7,7 +7,7 @@
 
 #
 # @(#)$RCSfile: th18057,v $ $Revision: 1.1 $ $Date: 2003/03/17 20:53:01 $
-# 
+#
 # Sorted Thai word list used for testing the ThaiCollator class.
 # This list was taken from the Web: <http://seasrc.th.net/dict/dict.htm>
 # and some obvious garbage lines (nulls, etc) were deleted

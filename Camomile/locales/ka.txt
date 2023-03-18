@@ -76,9 +76,9 @@ ka{
     }
     LocaleScript:array { "Geor" }
     ExemplarCharacters { "[:Geor:]" }
-    CollationElements {	    
+    CollationElements {
         Version { "1.0" }
-        Sequence { 
+        Sequence {
             "[normalization on]"
         }
     }

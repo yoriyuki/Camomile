@@ -7,7 +7,7 @@
 
 fr_LU {
     Version{"1.0"}
-    CurrencyElements { 
+    CurrencyElements {
         "\u20AC",
         "EUR",
         ",",

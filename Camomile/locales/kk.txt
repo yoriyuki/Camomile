@@ -8,7 +8,7 @@
 kk{
     Version{ "x0.2" }
     LocaleID:int { 0x3f }
-    DateTimePatterns { 
+    DateTimePatterns {
         "HH:mm:ss z",
         "HH:mm:ss z",
         "HH:mm:ss",
@@ -19,7 +19,7 @@ kk{
         "dd.MM.yy",
         "{1} {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "\u0436\u0441.",
         "\u0434\u0441.",
         "\u0441\u0441.",
@@ -28,7 +28,7 @@ kk{
         "\u0436\u043C.",
         "\u0441\u04BB.",
     }
-    DayNames { 
+    DayNames {
         "\u0436\u0435\u043A\u0441\u0435\u043D\u0456",
         "\u0434\u0443\u0439\u0441\u0435\u043D\u0431\u0456",
         "\u0441\u0435\u0439\u0441\u0435\u043D\u0431\u0456",
@@ -37,7 +37,7 @@ kk{
         "\u0436\u04B1\u043C\u0430",
         "\u0441\u0435\u043D\u0431\u0456",
     }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "\u049B\u0430\u04A3.",
         "\u0430\u049B\u043F.",
         "\u043D\u0430\u0443.",
@@ -51,7 +51,7 @@ kk{
         "\u049B\u0430\u0440.",
         "\u0436\u0435\u043B\u0442.",
     }
-    MonthNames { 
+    MonthNames {
         "\u049B\u0430\u04A3\u0442\u0430\u0440",
         "\u0430\u049B\u043F\u0430\u043D",
         "\u043D\u0430\u0443\u0440\u044B\u0437",
@@ -66,7 +66,7 @@ kk{
         "\u0436\u0435\u043B\u0442\u043E\u049B\u0441\u0430\u043D",
     }
 
-    NumberElements { 
+    NumberElements {
         ",",
         "\u00A0",
         ";",
@@ -81,9 +81,9 @@ kk{
     }
     LocaleScript{ "Cyrl" }
     ExemplarCharacters { "[\u0430-\u0448 \u044b \u044d \u0451]" }
-    CollationElements {	    
+    CollationElements {
     	Version { "1.0" }
-    	Sequence { 
+    	Sequence {
               "[normalization on]"
     	}
     }

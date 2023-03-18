@@ -1649,4 +1649,3 @@
  (targets WINDOWS-31J.mar)
  (deps    WINDOWS-31J)
  (action  (run ../tools/camomilecharmap.exe -d . %{deps})))
-

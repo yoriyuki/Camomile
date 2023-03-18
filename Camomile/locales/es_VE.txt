@@ -7,12 +7,12 @@
 
 es_VE {
     Version { "1.0" }
-    CurrencyElements { 
+    CurrencyElements {
         "Bs",
         "VEB",
         ",",
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "hh:mm:ss a z",
         "hh:mm:ss a z",
         "hh:mm:ss a",
@@ -38,7 +38,7 @@ es_VE {
         "\u221E",
         "\uFFFD",
     }
-    NumberPatterns { 
+    NumberPatterns {
         "#,##0.###;-#,##0.###",
         "\u00A4#,##0.00;\u00A4 -#,##0.00",
         "#,##0%",

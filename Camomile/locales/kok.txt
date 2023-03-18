@@ -235,13 +235,11 @@ kok {
             "IST"
         }
     }
-    LocaleScript:array { 
-        "Deva"        // ISO 15924 Name 
+    LocaleScript:array {
+        "Deva"        // ISO 15924 Name
     }
     ExemplarCharacters{ "[:Deva:]" }
 //    CollationElements {
 //            ""
 //      }
 }
-
-

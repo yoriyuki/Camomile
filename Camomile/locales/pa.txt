@@ -88,9 +88,9 @@ pa {
     LocaleScript:array { "Guru" }
 
     ExemplarCharacters { "[:Guru:]" }
-    CollationElements {     
+    CollationElements {
         Version { "1.0" }
-        Sequence { 
+        Sequence {
             "[normalization on]"
         }
     }

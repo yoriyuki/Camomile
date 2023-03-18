@@ -7,13 +7,13 @@
 
 lt_LT {
     Version{ "1.1" }
-    CurrencyElements { 
+    CurrencyElements {
         "Lt",
         "LTL",
         ",",
     }
 //    LocaleString { "lt_LT" }
-    NumberPatterns { 
+    NumberPatterns {
         "##,##0.##;-##,##0.##",
         "#,##0.00 \u00A4;-#,##0.00 \u00A4",
         "#,##%",

@@ -149,10 +149,10 @@ th {
         // These are supposed to be ignored, so I'm treating them as controls
         "&\u0001 "
         "=\u0E3A"                    //  PHINTHU
-        "='.'"                      //  period 
+        "='.'"                      //  period
         }
     }
-    Countries { 
+    Countries {
         AF { "\u0e2d\u0e31\u0e1f\u0e01\u0e32\u0e19\u0e34\u0e2a\u0e16\u0e32\u0e19" }
         AL { "\u0e41\u0e2d\u0e25\u0e40\u0e1a\u0e40\u0e19\u0e35\u0e22" }
         DZ { "\u0e41\u0e2d\u0e25\u0e08\u0e35\u0e40\u0e23\u0e35\u0e22" }
@@ -353,7 +353,7 @@ th {
         ZM { "\u0e41\u0e0b\u0e21\u0e40\u0e1a\u0e35\u0e22" }
         ZW { "\u0e0b\u0e34\u0e21\u0e1a\u0e32\u0e1a\u0e40\u0e27" }
     }
-    DateTimePatterns { 
+    DateTimePatterns {
         "H' \u0E19\u0E32\u0E2C\u0E34\u0E01\u0E32 'm' \u0E19\u0E32\u0E17\u0E35 'ss' \u0E27"
         "\u0E34\u0E19\u0E32\u0E17\u0E35'",
         "H' \u0E19\u0E32\u0E2C\u0E34\u0E01\u0E32 'm' \u0E19\u0E32\u0E17\u0E35'",
@@ -365,7 +365,7 @@ th {
         "d/M/yyyy",
         "{1}, {0}",
     }
-    DayAbbreviations { 
+    DayAbbreviations {
         "\u0E2D\u0E32.",
         "\u0E08.",
         "\u0E2D.",
@@ -374,7 +374,7 @@ th {
         "\u0E28.",
         "\u0E2A.",
     }
-    DayNames { 
+    DayNames {
         "\u0E27\u0E31\u0E19\u0E2D\u0E32\u0E17\u0E34\u0E15\u0E22\u0E4C",
         "\u0E27\u0E31\u0E19\u0E08\u0E31\u0E19\u0E17\u0E23\u0E4C",
         "\u0E27\u0E31\u0E19\u0E2D\u0E31\u0E07\u0E04\u0E32\u0E23",
@@ -383,17 +383,17 @@ th {
         "\u0E27\u0E31\u0E19\u0E28\u0E38\u0E01\u0E23\u0E4C",
         "\u0E27\u0E31\u0E19\u0E40\u0E2A\u0E32\u0E23\u0E4C",
     }
-    AmPmMarkers { 
+    AmPmMarkers {
         "\u0E01\u0E48\u0E2D\u0E19\u0E40\u0E17\u0E35\u0E48\u0E22\u0E07",
         "\u0E2B\u0E25\u0E31\u0E07\u0E40\u0E17\u0E35\u0E48\u0E22\u0E07",
     }
-    Eras { 
+    Eras {
         "\u0E1B\u0E35\u0E01\u0E48\u0E2D\u0E19\u0E04\u0E23\u0E34\u0E2A\u0E15\u0E4C\u0E01\u0E32"
         "\u0E25\u0E17\u0E35\u0E48",
 
         "\u0E04.\u0E28.",
     }
-    Languages { 
+    Languages {
         ab { "\u0e41\u0e2d\u0e1a\u0e01\u0e32\u0e40\u0e0b\u0e35\u0e22" }
         aa { "\u0e2d\u0e32\u0e1f\u0e32" }
         af { "\u0e41\u0e2d\u0e1f\u0e23\u0e34\u0e01\u0e31\u0e19" }
@@ -536,7 +536,7 @@ th {
     }
     LocaleID:int { 0x1e }
 //    LocaleString { "th" }
-    MonthAbbreviations { 
+    MonthAbbreviations {
         "\u0E21.\u0E04.",
         "\u0E01.\u0E1E.",
         "\u0E21\u0E35.\u0E04.",
@@ -550,7 +550,7 @@ th {
         "\u0E1E.\u0E22.",
         "\u0E18.\u0E04.",
     }
-    MonthNames { 
+    MonthNames {
         "\u0E21\u0E01\u0E23\u0E32\u0E04\u0E21",
         "\u0E01\u0E38\u0E21\u0E20\u0E32\u0E1E\u0E31\u0E19\u0E18\u0E4C",
         "\u0E21\u0E35\u0E19\u0E32\u0E04\u0E21",
@@ -566,7 +566,7 @@ th {
     }
 //    ShortLanguage { "tha" }
     localPatternChars { "GanjkHmsSEDFwWxhKzAe" }
-    zoneStrings { 
+    zoneStrings {
         {
             "THA",
             "Thailand Time",
@@ -576,8 +576,8 @@ th {
             "Bangkok",
         }
     }
-    LocaleScript{ 
-        "Thai", // Script Name  
+    LocaleScript{
+        "Thai", // Script Name
     }
     ExemplarCharacters { "[:Thai:]" }
     //------------------------------------------------------------
