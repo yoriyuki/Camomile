@@ -1,5 +1,5 @@
 (* Tests for UReStr *)
-open CamomileLibraryTest.Camomile
+open Camomile
 open Blender
 open Printf
 module URegexp = UReStr.Make (UTF8)

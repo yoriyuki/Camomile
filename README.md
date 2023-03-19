@@ -17,13 +17,16 @@ To build the library, on the top directory do
 $ dune build
 $ dune install
 ```
-Data files are put under /usr/local/share/camomile by default. The default can
-be overridden by running
+By default, the library looks for shared files copied under a directory controlled by `dune-site` and
+usually located inside your `opam` switch directory. This can be overridden by running:
 ```sh
-$ ocaml configure.ml --share=XXXX
+$ CAMOMILE_CONFIG=env CAMOMILE_PREFIX=/usr/local dune build
 ```
-then data files are
-placed under XXXX/camomile.
+in which case, the library will look for those files at `/usr/local/camomile`
+
+Please not that `dune` installs the file under the same local directory regardless of this option.
+This option is meant to be used when packaging the library for distributions and binary packages such
+as debian or ubuntu packages, RPM package etc.
 
 You can uninstall the library by
 ```sh
@@ -32,54 +35,42 @@ $ dune uninstall
 
 ## Using libraries
 
-### Wrapping
-
-**camomile.cma** contains three top-level modules `CamomileLibrary`,
-`CamomileLibraryDefault`, `CamomileLibraryDyn`.  Difference of three modules is
-explained below.
-
-**camomileLibrary.cma** contains `CamomileLibrary` alone. It is
-useful if you want to dynamically load Camomile, since loading
-`CamomileLibraryDefault`, `CamomileLibraryDyn causes` side effects such as loading
-data files which could fail.
-
 ### Configuration
 
-Camomile requires runtime configuration. Currently, you have to pass the
-location of data files to Camomile.  In the future, more configuration variables
-would be required.
+Camomile requires a runtime configuration to be able to locate its data files.
 
 Camomile's idea of configuration is "configuration by functors". Modules which
 require configuration become functors parametrized by a module which contains
-configuration variables. `CamomileLibrary.ConfigInt.Type` specifies the module
+configuration variables. `Camomile.Config.Type` specifies the module
 type of configuration parameters.  You can pass the configuration module to
 individual modules' `Make` (as `UCol.Make`) or `Configure` functors (as
 `CharEncoding.Configure`), or pass it to the whole-in-one functor
-`CamomileLibrary.Make` and obtain configured modules.
+`Camomile.Make` and obtain configured modules.
 
-Camomile provides two top-level modules `CamomileLibraryDefault` and
-`CamomileLibraryDyn` which contains modules already configured.
-`CamomileLibraryDefault` is configured by default values determined by configure.
+Camomile provides two top-level modules which contains modules already configured.
 Therefore it is suitable to use if you are using Camomile locally installed from
-the source. `CamomileLibraryDyn` is deprecated and just an alias to
-`CamomileLibraryDefault`.
+the source.
 
 ### Individual modules.
 
-See `CamomileLibrary.mli` file.
+See `Camomile.mli` file.
 
 ## Development
 
-See https://github.com/yoriyuki/Camomile
+See https://github.com/savonet/Camomile
 
 ## Author
 
-You can contact the author by yoriyuki.y@gmail.com
+Camomile is currently maintained by Romain Beauxis <romain.beauxis@gmail.co>
+and was forked over from the original project with permission from @yoriyuki
+
+However, the project is still in needs of active contributors. Please file pull
+requests and more!
 
 ## Acknowledgment
 
 So many people are contributed to Camomile. See
-https://github.com/yoriyuki/Camomile/graphs/contributors
+https://github.com/savonet/Camomile/graphs/contributors
 
 Before GitHub becomes into existence...
 

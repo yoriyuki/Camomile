@@ -1,5 +1,5 @@
 (* Tests for UCS4 *)
-open CamomileLibraryTest.Camomile
+open Camomile
 open UPervasives
 open Blender
 open Bigarray

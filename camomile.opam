@@ -7,25 +7,33 @@ Camomile is a Unicode library for OCaml. Camomile provides Unicode character
 type, UTF-8, UTF-16, UTF-32 strings, conversion to/from about 200 encodings,
 collation and locale-sensitive case mappings, and more. The library is currently
 designed for Unicode Standard 3.2."""
-maintainer: ["yoriyuki.y@gmail.com"]
+maintainer: ["romain.beauxis@gmail.com"]
 authors: ["Yoriyuki Yamagata"]
 license: "LGPL-2.0-or-later WITH OCaml-LGPL-linking-exception"
-homepage: "https://github.com/yoriyuki/Camomile"
-doc: "https://yoriyuki.github.io/Camomile/"
-bug-reports: "https://github.com/yoriyuki/Camomile/issues"
+homepage: "https://github.com/savonet/Camomile"
+doc: "https://savonet.github.io/Camomile/"
+bug-reports: "https://github.com/savonet/Camomile/issues"
 depends: [
   "dune" {>= "3.4"}
+  "dune-site"
   "camlp-streams"
   "ocaml" {>= "4.13"}
   "odoc" {with-doc}
 ]
-dev-repo: "git+https://github.com/yoriyuki/Camomile.git"
 build: [
-  ["ocaml" "configure.ml" "--share" "%{share}%/camomile"]
-  ["dune" "subst"] {pinned}
-  ["dune" "build" "-p" name "-j" jobs
+  ["dune" "subst"] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "--promote-install-files=false"
     "@install"
     "@runtest" {with-test}
     "@doc" {with-doc}
   ]
+  ["dune" "install" "-p" name "--create-install-files" name]
 ]
+dev-repo: "git+https://github.com/savonet/Camomile.git"

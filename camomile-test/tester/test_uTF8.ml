@@ -1,5 +1,5 @@
 (* Tests for UTF8 *)
-open CamomileLibraryTest.Camomile
+open Camomile
 open UPervasives
 open Blender
 module UTF8Conv = CharEncoding.Make (UTF8)

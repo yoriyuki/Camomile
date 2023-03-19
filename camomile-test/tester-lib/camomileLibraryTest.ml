@@ -1,4 +1,4 @@
-module Camomile = CamomileLibrary.Make (struct
+module Camomile = Camomile.Make (struct
   let pwd = Unix.getcwd ()
   let dir = Filename.concat (Filename.concat pwd "../../Camomile")
   let localedir = dir "locales"

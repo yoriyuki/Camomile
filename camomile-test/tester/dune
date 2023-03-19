@@ -16,7 +16,7 @@
   uCS4_test
   uReStr_test
   uTF16_test)
- (libraries unix str camomile blender tester_lib))
+ (libraries unix str camomile camomile.lib blender tester_lib))
 
 (rule
  (alias runtest)

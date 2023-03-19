@@ -1,5 +1,5 @@
 (* Tests for UTF16 *)
-open CamomileLibraryTest.Camomile
+open Camomile
 open UPervasives
 open Blender
 open Bigarray

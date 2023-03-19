@@ -2,6 +2,7 @@
 ------------------
 
 - Fix compilation with OCaml 5.
+- Cleanup public API.
 
 1.0.2 (2019-08-07)
 ------------------
@@ -26,7 +27,7 @@
 1.0.0
 ----------------
 
-* CamomileLibraryDyn is deprecated
+* CamomileDyn is deprecated
 * Dependancies to cppo and bytes is removed
 * Code cleanup
 
@@ -88,10 +89,10 @@
 0.8.0
 -----
 
-* Reorganize the module structure : Make CamomileLibrary.Default to
-  the new top-level module CamomileLibraryDefault, so that linking
-  CamomileLibrary does not automatically cause to load the data files
-  from hard-coded location.  Also, adding new CamomileLibraryDyn
+* Reorganize the module structure : Make Camomile.Default to
+  the new top-level module CamomileDefault, so that linking
+  Camomile does not automatically cause to load the data files
+  from hard-coded location.  Also, adding new CamomileDyn
   module, which is configured by environmental variables (See
   camomileDynConfig.mli).
 
@@ -124,7 +125,7 @@
 0.7.1
 -----
 
-* Rename CamomileLibrary.Main.Camomile to CamomileLibrary.Default.Camomile
+* Rename Camomile.Main.Camomile to Camomile.Default.Camomile
 
 0.7.0
 -----

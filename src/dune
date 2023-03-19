@@ -1,0 +1,38 @@
+(env
+ (dev
+  (flags
+   (:standard -w -3))))
+
+(generate_sites_module
+ (module sites)
+ (sites camomile))
+
+(include_subdirs unqualified)
+
+(rule
+ (target configImpl.ml)
+ (action
+  (copy configImpl.%{env:CAMOMILE_CONFIG=dune}.ml %{target})))
+
+(rule
+ (target configImpl.env.ml)
+ (action
+   (write-file %{target} "\n\
+let prefix = \"%{env:CAMOMILE_PREFIX=/usr}/share/camomile\"\n\
+let datadir = Filename.concat prefix \"database\"\n\
+let localedir = Filename.concat prefix \"locales\"\n\
+let charmapdir = Filename.concat prefix \"charmaps\"\n\
+let unimapdir = Filename.concat prefix \"mappings\"\n\
+")))
+
+(library
+ (name camomileLib)
+ (public_name camomile.lib)
+ (libraries dune-site bigarray camlp-streams)
+ (modules :standard \ camomile))
+
+(library
+ (name camomile)
+ (public_name camomile)
+ (libraries camomileLib)
+ (modules camomile))

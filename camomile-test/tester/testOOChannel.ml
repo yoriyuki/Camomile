@@ -4,7 +4,7 @@
 
 open Printf
 open Blender
-open CamomileLibraryTest.Camomile
+open Camomile
 open OOChannel
 
 class buffer_io b =

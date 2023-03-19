@@ -1,0 +1,9 @@
+(include_subdirs no)
+
+(library
+ (name toolslib)
+ (libraries camomile bigarray str))
+
+(ocamllex colLexer)
+
+(ocamlyacc colParser)
