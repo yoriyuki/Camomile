@@ -27,7 +27,7 @@ For developers and testers, [dune](https://github.com/ocaml/dune) is used to bui
 $ dune build
 ```
 
-This includes a default library configured with part internals to `dune` where its
+This includes a default library configured with paths internals to `dune` where its
 shared files are stored.
 
 The `Camomile` API provides a functor-base configuration interface that allows to
