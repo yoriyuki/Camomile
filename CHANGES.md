@@ -1,4 +1,4 @@
-2.0.0 (unreleased)
+2.0.0 (2023-03-20)
 ------------------
 
 - Fix compilation with OCaml 5.
