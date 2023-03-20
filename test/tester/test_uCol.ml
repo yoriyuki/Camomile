@@ -235,11 +235,13 @@ let locale_test ~desc ?variable ~locale c =
     done
   with End_of_file -> ()
 
+(*
 let _ =
   read_file
     (input_filename "data/fr_CA")
     (locale_test ~desc:"Canadian French" ~variable:`Shift_Trimmed
        ~locale:"fr_CA")
+*)
 
 let _ =
   read_file

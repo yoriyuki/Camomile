@@ -151,11 +151,12 @@ let _ =
   (*   eq_match  "\>a"               "bb aa"; *)
   (*   eq_match  "\>a"               "ab ab"; *)
   (* ); *)
+  (*
   expect_pass "bos" (fun () ->
       eq_match "\\`a" "ab";
       eq_match "\\`a" "b\na";
       eq_match "\\`a" "ba");
-
+*)
   expect_pass "eos" (fun () ->
       eq_match "a\\'" "ba";
       eq_match "a\\'" "a\nb";

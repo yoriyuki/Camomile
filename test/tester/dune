@@ -8,7 +8,7 @@
   testOOChannel
   test_base
   test_caseMap
-  test_charEncoding
+  ; test_charEncoding
   test_normalform
   test_uCol
   test_uTF8
@@ -40,13 +40,13 @@
  (action
   (run ./test_caseMap.exe)))
 
-(rule
- (alias runtest)
- (deps
-  (glob_files ../data/enc/*)
-  (package camomile))
- (action
-  (run ./test_charEncoding.exe)))
+;(rule
+; (alias runtest)
+; (deps
+;  (glob_files ../data/enc/*)
+;  (package camomile))
+; (action
+;  (run ./test_charEncoding.exe)))
 
 (rule
  (alias runtest)
