@@ -11,7 +11,7 @@ OCaml packages. See [LICENSE.md](LICENSE.md)
 ## Installation
 
 The recommended way to install Camomile is via the [opam](https://opam.ocaml.org/) package manager. With
-the `opam` binary installed and configured, all you should have to do it:
+the `opam` binary installed and configured, all you should have to do is:
 
 ```sh
 $ opam install camomile
