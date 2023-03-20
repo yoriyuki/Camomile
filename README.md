@@ -1,6 +1,6 @@
 # Camomile
 
-This is the version 1.0.1 release of Camomile library package. Camomile is a
+This is the version 2.0.0 release of Camomile library package. Camomile is a
 Unicode library for ocaml. Camomile provides Unicode character type, UTF-8,
 UTF-16, UTF-32 strings, conversion to/from about 200 encodings, collation and
 locale-sensitive case mappings, and more.
@@ -10,76 +10,81 @@ OCaml packages. See [LICENSE.md](LICENSE.md)
 
 ## Installation
 
-To build and install Camomile, you need [OCaml](https://ocaml.org) >= 4.02.3 [dune](https://dune.build) >= 1.0.0
+To install Camomile, you need [OCaml](https://ocaml.org) >= 4.13.0 and [opam](https://opam.ocaml.org/)
 
-To build the library, on the top directory do
+The recommended way to install Camomile is via the [opam](https://opam.ocaml.org/) package manager. With
+the `opam` binary installed and configured, all you should have to do it:
+
+```sh
+$ opam install camomile
+````
+
+Otherwise, you might want to see if your distribution has a package available for it.
+
+## Building
+
+For developers and testers, [dune](https://github.com/ocaml/dune) is used to build the library:
+
 ```sh
 $ dune build
-$ dune install
 ```
-Data files are put under /usr/local/share/camomile by default. The default can
-be overridden by running
-```sh
-$ ocaml configure.ml --share=XXXX
-```
-then data files are
-placed under XXXX/camomile.
 
-You can uninstall the library by
+This includes a default library configured with part internals to `dune` where its
+shared files are stored.
+
+The `Camomile` API provides a functor-base configuration interface that allows to
+define custom libraries with shared files located at a different location.
+
+If you are building for packaging purposes and need to place shared files in a specific
+location for the default library, you can use environment variables at build-time:
+
 ```sh
-$ dune uninstall
+$ CAMOMILE_CONFIG=env CAMOMILE_PREFIX=/usr dune build
 ```
+in which case, the library will look for those files at `/usr/share/camomile`
+
+Please note that `dune install` installs the file under the same local directory regardless of this option.
+This option is meant to be used when packaging the library for distributions and binary packages such
+as debian or ubuntu packages, RPM package etc.
 
 ## Using libraries
 
-### Wrapping
-
-**camomile.cma** contains three top-level modules `CamomileLibrary`,
-`CamomileLibraryDefault`, `CamomileLibraryDyn`.  Difference of three modules is
-explained below.
-
-**camomileLibrary.cma** contains `CamomileLibrary` alone. It is
-useful if you want to dynamically load Camomile, since loading
-`CamomileLibraryDefault`, `CamomileLibraryDyn causes` side effects such as loading
-data files which could fail.
-
 ### Configuration
 
-Camomile requires runtime configuration. Currently, you have to pass the
-location of data files to Camomile.  In the future, more configuration variables
-would be required.
+Camomile requires a runtime configuration to be able to locate its data files.
 
 Camomile's idea of configuration is "configuration by functors". Modules which
 require configuration become functors parametrized by a module which contains
-configuration variables. `CamomileLibrary.ConfigInt.Type` specifies the module
+configuration variables. `Camomile.Config.Type` specifies the module
 type of configuration parameters.  You can pass the configuration module to
 individual modules' `Make` (as `UCol.Make`) or `Configure` functors (as
 `CharEncoding.Configure`), or pass it to the whole-in-one functor
-`CamomileLibrary.Make` and obtain configured modules.
+`Camomile.Make` and obtain configured modules.
 
-Camomile provides two top-level modules `CamomileLibraryDefault` and
-`CamomileLibraryDyn` which contains modules already configured.
-`CamomileLibraryDefault` is configured by default values determined by configure.
+Camomile provides two top-level modules which contains modules already configured.
 Therefore it is suitable to use if you are using Camomile locally installed from
-the source. `CamomileLibraryDyn` is deprecated and just an alias to
-`CamomileLibraryDefault`.
+the source.
 
 ### Individual modules.
 
-See `CamomileLibrary.mli` file.
+See `camomile.ml` file.
 
 ## Development
 
-See https://github.com/yoriyuki/Camomile
+See https://github.com/savonet/Camomile
 
 ## Author
 
-You can contact the author by yoriyuki.y@gmail.com
+Camomile is currently maintained by Romain Beauxis <romain.beauxis@gmail.co>
+and was forked over from the original project with permission from @yoriyuki
+
+However, the project is still in needs of active contributors. Please file pull
+requests and more!
 
 ## Acknowledgment
 
 So many people are contributed to Camomile. See
-https://github.com/yoriyuki/Camomile/graphs/contributors
+https://github.com/savonet/Camomile/graphs/contributors
 
 Before GitHub becomes into existence...
 

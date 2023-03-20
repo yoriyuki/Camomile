@@ -18,9 +18,6 @@ repos:
       - id: check-xml
 
       - id: check-merge-conflict
-      - id: end-of-file-fixer
-      - id: mixed-line-ending
-      - id: trailing-whitespace
 
   - repo: https://github.com/savonet/pre-commit-ocamlformat
     rev: v1.0.0

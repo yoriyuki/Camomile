@@ -1,0 +1,30 @@
+(env
+ (dev
+  (flags
+   (:standard -w -26-32-34))))
+
+(include_subdirs no)
+
+(executables
+ (names
+  parse_unidata
+  parse_uniset
+  camomilecharmap
+  parse_specialcasing
+  parse_casefolding
+  parse_scripts
+  parse_allkeys
+  parse_age
+  camomilestringprep)
+ (modules :standard \ camomilelocaledef camomilelocaledef_lexer iana)
+ (libraries str toolslib camomileLib))
+
+(executable
+ (name iana)
+ (modules iana)
+ (libraries camomile str))
+
+(executable
+ (name camomilelocaledef)
+ (libraries str toolslib camomileLib)
+ (modules camomilelocaledef camomilelocaledef_lexer))

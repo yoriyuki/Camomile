@@ -1,0 +1,104 @@
+(env
+ (dev
+  (flags
+   (:standard -w -3-32))))
+
+(executables
+ (names
+  testOOChannel
+  test_base
+  test_caseMap
+  test_charEncoding
+  test_normalform
+  test_uCol
+  test_uTF8
+  test_stringprep
+  uCS4_test
+  uReStr_test
+  uTF16_test)
+ (libraries unix str camomile camomile.lib blender tester_lib))
+
+(rule
+ (alias runtest)
+ (deps
+  testOOChannel.exe
+  (package camomile))
+ (action
+  (run %{deps})))
+
+(rule
+ (alias runtest)
+ (deps
+  (package camomile))
+ (action
+  (run ./test_base.exe)))
+
+(rule
+ (alias runtest)
+ (deps
+  (package camomile))
+ (action
+  (run ./test_caseMap.exe)))
+
+(rule
+ (alias runtest)
+ (deps
+  (glob_files ../data/enc/*)
+  (package camomile))
+ (action
+  (run ./test_charEncoding.exe)))
+
+(rule
+ (alias runtest)
+ (deps
+  ../unidata/NormalizationTest.txt
+  ../unidata/CollationTest_SHIFTED.txt
+  (package camomile))
+ (action
+  (run ./test_normalform.exe)))
+
+(rule
+ (alias runtest)
+ (deps
+  (package camomile)
+  (glob_files ../unidata/*)
+  (glob_files ../data/*))
+ (action
+  (run ./test_uCol.exe)))
+
+(rule
+ (alias runtest)
+ (deps
+  test_uTF8.exe
+  (package camomile))
+ (action
+  (run ./test_uTF8.exe)))
+
+(rule
+ (alias runtest)
+ (deps
+  ../data/stringprep
+  (package camomile))
+ (action
+  (run ./test_stringprep.exe)))
+
+(rule
+ (alias runtest)
+ (deps
+  (package camomile))
+ (action
+  (run ./uCS4_test.exe)))
+
+(rule
+ (alias runtest)
+ (deps
+  (package camomile))
+ (action
+  (run ./uReStr_test.exe)))
+
+(rule
+ (alias runtest)
+ (deps
+  (package camomile))
+ (action
+  (run ./uTF16_test.exe)))

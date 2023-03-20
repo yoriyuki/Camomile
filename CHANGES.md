@@ -2,6 +2,7 @@
 ------------------
 
 - Fix compilation with OCaml 5.
+- Cleanup public API.
 
 1.0.2 (2019-08-07)
 ------------------
