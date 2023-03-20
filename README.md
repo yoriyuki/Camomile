@@ -42,7 +42,7 @@ $ CAMOMILE_CONFIG=env CAMOMILE_PREFIX=/usr dune build
 in which case, the library will look for those files at `/usr/share/camomile`
 
 Please note that `dune install` installs the file under the same local directory regardless of this option.
-This option is meant to be used when packaging the library for distributions and binary packages such
+This option is meant to be used when packaging the library for distributions using binary packages such
 as debian or ubuntu packages, RPM package etc.
 
 ## Using libraries
