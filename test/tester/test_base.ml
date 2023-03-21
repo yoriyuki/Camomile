@@ -5,6 +5,7 @@ open Printf
 open Blender
 open Camomile
 open UPervasives
+module Random = Random4
 
 (*
 let random_pair () =

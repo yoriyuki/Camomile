@@ -23,5 +23,6 @@ designed for Unicode Standard 3.2.")
   dune
   dune-site
   camlp-streams
+  (stdlib-random :with-test)
   (ocaml (>= 4.13)))
   (sites (share database) (share mappings) (share charmaps) (share locales)))
