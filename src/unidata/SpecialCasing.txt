@@ -1,43 +1,56 @@
-# SpecialCasing-3.2.0.txt
-# Date: 2002-03-19,23:31:42 GMT [MD]
+# SpecialCasing-15.0.0.txt
+# Date: 2022-02-02, 23:35:52 GMT
+# © 2022 Unicode®, Inc.
+# Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
+# For terms of use, see https://www.unicode.org/terms_of_use.html
 #
-# Special Casing Properties
+# Unicode Character Database
+#   For documentation, see https://www.unicode.org/reports/tr44/
 #
-# This file is a supplement to the UnicodeData file.
-# It contains additional information about the casing of Unicode characters.
-# (For compatibility, the UnicodeData.txt file only contains case mappings for
-# characters where they are 1-1, and does not have locale-specific mappings.)
-# For more information, see
-# UTR #21 Case Mappings, at http://www.unicode.org/unicode/reports/tr21/
+# Special Casing
 #
+# This file is a supplement to the UnicodeData.txt file. It does not define any
+# properties, but rather provides additional information about the casing of
+# Unicode characters, for situations when casing incurs a change in string length
+# or is dependent on context or locale. For compatibility, the UnicodeData.txt
+# file only contains simple case mappings for characters where they are one-to-one
+# and independent of context and language. The data in this file, combined with
+# the simple case mappings in UnicodeData.txt, defines the full case mappings
+# Lowercase_Mapping (lc), Titlecase_Mapping (tc), and Uppercase_Mapping (uc).
+#
+# Note that the preferred mechanism for defining tailored casing operations is
+# the Unicode Common Locale Data Repository (CLDR). For more information, see the
+# discussion of case mappings and case algorithms in the Unicode Standard.
+#
+# All code points not listed in this file that do not have a simple case mappings
+# in UnicodeData.txt map to themselves.
 # ================================================================================
 # Format
 # ================================================================================
 # The entries in this file are in the following machine-readable format:
 #
-# <code>; <lower> ; <title> ; <upper> ; (<condition_list> ;)? # <comment>
+# <code>; <lower>; <title>; <upper>; (<condition_list>;)? # <comment>
 #
-# <code>, <lower>, <title>, and <upper> provide character values in hex. If there is more than
-# one character, they are separated by spaces. Other than as used to separate elements,
-# spaces are to be ignored.
+# <code>, <lower>, <title>, and <upper> provide the respective full case mappings
+# of <code>, expressed as character values in hex. If there is more than one character,
+# they are separated by spaces. Other than as used to separate elements, spaces are
+# to be ignored.
 #
-# The <condition_list> is optional. Where present, it consists of one or more locales or contexts,
-# separated by spaces. In these conditions:
+# The <condition_list> is optional. Where present, it consists of one or more language IDs
+# or casing contexts, separated by spaces. In these conditions:
 # - A condition list overrides the normal behavior if all of the listed conditions are true.
-# - The context is always the context of the characters in the original string,
+# - The casing context is always the context of the characters in the original string,
 #   NOT in the resulting string.
 # - Case distinctions in the condition list are not significant.
 # - Conditions preceded by "Not_" represent the negation of the condition.
+# The condition list is not represented in the UCD as a formal property.
 #
-# A locale is defined as:
-# <locale> := <ISO_639_code> ( "_" <ISO_3166_code> ( "_" <variant> )? )?
-# <ISO_3166_code> := 2-letter ISO country code,
-# <ISO_639_code> :=  2-letter ISO language code
+# A language ID is defined by BCP 47, with '-' and '_' treated equivalently.
 #
-# A context is one of the following, as defined in UAX #21: Case Mappings:
-#   Final_Sigma, After_Soft_Dotted, More_Above, Before_Dot
+# A casing context for a character is defined by Section 3.13 Default Case Algorithms
+# of The Unicode Standard.
 #
-# Parsers of this file must be prepared to deal future additions to this format:
+# Parsers of this file must be prepared to deal with future additions to this format:
 #  * Additional contexts
 #  * Additional fields
 # ================================================================================
@@ -100,15 +113,15 @@ FB17; FB17; 0544 056D; 0544 053D; # ARMENIAN SMALL LIGATURE MEN XEH
 1FE7; 1FE7; 03A5 0308 0342; 03A5 0308 0342; # GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND PERISPOMENI
 1FF6; 1FF6; 03A9 0342; 03A9 0342; # GREEK SMALL LETTER OMEGA WITH PERISPOMENI
 
-# IMPORTANT-when capitalizing iota-subscript (0345)
-#  It MUST be in normalized form--moved to the end of any sequence of combining marks.
-#  This is because logically it represents a following base character!
-#  E.g. <iota_subscript> (<Mn> | <Mc> | <Me>)+ => (<Mn> | <Mc> | <Me>)+ <iota_subscript>
-# It should never be the first character in a word, so in titlecasing it can be left as is.
+# IMPORTANT-when iota-subscript (0345) is uppercased or titlecased,
+#  the result will be incorrect unless the iota-subscript is moved to the end
+#  of any sequence of combining marks. Otherwise, the accents will go on the capital iota.
+#  This process can be achieved by first transforming the text to NFC before casing.
+#  E.g. <alpha><iota_subscript><acute> is uppercased to <ALPHA><acute><IOTA>
 
-# The following cases are already in the UnicodeData file, so are only commented here.
+# The following cases are already in the UnicodeData.txt file, so are only commented here.
 
-# 0345; 0345; 0345; 0399; # COMBINING GREEK YPOGEGRAMMENI
+# 0345; 0345; 0399; 0399; # COMBINING GREEK YPOGEGRAMMENI
 
 # All letters with YPOGEGRAMMENI (iota-subscript) or PROSGEGRAMMENI (iota adscript)
 # have special uppercases.
@@ -169,7 +182,7 @@ FB17; FB17; 0544 056D; 0544 053D; # ARMENIAN SMALL LIGATURE MEN XEH
 1FF3; 1FF3; 1FFC; 03A9 0399; # GREEK SMALL LETTER OMEGA WITH YPOGEGRAMMENI
 1FFC; 1FF3; 1FFC; 03A9 0399; # GREEK CAPITAL LETTER OMEGA WITH PROSGEGRAMMENI
 
-# Some characters with YPOGEGRAMMENI are also have no corresponding titlecases
+# Some characters with YPOGEGRAMMENI also have no corresponding titlecases
 
 1FB2; 1FB2; 1FBA 0345; 1FBA 0399; # GREEK SMALL LETTER ALPHA WITH VARIA AND YPOGEGRAMMENI
 1FB4; 1FB4; 0386 0345; 0386 0399; # GREEK SMALL LETTER ALPHA WITH OXIA AND YPOGEGRAMMENI
@@ -183,14 +196,21 @@ FB17; FB17; 0544 056D; 0544 053D; # ARMENIAN SMALL LIGATURE MEN XEH
 1FF7; 1FF7; 03A9 0342 0345; 03A9 0342 0399; # GREEK SMALL LETTER OMEGA WITH PERISPOMENI AND YPOGEGRAMMENI
 
 # ================================================================================
-# Conditional mappings
+# Conditional Mappings
+# The remainder of this file provides conditional casing data used to produce
+# full case mappings.
+# ================================================================================
+# Language-Insensitive Mappings
+# These are characters whose full case mappings do not depend on language, but do
+# depend on context (which characters come before or after). For more information
+# see the header of this file and the Unicode Standard.
 # ================================================================================
 
 # Special case for final form of sigma
 
 03A3; 03C2; 03A3; 03A3; Final_Sigma; # GREEK CAPITAL LETTER SIGMA
 
-# Note: the following cases for non-final are already in the UnicodeData file.
+# Note: the following cases for non-final are already in the UnicodeData.txt file.
 
 # 03A3; 03C3; 03A3; 03A3; # GREEK CAPITAL LETTER SIGMA
 # 03C3; 03C3; 03A3; 03A3; # GREEK SMALL LETTER SIGMA
@@ -202,7 +222,10 @@ FB17; FB17; 0544 056D; 0544 053D; # ARMENIAN SMALL LIGATURE MEN XEH
 # 03C2; 03C3; 03A3; 03A3; Not_Final_Sigma; # GREEK SMALL LETTER FINAL SIGMA
 
 # ================================================================================
-# Locale-sensitive mappings
+# Language-Sensitive Mappings
+# These are characters whose full case mappings depend on language and perhaps also
+# context (which characters come before or after). For more information
+# see the header of this file and the Unicode Standard.
 # ================================================================================
 
 # Lithuanian
@@ -231,14 +254,14 @@ FB17; FB17; 0544 056D; 0544 053D; # ARMENIAN SMALL LIGATURE MEN XEH
 # I and i-dotless; I-dot and i are case pairs in Turkish and Azeri
 # The following rules handle those cases.
 
-0130; 0069; 0130; 0130; tr # LATIN CAPITAL LETTER I WITH DOT ABOVE
-0130; 0069; 0130; 0130; az # LATIN CAPITAL LETTER I WITH DOT ABOVE
+0130; 0069; 0130; 0130; tr; # LATIN CAPITAL LETTER I WITH DOT ABOVE
+0130; 0069; 0130; 0130; az; # LATIN CAPITAL LETTER I WITH DOT ABOVE
 
 # When lowercasing, remove dot_above in the sequence I + dot_above, which will turn into i.
 # This matches the behavior of the canonically equivalent I-dot_above
 
-0307; ; 0307; 0307; tr After_Soft_Dotted; # COMBINING DOT ABOVE
-0307; ; 0307; 0307; az After_Soft_Dotted; # COMBINING DOT ABOVE
+0307; ; 0307; 0307; tr After_I; # COMBINING DOT ABOVE
+0307; ; 0307; 0307; az After_I; # COMBINING DOT ABOVE
 
 # When lowercasing, unless an I is before a dot_above, it turns into a dotless i.
 
@@ -250,6 +273,9 @@ FB17; FB17; 0544 056D; 0544 053D; # ARMENIAN SMALL LIGATURE MEN XEH
 0069; 0069; 0130; 0130; tr; # LATIN SMALL LETTER I
 0069; 0069; 0130; 0130; az; # LATIN SMALL LETTER I
 
-# Note: the following case is already in the UnicodeData file.
+# Note: the following case is already in the UnicodeData.txt file.
 
 # 0131; 0131; 0049; 0049; tr; # LATIN SMALL LETTER DOTLESS I
+
+# EOF
+

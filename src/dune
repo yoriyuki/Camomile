@@ -21,6 +21,13 @@
    %{target}
    "\nlet prefix = \"%{env:CAMOMILE_PREFIX=/usr}/share/camomile\"\nlet datadir = Filename.concat prefix \"database\"\nlet localedir = Filename.concat prefix \"locales\"\nlet charmapdir = Filename.concat prefix \"charmaps\"\nlet unimapdir = Filename.concat prefix \"mappings\"\n")))
 
+(rule
+  (deps tools/gen_unidata.exe unidata/Scripts.txt)
+  (target script_type.ml)
+  (action
+    (with-stdout-to %{target}
+      (run tools/gen_unidata.exe --gen-script-type))))
+
 (library
  (name camomileLib)
  (public_name camomile.lib)

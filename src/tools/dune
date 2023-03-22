@@ -16,8 +16,13 @@
   parse_allkeys
   parse_age
   camomilestringprep)
- (modules :standard \ camomilelocaledef camomilelocaledef_lexer iana)
+ (modules :standard \ camomilelocaledef camomilelocaledef_lexer iana gen_unidata)
  (libraries str toolslib camomileLib))
+
+(executable
+  (name gen_unidata)
+  (modules gen_unidata)
+  (libraries str))
 
 (executable
  (name iana)

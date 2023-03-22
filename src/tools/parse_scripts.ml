@@ -46,9 +46,9 @@ let tbl_rw =
 (* remove comments *)
 let range_pat =
   Str.regexp
-    "\\([0-9A-Fa-f]+\\)\\.\\.\\([0-9A-Fa-f]+\\)[ \\t]*;[ \\t]*\\([^ \\t]+\\)"
+    "\\([0-9A-Fa-f]+\\)\\.\\.\\([0-9A-Fa-f]+\\)[ \t]*;[ \t]*\\([^ \t]+\\)"
 
-let num_pat = Str.regexp "\\([0-9A-Za-z]+\\)+[ \\t]*;[ \\t]*\\([^ \\t]+\\)"
+let num_pat = Str.regexp "\\([0-9A-Za-z]+\\)+[ \t]*;[ \t]*\\([^ \t]+\\)"
 
 (* let get_line () =
    let s = read_line () in

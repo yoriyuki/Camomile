@@ -74,52 +74,7 @@ module type Type = sig
   val num_of_cat : general_category_type -> int
   val cat_of_num : int -> general_category_type
 
-  type script_type =
-    [ `Common
-    | `Inherited
-    | `Latin
-    | `Greek
-    | `Cyrillic
-    | `Armenian
-    | `Hebrew
-    | `Arabic
-    | `Syriac
-    | `Thaana
-    | `Devanagari
-    | `Bengali
-    | `Gurmukhi
-    | `Gujarati
-    | `Oriya
-    | `Tamil
-    | `Telugu
-    | `Kannada
-    | `Malayalam
-    | `Sinhala
-    | `Thai
-    | `Lao
-    | `Tibetan
-    | `Myanmar
-    | `Georgian
-    | `Hangul
-    | `Ethiopic
-    | `Cherokee
-    | `Canadian_Aboriginal
-    | `Ogham
-    | `Runic
-    | `Khmer
-    | `Mongolian
-    | `Hiragana
-    | `Katakana
-    | `Bopomofo
-    | `Han
-    | `Yi
-    | `Old_Italic
-    | `Gothic
-    | `Deseret
-    | `Tagalog
-    | `Hanunoo
-    | `Buhid
-    | `Tagbanwa ]
+  type script_type = Script_type.t
 
   val script_of_name : string -> script_type
   val script_of_num : int -> script_type
