@@ -2,7 +2,7 @@
 (using dune_site 0.1)
 
 (name camomile)
-(version 2.0)
+(version 2.0.0)
 
 (generate_opam_files true)
 (license "LGPL-2.0-or-later WITH OCaml-LGPL-linking-exception")
