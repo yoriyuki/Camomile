@@ -37,6 +37,10 @@ jobs:
         run: |
           opam install -y .
 
+      - name: Build with user-provided prefix
+        run: |
+          CAMOMILE_CONFIG=env CAMOMILE_PREFIX=/usr opam exec dune build
+
       - name: Run tests
         run: |
           opam exec dune runtest || echo "::warning::Skipped failing tests"
