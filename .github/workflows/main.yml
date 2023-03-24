@@ -43,4 +43,4 @@ jobs:
 
       - name: Run tests
         run: |
-          opam reinstall -y . --with-test || "::warning::Skipped failing tests"
+          opam reinstall -y . --with-test
