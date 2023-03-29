@@ -5,6 +5,7 @@
  (libraries str toolslib camomileLib))
 
 (install
+ (package camomile)
  (section
   (site
    (camomile mappings)))

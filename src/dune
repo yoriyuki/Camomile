@@ -25,10 +25,16 @@
  (name camomileLib)
  (public_name camomile.lib)
  (libraries dune-site bigarray camlp-streams)
- (modules :standard \ camomile))
+ (modules :standard \ camomile camomileCompat))
 
 (library
  (name camomile)
  (public_name camomile)
  (libraries camomileLib)
  (modules camomile))
+
+(library
+ (name camomileCompat)
+ (public_name camomile-compat)
+ (libraries camomile)
+ (modules camomileCompat))

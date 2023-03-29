@@ -74,6 +74,7 @@ let () =
   let pr fmt = Printf.bprintf buf (fmt ^^ "\n") in
   pr "";
   pr "(install";
+  pr " (package camomile)";
   pr " (section (site (camomile charmaps)))";
   pr " (files";
   List.iter to_install ~f:(fun fn -> pr "   %s" fn);

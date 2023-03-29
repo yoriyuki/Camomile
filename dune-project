@@ -2,7 +2,7 @@
 (using dune_site 0.1)
 
 (name camomile)
-(version 2.0.0)
+(version 2.0.1)
 
 (generate_opam_files true)
 (license "LGPL-2.0-or-later WITH OCaml-LGPL-linking-exception")
@@ -26,3 +26,11 @@ designed for Unicode Standard 3.2.")
   (stdlib-random :with-test)
   (ocaml (>= 4.13)))
   (sites (share database) (share mappings) (share charmaps) (share locales)))
+
+(package
+ (name camomile-compat)
+ (synopsis "Compatibility Camomile module")
+ (description "\
+This module provides a backward-compatible API for projects depending on
+pre 2.0.0 Camomile API.")
+ (depends camomile))

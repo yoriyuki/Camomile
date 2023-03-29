@@ -21,6 +21,7 @@ let () =
     {|
 
 (install
+ (package camomile)
  (section (site (camomile locales)))
  (files
    %s

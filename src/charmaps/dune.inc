@@ -1,5 +1,6 @@
 
 (install
+ (package camomile)
  (section (site (camomile charmaps)))
  (files
    ANSI_X3%2E110-1983.mar

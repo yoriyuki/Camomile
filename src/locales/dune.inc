@@ -1,6 +1,7 @@
 
 
 (install
+ (package camomile)
  (section (site (camomile locales)))
  (files
    af.mar
