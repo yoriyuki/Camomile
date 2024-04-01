@@ -1,5 +1,7 @@
 # Camomile
 
+*This is an old version of Camommile.  The project was moved to [ocaml-community repo.](https://github.com/ocaml-community/Camomile).*
+
 This is the version 1.0.1 release of Camomile library package. Camomile is a
 Unicode library for ocaml. Camomile provides Unicode character type, UTF-8,
 UTF-16, UTF-32 strings, conversion to/from about 200 encodings, collation and
